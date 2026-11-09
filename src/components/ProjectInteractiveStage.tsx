@@ -404,7 +404,7 @@ function LaundryFlowStage({ locale }: { locale: Locale }) {
               </div>
               <div className="py-3 flex justify-between gap-4">
                 <dt className="text-muted-ink">partner_id</dt>
-                <dd className="text-primary-ink">
+                <dd className="text-primary-ink truncate max-w-[200px]" title="res.partner(104, &quot;pelanggan_reguler&quot;)">
                   res.partner(104, &quot;pelanggan_reguler&quot;)
                 </dd>
               </div>
