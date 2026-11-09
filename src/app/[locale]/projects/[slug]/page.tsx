@@ -21,7 +21,10 @@ import {
   CheckCircle2,
   ShieldAlert,
   Wrench,
+  Layers,
+  Sparkles,
 } from 'lucide-react';
+import { GithubIcon } from '@/components/SocialIcons';
 
 export function generateStaticParams() {
   const params: { locale: string; slug: string }[] = [];
@@ -66,304 +69,265 @@ export default async function ProjectDetailPage({
 
   const t = await getTranslations({ locale, namespace: 'projectDetail' });
   const { prev, next } = getAdjacentProjects(project.slug);
-  const isGame = project.disciplineGroup === 'gamedev';
   const overviewParagraphs =
     project.editorialOverview[locale] ?? project.editorialOverview.en;
 
   return (
-    <div>
-      <article className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 mb-16 sm:mb-24">
-        <div className="border-x border-b border-hairline bg-canvas">
-          {/* Top Breadcrumb & Index Strip */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-hairline bg-surface px-6 py-4">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 font-mono text-xs text-secondary-ink hover:text-accent transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span>{t('backToCatalog')}</span>
-            </Link>
-            <span
-              className={`font-mono text-xs font-bold tracking-wider ${
-                isGame ? 'text-accent-ochre' : 'text-accent'
-              }`}
-            >
-              CASE STUDY // MONOGRAPH {project.index}
+    <div className="space-y-20 sm:space-y-28">
+      <article className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 space-y-12 sm:space-y-16 pt-6 sm:pt-10">
+        {/* Navigation Breadcrumb */}
+        <div className="flex items-center justify-between">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] font-mono text-xs text-[var(--text-secondary)] hover:text-white transition-all"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            <span>{t('backToCatalog')}</span>
+          </Link>
+
+          <span className="font-mono text-xs text-[var(--accent-primary)] font-bold tracking-wider">
+            CASE STUDY // {project.index}
+          </span>
+        </div>
+
+        {/* Hero Banner Card */}
+        <div className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-2xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div className="lg:col-span-8 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-[var(--accent-primary)]">
+                <span>{tField(project.category, locale)}</span>
+              </div>
+
+              <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.05]">
+                {project.name}
+              </h1>
+
+              <p className="font-mono text-sm sm:text-base text-[var(--accent-primary)]">
+                {tField(project.tagline, locale)}
+              </p>
+
+              <p className="text-base sm:text-lg text-[var(--text-secondary)] max-w-2xl leading-relaxed">
+                {tField(project.description, locale)}
+              </p>
+
+              {/* Action Links */}
+              <div className="pt-2 flex flex-wrap items-center gap-3">
+                {project.links.repository && (
+                  <a
+                    href={project.links.repository}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.12] text-white font-mono text-xs font-bold transition-all hover:scale-105"
+                  >
+                    <GithubIcon className="h-4 w-4" />
+                    <span>{t('repoLink')}</span>
+                  </a>
+                )}
+
+                {project.links.demo && (
+                  <a
+                    href={project.links.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--accent-primary)] text-[var(--accent-primary-ink)] font-mono text-xs font-bold transition-all hover:scale-105 shadow-md"
+                  >
+                    <span>{t('demoLink')}</span>
+                    <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* Spec Sheet Column */}
+            <div className="lg:col-span-4 p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-4 font-mono text-xs">
+              <div className="pb-3 border-b border-white/[0.08]">
+                <span className="text-[var(--text-muted)] block mb-1">{t('roleLabel')}</span>
+                <span className="text-white font-semibold text-sm">{tField(project.role, locale)}</span>
+              </div>
+
+              <div className="pb-3 border-b border-white/[0.08]">
+                <span className="text-[var(--text-muted)] block mb-1">{t('statusLabel')}</span>
+                <span className="text-[var(--accent-primary)] font-semibold">{tField(project.status, locale)}</span>
+              </div>
+
+              <div>
+                <span className="text-[var(--text-muted)] block mb-2">{t('stackLabel')}</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {project.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Live Interactive Test Bench Stage */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[var(--accent-primary)] animate-pulse" />
+              <h2 className="font-display font-bold text-xl text-white">
+                Live Interactive Architecture Stage
+              </h2>
+            </div>
+            <span className="font-mono text-xs text-[var(--text-muted)]">
+              TEST BENCH
             </span>
           </div>
 
-          {/* Editorial Title & Metadata Dossier Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-hairline divide-y lg:divide-y-0 lg:divide-x divide-[var(--border-hairline)]">
-            <div className="lg:col-span-8 p-6 sm:p-10 lg:p-14 flex flex-col justify-between gap-6">
-              <div>
-                <span className="inline-block font-mono text-xs px-3 py-1 border border-hairline bg-surface text-secondary-ink mb-4">
-                  {tField(project.category, locale)}
-                </span>
-                <h1 className="font-display text-4xl sm:text-6xl font-bold text-primary-ink leading-[1.05] mb-5 tracking-tight">
-                  {project.name}
-                </h1>
-                <p className="text-lg sm:text-xl text-secondary-ink leading-relaxed max-w-2xl">
-                  {tField(project.tagline, locale)}
-                </p>
-              </div>
-
-              {/* Cover Plate Frame */}
-              <div className="relative aspect-video w-full overflow-hidden border border-hairline bg-[#111315] mt-4">
-                <Image
-                  src={project.coverImage}
-                  alt={`${project.name} — ${tField(project.tagline, locale)}`}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Right Specification Sidebar */}
-            <aside className="lg:col-span-4 bg-surface divide-y divide-[var(--border-hairline)] flex flex-col justify-between">
-              <div className="p-6 sm:p-8 space-y-6">
-                <div>
-                  <span className="block font-mono text-xs text-muted-ink mb-1">
-                    {t('roleLabel')}
-                  </span>
-                  <p className="text-sm font-semibold text-primary-ink">
-                    {tField(project.role, locale)}
-                  </p>
-                </div>
-
-                <div>
-                  <span className="block font-mono text-xs text-muted-ink mb-1">
-                    {t('statusLabel')}
-                  </span>
-                  <p className="font-mono text-xs text-accent">
-                    {tField(project.status, locale)}
-                  </p>
-                </div>
-
-                <div>
-                  <span className="block font-mono text-xs text-muted-ink mb-2.5">
-                    {t('stackLabel')}
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="font-mono text-xs px-2.5 py-1 border border-hairline bg-canvas text-primary-ink"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* External Repository / Demo Links */}
-              <div className="p-6 sm:p-8 bg-elevated">
-                <span className="block font-mono text-xs text-muted-ink mb-3">
-                  {t('linksLabel')}
-                </span>
-
-                {project.links.repository || project.links.demo ? (
-                  <div className="flex flex-col gap-2.5">
-                    {project.links.repository && (
-                      <a
-                        href={project.links.repository}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="interactive-btn interactive-btn-primary min-h-[44px] w-full justify-between px-4 py-2 font-mono text-xs"
-                      >
-                        <span>{t('repoLink')}</span>
-                        <ArrowUpRight className="h-4 w-4" />
-                      </a>
-                    )}
-                    {project.links.demo && (
-                      <a
-                        href={project.links.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="interactive-btn interactive-btn-secondary min-h-[44px] w-full justify-between px-4 py-2 font-mono text-xs"
-                      >
-                        <span>{t('demoLink')}</span>
-                        <ArrowUpRight className="h-4 w-4" />
-                      </a>
-                    )}
-                  </div>
-                ) : (
-                  <div className="border border-hairline bg-canvas p-4">
-                    <span className="block font-mono text-xs font-semibold text-primary-ink mb-1">
-                      {t('linksPending')}
-                    </span>
-                    {project.links.note && (
-                      <p className="font-mono text-[11px] text-muted-ink leading-relaxed">
-                        {tField(project.links.note, locale)}
-                      </p>
-                    )}
-                  </div>
-                )}
-              </div>
-            </aside>
-          </div>
-
-          {/* 01 / Executive Editorial Overview + 03 / Features */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-hairline divide-y lg:divide-y-0 lg:divide-x divide-[var(--border-hairline)]">
-            <div className="lg:col-span-6 p-6 sm:p-10 lg:p-12">
-              <h2 className="font-mono text-xs font-bold tracking-wider text-accent uppercase mb-4">
-                {t('overviewHeading')}
-              </h2>
-              <div className="space-y-4 text-base text-secondary-ink leading-relaxed">
-                {overviewParagraphs.map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-              </div>
-            </div>
-
-            <div className="lg:col-span-6 p-6 sm:p-10 lg:p-12 bg-surface/40">
-              <h2 className="font-mono text-xs font-bold tracking-wider text-accent uppercase mb-6">
-                {t('featuresHeading')}
-              </h2>
-              <div className="space-y-5">
-                {project.features.map((feature) => (
-                  <div
-                    key={feature.code}
-                    className="border border-hairline bg-canvas p-5"
-                  >
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="font-mono text-xs font-bold text-accent">
-                        {feature.code}
-                      </span>
-                      <CheckCircle2 className="h-4 w-4 text-accent" />
-                    </div>
-                    <h3 className="text-base font-bold text-primary-ink mb-1.5">
-                      {tField(feature.title, locale)}
-                    </h3>
-                    <p className="text-sm text-secondary-ink leading-relaxed">
-                      {tField(feature.description, locale)}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* 02 / Interactive System & Interface Anatomy */}
-          <div className="border-b border-hairline p-6 sm:p-10 lg:p-12 space-y-8">
-            <div>
-              <h2 className="font-mono text-xs font-bold tracking-wider text-accent uppercase mb-2">
-                {t('anatomyHeading')}
-              </h2>
-              <p className="text-sm sm:text-base text-secondary-ink">
-                {t('anatomySub')}
-              </p>
-            </div>
+          <div className="p-6 sm:p-8 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-xl">
             <ProjectInteractiveStage slug={project.slug} locale={locale} />
-            <div className="pt-6">
-              <ProjectAnatomyDiagram project={project} locale={locale} />
-            </div>
-          </div>
-
-          {/* 04 / Technical Challenges & Architectural Decisions */}
-          <div className="border-b border-hairline p-6 sm:p-10 lg:p-12 bg-surface/30">
-            <h2 className="font-mono text-xs font-bold tracking-wider text-accent uppercase mb-6">
-              {t('challengesHeading')}
-            </h2>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {project.challenges.map((challenge, idx) => (
-                <div
-                  key={idx}
-                  className="border border-hairline bg-canvas p-6 sm:p-8 flex flex-col justify-between gap-5"
-                >
-                  <div>
-                    <span className="font-mono text-xs text-muted-ink">
-                      DECISION LOG // 0{idx + 1}
-                    </span>
-                    <h3 className="mt-1 text-lg sm:text-xl font-bold text-primary-ink">
-                      {tField(challenge.title, locale)}
-                    </h3>
-                  </div>
-
-                  <div className="space-y-4 border-t border-hairline pt-4 text-sm">
-                    <div className="flex items-start gap-3">
-                      <ShieldAlert className="h-4 w-4 text-accent-ochre shrink-0 mt-1" />
-                      <div>
-                        <span className="block font-mono text-xs text-accent-ochre mb-1">
-                          {locale === 'id' ? 'KONTEKS MASALAH' : 'PROBLEM CONTEXT'}
-                        </span>
-                        <p className="text-secondary-ink leading-relaxed">
-                          {tField(challenge.problem, locale)}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <Wrench className="h-4 w-4 text-accent shrink-0 mt-1" />
-                      <div>
-                        <span className="block font-mono text-xs text-accent mb-1">
-                          {locale === 'id'
-                            ? 'SOLUSI ARSITEKTURAL'
-                            : 'ARCHITECTURAL SOLUTION'}
-                        </span>
-                        <p className="text-primary-ink leading-relaxed">
-                          {tField(challenge.solution, locale)}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 05 / Interactive Visual Plates & Blueprints Gallery */}
-          <div className="border-b border-hairline p-6 sm:p-10 lg:p-12">
-            <h2 className="font-mono text-xs font-bold tracking-wider text-accent uppercase mb-6">
-              {t('galleryHeading')}
-            </h2>
-            <ProjectGalleryViewer
-              plates={project.gallery}
-              projectName={project.name}
-              locale={locale}
-            />
-          </div>
-
-          {/* Adjacent Case Studies Navigation */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[var(--border-hairline)] bg-surface">
-            <Link
-              href={`/projects/${prev.slug}`}
-              className="group p-6 sm:p-8 flex items-center justify-between hover:bg-elevated transition-colors"
-            >
-              <div>
-                <span className="block font-mono text-xs text-muted-ink mb-1">
-                  ← {t('prevProject')}
-                </span>
-                <span className="text-lg font-bold text-primary-ink group-hover:text-accent transition-colors">
-                  {prev.index} — {prev.name}
-                </span>
-              </div>
-              <ArrowLeft className="h-5 w-5 text-muted-ink group-hover:text-accent transition-transform group-hover:-translate-x-1" />
-            </Link>
-
-            <Link
-              href={`/projects/${next.slug}`}
-              className="group p-6 sm:p-8 flex items-center justify-between text-right hover:bg-elevated transition-colors"
-            >
-              <ArrowRight className="h-5 w-5 text-muted-ink group-hover:text-accent transition-transform group-hover:translate-x-1 order-2" />
-              <div className="order-1 ml-auto">
-                <span className="block font-mono text-xs text-muted-ink mb-1">
-                  {t('nextProject')} →
-                </span>
-                <span className="text-lg font-bold text-primary-ink group-hover:text-accent transition-colors">
-                  {next.index} — {next.name}
-                </span>
-              </div>
-            </Link>
           </div>
         </div>
+
+        {/* Executive Overview Narrative */}
+        <section className="p-8 sm:p-12 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] space-y-6 shadow-xl">
+          <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
+            {t('overviewHeading')}
+          </span>
+          <div className="space-y-4 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-4xl">
+            {overviewParagraphs.map((para, idx) => (
+              <p key={idx}>{para}</p>
+            ))}
+          </div>
+        </section>
+
+        {/* System Anatomy Diagram */}
+        <section className="space-y-4">
+          <div className="pb-3 border-b border-white/[0.08]">
+            <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
+              {t('anatomyHeading')}
+            </span>
+            <p className="text-sm text-[var(--text-secondary)] mt-1">
+              {t('anatomySub')}
+            </p>
+          </div>
+
+          <div className="p-6 sm:p-8 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-xl">
+            <ProjectAnatomyDiagram project={project} locale={locale} />
+          </div>
+        </section>
+
+        {/* Key Features & Functional Capabilities */}
+        <section className="space-y-6">
+          <div className="pb-3 border-b border-white/[0.08]">
+            <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
+              {t('featuresHeading')}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {project.features.map((feat) => (
+              <div
+                key={feat.code}
+                className="p-6 sm:p-8 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 transition-all shadow-lg flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
+                    <span className="font-mono text-xs font-bold text-[var(--accent-primary)]">
+                      {feat.code}
+                    </span>
+                    <CheckCircle2 className="h-4 w-4 text-[var(--accent-primary)]" />
+                  </div>
+                  <h3 className="font-display font-bold text-lg text-white mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                    {tField(feat.title, locale)}
+                  </h3>
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                    {tField(feat.description, locale)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Engineering Challenges & Solutions */}
+        <section className="space-y-6">
+          <div className="pb-3 border-b border-white/[0.08]">
+            <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
+              {t('challengesHeading')}
+            </span>
+          </div>
+
+          <div className="space-y-6">
+            {project.challenges.map((ch, idx) => (
+              <div
+                key={idx}
+                className="p-6 sm:p-8 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-xl space-y-4"
+              >
+                <h3 className="font-display font-bold text-xl text-white">
+                  {tField(ch.title, locale)}
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+                    <span className="font-mono text-xs text-[var(--accent-secondary)] font-bold block mb-2">
+                      PROBLEM / BOTTLENECK
+                    </span>
+                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                      {tField(ch.problem, locale)}
+                    </p>
+                  </div>
+
+                  <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+                    <span className="font-mono text-xs text-[var(--accent-primary)] font-bold block mb-2">
+                      ARCHITECTURAL RESOLUTION
+                    </span>
+                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                      {tField(ch.solution, locale)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Adjacent Navigation */}
+        <nav
+          aria-label="Monograph pagination"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6"
+        >
+          <Link
+            href={`/projects/${prev.slug}`}
+            className="p-6 rounded-2xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 transition-all group flex items-center justify-between"
+          >
+            <div>
+              <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase block">
+                PREVIOUS PROJECT
+              </span>
+              <span className="font-display font-bold text-lg text-white group-hover:text-[var(--accent-primary)] transition-colors">
+                ← {prev.name}
+              </span>
+            </div>
+          </Link>
+
+          <Link
+            href={`/projects/${next.slug}`}
+            className="p-6 rounded-2xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 transition-all group flex items-center justify-between sm:text-right"
+          >
+            <div className="sm:ml-auto">
+              <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase block">
+                NEXT PROJECT
+              </span>
+              <span className="font-display font-bold text-lg text-white group-hover:text-[var(--accent-primary)] transition-colors">
+                {next.name} →
+              </span>
+            </div>
+          </Link>
+        </nav>
       </article>
 
-      <ContactSection />
+      {/* Contact Section */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10">
+        <ContactSection />
+      </section>
     </div>
   );
 }
-

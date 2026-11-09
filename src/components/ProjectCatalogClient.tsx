@@ -10,7 +10,8 @@ import {
   type DisciplineGroup,
 } from '@/data/portfolio';
 import { ProjectAnatomyDiagram } from './ProjectAnatomyDiagram';
-import { ArrowUpRight, Layers, Eye } from 'lucide-react';
+import { ProjectInteractiveStage } from './ProjectInteractiveStage';
+import { ArrowUpRight, Layers, Play, Eye, CheckCircle2 } from 'lucide-react';
 
 interface ProjectCatalogClientProps {
   locale: Locale;
@@ -19,9 +20,7 @@ interface ProjectCatalogClientProps {
 export function ProjectCatalogClient({ locale }: ProjectCatalogClientProps) {
   const t = useTranslations('projectsPage');
   const [filter, setFilter] = useState<'all' | DisciplineGroup>('all');
-  const [expandedAnatomySlug, setExpandedAnatomySlug] = useState<string | null>(
-    'critiplay'
-  );
+  const [activeStageSlug, setActiveStageSlug] = useState<string | null>(null);
 
   const filteredProjects =
     filter === 'all'
@@ -29,9 +28,9 @@ export function ProjectCatalogClient({ locale }: ProjectCatalogClientProps) {
       : PROJECTS.filter((p) => p.disciplineGroup === filter);
 
   return (
-    <div>
-      {/* Page-Level Control Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-hairline bg-surface px-6 py-4">
+    <div className="space-y-8">
+      {/* Page-Level Filter Control Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-md">
         <div
           role="group"
           aria-label="Filter projects by discipline"
@@ -61,141 +60,129 @@ export function ProjectCatalogClient({ locale }: ProjectCatalogClientProps) {
                 type="button"
                 onClick={() => setFilter(tab.id)}
                 aria-pressed={active}
-                className={`interactive-btn min-h-[40px] px-4 py-2 font-mono text-xs ${
+                className={`px-4 py-2 rounded-full font-mono text-xs transition-all ${
                   active
-                    ? 'interactive-btn-primary'
-                    : 'interactive-btn-secondary'
+                    ? 'bg-[var(--accent-primary)] text-[var(--accent-primary-ink)] font-bold shadow-md'
+                    : 'bg-white/[0.04] text-[var(--text-secondary)] hover:text-white hover:bg-white/[0.08] border border-white/[0.08]'
                 }`}
               >
                 <span>{tab.label}</span>
-                <span className="opacity-75">[{tab.count}]</span>
+                <span className="opacity-70 ml-1.5 font-semibold">[{tab.count}]</span>
               </button>
             );
           })}
         </div>
 
-        <span className="font-mono text-xs text-muted-ink">
-          SHOWING 0{filteredProjects.length} / 0{PROJECTS.length} MONOGRAPHS
+        <span className="font-mono text-xs text-[var(--text-muted)]">
+          SHOWING 0{filteredProjects.length} / 0{PROJECTS.length} WORKS
         </span>
       </div>
 
-      {/* Sequential Editorial Dossier Rows */}
-      <div className="divide-y divide-[var(--border-hairline)]">
+      {/* Modern Showcase Cards Grid */}
+      <div className="space-y-8 sm:space-y-12">
         {filteredProjects.map((project) => {
-          const isGame = project.disciplineGroup === 'gamedev';
-          const isAnatomyOpen = expandedAnatomySlug === project.slug;
+          const isStageOpen = activeStageSlug === project.slug;
 
           return (
             <article
               key={project.slug}
-              className="group bg-canvas transition-colors"
+              className="group rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 p-6 sm:p-8 lg:p-10 transition-all duration-300 shadow-xl"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[var(--border-hairline)]">
-                {/* Left Column: Index, Role & Metadata */}
-                <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8">
-                  <div>
-                    <div className="flex items-center justify-between gap-3 mb-4">
-                      <span
-                        className={`font-mono text-xs font-bold tracking-wider ${
-                          isGame ? 'text-accent-ochre' : 'text-accent'
-                        }`}
-                      >
-                        {project.index} //{' '}
-                        {tField(project.category, locale).toUpperCase()}
-                      </span>
-                      <span className="font-mono text-[11px] px-2.5 py-0.5 border border-hairline bg-surface text-secondary-ink">
-                        {tField(project.status, locale)}
-                      </span>
-                    </div>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                {/* Left Column: Metadata & Narrative */}
+                <div className="lg:col-span-5 space-y-6">
+                  <div className="flex items-center justify-between gap-3 pb-3 border-b border-white/[0.08]">
+                    <span className="font-mono text-xs font-bold text-[var(--accent-primary)] tracking-wider">
+                      {project.index} // {tField(project.category, locale).toUpperCase()}
+                    </span>
+                    <span className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono text-[var(--text-secondary)]">
+                      {tField(project.status, locale)}
+                    </span>
+                  </div>
 
-                    <h2 className="font-display text-3xl sm:text-4xl text-primary-ink font-bold tracking-tight mb-3">
-                      <Link
-                        href={`/projects/${project.slug}`}
-                        className="hover:text-accent transition-colors"
-                      >
+                  <div>
+                    <h2 className="font-display text-2xl sm:text-4xl text-white font-bold tracking-tight mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                      <Link href={`/projects/${project.slug}`}>
                         {project.name}
                       </Link>
                     </h2>
-
-                    <p className="text-base text-secondary-ink leading-relaxed mb-6">
+                    <p className="font-mono text-xs text-[var(--accent-primary)] mb-4">
+                      {tField(project.tagline, locale)}
+                    </p>
+                    <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
                       {tField(project.description, locale)}
                     </p>
-
-                    {/* Role & Stack Specification Table */}
-                    <dl className="border-t border-hairline divide-y divide-[var(--border-hairline)] text-xs font-mono">
-                      <div className="py-3 flex flex-col sm:flex-row sm:justify-between gap-1">
-                        <dt className="text-muted-ink">{t('roleLabel')}</dt>
-                        <dd className="text-primary-ink sm:text-right">
-                          {tField(project.role, locale)}
-                        </dd>
-                      </div>
-                      <div className="py-3 flex flex-col gap-2">
-                        <dt className="text-muted-ink">{t('stackLabel')}</dt>
-                        <dd className="flex flex-wrap gap-1.5">
-                          {project.techStack.map((tech) => (
-                            <span
-                              key={tech}
-                              className="px-2 py-0.5 border border-hairline bg-surface text-primary-ink"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </dd>
-                      </div>
-                    </dl>
                   </div>
 
-                  {/* Primary & Secondary Actions (1-to-3 Rule) */}
-                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                  {/* Highlights */}
+                  <div className="space-y-2">
+                    <span className="font-mono text-xs uppercase text-[var(--text-muted)] tracking-wider block">
+                      {t('stackLabel')}
+                    </span>
+                    <div className="flex flex-wrap gap-1.5 font-mono text-xs">
+                      {project.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[var(--text-primary)]"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex flex-wrap items-center gap-3 pt-3">
                     <Link
                       href={`/projects/${project.slug}`}
-                      className="interactive-btn interactive-btn-primary min-h-[44px] px-5 py-2.5 text-xs font-mono"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--accent-primary)] text-[var(--accent-primary-ink)] font-mono text-xs font-bold uppercase tracking-wider hover:scale-105 active:scale-95 transition-all shadow-md"
                     >
                       <span>{t('inspectProject')}</span>
-                      <ArrowUpRight className="h-4 w-4" />
+                      <ArrowUpRight className="h-3.5 w-3.5" />
                     </Link>
 
                     <button
                       type="button"
                       onClick={() =>
-                        setExpandedAnatomySlug(
-                          isAnatomyOpen ? null : project.slug
-                        )
+                        setActiveStageSlug(isStageOpen ? null : project.slug)
                       }
-                      aria-expanded={isAnatomyOpen}
-                      className="interactive-btn interactive-btn-secondary min-h-[44px] px-4 py-2.5 text-xs font-mono"
+                      aria-expanded={isStageOpen}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] text-xs font-mono text-white transition-colors"
                     >
-                      <Layers className="h-4 w-4" />
-                      <span>{t('architecturePreview')}</span>
+                      <Play className="h-3.5 w-3.5 text-[var(--accent-primary)]" />
+                      <span>{isStageOpen ? 'Close Stage' : 'Test Drive Stage'}</span>
                     </button>
                   </div>
                 </div>
 
-                {/* Right Column: Visual Blueprint Frame & Interactive Anatomy */}
-                <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 bg-surface flex flex-col justify-between gap-6">
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="group/media relative block overflow-hidden border border-hairline bg-canvas aspect-video focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)]"
-                  >
-                    <Image
-                      src={project.coverImage}
-                      alt={`${project.name} — ${tField(project.tagline, locale)}`}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 58vw"
-                      className="object-cover transition-transform duration-300 ease-out group-hover/media:scale-[1.02]"
-                    />
-                    <div className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 border border-hairline bg-[var(--bg-glass)] px-3 py-1.5 font-mono text-[11px] text-primary-ink backdrop-blur-sm">
-                      <Eye className="h-3.5 w-3.5 text-accent" />
-                      <span>{t('inspectProject')}</span>
+                {/* Right Column: Visual Blueprint or Interactive Stage */}
+                <div className="lg:col-span-7 space-y-4">
+                  {isStageOpen ? (
+                    <div className="rounded-2xl border border-white/[0.08] bg-[var(--bg-canvas)] p-4 sm:p-6 shadow-inner">
+                      <ProjectInteractiveStage slug={project.slug} locale={locale} />
                     </div>
-                  </Link>
-
-                  {isAnatomyOpen && (
-                    <ProjectAnatomyDiagram
-                      project={project}
-                      locale={locale}
-                      compact
-                    />
+                  ) : (
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="group/media relative block overflow-hidden rounded-2xl border border-white/[0.08] bg-[var(--bg-canvas)] aspect-video shadow-md"
+                    >
+                      <Image
+                        src={project.coverImage}
+                        alt={`${project.name} — ${tField(project.tagline, locale)}`}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 58vw"
+                        className="object-cover transition-transform duration-500 ease-out group-hover/media:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end justify-between p-4 sm:p-6">
+                        <span className="font-mono text-xs text-white">
+                          {project.name} — System Architecture &amp; UI
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 border border-white/20 font-mono text-[11px] text-[var(--accent-primary)] backdrop-blur-md">
+                          <Eye className="h-3.5 w-3.5" />
+                          <span>Case Study</span>
+                        </span>
+                      </div>
+                    </Link>
                   )}
                 </div>
               </div>
@@ -206,4 +193,3 @@ export function ProjectCatalogClient({ locale }: ProjectCatalogClientProps) {
     </div>
   );
 }
-

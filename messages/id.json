@@ -113,6 +113,7 @@
     "storyP2": "Alih-alih membatasi diri pada satu kotak sempit, saya mendalami rekayasa aplikasi full-stack sekaligus pengembangan game. Bekerja dengan React, TypeScript, Laravel, dan MySQL melatih saya merancang API, skema relasional, dan antarmuka yang mudah dipelihara. Membangun aplikasi dengan Flutter dan Odoo memperkenalkan saya pada alur kerja operasional nyata di perangkat mobile. Sementara itu, bereksperimen dengan Godot memungkinkan saya merancang mesin state, progresi narasi, dan interaksi spasial dari nol.",
     "storyP3": "Kini, saya mendekati setiap proyek—baik platform ulasan, aplikasi operasional mobile, maupun konsep RPG simulasi kehidupan—dengan standar yang sama: pahami masalahnya secara mendalam, bangun arsitektur yang jernih, dan perhatikan setiap detail interaksi.",
     "philosophyHeading": "02 / Prinsip Rekayasa",
+    "principlesHeading": "02 / Prinsip Rekayasa",
     "principles": [
       {
         "code": "P.01",
@@ -164,7 +165,8 @@
     "dateLabel": "Diterbitkan",
     "credentialIdLabel": "Status Kredensial",
     "verifyLink": "Verifikasi Kredensial",
-    "placeholderBadge": "Menunggu Input Pemilik"
+    "placeholderBadge": "Menunggu Input Pemilik",
+    "pendingVerification": "Menunggu Verifikasi"
   },
   "contact": {
     "heading": "Saluran Komunikasi Langsung",

@@ -4,7 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
 import { CERTIFICATES, tField } from '@/data/portfolio';
 import { ContactSection } from '@/components/ContactSection';
-import { Award, ArrowUpRight, Info } from 'lucide-react';
+import { Award, ArrowUpRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 export async function generateMetadata({
   params,
@@ -30,106 +30,83 @@ export default async function CertificatesPage({
   const t = await getTranslations({ locale, namespace: 'certificatesPage' });
 
   return (
-    <div>
-      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 mb-16 sm:mb-24">
-        <div className="border-x border-b border-hairline bg-canvas">
-          {/* Page Header */}
-          <div className="border-b border-hairline bg-surface p-6 sm:p-10 lg:p-14">
-            <span className="block font-mono text-xs font-semibold tracking-wider text-accent mb-3">
-              {t('indexLabel')}
-            </span>
-            <h1 className="font-display text-4xl sm:text-6xl font-bold text-primary-ink leading-[1.05] mb-4 tracking-tight">
-              {t('title')}
-            </h1>
-            <p className="text-base sm:text-lg text-secondary-ink max-w-2xl leading-relaxed">
-              {t('subtitle')}
-            </p>
+    <div className="space-y-20 sm:space-y-28">
+      {/* Header Banner */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 pt-8 sm:pt-14">
+        <div className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-[var(--accent-primary)] mb-4">
+            <Award className="h-3.5 w-3.5" />
+            <span>04 // {t('indexLabel')}</span>
           </div>
-
-          {/* Content Integrity Banner */}
-          <div className="border-b border-hairline bg-elevated px-6 py-4 flex items-start gap-3">
-            <Info className="h-5 w-5 text-accent shrink-0 mt-0.5" />
-            <div>
-              <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-primary-ink">
-                {t('integrityNoticeTitle')}
-              </h2>
-              <p className="text-xs sm:text-sm text-secondary-ink mt-1 max-w-4xl leading-relaxed">
-                {t('integrityNoticeBody')}
-              </p>
-            </div>
-          </div>
-
-          {/* Certificate Registry Rows */}
-          <div className="divide-y divide-[var(--border-hairline)]">
-            {CERTIFICATES.map((cert) => (
-              <article
-                key={cert.id}
-                className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[var(--border-hairline)]"
-              >
-                <div className="lg:col-span-3 p-6 sm:p-8 bg-surface/50 flex flex-col justify-between gap-4">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-accent">
-                      {cert.code}
-                    </span>
-                    <Award className="h-4 w-4 text-accent" />
-                  </div>
-                  <div>
-                    <span className="block font-mono text-[11px] text-muted-ink">
-                      {t('dateLabel')}
-                    </span>
-                    <span className="font-mono text-sm font-semibold text-primary-ink">
-                      {tField(cert.date, locale)}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="lg:col-span-6 p-6 sm:p-8 flex flex-col justify-center">
-                  <span className="font-mono text-xs text-muted-ink mb-1">
-                    {tField(cert.category, locale)}
-                  </span>
-                  <h2 className="text-lg sm:text-xl font-bold text-primary-ink mb-2">
-                    {tField(cert.title, locale)}
-                  </h2>
-                  <p className="font-mono text-xs text-secondary-ink">
-                    {t('issuerLabel')}: {tField(cert.issuer, locale)}
-                  </p>
-                </div>
-
-                <div className="lg:col-span-3 p-6 sm:p-8 bg-surface/30 flex flex-col justify-between gap-4">
-                  <div>
-                    <span className="block font-mono text-[11px] text-muted-ink mb-1.5">
-                      {t('credentialIdLabel')}
-                    </span>
-                    {cert.isPlaceholder ? (
-                      <span className="inline-block font-mono text-xs px-2.5 py-1 border border-[var(--accent-secondary)] text-accent-ochre">
-                        {t('placeholderBadge')}
-                      </span>
-                    ) : null}
-                    <p className="mt-2 text-xs text-secondary-ink leading-relaxed">
-                      {tField(cert.statusNote, locale)}
-                    </p>
-                  </div>
-
-                  {cert.credentialUrl && (
-                    <a
-                      href={cert.credentialUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="interactive-btn interactive-btn-primary min-h-[40px] px-4 py-2 font-mono text-xs"
-                    >
-                      <span>{t('verifyLink')}</span>
-                      <ArrowUpRight className="h-4 w-4" />
-                    </a>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
+          <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.08] max-w-3xl">
+            {t('title')}
+          </h1>
+          <p className="text-base sm:text-lg text-[var(--text-secondary)] max-w-2xl mt-4 leading-relaxed">
+            {t('subtitle')}
+          </p>
         </div>
       </section>
 
-      <ContactSection />
+      {/* Modern Certificate Cards Grid */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {CERTIFICATES.map((cert) => (
+            <article
+              key={cert.id}
+              className="group rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 p-6 sm:p-8 transition-all duration-300 shadow-xl flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+                  <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider">
+                    {cert.code}
+                  </span>
+                  <div className="p-2 rounded-xl bg-white/[0.04] border border-white/[0.08] text-[var(--accent-primary)] group-hover:scale-110 transition-transform">
+                    <ShieldCheck className="h-4 w-4" />
+                  </div>
+                </div>
+
+                <div className="mt-4">
+                  <span className="font-mono text-[11px] text-[var(--text-muted)] uppercase tracking-wider block">
+                    {tField(cert.category, locale)}
+                  </span>
+                  <h2 className="font-display font-bold text-lg text-white mt-1 group-hover:text-[var(--accent-primary)] transition-colors">
+                    {tField(cert.title, locale)}
+                  </h2>
+                  <p className="font-mono text-xs text-[var(--text-secondary)] mt-2">
+                    {t('issuerLabel')}: <strong className="text-white">{tField(cert.issuer, locale)}</strong>
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between font-mono text-xs">
+                <span className="text-[var(--text-muted)]">
+                  {tField(cert.date, locale)}
+                </span>
+                {cert.credentialUrl ? (
+                  <a
+                    href={cert.credentialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[var(--accent-primary)] hover:underline"
+                  >
+                    <span>{t('verifyLink')}</span>
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                ) : (
+                  <span className="text-[11px] text-[var(--text-muted)]">
+                    {cert.isPlaceholder ? t('pendingVerification') : 'Verified'}
+                  </span>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10">
+        <ContactSection />
+      </section>
     </div>
   );
 }
-

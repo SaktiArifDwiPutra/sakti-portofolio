@@ -2,9 +2,9 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link, type Locale } from '@/i18n/routing';
-import { TECH_STACK, tField, OWNER_PROFILE } from '@/data/portfolio';
+import { OWNER_PROFILE } from '@/data/portfolio';
 import { ContactSection } from '@/components/ContactSection';
-import { ArrowUpRight, Compass } from 'lucide-react';
+import { ArrowUpRight, Compass, Sparkles, User, Lightbulb } from 'lucide-react';
 
 export async function generateMetadata({
   params,
@@ -35,145 +35,113 @@ export default async function AboutPage({
   }[];
 
   return (
-    <div>
-      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 mb-16 sm:mb-24">
-        <div className="border-x border-b border-hairline bg-canvas">
-          {/* Page Header */}
-          <div className="border-b border-hairline bg-surface p-6 sm:p-10 lg:p-14">
-            <span className="block font-mono text-xs font-semibold tracking-wider text-accent mb-3">
-              {t('indexLabel')}
-            </span>
-            <h1 className="font-display text-4xl sm:text-6xl font-bold text-primary-ink leading-[1.05] mb-5 max-w-4xl tracking-tight">
-              {t('title')}
-            </h1>
-            <p className="text-lg sm:text-2xl text-secondary-ink max-w-3xl leading-relaxed font-light">
-              {t('lead')}
-            </p>
+    <div className="space-y-20 sm:space-y-28">
+      {/* Header Banner */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 pt-8 sm:pt-14">
+        <div className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-[var(--accent-primary)] mb-4">
+            <User className="h-3.5 w-3.5" />
+            <span>02 // {t('indexLabel')}</span>
           </div>
-
-          {/* 01 / Narrative Biography & 03 / Developer Specification Sheet */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-hairline divide-y lg:divide-y-0 lg:divide-x divide-[var(--border-hairline)]">
-            <div className="lg:col-span-7 p-6 sm:p-10 lg:p-14">
-              <h2 className="font-mono text-xs font-bold tracking-wider text-accent uppercase mb-6">
-                {t('storyHeading')}
-              </h2>
-              <div className="space-y-5 text-base sm:text-lg text-secondary-ink leading-relaxed max-w-[65ch]">
-                <p className="text-primary-ink font-medium">{t('storyP1')}</p>
-                <p>{t('storyP2')}</p>
-                <p>{t('storyP3')}</p>
-              </div>
-            </div>
-
-            <aside className="lg:col-span-5 bg-surface p-6 sm:p-10 lg:p-12 flex flex-col justify-between gap-8">
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="font-mono text-xs font-bold tracking-wider text-accent uppercase">
-                    {t('profileSheetHeading')}
-                  </h2>
-                  <Compass className="h-4 w-4 text-accent" />
-                </div>
-
-                <dl className="divide-y divide-[var(--border-hairline)] border-y border-hairline font-mono text-xs">
-                  <div className="py-4 flex flex-col sm:flex-row sm:justify-between gap-1">
-                    <dt className="text-muted-ink">{t('specName')}</dt>
-                    <dd className="font-bold text-primary-ink">
-                      {OWNER_PROFILE.name}
-                    </dd>
-                  </div>
-                  <div className="py-4 flex flex-col sm:flex-row sm:justify-between gap-1">
-                    <dt className="text-muted-ink">{t('specFocus')}</dt>
-                    <dd className="text-primary-ink sm:text-right">
-                      {t('specFocusVal')}
-                    </dd>
-                  </div>
-                  <div className="py-4 flex flex-col sm:flex-row sm:justify-between gap-1">
-                    <dt className="text-muted-ink">{t('specLanguages')}</dt>
-                    <dd className="text-primary-ink sm:text-right">
-                      {t('specLanguagesVal')}
-                    </dd>
-                  </div>
-                  <div className="py-4 flex flex-col gap-1.5">
-                    <dt className="text-muted-ink">{t('specInterests')}</dt>
-                    <dd className="text-primary-ink leading-relaxed">
-                      {t('specInterestsVal')}
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-
-              <Link
-                href="/projects"
-                className="interactive-btn interactive-btn-primary min-h-[48px] w-full justify-between px-5 py-3 font-mono text-xs"
-              >
-                <span>
-                  {locale === 'id'
-                    ? 'Jelajahi Katalog Proyek'
-                    : 'Explore Project Catalog'}
-                </span>
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </aside>
-          </div>
-
-          {/* 02 / Working Principles Matrix */}
-          <div className="border-b border-hairline p-6 sm:p-10 lg:p-14">
-            <h2 className="font-mono text-xs font-bold tracking-wider text-accent uppercase mb-8">
-              {t('philosophyHeading')}
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border border-hairline divide-y md:divide-y-0 md:divide-x divide-[var(--border-hairline)] bg-surface">
-              {principles.map((item) => (
-                <div
-                  key={item.code}
-                  className="p-6 sm:p-8 flex flex-col justify-between gap-4"
-                >
-                  <div>
-                    <span className="font-mono text-xs font-bold text-accent">
-                      {item.code}
-                    </span>
-                    <h3 className="mt-2 text-lg font-bold text-primary-ink mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-secondary-ink leading-relaxed">
-                      {item.body}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Full Technology Specification Overview */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-[var(--border-hairline)]">
-            {TECH_STACK.map((cat) => (
-              <div key={cat.id} className="p-6 sm:p-8 lg:p-10">
-                <span className="font-mono text-xs text-accent font-bold">
-                  {cat.code}
-                </span>
-                <h3 className="mt-1 text-lg font-bold text-primary-ink mb-4">
-                  {tField(cat.title, locale)}
-                </h3>
-                <ul className="space-y-3 border-t border-hairline pt-4">
-                  {cat.items.map((tech) => (
-                    <li key={tech.name}>
-                      <div className="flex items-center justify-between font-mono text-xs font-semibold text-primary-ink">
-                        <span>{tech.name}</span>
-                        <span className="text-muted-ink">{tech.context}</span>
-                      </div>
-                      <p className="text-xs text-secondary-ink mt-0.5">
-                        {tField(tech.role, locale)}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.08] max-w-4xl">
+            {t('title')}
+          </h1>
+          <p className="text-base sm:text-xl text-[var(--text-secondary)] max-w-3xl mt-4 leading-relaxed font-light">
+            {t('lead')}
+          </p>
         </div>
       </section>
 
-      <ContactSection />
+      {/* Main Narrative & Spec Sheet */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Left: Biography Narrative */}
+          <div className="lg:col-span-7 p-8 sm:p-12 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] space-y-6 shadow-xl">
+            <span className="font-mono text-xs font-bold tracking-wider text-[var(--accent-primary)] uppercase block">
+              {t('storyHeading')}
+            </span>
+            <div className="space-y-5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+              <p className="text-white font-medium">{t('storyP1')}</p>
+              <p>{t('storyP2')}</p>
+              <p>{t('storyP3')}</p>
+            </div>
+          </div>
+
+          {/* Right: Spec Sheet */}
+          <aside className="lg:col-span-5 p-8 sm:p-10 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] flex flex-col justify-between gap-6 shadow-xl">
+            <div>
+              <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+                <span className="font-mono text-xs font-bold tracking-wider text-[var(--accent-primary)] uppercase">
+                  {t('profileSheetHeading')}
+                </span>
+                <Compass className="h-4 w-4 text-[var(--accent-primary)]" />
+              </div>
+
+              <div className="divide-y divide-white/[0.08] font-mono text-xs pt-2">
+                <div className="py-3.5 flex justify-between gap-2">
+                  <span className="text-[var(--text-muted)]">{t('specName')}</span>
+                  <span className="font-bold text-white">{OWNER_PROFILE.name}</span>
+                </div>
+                <div className="py-3.5 flex justify-between gap-2">
+                  <span className="text-[var(--text-muted)]">{t('specFocus')}</span>
+                  <span className="text-white text-right">{t('specFocusVal')}</span>
+                </div>
+                <div className="py-3.5 flex justify-between gap-2">
+                  <span className="text-[var(--text-muted)]">{t('specLanguages')}</span>
+                  <span className="text-white text-right">{t('specLanguagesVal')}</span>
+                </div>
+                <div className="py-3.5 flex flex-col gap-1.5">
+                  <span className="text-[var(--text-muted)]">{t('specInterests')}</span>
+                  <span className="text-white leading-relaxed">{t('specInterestsVal')}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between font-mono text-xs text-[var(--text-muted)]">
+              <span>Jakarta, Indonesia</span>
+              <span className="text-[var(--accent-primary)] font-semibold">UTC+7</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      {/* Engineering Principles */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 space-y-8">
+        <div className="pb-4 border-b border-white/[0.08]">
+          <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
+            03 // {t('principlesHeading')}
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">
+            Engineering &amp; Creative Philosophy
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {principles.map((p) => (
+            <div
+              key={p.code}
+              className="p-6 sm:p-8 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 transition-all flex flex-col justify-between shadow-lg group"
+            >
+              <div>
+                <span className="font-mono text-xs text-[var(--accent-primary)] font-bold block mb-2">
+                  {p.code}
+                </span>
+                <h3 className="font-display font-bold text-xl text-white mb-3 group-hover:text-[var(--accent-primary)] transition-colors">
+                  {p.title}
+                </h3>
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                  {p.body}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10">
+        <ContactSection />
+      </section>
     </div>
   );
 }
-

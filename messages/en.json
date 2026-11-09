@@ -113,6 +113,7 @@
     "storyP2": "Rather than narrowing myself into a single rigid box early on, I pursued both full-stack application engineering and game development. Working across React, TypeScript, Laravel, and MySQL taught me how to structure APIs, relational schemas, and maintainable frontends. Building with Flutter and Odoo exposed me to real-world operational workflows on mobile devices. Exploring Godot allowed me to design state machines, narrative progression, and spatial interactions from the ground up.",
     "storyP3": "Today, I approach every project—whether a review platform, an operational mobile app, or a life-simulation RPG—with the same core standard: understand the problem deeply, design a clear architecture, and sweat the interactive details.",
     "philosophyHeading": "02 / Engineering Principles",
+    "principlesHeading": "02 / Engineering Principles",
     "principles": [
       {
         "code": "P.01",
@@ -164,7 +165,8 @@
     "dateLabel": "Issued",
     "credentialIdLabel": "Credential Status",
     "verifyLink": "Verify Credential",
-    "placeholderBadge": "Awaiting Owner Input"
+    "placeholderBadge": "Awaiting Owner Input",
+    "pendingVerification": "Pending Verification"
   },
   "contact": {
     "heading": "Direct Channels & Inquiry",

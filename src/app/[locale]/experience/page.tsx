@@ -4,7 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
 import { EXPERIENCES, tField } from '@/data/portfolio';
 import { ContactSection } from '@/components/ContactSection';
-import { CheckCircle2, Info } from 'lucide-react';
+import { Briefcase, Calendar, ChevronRight, Info } from 'lucide-react';
 
 export async function generateMetadata({
   params,
@@ -30,124 +30,100 @@ export default async function ExperiencePage({
   const t = await getTranslations({ locale, namespace: 'experiencePage' });
 
   return (
-    <div>
-      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 mb-16 sm:mb-24">
-        <div className="border-x border-b border-hairline bg-canvas">
-          {/* Page Header */}
-          <div className="border-b border-hairline bg-surface p-6 sm:p-10 lg:p-14">
-            <span className="block font-mono text-xs font-semibold tracking-wider text-accent mb-3">
-              {t('indexLabel')}
-            </span>
-            <h1 className="font-display text-4xl sm:text-6xl font-bold text-primary-ink leading-[1.05] mb-4 tracking-tight">
-              {t('title')}
-            </h1>
-            <p className="text-base sm:text-lg text-secondary-ink max-w-2xl leading-relaxed">
-              {t('subtitle')}
-            </p>
+    <div className="space-y-20 sm:space-y-28">
+      {/* Header Banner */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 pt-8 sm:pt-14">
+        <div className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-[var(--accent-primary)] mb-4">
+            <Briefcase className="h-3.5 w-3.5" />
+            <span>03 // {t('indexLabel')}</span>
           </div>
+          <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.08] max-w-3xl">
+            {t('title')}
+          </h1>
+          <p className="text-base sm:text-lg text-[var(--text-secondary)] max-w-2xl mt-4 leading-relaxed">
+            {t('subtitle')}
+          </p>
+        </div>
+      </section>
 
-          {/* Content Integrity Banner */}
-          <div className="border-b border-hairline bg-elevated px-6 py-4 flex items-start gap-3">
-            <Info className="h-5 w-5 text-accent shrink-0 mt-0.5" />
-            <div>
-              <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-primary-ink">
-                {t('integrityNoticeTitle')}
-              </h2>
-              <p className="text-xs sm:text-sm text-secondary-ink mt-1 max-w-4xl leading-relaxed">
-                {t('integrityNoticeBody')}
-              </p>
-            </div>
-          </div>
+      {/* Trajectory Timeline Cards */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 space-y-8">
+        <div className="relative pl-6 sm:pl-8 space-y-8 sm:space-y-12 before:absolute before:left-2 sm:before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-gradient-to-b before:from-[var(--accent-primary)] before:via-white/[0.1] before:to-transparent">
+          {EXPERIENCES.map((exp) => {
+            const deliverables = exp.deliverables[locale] ?? exp.deliverables.en;
 
-          {/* Trajectory Entries */}
-          <div className="divide-y divide-[var(--border-hairline)]">
-            {EXPERIENCES.map((exp) => {
-              const deliverables =
-                exp.deliverables[locale] ?? exp.deliverables.en;
+            return (
+              <div key={exp.id} className="relative group">
+                {/* Glowing Node */}
+                <div className="absolute -left-[27px] sm:-left-[35px] top-2 flex items-center justify-center">
+                  <span className="h-4 w-4 rounded-full bg-[var(--bg-canvas)] border-2 border-[var(--accent-primary)] group-hover:scale-125 transition-transform shadow-md shadow-[var(--accent-primary)]/20" />
+                </div>
 
-              return (
-                <article
-                  key={exp.id}
-                  className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[var(--border-hairline)]"
-                >
-                  {/* Left Meta Column */}
-                  <div className="lg:col-span-4 p-6 sm:p-8 lg:p-10 bg-surface/50 flex flex-col justify-between gap-6">
+                <article className="rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 p-6 sm:p-10 transition-all duration-300 shadow-xl">
+                  <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-white/[0.08]">
                     <div>
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <span className="font-mono text-xs font-bold text-accent">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase">
                           ENTRY // {exp.index}
                         </span>
-                        <span
-                          className={`font-mono text-[11px] px-2.5 py-0.5 border ${
-                            exp.isPlaceholder
-                              ? 'border-[var(--accent-secondary)] text-accent-ochre'
-                              : 'border-hairline bg-canvas text-accent'
-                          }`}
-                        >
-                          {exp.isPlaceholder
-                            ? t('typePlaceholder')
-                            : t('typePractice')}
+                        <span className="px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[10px] font-mono text-[var(--text-muted)]">
+                          {exp.isPlaceholder ? t('typePlaceholder') : t('typePractice')}
                         </span>
                       </div>
-
-                      <p className="font-mono text-sm font-semibold text-primary-ink mb-1">
-                        {tField(exp.period, locale)}
-                      </p>
-                      <p className="font-mono text-xs text-secondary-ink">
+                      <h2 className="font-display font-bold text-2xl sm:text-3xl text-white">
+                        {tField(exp.role, locale)}
+                      </h2>
+                      <p className="font-mono text-xs text-[var(--text-secondary)] mt-1">
                         {tField(exp.organization, locale)}
                       </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-1.5 pt-4 border-t border-hairline">
-                      {exp.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="font-mono text-xs px-2 py-0.5 border border-hairline bg-canvas text-primary-ink"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-white">
+                      <Calendar className="h-3.5 w-3.5 text-[var(--accent-primary)]" />
+                      <span>{tField(exp.period, locale)}</span>
                     </div>
                   </div>
 
-                  {/* Right Details Column */}
-                  <div className="lg:col-span-8 p-6 sm:p-8 lg:p-10">
-                    <span className="block font-mono text-xs text-muted-ink mb-1">
-                      {tField(exp.domain, locale)}
-                    </span>
-                    <h2 className="text-xl sm:text-2xl font-bold text-primary-ink mb-3">
-                      {tField(exp.role, locale)}
-                    </h2>
-                    <p className="text-base text-secondary-ink leading-relaxed mb-6">
-                      {tField(exp.summary, locale)}
-                    </p>
+                  <p className="text-sm sm:text-base text-[var(--text-secondary)] mt-5 leading-relaxed">
+                    {tField(exp.summary, locale)}
+                  </p>
 
-                    <div className="border-t border-hairline pt-5">
-                      <h3 className="font-mono text-xs text-muted-ink uppercase mb-3">
-                        {t('deliverablesLabel')}
-                      </h3>
-                      <ul className="space-y-2.5">
-                        {deliverables.map((item, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-2.5 text-sm text-primary-ink"
-                          >
-                            <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  <div className="mt-6 space-y-2.5">
+                    <span className="font-mono text-xs uppercase text-[var(--text-muted)] tracking-wider block">
+                      {locale === 'id' ? 'Tanggung Jawab & Kontribusi:' : 'Responsibilities & Contributions:'}
+                    </span>
+                    <ul className="space-y-2 text-xs sm:text-sm text-[var(--text-secondary)]">
+                      {deliverables.map((item, dIdx) => (
+                        <li key={dIdx} className="flex items-start gap-2.5">
+                          <ChevronRight className="h-4 w-4 text-[var(--accent-primary)] shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-6 pt-5 border-t border-white/[0.06] flex flex-wrap gap-2">
+                    {exp.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] font-mono text-xs text-[var(--text-primary)]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
                 </article>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
-      <ContactSection />
+      {/* Contact Section */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10">
+        <ContactSection />
+      </section>
     </div>
   );
 }
-
