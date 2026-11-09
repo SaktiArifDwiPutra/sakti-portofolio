@@ -99,7 +99,7 @@ export default async function ProjectDetailPage({
                 <span className="inline-block font-mono text-xs px-3 py-1 border border-hairline bg-surface text-secondary-ink mb-4">
                   {tField(project.category, locale)}
                 </span>
-                <h1 className="font-serif text-4xl sm:text-6xl text-primary-ink font-normal leading-[1.04] mb-5 tracking-tight">
+                <h1 className="font-display text-4xl sm:text-6xl font-bold text-primary-ink leading-[1.05] mb-5 tracking-tight">
                   {project.name}
                 </h1>
                 <p className="text-lg sm:text-xl text-secondary-ink leading-relaxed max-w-2xl">

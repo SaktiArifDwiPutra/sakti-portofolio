@@ -38,7 +38,7 @@ export default async function ProjectsPage({
             <span className="block font-mono text-xs font-semibold tracking-wider text-accent mb-3">
               {t('indexLabel')}
             </span>
-            <h1 className="font-serif text-4xl sm:text-6xl text-primary-ink font-normal leading-[1.04] mb-4 tracking-tight">
+            <h1 className="font-display text-4xl sm:text-6xl font-bold text-primary-ink leading-[1.05] mb-4 tracking-tight">
               {t('title')}
             </h1>
             <p className="text-base sm:text-lg text-secondary-ink max-w-2xl leading-relaxed">

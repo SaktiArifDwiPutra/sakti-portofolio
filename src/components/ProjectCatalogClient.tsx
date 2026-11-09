@@ -108,7 +108,7 @@ export function ProjectCatalogClient({ locale }: ProjectCatalogClientProps) {
                       </span>
                     </div>
 
-                    <h2 className="font-serif text-3xl sm:text-4xl text-primary-ink font-normal tracking-tight mb-3">
+                    <h2 className="font-display text-3xl sm:text-4xl text-primary-ink font-bold tracking-tight mb-3">
                       <Link
                         href={`/projects/${project.slug}`}
                         className="hover:text-accent transition-colors"
