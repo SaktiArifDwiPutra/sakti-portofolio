@@ -33,7 +33,7 @@ export function ContactSection() {
 
   return (
     <section id="contact" className="pt-10 pb-20 sm:pb-28">
-      <div className="relative rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] p-6 sm:p-10 lg:p-14 overflow-hidden shadow-2xl">
+      <div className="relative rounded-3xl theme-card p-6 sm:p-10 lg:p-14 overflow-hidden shadow-2xl">
         {/* Subtle background glow */}
         <div 
           aria-hidden="true" 
@@ -41,7 +41,7 @@ export function ContactSection() {
         />
 
         {/* Section Header */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-8 border-b border-white/[0.08]">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-8 border-b border-[var(--border-hairline)]">
           <div className="flex items-center gap-2.5">
             <span className="h-2 w-2 rounded-full bg-[var(--accent-primary)] animate-pulse" />
             <span className="font-mono text-xs text-[var(--accent-primary)] uppercase tracking-wider font-bold">
@@ -49,7 +49,7 @@ export function ContactSection() {
             </span>
           </div>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.06] text-xs font-mono text-[var(--text-muted)]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full theme-chip text-xs font-mono text-[var(--text-muted)]">
             <MapPin className="h-3 w-3 text-[var(--accent-primary)]" />
             <span>Jakarta, ID (UTC+7)</span>
           </div>
@@ -59,7 +59,7 @@ export function ContactSection() {
         <div className="pt-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Left Column: Direct Call to Action & Fast Links */}
           <div className="lg:col-span-6 space-y-6">
-            <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-[1.1]">
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-[var(--text-primary)] tracking-tight leading-[1.1]">
               {locale === 'id' ? (
                 <>
                   Punya ide proyek atau ingin berkolaborasi?{' '}
@@ -80,12 +80,12 @@ export function ContactSection() {
             </p>
 
             {/* Email Copy Card */}
-            <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-3">
+            <div className="p-5 rounded-2xl theme-chip space-y-3">
               <span className="font-mono text-xs uppercase text-[var(--text-muted)] block">
                 Direct Email Channel
               </span>
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <span className="font-mono text-sm sm:text-base font-bold text-white select-all">
+                <span className="font-mono text-sm sm:text-base font-bold text-[var(--text-primary)] select-all">
                   {OWNER_PROFILE.email}
                 </span>
 
@@ -93,12 +93,12 @@ export function ContactSection() {
                   <button
                     type="button"
                     onClick={handleCopyEmail}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/[0.1] text-xs font-mono text-white transition-colors border border-white/[0.08]"
+                    className="interactive-btn interactive-btn-secondary px-3.5 py-1.5 text-xs font-mono"
                   >
                     {copied ? (
                       <>
                         <Check className="h-3.5 w-3.5 text-[var(--accent-primary)]" />
-                        <span className="text-[var(--accent-primary)]">{locale === 'id' ? 'Tersalin!' : 'Copied!'}</span>
+                        <span className="text-[var(--accent-primary)] font-bold">{locale === 'id' ? 'Tersalin!' : 'Copied!'}</span>
                       </>
                     ) : (
                       <>
@@ -110,7 +110,7 @@ export function ContactSection() {
 
                   <a
                     href={`mailto:${OWNER_PROFILE.email}`}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--accent-primary)] text-[var(--accent-primary-ink)] text-xs font-mono font-bold transition-transform hover:scale-105"
+                    className="interactive-btn interactive-btn-primary px-3.5 py-1.5 text-xs font-mono font-bold shadow-md"
                   >
                     <Mail className="h-3.5 w-3.5" />
                     <span>{locale === 'id' ? 'Kirim' : 'Email'}</span>
@@ -125,33 +125,33 @@ export function ContactSection() {
                 href={OWNER_PROFILE.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-[var(--accent-primary)]/40 hover:bg-white/[0.04] transition-all flex items-center justify-between group"
+                className="p-4 rounded-xl theme-chip hover:border-[var(--accent-primary)]/40 transition-all flex items-center justify-between group"
               >
                 <div className="flex items-center gap-2.5">
                   <GithubIcon className="h-4 w-4 text-[var(--accent-primary)]" />
-                  <span className="font-mono text-xs text-white">GitHub</span>
+                  <span className="font-mono text-xs text-[var(--text-primary)] font-semibold">GitHub</span>
                 </div>
-                <ArrowUpRight className="h-3.5 w-3.5 text-[var(--text-muted)] group-hover:text-white transition-colors" />
+                <ArrowUpRight className="h-3.5 w-3.5 text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors" />
               </a>
 
               <a
                 href={OWNER_PROFILE.links.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-[var(--accent-primary)]/40 hover:bg-white/[0.04] transition-all flex items-center justify-between group"
+                className="p-4 rounded-xl theme-chip hover:border-[var(--accent-primary)]/40 transition-all flex items-center justify-between group"
               >
                 <div className="flex items-center gap-2.5">
                   <LinkedinIcon className="h-4 w-4 text-[var(--accent-primary)]" />
-                  <span className="font-mono text-xs text-white">LinkedIn</span>
+                  <span className="font-mono text-xs text-[var(--text-primary)] font-semibold">LinkedIn</span>
                 </div>
-                <ArrowUpRight className="h-3.5 w-3.5 text-[var(--text-muted)] group-hover:text-white transition-colors" />
+                <ArrowUpRight className="h-3.5 w-3.5 text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors" />
               </a>
             </div>
           </div>
 
           {/* Right Column: Clean Interactive Inquiry Form */}
-          <div className="lg:col-span-6 p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/[0.08]">
-            <h3 className="font-display font-bold text-xl text-white mb-1">
+          <div className="lg:col-span-6 p-6 sm:p-8 rounded-2xl theme-chip">
+            <h3 className="font-display font-bold text-xl text-[var(--text-primary)] mb-1">
               {locale === 'id' ? 'Kirim Pesan Langsung' : 'Send an Inquiry'}
             </h3>
             <p className="text-xs text-[var(--text-secondary)] mb-6">
@@ -163,7 +163,7 @@ export function ContactSection() {
             {submitted ? (
               <div className="p-6 rounded-xl bg-[var(--accent-primary)]/10 border border-[var(--accent-primary)]/30 text-center space-y-3">
                 <Check className="h-8 w-8 text-[var(--accent-primary)] mx-auto" />
-                <h4 className="font-display font-bold text-lg text-white">
+                <h4 className="font-display font-bold text-lg text-[var(--text-primary)]">
                   {locale === 'id' ? 'Terima kasih atas pesan Anda!' : 'Thank you for reaching out!'}
                 </h4>
                 <p className="text-xs text-[var(--text-secondary)]">
@@ -185,7 +185,7 @@ export function ContactSection() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block font-mono text-xs text-[var(--text-muted)] mb-1.5 uppercase">
+                  <label htmlFor="name" className="block font-mono text-xs text-[var(--text-muted)] mb-1.5 uppercase font-medium">
                     {locale === 'id' ? 'Nama Anda' : 'Your Name'}
                   </label>
                   <input
@@ -195,12 +195,12 @@ export function ContactSection() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Jane Doe"
-                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.1] focus:border-[var(--accent-primary)] focus:outline-none text-white text-sm font-mono placeholder:text-white/20 transition-colors"
+                    className="w-full px-4 py-3 rounded-xl theme-input text-sm font-mono placeholder:opacity-40 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block font-mono text-xs text-[var(--text-muted)] mb-1.5 uppercase">
+                  <label htmlFor="email" className="block font-mono text-xs text-[var(--text-muted)] mb-1.5 uppercase font-medium">
                     {locale === 'id' ? 'Alamat Email' : 'Email Address'}
                   </label>
                   <input
@@ -210,12 +210,12 @@ export function ContactSection() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="jane@example.com"
-                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.1] focus:border-[var(--accent-primary)] focus:outline-none text-white text-sm font-mono placeholder:text-white/20 transition-colors"
+                    className="w-full px-4 py-3 rounded-xl theme-input text-sm font-mono placeholder:opacity-40 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block font-mono text-xs text-[var(--text-muted)] mb-1.5 uppercase">
+                  <label htmlFor="message" className="block font-mono text-xs text-[var(--text-muted)] mb-1.5 uppercase font-medium">
                     {locale === 'id' ? 'Pesan / Rencana Proyek' : 'Message / Project Scope'}
                   </label>
                   <textarea
@@ -229,13 +229,13 @@ export function ContactSection() {
                         ? 'Ceritakan tentang kebutuhan proyek atau peluang kolaborasi...'
                         : 'Tell me about your project, timeline, or collaboration ideas...'
                     }
-                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.1] focus:border-[var(--accent-primary)] focus:outline-none text-white text-sm font-mono placeholder:text-white/20 transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-xl theme-input text-sm font-mono placeholder:opacity-40 transition-colors resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-xl bg-[var(--accent-primary)] text-[var(--accent-primary-ink)] font-mono text-xs font-bold uppercase tracking-wider hover:opacity-95 active:scale-[0.99] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[var(--accent-primary)]/10"
+                  className="interactive-btn interactive-btn-primary w-full py-3.5 text-xs font-mono uppercase tracking-wider shadow-md"
                 >
                   <Send className="h-3.5 w-3.5" />
                   <span>{locale === 'id' ? 'Kirim Pesan' : 'Dispatch Message'}</span>

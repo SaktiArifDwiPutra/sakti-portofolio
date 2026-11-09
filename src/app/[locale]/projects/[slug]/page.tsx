@@ -12,17 +12,13 @@ import {
 } from '@/data/portfolio';
 import { ProjectAnatomyDiagram } from '@/components/ProjectAnatomyDiagram';
 import { ProjectInteractiveStage } from '@/components/ProjectInteractiveStage';
-import { ProjectGalleryViewer } from '@/components/ProjectGalleryViewer';
 import { ContactSection } from '@/components/ContactSection';
 import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
-  ShieldAlert,
-  Wrench,
-  Layers,
-  Sparkles,
+  ExternalLink,
 } from 'lucide-react';
 import { GithubIcon } from '@/components/SocialIcons';
 
@@ -79,7 +75,8 @@ export default async function ProjectDetailPage({
         <div className="flex items-center justify-between">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] font-mono text-xs text-[var(--text-secondary)] hover:text-white transition-all"
+            prefetch={true}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full theme-chip font-mono text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             <span>{t('backToCatalog')}</span>
@@ -91,22 +88,22 @@ export default async function ProjectDetailPage({
         </div>
 
         {/* Hero Banner Card */}
-        <div className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-2xl">
+        <div className="p-8 sm:p-12 lg:p-16 rounded-3xl theme-card shadow-2xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-8 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-[var(--accent-primary)]">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full theme-chip text-xs font-mono text-[var(--accent-primary)] font-medium">
                 <span>{tField(project.category, locale)}</span>
               </div>
 
-              <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.05]">
+              <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-[var(--text-primary)] tracking-tight leading-[1.05]">
                 {project.name}
               </h1>
 
-              <p className="font-mono text-sm sm:text-base text-[var(--accent-primary)]">
+              <p className="font-mono text-sm sm:text-base text-[var(--accent-primary)] font-medium">
                 {tField(project.tagline, locale)}
               </p>
 
-              <p className="text-base sm:text-lg text-[var(--text-secondary)] max-w-2xl leading-relaxed">
+              <p className="text-base sm:text-lg text-[var(--text-secondary)] max-w-2xl leading-relaxed break-words">
                 {tField(project.description, locale)}
               </p>
 
@@ -117,7 +114,7 @@ export default async function ProjectDetailPage({
                     href={project.links.repository}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.12] text-white font-mono text-xs font-bold transition-all hover:scale-105"
+                    className="interactive-btn interactive-btn-secondary px-5 py-2.5 text-xs font-mono"
                   >
                     <GithubIcon className="h-4 w-4" />
                     <span>{t('repoLink')}</span>
@@ -129,7 +126,7 @@ export default async function ProjectDetailPage({
                     href={project.links.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--accent-primary)] text-[var(--accent-primary-ink)] font-mono text-xs font-bold transition-all hover:scale-105 shadow-md"
+                    className="interactive-btn interactive-btn-primary px-5 py-2.5 text-xs font-mono shadow-md"
                   >
                     <span>{t('demoLink')}</span>
                     <ArrowUpRight className="h-4 w-4" />
@@ -139,24 +136,24 @@ export default async function ProjectDetailPage({
             </div>
 
             {/* Spec Sheet Column */}
-            <div className="lg:col-span-4 p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-4 font-mono text-xs">
-              <div className="pb-3 border-b border-white/[0.08]">
-                <span className="text-[var(--text-muted)] block mb-1">{t('roleLabel')}</span>
-                <span className="text-white font-semibold text-sm">{tField(project.role, locale)}</span>
+            <div className="lg:col-span-4 p-6 rounded-2xl theme-chip space-y-4 font-mono text-xs">
+              <div className="pb-3 border-b border-[var(--border-hairline)]">
+                <span className="text-[var(--text-muted)] block mb-1 font-medium">{t('roleLabel')}</span>
+                <span className="text-[var(--text-primary)] font-semibold text-sm">{tField(project.role, locale)}</span>
               </div>
 
-              <div className="pb-3 border-b border-white/[0.08]">
-                <span className="text-[var(--text-muted)] block mb-1">{t('statusLabel')}</span>
+              <div className="pb-3 border-b border-[var(--border-hairline)]">
+                <span className="text-[var(--text-muted)] block mb-1 font-medium">{t('statusLabel')}</span>
                 <span className="text-[var(--accent-primary)] font-semibold">{tField(project.status, locale)}</span>
               </div>
 
               <div>
-                <span className="text-[var(--text-muted)] block mb-2">{t('stackLabel')}</span>
+                <span className="text-[var(--text-muted)] block mb-2 font-medium">{t('stackLabel')}</span>
                 <div className="flex flex-wrap gap-1.5">
                   {project.techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-white"
+                      className="px-2 py-0.5 rounded-full theme-chip text-[var(--text-primary)]"
                     >
                       {tech}
                     </span>
@@ -169,10 +166,10 @@ export default async function ProjectDetailPage({
 
         {/* Live Interactive Test Bench Stage */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
+          <div className="flex items-center justify-between pb-3 border-b border-[var(--border-hairline)]">
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-[var(--accent-primary)] animate-pulse" />
-              <h2 className="font-display font-bold text-xl text-white">
+              <h2 className="font-display font-bold text-xl text-[var(--text-primary)]">
                 Live Interactive Architecture Stage
               </h2>
             </div>
@@ -181,13 +178,13 @@ export default async function ProjectDetailPage({
             </span>
           </div>
 
-          <div className="p-6 sm:p-8 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-xl">
+          <div className="p-6 sm:p-8 rounded-3xl theme-card shadow-xl overflow-hidden">
             <ProjectInteractiveStage slug={project.slug} locale={locale} />
           </div>
         </div>
 
         {/* Executive Overview Narrative */}
-        <section className="p-8 sm:p-12 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] space-y-6 shadow-xl">
+        <section className="p-8 sm:p-12 rounded-3xl theme-card space-y-6 shadow-xl">
           <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
             {t('overviewHeading')}
           </span>
@@ -200,7 +197,7 @@ export default async function ProjectDetailPage({
 
         {/* System Anatomy Diagram */}
         <section className="space-y-4">
-          <div className="pb-3 border-b border-white/[0.08]">
+          <div className="pb-3 border-b border-[var(--border-hairline)]">
             <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
               {t('anatomyHeading')}
             </span>
@@ -209,14 +206,14 @@ export default async function ProjectDetailPage({
             </p>
           </div>
 
-          <div className="p-6 sm:p-8 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-xl">
+          <div className="p-6 sm:p-8 rounded-3xl theme-card shadow-xl">
             <ProjectAnatomyDiagram project={project} locale={locale} />
           </div>
         </section>
 
         {/* Key Features & Functional Capabilities */}
         <section className="space-y-6">
-          <div className="pb-3 border-b border-white/[0.08]">
+          <div className="pb-3 border-b border-[var(--border-hairline)]">
             <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
               {t('featuresHeading')}
             </span>
@@ -226,16 +223,16 @@ export default async function ProjectDetailPage({
             {project.features.map((feat) => (
               <div
                 key={feat.code}
-                className="p-6 sm:p-8 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 transition-all shadow-lg flex flex-col justify-between group"
+                className="p-6 sm:p-8 rounded-3xl theme-card hover:border-[var(--accent-primary)]/40 transition-all shadow-lg flex flex-col justify-between group"
               >
                 <div>
-                  <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-[var(--border-hairline)] mb-4">
                     <span className="font-mono text-xs font-bold text-[var(--accent-primary)]">
                       {feat.code}
                     </span>
                     <CheckCircle2 className="h-4 w-4 text-[var(--accent-primary)]" />
                   </div>
-                  <h3 className="font-display font-bold text-lg text-white mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
+                  <h3 className="font-display font-bold text-lg text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors">
                     {tField(feat.title, locale)}
                   </h3>
                   <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
@@ -249,7 +246,7 @@ export default async function ProjectDetailPage({
 
         {/* Engineering Challenges & Solutions */}
         <section className="space-y-6">
-          <div className="pb-3 border-b border-white/[0.08]">
+          <div className="pb-3 border-b border-[var(--border-hairline)]">
             <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
               {t('challengesHeading')}
             </span>
@@ -259,14 +256,14 @@ export default async function ProjectDetailPage({
             {project.challenges.map((ch, idx) => (
               <div
                 key={idx}
-                className="p-6 sm:p-8 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] shadow-xl space-y-4"
+                className="p-6 sm:p-8 rounded-3xl theme-card shadow-xl space-y-4"
               >
-                <h3 className="font-display font-bold text-xl text-white">
+                <h3 className="font-display font-bold text-xl text-[var(--text-primary)]">
                   {tField(ch.title, locale)}
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+                  <div className="p-5 rounded-2xl theme-chip">
                     <span className="font-mono text-xs text-[var(--accent-secondary)] font-bold block mb-2">
                       PROBLEM / BOTTLENECK
                     </span>
@@ -275,7 +272,7 @@ export default async function ProjectDetailPage({
                     </p>
                   </div>
 
-                  <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+                  <div className="p-5 rounded-2xl theme-chip">
                     <span className="font-mono text-xs text-[var(--accent-primary)] font-bold block mb-2">
                       ARCHITECTURAL RESOLUTION
                     </span>
@@ -296,13 +293,14 @@ export default async function ProjectDetailPage({
         >
           <Link
             href={`/projects/${prev.slug}`}
-            className="p-6 rounded-2xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 transition-all group flex items-center justify-between"
+            prefetch={true}
+            className="p-6 rounded-2xl theme-card hover:border-[var(--accent-primary)]/40 transition-all group flex items-center justify-between"
           >
             <div>
               <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase block">
                 PREVIOUS PROJECT
               </span>
-              <span className="font-display font-bold text-lg text-white group-hover:text-[var(--accent-primary)] transition-colors">
+              <span className="font-display font-bold text-lg text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
                 ← {prev.name}
               </span>
             </div>
@@ -310,13 +308,14 @@ export default async function ProjectDetailPage({
 
           <Link
             href={`/projects/${next.slug}`}
-            className="p-6 rounded-2xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 transition-all group flex items-center justify-between sm:text-right"
+            prefetch={true}
+            className="p-6 rounded-2xl theme-card hover:border-[var(--accent-primary)]/40 transition-all group flex items-center justify-between sm:text-right"
           >
             <div className="sm:ml-auto">
               <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase block">
                 NEXT PROJECT
               </span>
-              <span className="font-display font-bold text-lg text-white group-hover:text-[var(--accent-primary)] transition-colors">
+              <span className="font-display font-bold text-lg text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
                 {next.name} →
               </span>
             </div>

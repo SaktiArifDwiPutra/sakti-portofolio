@@ -21,19 +21,19 @@ export function ExperienceShowcase() {
             <span className="h-4 w-4 rounded-full bg-[var(--bg-canvas)] border-2 border-[var(--accent-primary)] group-hover:scale-125 transition-transform shadow-md shadow-[var(--accent-primary)]/20" />
           </div>
 
-          <div className="rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 p-6 sm:p-8 transition-all duration-300 shadow-lg">
+          <div className="rounded-3xl theme-card hover:border-[var(--accent-primary)]/40 p-6 sm:p-8 transition-all duration-300 shadow-lg">
             {/* Header: Period & Role */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-white/[0.08]">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[var(--border-hairline)]">
               <div>
                 <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
                   {tField(exp.organization, locale)}
                 </span>
-                <h3 className="font-display font-bold text-xl sm:text-2xl text-white mt-0.5">
+                <h3 className="font-display font-bold text-xl sm:text-2xl text-[var(--text-primary)] mt-0.5">
                   {tField(exp.role, locale)}
                 </h3>
               </div>
 
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-[var(--text-secondary)]">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full theme-chip text-xs font-mono text-[var(--text-secondary)]">
                 <Calendar className="h-3.5 w-3.5 text-[var(--accent-primary)]" />
                 <span>{tField(exp.period, locale)}</span>
               </div>
@@ -46,7 +46,7 @@ export function ExperienceShowcase() {
 
             {/* Deliverables Bullet List */}
             <div className="mt-5 space-y-2">
-              <span className="font-mono text-xs uppercase text-[var(--text-muted)] tracking-wider block">
+              <span className="font-mono text-xs uppercase text-[var(--text-muted)] tracking-wider block font-medium">
                 {locale === 'id' ? 'Kontribusi Utama:' : 'Key Technical Accomplishments:'}
               </span>
               <ul className="space-y-2 text-xs sm:text-sm text-[var(--text-secondary)]">
@@ -60,11 +60,11 @@ export function ExperienceShowcase() {
             </div>
 
             {/* Tech Tags */}
-            <div className="mt-6 pt-4 border-t border-white/[0.06] flex flex-wrap gap-2">
+            <div className="mt-6 pt-4 border-t border-[var(--border-hairline)] flex flex-wrap gap-2">
               {exp.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/[0.06] font-mono text-xs text-[var(--text-primary)]"
+                  className="px-2.5 py-1 rounded-full theme-chip font-mono text-xs text-[var(--text-primary)]"
                 >
                   {tech}
                 </span>
@@ -76,3 +76,4 @@ export function ExperienceShowcase() {
     </div>
   );
 }
+

@@ -44,23 +44,24 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full px-3 sm:px-6 lg:px-8 pt-3 sm:pt-4">
-      <div className="mx-auto flex max-w-[1360px] items-center justify-between rounded-full border border-white/[0.1] bg-[var(--bg-glass)] px-4 sm:px-6 py-2.5 backdrop-blur-xl shadow-xl shadow-black/10">
+      <div className="mx-auto flex max-w-[1360px] items-center justify-between rounded-full border border-[var(--border-hairline)] bg-[var(--bg-glass)] px-4 sm:px-6 py-2.5 backdrop-blur-xl shadow-lg transition-colors">
         {/* Brand Identity */}
         <div className="flex items-center">
           <Link
             href="/"
+            prefetch={true}
             className="group flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] focus-visible:outline-offset-4"
           >
             <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
               SAKTI<span className="text-[var(--accent-primary)]">.</span>
             </span>
-            <span className="hidden md:inline-flex items-center text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider pl-2 border-l border-white/[0.1]">
+            <span className="hidden md:inline-flex items-center text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider pl-2 border-l border-[var(--border-hairline)]">
               Full-Stack &amp; Games
             </span>
           </Link>
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation with prefetch */}
         <nav
           aria-label="Primary Navigation"
           className="hidden md:flex items-center justify-center gap-1"
@@ -71,10 +72,11 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] ${
+                prefetch={true}
+                className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-150 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] ${
                   active
-                    ? 'bg-white/[0.1] text-white font-semibold border border-white/[0.12] shadow-sm'
-                    : 'text-[var(--text-secondary)] hover:text-white hover:bg-white/[0.05]'
+                    ? 'bg-[var(--chip-bg)] text-[var(--text-primary)] font-bold border border-[var(--border-strong)] shadow-sm'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--chip-bg)]'
                 }`}
               >
                 <span className={`text-[10px] ${active ? 'text-[var(--accent-primary)] font-bold' : 'text-[var(--text-muted)]'}`}>
@@ -89,7 +91,7 @@ export function Header() {
         {/* Telemetry Strip & Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Live Jakarta Clock (desktop) */}
-          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.06] text-xs font-mono text-[var(--text-muted)]">
+          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full theme-chip text-xs font-mono text-[var(--text-muted)]">
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-primary)] animate-pulse" />
             <LiveClock />
           </div>
@@ -98,7 +100,7 @@ export function Header() {
           <div
             role="group"
             aria-label={t('switchLanguage')}
-            className="inline-flex items-center rounded-full border border-white/[0.1] bg-white/[0.04] p-0.5"
+            className="inline-flex items-center rounded-full border border-[var(--border-hairline)] bg-[var(--chip-bg)] p-0.5"
           >
             {(['en', 'id'] as const).map((lang) => {
               const isCurrent = locale === lang;
@@ -111,7 +113,7 @@ export function Header() {
                   className={`h-7 px-2.5 rounded-full font-mono text-xs font-semibold uppercase transition-all duration-150 ease-out active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] ${
                     isCurrent
                       ? 'bg-[var(--accent-primary)] text-[var(--accent-primary-ink)] font-bold shadow-sm'
-                      : 'text-[var(--text-secondary)] hover:text-white'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   {lang}
@@ -126,7 +128,7 @@ export function Header() {
             onClick={toggleTheme}
             aria-label={t('toggleTheme')}
             title={theme === 'dark' ? t('themeLight') : t('themeDark')}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.04] text-[var(--text-secondary)] transition-all duration-150 ease-out hover:border-[var(--accent-primary)]/40 hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)]"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--border-hairline)] bg-[var(--chip-bg)] text-[var(--text-secondary)] transition-all duration-150 ease-out hover:border-[var(--accent-primary)]/40 hover:text-[var(--text-primary)] active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)]"
           >
             {theme === 'dark' ? (
               <Sun className="h-4 w-4 text-[var(--accent-primary)]" />
@@ -141,7 +143,7 @@ export function Header() {
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? t('closeMenu') : t('openMenu')}
-            className="inline-flex md:hidden h-8 w-8 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.04] text-[var(--text-primary)] transition-all duration-150 ease-out active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)]"
+            className="inline-flex md:hidden h-8 w-8 items-center justify-center rounded-full border border-[var(--border-hairline)] bg-[var(--chip-bg)] text-[var(--text-primary)] transition-all duration-150 ease-out active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)]"
           >
             {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -150,8 +152,8 @@ export function Header() {
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden mt-2 rounded-2xl border border-white/[0.1] bg-[var(--bg-glass)] p-4 backdrop-blur-2xl shadow-2xl">
-          <div className="pb-3 border-b border-white/[0.08] flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
+        <div className="md:hidden mt-2 rounded-2xl border border-[var(--border-hairline)] bg-[var(--bg-glass)] p-4 backdrop-blur-2xl shadow-2xl">
+          <div className="pb-3 border-b border-[var(--border-hairline)] flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
             <LiveClock />
             <span className="text-[var(--accent-primary)] font-medium">● AVAILABLE</span>
           </div>
@@ -162,11 +164,12 @@ export function Header() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
+                    prefetch={true}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                       active
-                        ? 'bg-white/[0.08] text-[var(--accent-primary)] font-semibold'
-                        : 'text-[var(--text-secondary)] hover:text-white hover:bg-white/[0.04]'
+                        ? 'bg-[var(--chip-bg)] text-[var(--accent-primary)] font-bold'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--chip-bg)]'
                     }`}
                   >
                     <span>{item.label}</span>
