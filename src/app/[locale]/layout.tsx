@@ -8,6 +8,7 @@ import { routing, type Locale } from '@/i18n/routing';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { IntroSplash } from '@/components/IntroSplash';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -86,6 +87,7 @@ export default async function LocaleLayout({
       <body className="flex min-h-dvh flex-col antialiased">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
+            <IntroSplash />
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
