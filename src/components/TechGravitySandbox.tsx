@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Zap, Layers, RefreshCw, Cpu, Activity } from 'lucide-react';
+import { Sparkles, Zap, Cpu, Activity, Move } from 'lucide-react';
 
 interface TechNode {
   id: string;
@@ -18,41 +18,47 @@ interface TechNode {
   role: string;
 }
 
-const INITIAL_NODES: TechNode[] = [
-  { id: 'react', name: 'React 19', category: 'frontend', color: '#61dafb', x: 22, y: 35, vx: 0.2, vy: 0.3, iconText: 'Re', projectNote: 'CritiPlay component architecture & state lifecycle', role: 'Component Architecture' },
-  { id: 'nextjs', name: 'Next.js 15', category: 'frontend', color: '#ffffff', x: 48, y: 20, vx: -0.25, vy: 0.2, iconText: 'Nx', projectNote: 'App Router, SSG/SSR & bilingual internationalization', role: 'Full-Stack Framework' },
-  { id: 'typescript', name: 'TypeScript', category: 'frontend', color: '#3178c6', x: 75, y: 30, vx: 0.15, vy: -0.25, iconText: 'TS', projectNote: 'Strict type contracts & end-to-end domain safety', role: 'Type Systems' },
-  { id: 'laravel', name: 'Laravel', category: 'backend', color: '#ff2d20', x: 30, y: 70, vx: 0.2, vy: -0.15, iconText: 'Lv', projectNote: 'REST APIs, Eloquent ORM & token authentication', role: 'API & Backend' },
-  { id: 'mysql', name: 'MySQL', category: 'backend', color: '#00758f', x: 62, y: 68, vx: -0.2, vy: -0.2, iconText: 'SQL', projectNote: 'Relational schema design, indexes & data persistence', role: 'Relational Database' },
-  { id: 'godot', name: 'Godot Engine 4', category: 'game', color: '#478cbf', x: 80, y: 65, vx: 0.25, vy: 0.15, iconText: 'Gd', projectNote: 'Scene tree composition & signal bus in Negeri Kelabu', role: 'Game Engine' },
-  { id: 'gdscript', name: 'GDScript', category: 'game', color: '#a78bfa', x: 88, y: 40, vx: -0.18, vy: 0.22, iconText: 'GS', projectNote: 'State machines, dialogue tree parsers & day rhythm loops', role: 'Game Scripting' },
-  { id: 'flutter', name: 'Flutter & Dart', category: 'mobile', color: '#54c5f8', x: 15, y: 55, vx: 0.22, vy: -0.18, iconText: 'Fl', projectNote: 'Cross-platform mobile UI for LaundryFlow operations', role: 'Mobile Client' },
-  { id: 'odoo', name: 'Odoo ERP', category: 'backend', color: '#714b67', x: 42, y: 50, vx: -0.15, vy: 0.25, iconText: 'Od', projectNote: 'Centralized business models & mobile dispatch bridging', role: 'Enterprise Integration' },
-  { id: 'tailwind', name: 'Tailwind CSS', category: 'frontend', color: '#38bdf8', x: 58, y: 40, vx: 0.18, vy: -0.2, iconText: 'TW', projectNote: 'Fluid responsive design systems & token styling', role: 'Styling Engine' },
+const ALL_GITHUB_TECH_NODES: TechNode[] = [
+  { id: 'react', name: 'React 19', category: 'frontend', color: '#61dafb', x: 20, y: 30, vx: 0.18, vy: 0.22, iconText: 'Re', projectNote: 'CritiPlay component hierarchy & reactive review feeds', role: 'Frontend UI' },
+  { id: 'typescript', name: 'TypeScript', category: 'frontend', color: '#3178c6', x: 45, y: 22, vx: -0.2, vy: 0.15, iconText: 'TS', projectNote: 'End-to-end type safety in CritiPlay, Dragonhold & Coordina', role: 'Type Systems' },
+  { id: 'nextjs', name: 'Next.js 15', category: 'frontend', color: '#ffffff', x: 72, y: 28, vx: 0.15, vy: -0.22, iconText: 'Nx', projectNote: 'App router, SSG/SSR bilingual architectures', role: 'Full-Stack Framework' },
+  { id: 'php', name: 'PHP Native', category: 'backend', color: '#8892be', x: 15, y: 68, vx: 0.22, vy: -0.16, iconText: 'PHP', projectNote: 'Pilketos Web App multi-role authentication & voting engine', role: 'Server-Side Web' },
+  { id: 'laravel', name: 'Laravel', category: 'backend', color: '#ff2d20', x: 38, y: 72, vx: -0.18, vy: 0.18, iconText: 'Lv', projectNote: 'RESTful API architecture & Eloquent ORM in CritiPlay', role: 'Backend Framework' },
+  { id: 'mysql', name: 'MySQL', category: 'backend', color: '#00758f', x: 60, y: 65, vx: 0.2, vy: -0.19, iconText: 'SQL', projectNote: 'Relational data schemas for Pilketos, CritiPlay & School databases', role: 'Relational Database' },
+  { id: 'python', name: 'Python', category: 'backend', color: '#3776ab', x: 82, y: 68, vx: -0.22, vy: -0.14, iconText: 'Py', projectNote: 'Custom Odoo ERP module development in eventflow_management', role: 'ERP Scripting' },
+  { id: 'odoo', name: 'Odoo ERP', category: 'backend', color: '#714b67', x: 50, y: 48, vx: 0.14, vy: 0.22, iconText: 'Od', projectNote: 'Resource modeling in LaundryFlow & eventflow_management module', role: 'Enterprise Systems' },
+  { id: 'flutter', name: 'Flutter & Dart', category: 'mobile', color: '#54c5f8', x: 12, y: 48, vx: 0.2, vy: -0.22, iconText: 'Fl', projectNote: 'Operational mobile workflow app in LaundryFlow', role: 'Cross-Platform Mobile' },
+  { id: 'canvas', name: 'HTML5 & Canvas Game', category: 'game', color: '#f59e0b', x: 86, y: 25, vx: -0.16, vy: 0.2, iconText: 'JS', projectNote: 'Interactive educational game mechanics in Daus Anak Soleh', role: 'Game Programming' },
+  { id: 'godot', name: 'Godot Engine 4', category: 'game', color: '#478cbf', x: 84, y: 46, vx: 0.22, vy: -0.18, iconText: 'Gd', projectNote: 'Node-based scene composition & signal architecture in Negeri Kelabu', role: 'Indie Game Engine' },
+  { id: 'tailwind', name: 'Tailwind CSS', category: 'frontend', color: '#38bdf8', x: 32, y: 42, vx: -0.19, vy: -0.15, iconText: 'TW', projectNote: 'Fluid responsive layout tokens & design systems', role: 'Utility Styling' },
+  { id: 'docker', name: 'Docker', category: 'tools', color: '#2496ed', x: 68, y: 45, vx: 0.16, vy: 0.2, iconText: 'Dk', projectNote: 'Containerization & compose orchestrations in Dragonhold', role: 'DevOps & Containers' },
 ];
 
 export function TechGravitySandbox() {
-  const [nodes, setNodes] = useState<TechNode[]>(INITIAL_NODES);
-  const [activeFilter, setActiveFilter] = useState<'all' | 'frontend' | 'backend' | 'game' | 'mobile'>('all');
-  const [selectedNode, setSelectedNode] = useState<TechNode>(INITIAL_NODES[0]);
+  const [nodes, setNodes] = useState<TechNode[]>(ALL_GITHUB_TECH_NODES);
+  const [activeFilter, setActiveFilter] = useState<'all' | 'frontend' | 'backend' | 'game' | 'mobile' | 'tools'>('all');
+  const [selectedNode, setSelectedNode] = useState<TechNode>(ALL_GITHUB_TECH_NODES[0]);
+  const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
   const [impulseActive, setImpulseActive] = useState(false);
   const sandboxRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
 
-  // Floating physics animation loop
+  // Floating physics animation loop (only animates nodes that are NOT currently being dragged by user)
   useEffect(() => {
     const interval = setInterval(() => {
       setNodes((prevNodes) =>
         prevNodes.map((node) => {
+          if (node.id === draggingNodeId) return node;
+
           let nextX = node.x + node.vx;
           let nextY = node.y + node.vy;
           let nextVx = node.vx;
           let nextVy = node.vy;
 
-          // Boundary bouncing (percentages 8% to 92%)
-          if (nextX <= 8 || nextX >= 92) {
+          // Stay inside container bounds (7% to 93%)
+          if (nextX <= 7 || nextX >= 93) {
             nextVx = -nextVx;
-            nextX = Math.max(8, Math.min(92, nextX));
+            nextX = Math.max(7, Math.min(93, nextX));
           }
           if (nextY <= 12 || nextY >= 88) {
             nextVy = -nextVy;
@@ -71,7 +77,7 @@ export function TechGravitySandbox() {
     }, 45);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [draggingNodeId]);
 
   // Trigger Anti-Gravity Shockwave
   const triggerAntiGravityImpulse = () => {
@@ -79,7 +85,7 @@ export function TechGravitySandbox() {
     setNodes((prevNodes) =>
       prevNodes.map((node) => {
         const angle = Math.random() * Math.PI * 2;
-        const speed = 1.2 + Math.random() * 1.5;
+        const speed = 1.3 + Math.random() * 1.6;
         return {
           ...node,
           vx: Math.cos(angle) * speed,
@@ -88,7 +94,6 @@ export function TechGravitySandbox() {
       })
     );
 
-    // Decay velocity back to smooth drift
     setTimeout(() => {
       setNodes((prevNodes) =>
         prevNodes.map((node) => ({
@@ -98,7 +103,7 @@ export function TechGravitySandbox() {
         }))
       );
       setImpulseActive(false);
-    }, 900);
+    }, 850);
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -118,16 +123,17 @@ export function TechGravitySandbox() {
   return (
     <div className="space-y-6">
       {/* Interactive Control Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl theme-card">
+      <div className="flex flex-wrap items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl theme-card shadow-md">
         {/* Category Filters */}
         <div className="flex flex-wrap gap-2">
           {(
             [
-              { id: 'all', label: 'All Systems' },
+              { id: 'all', label: 'All Tech' },
               { id: 'frontend', label: 'Frontend / Web' },
-              { id: 'backend', label: 'Backend / Data' },
-              { id: 'game', label: 'Godot / Game Systems' },
+              { id: 'backend', label: 'Backend / APIs' },
+              { id: 'game', label: 'Game Engines' },
               { id: 'mobile', label: 'Mobile' },
+              { id: 'tools', label: 'DevOps / Tools' },
             ] as const
           ).map((tab) => (
             <button
@@ -149,24 +155,24 @@ export function TechGravitySandbox() {
         <button
           type="button"
           onClick={triggerAntiGravityImpulse}
-          className="interactive-btn interactive-btn-secondary px-4 py-1.5 text-xs font-mono flex items-center gap-2"
+          className="interactive-btn interactive-btn-secondary px-4 py-2 text-xs font-mono flex items-center gap-2"
         >
           <Zap className={`h-3.5 w-3.5 ${impulseActive ? 'text-amber-400 animate-spin' : 'text-[var(--accent-primary)]'}`} />
           <span>Anti-Gravity Impulse</span>
         </button>
       </div>
 
-      {/* Main Physics Arena Container */}
+      {/* Main Physics Arena Container with Touch / Mouse Drag Support */}
       <div
         ref={sandboxRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={() => setMousePos({ x: -1000, y: -1000 })}
-        className="relative h-[420px] sm:h-[480px] w-full rounded-3xl theme-card overflow-hidden shadow-2xl select-none"
+        className="relative h-[440px] sm:h-[500px] w-full rounded-3xl theme-card overflow-hidden shadow-2xl select-none touch-none"
         style={{
           background: 'radial-gradient(ellipse 90% 80% at 50% 50%, rgba(20, 24, 33, 0.95), var(--bg-canvas))',
         }}
       >
-        {/* Background Grid & Coordinate Lines */}
+        {/* Background Coordinate Grid */}
         <div 
           aria-hidden="true" 
           className="absolute inset-0 opacity-[0.07] pointer-events-none"
@@ -183,30 +189,49 @@ export function TechGravitySandbox() {
           style={{ left: `${mousePos.x}%`, top: `${mousePos.y}%` }}
         />
 
-        {/* Interactive Floating Nodes */}
+        {/* Interactive Draggable Floating Tech Nodes */}
         {filteredNodes.map((node) => {
           const isSelected = selectedNode.id === node.id;
+          const isBeingDragged = draggingNodeId === node.id;
 
           return (
             <motion.div
               key={node.id}
+              drag
+              dragConstraints={sandboxRef}
+              dragElastic={0.06}
+              onDragStart={() => setDraggingNodeId(node.id)}
+              onDragEnd={(e, info) => {
+                setDraggingNodeId(null);
+                // Update node position relative to sandbox container
+                if (sandboxRef.current) {
+                  const rect = sandboxRef.current.getBoundingClientRect();
+                  const newX = Math.max(7, Math.min(93, ((info.point.x - rect.left) / rect.width) * 100));
+                  const newY = Math.max(12, Math.min(88, ((info.point.y - rect.top) / rect.height) * 100));
+                  setNodes((prev) =>
+                    prev.map((n) => (n.id === node.id ? { ...n, x: newX, y: newY } : n))
+                  );
+                }
+              }}
+              whileHover={{ scale: 1.15 }}
+              whileDrag={{ scale: 1.3, zIndex: 60, cursor: 'grabbing' }}
               onClick={() => setSelectedNode(node)}
-              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20 group"
+              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing z-20 group"
               style={{
                 left: `${node.x}%`,
                 top: `${node.y}%`,
-                transition: 'left 45ms linear, top 45ms linear',
+                transition: isBeingDragged ? 'none' : 'left 45ms linear, top 45ms linear',
               }}
             >
-              {/* Outer Energy Halo */}
+              {/* Outer Glowing Tactile Capsule */}
               <div
                 className={`relative flex items-center justify-center rounded-2xl p-3 sm:p-3.5 backdrop-blur-md transition-all duration-200 ${
                   isSelected
-                    ? 'scale-125 border-2 shadow-2xl'
-                    : 'group-hover:scale-115 border hover:shadow-lg'
+                    ? 'border-2 shadow-2xl'
+                    : 'border hover:shadow-lg'
                 }`}
                 style={{
-                  backgroundColor: isSelected ? 'rgba(255,255,255,0.12)' : 'rgba(255, 255, 255, 0.05)',
+                  backgroundColor: isSelected ? 'rgba(255,255,255,0.14)' : 'rgba(255, 255, 255, 0.05)',
                   borderColor: isSelected ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.12)',
                   boxShadow: isSelected ? '0 0 25px rgba(194, 237, 48, 0.35)' : 'none',
                 }}
@@ -219,7 +244,7 @@ export function TechGravitySandbox() {
                   {node.iconText}
                 </span>
 
-                {/* Status Indicator Dot */}
+                {/* Status Dot */}
                 <span
                   className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full border border-black"
                   style={{ backgroundColor: node.color }}
@@ -227,7 +252,7 @@ export function TechGravitySandbox() {
               </div>
 
               {/* Tooltip Tag */}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1.5 px-2 py-0.5 rounded-full bg-black/80 border border-white/10 text-[10px] font-mono text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-md">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1.5 px-2 py-0.5 rounded-full bg-black/85 border border-white/10 text-[10px] font-mono text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-md">
                 {node.name}
               </div>
             </motion.div>
@@ -238,9 +263,12 @@ export function TechGravitySandbox() {
         <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between font-mono text-[11px] text-[var(--text-muted)] pointer-events-none">
           <div className="flex items-center gap-2">
             <Activity className="h-3.5 w-3.5 text-[var(--accent-primary)] animate-pulse" />
-            <span>ZERO-G COMPUTATION ENGINE</span>
+            <span>ZERO-G COMPUTATION CHAMBER</span>
           </div>
-          <span>CLICK ANY NODE TO INSPECT</span>
+          <span className="flex items-center gap-1.5">
+            <Move className="h-3 w-3 text-[var(--accent-primary)]" />
+            <span>DRAG ANY BOX WITH CURSOR OR THUMB 🕹️</span>
+          </span>
         </div>
       </div>
 
@@ -262,7 +290,7 @@ export function TechGravitySandbox() {
               >
                 {selectedNode.name}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full theme-chip font-mono text-[10px] uppercase">
+              <span className="px-2.5 py-0.5 rounded-full theme-chip font-mono text-[10px] uppercase font-semibold">
                 {selectedNode.role}
               </span>
             </div>
@@ -273,7 +301,7 @@ export function TechGravitySandbox() {
 
           <div className="shrink-0 flex items-center gap-2 font-mono text-xs text-[var(--text-muted)]">
             <Cpu className="h-4 w-4 text-[var(--accent-primary)]" />
-            <span>Architecture Verified</span>
+            <span>Verified in GitHub Repos</span>
           </div>
         </motion.div>
       </AnimatePresence>
