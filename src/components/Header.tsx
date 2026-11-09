@@ -43,19 +43,19 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-hairline bg-[var(--bg-glass)] backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1360px] items-stretch justify-between px-4 sm:px-6 lg:px-10">
+    <header className="sticky top-0 z-50 w-full px-3 sm:px-6 lg:px-8 pt-3 sm:pt-4">
+      <div className="mx-auto flex max-w-[1360px] items-center justify-between rounded-full border border-white/[0.1] bg-[var(--bg-glass)] px-4 sm:px-6 py-2.5 backdrop-blur-xl shadow-xl shadow-black/10">
         {/* Brand Identity */}
-        <div className="flex items-center py-4 pr-6">
+        <div className="flex items-center">
           <Link
             href="/"
-            className="group flex items-baseline gap-2.5 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] focus-visible:outline-offset-4"
+            className="group flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] focus-visible:outline-offset-4"
           >
-            <span className="font-display font-bold text-xl sm:text-2xl tracking-tight text-primary-ink group-hover:text-accent transition-colors">
-              SAKTI
+            <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
+              SAKTI<span className="text-[var(--accent-primary)]">.</span>
             </span>
-            <span className="font-mono text-[10px] text-muted-ink uppercase tracking-wider hidden sm:inline">
-              / Systems &amp; Games
+            <span className="hidden md:inline-flex items-center text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider pl-2 border-l border-white/[0.1]">
+              Full-Stack &amp; Games
             </span>
           </Link>
         </div>
@@ -63,42 +63,33 @@ export function Header() {
         {/* Desktop Navigation */}
         <nav
           aria-label="Primary Navigation"
-          className="hidden md:flex items-stretch flex-1 justify-center"
+          className="hidden md:flex items-center justify-center gap-1"
         >
-          <ul className="flex items-stretch">
-            {navItems.map((item) => {
-              const active = isRouteActive(item.href);
-              return (
-                <li key={item.href} className="flex items-stretch">
-                  <Link
-                    href={item.href}
-                    className={`relative flex items-center gap-2 px-4 lg:px-5 text-sm font-medium transition-colors duration-150 ease-out focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] -outline-offset-2 ${
-                      active
-                        ? 'text-primary-ink bg-surface'
-                        : 'text-secondary-ink hover:text-primary-ink'
-                    }`}
-                  >
-                    <span className="font-mono text-[11px] text-muted-ink">
-                      {item.code}
-                    </span>
-                    <span>{item.label}</span>
-                    {active && (
-                      <span
-                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--accent-primary)]"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          {navItems.map((item) => {
+            const active = isRouteActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] ${
+                  active
+                    ? 'bg-white/[0.1] text-white font-semibold border border-white/[0.12] shadow-sm'
+                    : 'text-[var(--text-secondary)] hover:text-white hover:bg-white/[0.05]'
+                }`}
+              >
+                <span className={`text-[10px] ${active ? 'text-[var(--accent-primary)] font-bold' : 'text-[var(--text-muted)]'}`}>
+                  {item.code}
+                </span>
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Telemetry Strip & Controls */}
-        <div className="flex items-center gap-3 sm:gap-4 pl-4 py-2">
+        <div className="flex items-center gap-2 sm:gap-3">
           {/* Live Jakarta Clock (desktop) */}
-          <div className="hidden xl:flex items-center gap-2 border-r border-hairline pr-4">
+          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.06] text-xs font-mono text-[var(--text-muted)]">
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-primary)] animate-pulse" />
             <LiveClock />
           </div>
@@ -107,7 +98,7 @@ export function Header() {
           <div
             role="group"
             aria-label={t('switchLanguage')}
-            className="inline-flex items-center border border-hairline bg-surface p-0.5"
+            className="inline-flex items-center rounded-full border border-white/[0.1] bg-white/[0.04] p-0.5"
           >
             {(['en', 'id'] as const).map((lang) => {
               const isCurrent = locale === lang;
@@ -117,10 +108,10 @@ export function Header() {
                   type="button"
                   onClick={() => handleLocaleSwitch(lang)}
                   aria-pressed={isCurrent}
-                  className={`min-h-[32px] min-w-[34px] px-2 font-mono text-xs font-semibold uppercase transition-all duration-150 ease-out active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] ${
+                  className={`h-7 px-2.5 rounded-full font-mono text-xs font-semibold uppercase transition-all duration-150 ease-out active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] ${
                     isCurrent
-                      ? 'bg-[var(--accent-primary)] text-[var(--accent-primary-ink)]'
-                      : 'text-secondary-ink hover:text-primary-ink'
+                      ? 'bg-[var(--accent-primary)] text-[var(--accent-primary-ink)] font-bold shadow-sm'
+                      : 'text-[var(--text-secondary)] hover:text-white'
                   }`}
                 >
                   {lang}
@@ -135,7 +126,7 @@ export function Header() {
             onClick={toggleTheme}
             aria-label={t('toggleTheme')}
             title={theme === 'dark' ? t('themeLight') : t('themeDark')}
-            className="inline-flex min-h-[36px] min-w-[36px] items-center justify-center border border-hairline bg-surface px-2 text-secondary-ink transition-colors duration-150 ease-out hover:border-strong hover:text-primary-ink active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)]"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.04] text-[var(--text-secondary)] transition-all duration-150 ease-out hover:border-[var(--accent-primary)]/40 hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)]"
           >
             {theme === 'dark' ? (
               <Sun className="h-4 w-4 text-[var(--accent-primary)]" />
@@ -150,24 +141,21 @@ export function Header() {
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? t('closeMenu') : t('openMenu')}
-            className="inline-flex md:hidden min-h-[44px] min-w-[44px] items-center justify-center border border-hairline bg-surface text-primary-ink transition-colors duration-150 ease-out active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)]"
+            className="inline-flex md:hidden h-8 w-8 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.04] text-[var(--text-primary)] transition-all duration-150 ease-out active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)]"
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <nav
-          aria-label="Mobile Navigation"
-          className="md:hidden border-t border-hairline bg-canvas"
-        >
-          <div className="p-4 border-b border-hairline flex items-center justify-between text-xs font-mono text-secondary-ink">
+        <div className="md:hidden mt-2 rounded-2xl border border-white/[0.1] bg-[var(--bg-glass)] p-4 backdrop-blur-2xl shadow-2xl">
+          <div className="pb-3 border-b border-white/[0.08] flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
             <LiveClock />
-            <span className="text-accent">● AVAILABLE FOR WORK</span>
+            <span className="text-[var(--accent-primary)] font-medium">● AVAILABLE</span>
           </div>
-          <ul className="divide-y divide-[var(--border-hairline)]">
+          <ul className="pt-2 space-y-1">
             {navItems.map((item) => {
               const active = isRouteActive(item.href);
               return (
@@ -175,25 +163,20 @@ export function Header() {
                   <Link
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex min-h-[52px] items-center justify-between px-6 py-3 text-base font-medium transition-colors duration-150 ${
+                    className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                       active
-                        ? 'bg-surface text-accent font-semibold'
-                        : 'text-primary-ink hover:bg-surface'
+                        ? 'bg-white/[0.08] text-[var(--accent-primary)] font-semibold'
+                        : 'text-[var(--text-secondary)] hover:text-white hover:bg-white/[0.04]'
                     }`}
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-xs text-muted-ink">
-                        {item.code}
-                      </span>
-                      <span>{item.label}</span>
-                    </div>
-                    <ArrowUpRight className="h-4 w-4 text-muted-ink" />
+                    <span>{item.label}</span>
+                    <span className="font-mono text-xs opacity-60">{item.code}</span>
                   </Link>
                 </li>
               );
             })}
           </ul>
-        </nav>
+        </div>
       )}
     </header>
   );
