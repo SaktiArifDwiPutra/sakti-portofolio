@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans, JetBrains_Mono, Newsreader } from 'next/font/google';
+import { Plus_Jakarta_Sans, JetBrains_Mono, Space_Grotesk } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -16,12 +16,11 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   weight: ['400', '500', '600', '700'],
 });
 
-const newsreader = Newsreader({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-serif',
+  variable: '--font-display',
   display: 'swap',
-  style: ['normal', 'italic'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -82,7 +81,7 @@ export default async function LocaleLayout({
       lang={locale}
       data-theme="dark"
       suppressHydrationWarning
-      className={`${plusJakartaSans.variable} ${newsreader.variable} ${jetbrainsMono.variable}`}
+      className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
       <body className="flex min-h-dvh flex-col antialiased">
         <NextIntlClientProvider messages={messages}>

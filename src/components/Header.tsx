@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { Link, usePathname, useRouter, type Locale } from '@/i18n/routing';
 import { useTheme } from './ThemeProvider';
+import { LiveClock } from './LiveClock';
 import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-react';
 
 export function Header() {
@@ -44,22 +45,22 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-hairline bg-[var(--bg-glass)] backdrop-blur-md">
       <div className="mx-auto flex max-w-[1360px] items-stretch justify-between px-4 sm:px-6 lg:px-10">
-        {/* Brand Identity Cell */}
+        {/* Brand Identity */}
         <div className="flex items-center py-4 pr-6">
           <Link
             href="/"
             className="group flex items-baseline gap-2.5 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] focus-visible:outline-offset-4"
           >
-            <span className="font-serif text-xl sm:text-2xl font-normal tracking-tight text-primary-ink group-hover:text-accent transition-colors">
-              Sakti
+            <span className="font-display font-bold text-xl sm:text-2xl tracking-tight text-primary-ink group-hover:text-accent transition-colors">
+              SAKTI
             </span>
             <span className="font-mono text-[10px] text-muted-ink uppercase tracking-wider hidden sm:inline">
-              / {t('edition')}
+              / Systems &amp; Games
             </span>
           </Link>
         </div>
 
-        {/* Desktop Architectural Navigation */}
+        {/* Desktop Navigation */}
         <nav
           aria-label="Primary Navigation"
           className="hidden md:flex items-stretch flex-1 justify-center"
@@ -94,8 +95,14 @@ export function Header() {
           </ul>
         </nav>
 
-        {/* Controls Cell: Language Switcher + Theme Toggle + Mobile Menu */}
-        <div className="flex items-center gap-2 sm:gap-3 pl-4 border-l border-hairline py-2">
+        {/* Telemetry Strip & Controls */}
+        <div className="flex items-center gap-3 sm:gap-4 pl-4 py-2">
+          {/* Live Jakarta Clock (desktop) */}
+          <div className="hidden xl:flex items-center gap-2 border-r border-hairline pr-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-primary)] animate-pulse" />
+            <LiveClock />
+          </div>
+
           {/* Language Switcher (EN / ID) */}
           <div
             role="group"
@@ -110,7 +117,7 @@ export function Header() {
                   type="button"
                   onClick={() => handleLocaleSwitch(lang)}
                   aria-pressed={isCurrent}
-                  className={`min-h-[34px] min-w-[36px] px-2.5 font-mono text-xs font-semibold uppercase transition-all duration-150 ease-out active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] ${
+                  className={`min-h-[32px] min-w-[34px] px-2 font-mono text-xs font-semibold uppercase transition-all duration-150 ease-out active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)] ${
                     isCurrent
                       ? 'bg-[var(--accent-primary)] text-[var(--accent-primary-ink)]'
                       : 'text-secondary-ink hover:text-primary-ink'
@@ -128,19 +135,16 @@ export function Header() {
             onClick={toggleTheme}
             aria-label={t('toggleTheme')}
             title={theme === 'dark' ? t('themeLight') : t('themeDark')}
-            className="inline-flex min-h-[38px] min-w-[38px] items-center justify-center border border-hairline bg-surface px-2.5 text-secondary-ink transition-colors duration-150 ease-out hover:border-strong hover:text-primary-ink active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)]"
+            className="inline-flex min-h-[36px] min-w-[36px] items-center justify-center border border-hairline bg-surface px-2 text-secondary-ink transition-colors duration-150 ease-out hover:border-strong hover:text-primary-ink active:scale-95 focus-visible:outline-2 focus-visible:outline-[var(--accent-primary)]"
           >
             {theme === 'dark' ? (
               <Sun className="h-4 w-4 text-[var(--accent-primary)]" />
             ) : (
               <Moon className="h-4 w-4 text-[var(--accent-primary)]" />
             )}
-            <span className="ml-1.5 hidden lg:inline font-mono text-xs">
-              {theme === 'dark' ? t('themeDark') : t('themeLight')}
-            </span>
           </button>
 
-          {/* Mobile Drawer Trigger (44x44px touch target) */}
+          {/* Mobile Drawer Trigger */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
@@ -159,6 +163,10 @@ export function Header() {
           aria-label="Mobile Navigation"
           className="md:hidden border-t border-hairline bg-canvas"
         >
+          <div className="p-4 border-b border-hairline flex items-center justify-between text-xs font-mono text-secondary-ink">
+            <LiveClock />
+            <span className="text-accent">● AVAILABLE FOR WORK</span>
+          </div>
           <ul className="divide-y divide-[var(--border-hairline)]">
             {navItems.map((item) => {
               const active = isRouteActive(item.href);
@@ -190,4 +198,3 @@ export function Header() {
     </header>
   );
 }
-

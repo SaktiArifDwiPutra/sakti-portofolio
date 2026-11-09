@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { ArrowUp } from 'lucide-react';
 import { OWNER_PROFILE } from '@/data/portfolio';
+import { LiveClock } from './LiveClock';
 
 export function Footer() {
   const t = useTranslations('footer');
@@ -31,9 +32,11 @@ export function Footer() {
                 {t('colophon')}
               </p>
             </div>
-            <p className="font-mono text-xs text-muted-ink">
-              © {new Date().getFullYear()} {OWNER_PROFILE.name}. {t('rights')}
-            </p>
+            <div className="flex flex-wrap items-center gap-4 font-mono text-xs text-muted-ink">
+              <span>© {new Date().getFullYear()} {OWNER_PROFILE.name}. {t('rights')}</span>
+              <span>·</span>
+              <LiveClock />
+            </div>
           </div>
 
           {/* Directory Column */}

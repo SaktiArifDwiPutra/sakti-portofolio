@@ -2,34 +2,34 @@
 
 :root,
 [data-theme="dark"] {
-  --bg-canvas: #0e0f0e;
-  --bg-surface: #151715;
-  --bg-elevated: #1c1f1c;
-  --bg-glass: rgba(14, 15, 14, 0.92);
-  --text-primary: #f2efe9;
-  --text-secondary: #a6a49e;
-  --text-muted: #6e6d68;
-  --accent-primary: #c8f560;
-  --accent-primary-ink: #0e0f0e;
+  --bg-canvas: #0f1012;
+  --bg-surface: #151619;
+  --bg-elevated: #1e2024;
+  --bg-glass: rgba(15, 16, 18, 0.92);
+  --text-primary: #f5f4ee;
+  --text-secondary: #9e9d95;
+  --text-muted: #5e6066;
+  --accent-primary: #c2ed30;
+  --accent-primary-ink: #0f1012;
   --accent-secondary: #e07a47;
-  --border-hairline: rgba(242, 239, 233, 0.08);
-  --border-strong: rgba(242, 239, 233, 0.2);
+  --border-hairline: rgba(245, 244, 238, 0.08);
+  --border-strong: rgba(245, 244, 238, 0.2);
   color-scheme: dark;
 }
 
 [data-theme="light"] {
-  --bg-canvas: #f6f3ec;
-  --bg-surface: #ede8dd;
+  --bg-canvas: #f8f7f2;
+  --bg-surface: #eeece4;
   --bg-elevated: #ffffff;
-  --bg-glass: rgba(246, 243, 236, 0.92);
-  --text-primary: #151514;
-  --text-secondary: #4a4945;
-  --text-muted: #7c7b75;
-  --accent-primary: #234f1e;
-  --accent-primary-ink: #f6f3ec;
-  --accent-secondary: #a0491d;
-  --border-hairline: rgba(21, 21, 20, 0.09);
-  --border-strong: rgba(21, 21, 20, 0.24);
+  --bg-glass: rgba(248, 247, 242, 0.92);
+  --text-primary: #121315;
+  --text-secondary: #585954;
+  --text-muted: #82847e;
+  --accent-primary: #2d5a1b;
+  --accent-primary-ink: #f8f7f2;
+  --accent-secondary: #a85422;
+  --border-hairline: rgba(18, 19, 21, 0.1);
+  --border-strong: rgba(18, 19, 21, 0.25);
   color-scheme: light;
 }
 
@@ -64,8 +64,9 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .font-serif {
-    font-family: var(--font-serif), Georgia, Cambria, serif;
+  .font-display {
+    font-family: var(--font-display), "Space Grotesk", sans-serif;
+    letter-spacing: -0.03em;
   }
 
   .font-sans {
@@ -162,21 +163,6 @@
 .interactive-btn-secondary:hover {
   border-color: var(--accent-primary);
   color: var(--accent-primary);
-}
-
-/* Editorial Typography Rhythms */
-.display-hero {
-  font-family: var(--font-serif), Georgia, serif;
-  font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: -0.025em;
-}
-
-.editorial-pullquote {
-  font-family: var(--font-serif), Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.35;
 }
 
 @media (prefers-reduced-motion: reduce) {
