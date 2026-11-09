@@ -1,19 +1,13 @@
 import React from 'react';
-import Image from 'next/image';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link, type Locale } from '@/i18n/routing';
-import {
-  PROJECTS,
-  TECH_STACK,
-  EXPERIENCES,
-  CERTIFICATES,
-  tField,
-  getProjectBySlug,
-} from '@/data/portfolio';
-import { ProjectInteractiveStage } from '@/components/ProjectInteractiveStage';
+import { getProjectBySlug } from '@/data/portfolio';
+import { HeroInteractive } from '@/components/HeroInteractive';
+import { ProjectShowcaseCard } from '@/components/ProjectShowcaseCard';
+import { SkillsShowcase } from '@/components/SkillsShowcase';
+import { ExperienceShowcase } from '@/components/ExperienceShowcase';
 import { ContactSection } from '@/components/ContactSection';
-import { LiveClock } from '@/components/LiveClock';
-import { ArrowUpRight, ArrowDown } from 'lucide-react';
+import { ArrowUpRight, Code, Gamepad2, ArrowRight } from 'lucide-react';
 
 export default async function HomePage({
   params,
@@ -24,416 +18,182 @@ export default async function HomePage({
   const locale = rawLocale as Locale;
   setRequestLocale(locale);
 
-  const heroT = await getTranslations({ locale, namespace: 'hero' });
   const homeT = await getTranslations({ locale, namespace: 'home' });
-  const expT = await getTranslations({ locale, namespace: 'experiencePage' });
-  const certT = await getTranslations({ locale, namespace: 'certificatesPage' });
 
   const critiplay = getProjectBySlug('critiplay')!;
   const laundryflow = getProjectBySlug('laundryflow')!;
   const negeriKelabu = getProjectBySlug('negeri-kelabu')!;
 
   return (
-    <div className="space-y-24 sm:space-y-32">
+    <div className="space-y-24 sm:space-y-36">
       {/* ===================================================================
-          HERO: BOLD EDITORIAL OPENING
+          HERO: INTERACTIVE TYPEWRITER & KINETIC ACCENT (Bryan Jericho + Harithya)
       =================================================================== */}
-      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 pt-10 sm:pt-16">
-        {/* Top Status & Context Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-hairline pb-4 font-mono text-xs">
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[var(--accent-primary)] animate-pulse" />
-            <span className="text-secondary-ink">
-              {locale === 'id' ? 'Terbuka untuk proyek & kolaborasi' : 'Available for select roles & projects'}
-            </span>
-          </div>
-          <div className="flex items-center gap-6 text-muted-ink">
-            <LiveClock />
-            <span className="hidden sm:inline">FULL-STACK &amp; GAME DEV</span>
-          </div>
-        </div>
-
-        {/* Hero Narrative Grid */}
-        <div className="pt-10 sm:pt-16 pb-12 sm:pb-16 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          <div className="lg:col-span-8 space-y-6">
-            <span className="font-mono text-xs text-accent uppercase tracking-widest block">
-              {locale === 'id' ? 'Halo, saya Sakti' : 'Hi, I am Sakti'} — {heroT('rolePrimary')} &amp; {heroT('roleSecondary')}
-            </span>
-
-            <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.5rem] font-bold text-primary-ink leading-[1.05] tracking-tight">
-              Building resilient software systems. Crafting atmospheric digital worlds.
-            </h1>
-
-            <p className="text-base sm:text-xl text-secondary-ink font-light leading-relaxed max-w-[58ch]">
-              {heroT('lead')}
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4 pt-4">
-              <a
-                href="#work"
-                className="interactive-btn interactive-btn-primary min-h-[46px] px-6 py-2.5 font-mono text-xs uppercase tracking-wider"
-              >
-                <span>{heroT('ctaPrimary')}</span>
-                <ArrowDown className="h-4 w-4" />
-              </a>
-              <Link
-                href="/about"
-                className="interactive-btn interactive-btn-secondary min-h-[46px] px-6 py-2.5 font-mono text-xs uppercase tracking-wider"
-              >
-                <span>{heroT('ctaSecondary')}</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Right Highlights Dossier (inspired by Bryan Jericho & Harithya) */}
-          <div className="lg:col-span-4 border border-hairline bg-surface p-6 sm:p-8 space-y-6">
-            <div>
-              <span className="font-mono text-xs text-muted-ink uppercase block mb-1">
-                Discipline Focus
-              </span>
-              <p className="font-display text-lg font-semibold text-primary-ink">
-                Web Platforms, Mobile &amp; Indie Games
-              </p>
-              <p className="text-xs text-secondary-ink mt-1">
-                Relational APIs, offline-first mobile workflows, and Godot RPG systems.
-              </p>
-            </div>
-
-            <div className="border-t border-hairline pt-4 space-y-2">
-              <span className="font-mono text-xs text-muted-ink uppercase block">
-                Primary Architecture
-              </span>
-              <div className="flex flex-wrap gap-1.5 font-mono text-xs">
-                {['React', 'TypeScript', 'Laravel', 'MySQL', 'Flutter', 'Odoo', 'Godot 4', 'GDScript'].map(t => (
-                  <span key={t} className="px-2 py-0.5 border border-hairline bg-canvas text-primary-ink">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="border-t border-hairline pt-4 flex items-center justify-between font-mono text-xs text-secondary-ink">
-              <span>{heroT('locationValue')}</span>
-              <span className="text-accent font-semibold">UTC+7</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroInteractive />
 
       {/* ===================================================================
-          01 — SELECTED WORK (EXHIBITION OF 3 DISTINCT PROJECTS)
+          01 // SELECTED WORKS: MODERN FULL-WIDTH SHOWCASE CARDS (Omega & Bryan Jericho)
       =================================================================== */}
-      <section id="work" className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 space-y-24 sm:space-y-32">
-        <div className="border-b border-hairline pb-6 flex flex-wrap items-baseline justify-between gap-4">
+      <section id="selected-works" className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 space-y-10 sm:space-y-14">
+        <div className="flex flex-wrap items-baseline justify-between gap-4 pb-6 border-b border-white/[0.08]">
           <div>
-            <span className="font-mono text-xs text-accent uppercase tracking-wider">
-              01 — {homeT('selectedWorksIndex')}
+            <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
+              01 // {homeT('selectedWorksIndex')}
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary-ink mt-1">
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight mt-1">
               {homeT('selectedWorksTitle')}
             </h2>
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-2 max-w-2xl">
+              {homeT('selectedWorksSubtitle')}
+            </p>
           </div>
+
           <Link
             href="/projects"
-            className="font-mono text-xs text-secondary-ink hover:text-accent transition-colors flex items-center gap-1.5"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] text-xs font-mono text-white hover:text-[var(--accent-primary)] transition-all hover:scale-105"
           >
             <span>{homeT('viewAllWorks')}</span>
-            <ArrowUpRight className="h-4 w-4" />
+            <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
         </div>
 
-        {/* -----------------------------------------------------------------
-            PROJECT 1: CRITIPLAY
-        ----------------------------------------------------------------- */}
-        <article className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
-            <div className="lg:col-span-8">
-              <div className="flex items-center gap-3 font-mono text-xs text-secondary-ink mb-2">
-                <span>01</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                <span>{tField(critiplay.category, locale)}</span>
-              </div>
-              <h3 className="font-display text-3xl sm:text-5xl font-bold text-primary-ink tracking-tight">
-                {critiplay.name}
-              </h3>
-              <p className="text-base sm:text-lg text-secondary-ink mt-2 max-w-2xl leading-relaxed">
-                {tField(critiplay.tagline, locale)}
-              </p>
-            </div>
-            <div className="lg:col-span-4 lg:text-right">
-              <Link
-                href="/projects/critiplay"
-                className="interactive-btn interactive-btn-secondary min-h-[42px] px-4 py-2 font-mono text-xs uppercase"
-              >
-                <span>{homeT('readCaseStudy')}</span>
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Interactive Rating Studio */}
-          <ProjectInteractiveStage slug="critiplay" locale={locale} />
-        </article>
-
-        {/* -----------------------------------------------------------------
-            PROJECT 2: LAUNDRYFLOW
-        ----------------------------------------------------------------- */}
-        <article className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
-            <div className="lg:col-span-8">
-              <div className="flex items-center gap-3 font-mono text-xs text-secondary-ink mb-2">
-                <span>02</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                <span>{tField(laundryflow.category, locale)}</span>
-              </div>
-              <h3 className="font-display text-3xl sm:text-5xl font-bold text-primary-ink tracking-tight">
-                {laundryflow.name}
-              </h3>
-              <p className="text-base sm:text-lg text-secondary-ink mt-2 max-w-2xl leading-relaxed">
-                {tField(laundryflow.tagline, locale)}
-              </p>
-            </div>
-            <div className="lg:col-span-4 lg:text-right">
-              <Link
-                href="/projects/laundryflow"
-                className="interactive-btn interactive-btn-secondary min-h-[42px] px-4 py-2 font-mono text-xs uppercase"
-              >
-                <span>{homeT('readCaseStudy')}</span>
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Interactive Mobile-to-Odoo Stage Stepper */}
-          <ProjectInteractiveStage slug="laundryflow" locale={locale} />
-        </article>
-
-        {/* -----------------------------------------------------------------
-            PROJECT 3: NEGERI KELABU
-        ----------------------------------------------------------------- */}
-        <article className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
-            <div className="lg:col-span-8">
-              <div className="flex items-center gap-3 font-mono text-xs text-secondary-ink mb-2">
-                <span>03</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-ochre" />
-                <span>{tField(negeriKelabu.category, locale)}</span>
-              </div>
-              <h3 className="font-display text-3xl sm:text-5xl font-bold text-primary-ink tracking-tight">
-                {negeriKelabu.name}
-              </h3>
-              <p className="text-base sm:text-lg text-secondary-ink mt-2 max-w-2xl leading-relaxed">
-                {tField(negeriKelabu.tagline, locale)}
-              </p>
-            </div>
-            <div className="lg:col-span-4 lg:text-right">
-              <Link
-                href="/projects/negeri-kelabu"
-                className="interactive-btn interactive-btn-secondary min-h-[42px] px-4 py-2 font-mono text-xs uppercase"
-              >
-                <span>{homeT('readCaseStudy')}</span>
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Interactive World Clock & Dialogue Simulator */}
-          <ProjectInteractiveStage slug="negeri-kelabu" locale={locale} />
-        </article>
+        {/* 3 Flagship Projects */}
+        <div className="space-y-10 sm:space-y-14">
+          <ProjectShowcaseCard project={critiplay} orderNumber="01 // WEB ARCHITECTURE & RATINGS" />
+          <ProjectShowcaseCard project={laundryflow} orderNumber="02 // MOBILE CLIENT & ERP DISPATCH" />
+          <ProjectShowcaseCard project={negeriKelabu} orderNumber="03 // INDIE GAME MECHANICS" />
+        </div>
       </section>
 
       {/* ===================================================================
-          02 — DUAL PRACTICE PERSPECTIVE
+          02 // DUAL DISCIPLINES: TWO CORNERSTONES
       =================================================================== */}
-      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10">
-        <div className="border-t border-b border-hairline py-16 sm:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            <div className="lg:col-span-5 space-y-3">
-              <span className="font-mono text-xs text-accent uppercase tracking-wider">
-                02 — {homeT('focusIndex')}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 space-y-10">
+        <div className="pb-6 border-b border-white/[0.08]">
+          <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
+            02 // {homeT('focusIndex')}
+          </span>
+          <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight mt-1">
+            {homeT('focusTitle')}
+          </h2>
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-2 max-w-2xl leading-relaxed">
+            {homeT('focusIntro')}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {/* Discipline 1: Full-Stack Systems */}
+          <div className="p-8 sm:p-10 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 transition-all flex flex-col justify-between group">
+            <div className="space-y-4">
+              <div className="p-3 w-fit rounded-2xl bg-white/[0.04] text-[var(--accent-primary)] border border-white/[0.08] group-hover:scale-110 transition-transform">
+                <Code className="h-6 w-6" />
+              </div>
+              <span className="font-mono text-xs text-[var(--accent-primary)] uppercase tracking-wider block">
+                Discipline Alpha
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary-ink leading-tight">
-                {homeT('focusTitle')}
-              </h2>
+              <h3 className="font-display font-bold text-2xl text-white">
+                {locale === 'id' ? 'Sistem Full-Stack & Solusi Mobile' : 'Full-Stack Systems & Mobile Ergonomics'}
+              </h3>
+              <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                {locale === 'id'
+                  ? 'Membangun aplikasi web dan perangkat mobile yang tangguh dengan React, TypeScript, Laravel, dan Flutter. Berfokus pada integritas skema basis data relasional MySQL, sinkronisasi bisnis Odoo ERP, dan antarmuka pengguna yang bersih.'
+                  : 'Architecting robust web and mobile platforms with React, TypeScript, Laravel, and Flutter. Focused on relational database schema integrity in MySQL, business synchronization in Odoo ERP, and intuitive UX.'}
+              </p>
             </div>
 
-            <div className="lg:col-span-7 space-y-5 text-base sm:text-lg text-secondary-ink leading-relaxed">
-              <p className="text-primary-ink font-medium">
-                {homeT('focusIntro')}
-              </p>
-              <p>
+            <div className="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between font-mono text-xs text-[var(--text-muted)]">
+              <span>React • Laravel • Flutter • Odoo</span>
+              <Link href="/projects" className="text-[var(--accent-primary)] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                <span>Projects</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Discipline 2: Game Development */}
+          <div className="p-8 sm:p-10 rounded-3xl bg-[var(--bg-surface)] border border-white/[0.08] hover:border-[var(--accent-primary)]/40 transition-all flex flex-col justify-between group">
+            <div className="space-y-4">
+              <div className="p-3 w-fit rounded-2xl bg-white/[0.04] text-[var(--accent-primary)] border border-white/[0.08] group-hover:scale-110 transition-transform">
+                <Gamepad2 className="h-6 w-6" />
+              </div>
+              <span className="font-mono text-xs text-[var(--accent-primary)] uppercase tracking-wider block">
+                Discipline Beta
+              </span>
+              <h3 className="font-display font-bold text-2xl text-white">
+                {locale === 'id' ? 'Pengembangan Game & Prototipe Interaktif' : 'Game Development & Interactive Mechanics'}
+              </h3>
+              <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
                 {locale === 'id'
-                  ? 'Dalam rekayasa sistem web & enterprise, disiplin validasi data, kejelasan kontrak API, dan normalisasi skema menjaga agar aplikasi tidak mudah rusak. Namun rekayasa konvensional sering melupakan kepuasan fisik saat berinteraksi.'
-                  : 'In web and enterprise systems engineering, disciplined data validation, explicit API contracts, and schema normalization keep applications resilient. Yet conventional software often forgets the visceral satisfaction of human interaction.'}
+                  ? 'Mengeksplorasi dunia simulasi atmosferik menggunakan Godot Engine 4 dan GDScript. Merancang sistem pohon scene modular, komunikasi berbasis sinyal, mesin state, dan narasi yang responsif terhadap tindakan pemain.'
+                  : 'Prototyping atmospheric simulation loops using Godot Engine 4 and GDScript. Designing modular scene tree architectures, signal buses, finite state machines, and player-responsive narrative dialogues.'}
               </p>
-              <p>
-                {locale === 'id'
-                  ? 'Pengembangan game menuntut ketanggapan frame-level, arsitektur state machine yang ketat, dan perhatian mendalam pada suasana antarmuka. Dengan menyatukan kedua sudut pandang ini, saya membangun produk yang kokoh di belakang layar sekaligus hidup saat disentuh.'
-                  : 'Game development demands frame-level responsiveness, airtight state machine architectures, and a deep sensitivity to mood and pacing. By uniting both perspectives, I engineer software that is architecturally solid beneath the surface and unmistakably alive when interacted with.'}
-              </p>
+            </div>
+
+            <div className="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between font-mono text-xs text-[var(--text-muted)]">
+              <span>Godot 4 • GDScript • State Systems</span>
+              <Link href="/projects/negeri-kelabu" className="text-[var(--accent-primary)] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                <span>Negeri Kelabu</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* ===================================================================
-          03 — TECHNICAL CAPABILITIES & TOOLING
+          03 // CAPABILITIES & TECHNICAL SPECIFICATION (SkillsShowcase)
       =================================================================== */}
-      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10">
-        <div className="pb-8 border-b border-hairline">
-          <span className="font-mono text-xs text-accent uppercase tracking-wider">
-            03 — {homeT('stackIndex')}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 space-y-10">
+        <div className="pb-6 border-b border-white/[0.08]">
+          <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
+            03 // {homeT('stackIndex')}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary-ink mt-1">
+          <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight mt-1">
             {homeT('stackTitle')}
           </h2>
-          <p className="text-secondary-ink text-sm sm:text-base mt-2 max-w-2xl">
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-2 max-w-2xl">
             {homeT('stackSubtitle')}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-8 divide-y lg:divide-y-0 lg:divide-x divide-[var(--border-hairline)]">
-          {TECH_STACK.map((category) => (
-            <div key={category.id} className="pt-6 lg:pt-0 lg:px-6 first:pl-0 space-y-4">
-              <div>
-                <span className="font-mono text-xs text-muted-ink">
-                  {category.code}
-                </span>
-                <h3 className="font-display text-xl font-bold text-primary-ink mt-1">
-                  {tField(category.title, locale)}
-                </h3>
-                <p className="text-xs text-secondary-ink mt-1">
-                  {tField(category.description, locale)}
-                </p>
-              </div>
-
-              <ul className="space-y-3 border-t border-hairline pt-4">
-                {category.items.map((item) => (
-                  <li key={item.name} className="space-y-0.5">
-                    <div className="flex items-center justify-between font-mono text-xs">
-                      <span className="font-semibold text-primary-ink">
-                        {item.name}
-                      </span>
-                      <span className="text-muted-ink">[{item.context}]</span>
-                    </div>
-                    <p className="text-xs text-secondary-ink">
-                      {tField(item.role, locale)}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+        <SkillsShowcase />
       </section>
 
       {/* ===================================================================
-          04 — EXPERIENCE & CREDENTIALS
+          04 // TRAJECTORY & EXPERIENCE (ExperienceShowcase)
+      =================================================================== */}
+      <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10 space-y-10">
+        <div className="flex flex-wrap items-baseline justify-between gap-4 pb-6 border-b border-white/[0.08]">
+          <div>
+            <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
+              04 // {homeT('experienceIndex')}
+            </span>
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight mt-1">
+              {homeT('experienceTitle')}
+            </h2>
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-2 max-w-2xl">
+              {homeT('experienceSubtitle')}
+            </p>
+          </div>
+
+          <Link
+            href="/experience"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] text-xs font-mono text-white hover:text-[var(--accent-primary)] transition-all hover:scale-105"
+          >
+            <span>{homeT('experienceLink')}</span>
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
+        </div>
+
+        <ExperienceShowcase />
+      </section>
+
+      {/* ===================================================================
+          05 // CONTACT & INITIATE DIALOGUE (ContactSection)
       =================================================================== */}
       <section className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 border-t border-hairline pt-16 sm:pt-20">
-          {/* Experience Ledger */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="flex items-baseline justify-between gap-4 border-b border-hairline pb-4">
-              <div>
-                <span className="font-mono text-xs text-accent uppercase tracking-wider">
-                  04 — {homeT('experienceIndex')}
-                </span>
-                <h3 className="font-display text-2xl sm:text-3xl font-bold text-primary-ink mt-1">
-                  {homeT('experienceTitle')}
-                </h3>
-              </div>
-              <Link
-                href="/experience"
-                className="font-mono text-xs text-secondary-ink hover:text-accent transition-colors flex items-center gap-1"
-              >
-                <span>{homeT('experienceLink')}</span>
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="space-y-6 divide-y divide-[var(--border-hairline)]">
-              {EXPERIENCES.map((exp) => (
-                <div key={exp.id} className="pt-6 first:pt-0 space-y-2">
-                  <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
-                    <span className="text-muted-ink">
-                      {exp.index} // {tField(exp.period, locale)}
-                    </span>
-                    <span
-                      className={`px-2 py-0.5 border ${
-                        exp.isPlaceholder
-                          ? 'border-[var(--accent-secondary)] text-accent-ochre'
-                          : 'border-hairline bg-surface text-accent'
-                      }`}
-                    >
-                      {exp.isPlaceholder
-                        ? expT('typePlaceholder')
-                        : expT('typePractice')}
-                    </span>
-                  </div>
-                  <h4 className="font-display text-xl font-bold text-primary-ink">
-                    {tField(exp.role, locale)}
-                  </h4>
-                  <p className="font-mono text-xs text-secondary-ink">
-                    {tField(exp.organization, locale)} — {tField(exp.domain, locale)}
-                  </p>
-                  <p className="text-sm text-secondary-ink leading-relaxed">
-                    {tField(exp.summary, locale)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Credentials Ledger */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="flex items-baseline justify-between gap-4 border-b border-hairline pb-4">
-              <div>
-                <span className="font-mono text-xs text-accent uppercase tracking-wider">
-                  05 — {homeT('certificatesIndex')}
-                </span>
-                <h3 className="font-display text-2xl sm:text-3xl font-bold text-primary-ink mt-1">
-                  {homeT('certificatesTitle')}
-                </h3>
-              </div>
-              <Link
-                href="/certificates"
-                className="font-mono text-xs text-secondary-ink hover:text-accent transition-colors flex items-center gap-1"
-              >
-                <span>{homeT('certificatesLink')}</span>
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="space-y-5 divide-y divide-[var(--border-hairline)]">
-              {CERTIFICATES.map((cert) => (
-                <div key={cert.id} className="pt-5 first:pt-0 space-y-1.5">
-                  <div className="flex items-center justify-between font-mono text-xs">
-                    <span className="text-accent font-semibold">{cert.code}</span>
-                    <span className="text-accent-ochre border border-[var(--accent-secondary)] px-2 py-0.5 text-[11px]">
-                      {certT('placeholderBadge')}
-                    </span>
-                  </div>
-                  <h4 className="font-display text-lg font-bold text-primary-ink">
-                    {tField(cert.title, locale)}
-                  </h4>
-                  <p className="font-mono text-xs text-secondary-ink">
-                    {tField(cert.issuer, locale)} · {tField(cert.date, locale)}
-                  </p>
-                  <p className="text-xs text-muted-ink leading-relaxed">
-                    {tField(cert.statusNote, locale)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <ContactSection />
       </section>
-
-      {/* ===================================================================
-          05 — CONTACT SECTION
-      =================================================================== */}
-      <ContactSection />
     </div>
   );
 }

@@ -112,8 +112,14 @@ export const OWNER_PROFILE = {
   name: 'Sakti',
   handle: 'sakti.dev',
   email: 'sakti@example.com', // [OWNER INPUT]: Replace with actual email address
-  github: 'https://github.com/', // [OWNER INPUT]: Replace with actual GitHub profile URL
-  linkedin: 'https://linkedin.com/', // [OWNER INPUT]: Replace with actual LinkedIn profile URL
+  github: 'https://github.com/SaktiArifDwiPutra',
+  linkedin: 'https://linkedin.com/',
+  cv: '#contact',
+  links: {
+    github: 'https://github.com/SaktiArifDwiPutra',
+    linkedin: 'https://linkedin.com/',
+    cv: '#contact',
+  },
 };
 
 export const PROJECTS: ProjectEntry[] = [
