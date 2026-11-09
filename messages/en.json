@@ -1,0 +1,187 @@
+{
+  "metadata": {
+    "title": "Sakti — Full-Stack & Game Developer",
+    "description": "Personal portfolio and architectural project monograph of Sakti, a developer focused on Full-Stack Development and Game Development.",
+    "aboutTitle": "About — Sakti",
+    "projectsTitle": "Project Archive & Case Studies — Sakti",
+    "experienceTitle": "Experience & Trajectory — Sakti",
+    "certificatesTitle": "Certificates & Credentials — Sakti"
+  },
+  "nav": {
+    "home": "Index",
+    "projects": "Works",
+    "about": "Profile",
+    "experience": "Trajectory",
+    "certificates": "Credentials",
+    "contact": "Inquire",
+    "switchLanguage": "Switch language",
+    "toggleTheme": "Switch visual theme",
+    "themeDark": "Obsidian",
+    "themeLight": "Archival",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "edition": "Monograph Edition"
+  },
+  "hero": {
+    "indexLabel": "00 / PERSONAL MONOGRAPH",
+    "rolePrimary": "Full-Stack Developer",
+    "roleSecondary": "Game Development",
+    "headline": "Building dependable software architectures and expressive interactive worlds.",
+    "lead": "I am Sakti—an independent developer who bridges structured full-stack engineering with experimental game mechanics. Whether designing relational backends, mobile operational workflows, or narrative RPG systems, I focus on clarity, tactile responsiveness, and purposeful craft.",
+    "ctaPrimary": "Explore Selected Works",
+    "ctaSecondary": "Read Developer Profile",
+    "disciplineLabel": "Core Disciplines",
+    "discipline1Title": "Full-Stack Systems",
+    "discipline1Desc": "Web & mobile applications backed by structured APIs, relational databases, and ERP integrations.",
+    "discipline2Title": "Interactive & Game Dev",
+    "discipline2Desc": "Simulation mechanics, state-driven narrative systems, and 2D/3D gameplay loops in Godot.",
+    "locationLabel": "Base",
+    "locationValue": "Indonesia (UTC+7)",
+    "focusLabel": "Approach",
+    "focusValue": "Architecture-first, detail-driven"
+  },
+  "home": {
+    "selectedWorksIndex": "01 / SELECTED WORKS",
+    "selectedWorksTitle": "Engineered Products & Interactive Prototypes",
+    "selectedWorksSubtitle": "Every project is treated as an architectural problem—balancing data modeling, interface ergonomics, and runtime feel.",
+    "viewAllWorks": "Inspect Full Project Catalog",
+    "readCaseStudy": "Read Editorial Case Study",
+    "livePreview": "Interactive Anatomy",
+    "focusIndex": "02 / DUAL PRACTICE",
+    "focusTitle": "Two Disciplines, One Engineering Mindset",
+    "focusIntro": "Software engineering and game development often sit in separate worlds. In my practice, they sharpen one another: enterprise software brings architectural discipline to game state, while game design brings frame-level responsiveness to web and mobile interfaces.",
+    "aboutIndex": "03 / PROFILE PREVIEW",
+    "aboutTitle": "Curious by nature, deliberate in execution.",
+    "aboutBody": "I enjoy taking ideas from rough structural sketches to working digital products. My work spans full-stack web platforms, cross-platform mobile utilities connected to business backends, and independent game concepts exploring atmosphere and systems design.",
+    "aboutLink": "Full Biography & Working Philosophy",
+    "stackIndex": "04 / TECHNICAL SPECIFICATION",
+    "stackTitle": "Tools, Languages & Runtime Environments",
+    "stackSubtitle": "Chosen for reliability, maintainability, and suitability to the problem domain rather than hype.",
+    "experienceIndex": "05 / TRAJECTORY & MILESTONES",
+    "experienceTitle": "Experience & Engineering Practice",
+    "experienceSubtitle": "A transparent record of practical development work, independent engineering, and structured milestones.",
+    "experienceLink": "View Complete Trajectory",
+    "certificatesIndex": "06 / CREDENTIALS & RECOGNITION",
+    "certificatesTitle": "Certificates & Continuous Learning",
+    "certificatesSubtitle": "Verified coursework, technical certifications, and academic documentation.",
+    "certificatesLink": "Open Credentials Registry",
+    "contactIndex": "07 / INITIATE DIALOGUE",
+    "contactTitle": "Let’s discuss software architecture, product engineering, or interactive projects.",
+    "contactSubtitle": "Available for engineering roles, freelance product builds, and technical collaborations."
+  },
+  "projectsPage": {
+    "indexLabel": "ARCHIVE / WORKS CATALOG",
+    "title": "Selected Works & Case Studies",
+    "subtitle": "An indexed catalog of full-stack web platforms, mobile enterprise integrations, and indie game development projects.",
+    "filterAll": "All Works",
+    "filterFullStack": "Full-Stack & Mobile",
+    "filterGame": "Game Development",
+    "roleLabel": "Personal Role",
+    "statusLabel": "Development Status",
+    "stackLabel": "Core Stack",
+    "inspectProject": "Open Case Study",
+    "architecturePreview": "System Anatomy",
+    "extensibleNoteTitle": "Modular Project Registry",
+    "extensibleNoteBody": "All project entries are rendered from a strongly typed catalog in src/data/portfolio.ts—making it effortless to append new works without altering layout components."
+  },
+  "projectDetail": {
+    "backToCatalog": "Back to Works Catalog",
+    "categoryLabel": "Discipline",
+    "roleLabel": "Role",
+    "statusLabel": "Status",
+    "stackLabel": "Technology Stack",
+    "linksLabel": "External References",
+    "repoLink": "Source Repository",
+    "demoLink": "Live Deployment",
+    "linksPending": "Private / Local Build",
+    "overviewHeading": "01 / Executive Overview",
+    "anatomyHeading": "02 / Interactive System & Interface Anatomy",
+    "anatomySub": "Explore the structural layers and functional states engineered for this project.",
+    "featuresHeading": "03 / Key Functional Capabilities",
+    "challengesHeading": "04 / Technical Challenges & Architectural Decisions",
+    "galleryHeading": "05 / Visual Plates & Blueprints",
+    "galleryCaptionPrefix": "Plate",
+    "nextProject": "Next Case Study",
+    "prevProject": "Previous Case Study"
+  },
+  "aboutPage": {
+    "indexLabel": "MONOGRAPH / PROFILE",
+    "title": "Engineering utility, crafting atmosphere.",
+    "lead": "I am Sakti, a developer focused on Full-Stack Development and Game Development. I build digital products that combine clean underlying systems with thoughtful human interaction.",
+    "storyHeading": "01 / Background & Perspective",
+    "storyP1": "My fascination with computing started from two complementary questions: how complex applications manage data reliably behind the scenes, and how interactive worlds evoke curiosity and emotion on screen.",
+    "storyP2": "Rather than narrowing myself into a single rigid box early on, I pursued both full-stack application engineering and game development. Working across React, TypeScript, Laravel, and MySQL taught me how to structure APIs, relational schemas, and maintainable frontends. Building with Flutter and Odoo exposed me to real-world operational workflows on mobile devices. Exploring Godot allowed me to design state machines, narrative progression, and spatial interactions from the ground up.",
+    "storyP3": "Today, I approach every project—whether a review platform, an operational mobile app, or a life-simulation RPG—with the same core standard: understand the problem deeply, design a clear architecture, and sweat the interactive details.",
+    "philosophyHeading": "02 / Engineering Principles",
+    "principles": [
+      {
+        "code": "P.01",
+        "title": "Structure Before Decoration",
+        "body": "A reliable data model and clear state flow matter more than surface-level visual tricks. Good UI grows naturally from well-organized domain logic."
+      },
+      {
+        "code": "P.02",
+        "title": "Cross-Pollination of Disciplines",
+        "body": "Game development teaches frame-level responsiveness and state clarity; full-stack engineering teaches modularity, schema integrity, and maintainability."
+      },
+      {
+        "code": "P.03",
+        "title": "Honest, Maintainable Craft",
+        "body": "Write code that future collaborators—and my future self—can read, debug, and extend without friction."
+      },
+      {
+        "code": "P.04",
+        "title": "Continuous Curiosity",
+        "body": "Technology evolves constantly. Staying hands-on with new runtimes, engines, and architectural patterns keeps problem-solving sharp."
+      }
+    ],
+    "profileSheetHeading": "03 / Developer Specification Sheet",
+    "specName": "Name",
+    "specFocus": "Primary Focus",
+    "specFocusVal": "Full-Stack Development & Game Development",
+    "specLanguages": "Spoken Languages",
+    "specLanguagesVal": "Indonesian (Native), English (Professional)",
+    "specInterests": "Core Interests",
+    "specInterestsVal": "Web Architecture, Mobile Workflows, Indie RPG Systems, UI Ergonomics"
+  },
+  "experiencePage": {
+    "indexLabel": "RECORD / TRAJECTORY",
+    "title": "Experience & Practice Log",
+    "subtitle": "A factual record of hands-on engineering work, project development, and structured slots ready for formal career milestones.",
+    "integrityNoticeTitle": "Content Integrity Note",
+    "integrityNoticeBody": "In accordance with strict content authenticity, no employers, dates, or corporate metrics have been fabricated. Project-based engineering experience is documented alongside clearly labeled placeholders where Sakti can insert formal employment or academic history in src/data/portfolio.ts.",
+    "typePractice": "Independent Engineering",
+    "typePlaceholder": "Owner Input Slot",
+    "deliverablesLabel": "Key Focus & Deliverables"
+  },
+  "certificatesPage": {
+    "indexLabel": "REGISTRY / CREDENTIALS",
+    "title": "Certificates & Recognition",
+    "subtitle": "Verified learning milestones, technical credentials, and structured registry slots for official certificates.",
+    "integrityNoticeTitle": "No Fabricated Credentials",
+    "integrityNoticeBody": "Placeholder slots below are explicitly marked for the owner to populate with real certificate titles, issuing institutions, dates, and verification URLs inside src/data/portfolio.ts.",
+    "issuerLabel": "Issuing Institution",
+    "dateLabel": "Issued",
+    "credentialIdLabel": "Credential Status",
+    "verifyLink": "Verify Credential",
+    "placeholderBadge": "Awaiting Owner Input"
+  },
+  "contact": {
+    "heading": "Direct Channels & Inquiry",
+    "description": "Whether you are a recruiter evaluating engineering fit, a client planning a web or mobile product, or a fellow developer interested in collaborating on games or software, feel free to reach out.",
+    "emailLabel": "Electronic Mail",
+    "githubLabel": "GitHub Profile",
+    "linkedinLabel": "LinkedIn Network",
+    "copyEmail": "Copy Address",
+    "copied": "Copied to clipboard",
+    "statusAvailable": "Open to discussions & opportunities",
+    "ownerNote": "Update contact endpoints in src/data/portfolio.ts"
+  },
+  "footer": {
+    "colophon": "Designed and engineered as a bespoke bilingual monograph. Built with Next.js, TypeScript, Tailwind CSS, and next-intl.",
+    "rights": "All rights reserved.",
+    "navigation": "Directory",
+    "backToTop": "Return to Top"
+  }
+}
+

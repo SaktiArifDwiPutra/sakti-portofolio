@@ -1,0 +1,187 @@
+{
+  "metadata": {
+    "title": "Sakti — Pengembang Full-Stack & Game",
+    "description": "Portofolio personal dan monograf proyek arsitektural milik Sakti, pengembang yang berfokus pada Pengembangan Full-Stack dan Pengembangan Game.",
+    "aboutTitle": "Profil — Sakti",
+    "projectsTitle": "Arsip Proyek & Studi Kasus — Sakti",
+    "experienceTitle": "Pengalaman & Perjalanan — Sakti",
+    "certificatesTitle": "Sertifikat & Kredensial — Sakti"
+  },
+  "nav": {
+    "home": "Indeks",
+    "projects": "Karya",
+    "about": "Profil",
+    "experience": "Perjalanan",
+    "certificates": "Sertifikat",
+    "contact": "Kontak",
+    "switchLanguage": "Ganti bahasa",
+    "toggleTheme": "Ubah tema visual",
+    "themeDark": "Obsidian",
+    "themeLight": "Arsip",
+    "openMenu": "Buka menu navigasi",
+    "closeMenu": "Tutup menu navigasi",
+    "edition": "Edisi Monograf"
+  },
+  "hero": {
+    "indexLabel": "00 / MONOGRAF PERSONAL",
+    "rolePrimary": "Pengembang Full-Stack",
+    "roleSecondary": "Pengembangan Game",
+    "headline": "Membangun arsitektur perangkat lunak yang andal dan dunia interaktif yang ekspresif.",
+    "lead": "Saya Sakti—pengembang independen yang menjembatani rekayasa full-stack terstruktur dengan eksperimen mekanika game. Baik saat merancang backend relasional, alur kerja operasional mobile, maupun sistem RPG naratif, saya berfokus pada kejelasan struktur, ketanggapan interaksi, dan kualitas eksekusi.",
+    "ctaPrimary": "Jelajahi Karya Pilihan",
+    "ctaSecondary": "Baca Profil Pengembang",
+    "disciplineLabel": "Fokus Utama",
+    "discipline1Title": "Sistem Full-Stack",
+    "discipline1Desc": "Aplikasi web & mobile yang didukung API terstruktur, basis data relasional, dan integrasi ERP.",
+    "discipline2Title": "Interaktif & Game Dev",
+    "discipline2Desc": "Mekanika simulasi, sistem narasi berbasis state, dan alur permainan di Godot.",
+    "locationLabel": "Basis",
+    "locationValue": "Indonesia (UTC+7)",
+    "focusLabel": "Pendekatan",
+    "focusValue": "Berbasis arsitektur, berorientasi detail"
+  },
+  "home": {
+    "selectedWorksIndex": "01 / KARYA PILIHAN",
+    "selectedWorksTitle": "Produk Terstruktur & Prototipe Interaktif",
+    "selectedWorksSubtitle": "Setiap proyek diperlakukan sebagai persoalan arsitektural—menyeimbangkan pemodelan data, ergonomi antarmuka, dan kenyamanan eksekusi.",
+    "viewAllWorks": "Lihat Katalog Proyek Lengkap",
+    "readCaseStudy": "Baca Studi Kasus Editorial",
+    "livePreview": "Anatomi Interaktif",
+    "focusIndex": "02 / DUA DISIPLIN",
+    "focusTitle": "Dua Disiplin, Satu Pola Pikir Rekayasa",
+    "focusIntro": "Rekayasa perangkat lunak dan pengembangan game sering kali berada di dunia yang terpisah. Dalam praktik saya, keduanya saling mempertajam: perangkat lunak aplikasi membawa disiplin arsitektur ke pengelolaan state game, sementara desain game menghadirkan ketanggapan interaksi ke antarmuka web dan mobile.",
+    "aboutIndex": "03 / RINGKASAN PROFIL",
+    "aboutTitle": "Didorong rasa ingin tahu, terarah dalam eksekusi.",
+    "aboutBody": "Saya senang mewujudkan ide dari sketsa struktural awal menjadi produk digital yang berfungsi penuh. Karya saya mencakup platform web full-stack, aplikasi mobile lintas platform yang terhubung ke backend bisnis, serta konsep game independen yang mengeksplorasi atmosfer dan desain sistem.",
+    "aboutLink": "Biografi Lengkap & Filosofi Kerja",
+    "stackIndex": "04 / SPESIFIKASI TEKNIS",
+    "stackTitle": "Perangkat, Bahasa & Lingkungan Eksekusi",
+    "stackSubtitle": "Dipilih berdasarkan keandalan, kemudahan pemeliharaan, dan kecocokan dengan ranah masalah.",
+    "experienceIndex": "05 / PERJALANAN & TONGGAK",
+    "experienceTitle": "Pengalaman & Praktik Rekayasa",
+    "experienceSubtitle": "Catatan transparan mengenai praktik pengembangan proyek, rekayasa independen, dan ruang terstruktur untuk riwayat karier.",
+    "experienceLink": "Lihat Perjalanan Lengkap",
+    "certificatesIndex": "06 / KREDENSIAL & PENGAKUAN",
+    "certificatesTitle": "Sertifikat & Pembelajaran Berkelanjutan",
+    "certificatesSubtitle": "Dokumentasi pelatihan teknis, sertifikasi, dan pencapaian akademik.",
+    "certificatesLink": "Buka Registri Sertifikat",
+    "contactIndex": "07 / MULAI DISKUSI",
+    "contactTitle": "Mari berdiskusi tentang arsitektur perangkat lunak, pengembangan produk, atau proyek interaktif.",
+    "contactSubtitle": "Terbuka untuk peluang karier rekayasa perangkat lunak, pembangunan produk lepas, maupun kolaborasi teknis."
+  },
+  "projectsPage": {
+    "indexLabel": "ARSIP / KATALOG KARYA",
+    "title": "Karya Pilihan & Studi Kasus",
+    "subtitle": "Katalog terindeks yang memuat platform web full-stack, integrasi aplikasi mobile enterprise, dan proyek pengembangan game indie.",
+    "filterAll": "Semua Karya",
+    "filterFullStack": "Full-Stack & Mobile",
+    "filterGame": "Pengembangan Game",
+    "roleLabel": "Peran Personal",
+    "statusLabel": "Status Pengembangan",
+    "stackLabel": "Teknologi Utama",
+    "inspectProject": "Buka Studi Kasus",
+    "architecturePreview": "Anatomi Sistem",
+    "extensibleNoteTitle": "Registri Proyek Modular",
+    "extensibleNoteBody": "Seluruh data proyek dirender dari struktur bertipe kuat di src/data/portfolio.ts—memudahkan penambahan proyek baru tanpa mengubah komponen tata letak."
+  },
+  "projectDetail": {
+    "backToCatalog": "Kembali ke Katalog Karya",
+    "categoryLabel": "Disiplin",
+    "roleLabel": "Peran",
+    "statusLabel": "Status",
+    "stackLabel": "Tumpukan Teknologi",
+    "linksLabel": "Tautan Eksternal",
+    "repoLink": "Repositori Kode",
+    "demoLink": "Demo Langsung",
+    "linksPending": "Repositori Privat / Lokal",
+    "overviewHeading": "01 / Ringkasan Eksekutif",
+    "anatomyHeading": "02 / Anatomi Sistem & Antarmuka Interaktif",
+    "anatomySub": "Telusuri lapisan struktural dan alur fungsional yang dirancang untuk proyek ini.",
+    "featuresHeading": "03 / Kapabilitas Fungsional Utama",
+    "challengesHeading": "04 / Tantangan Teknis & Keputusan Arsitektural",
+    "galleryHeading": "05 / Lembar Visual & Cetak Biru",
+    "galleryCaptionPrefix": "Lembar",
+    "nextProject": "Studi Kasus Berikutnya",
+    "prevProject": "Studi Kasus Sebelumnya"
+  },
+  "aboutPage": {
+    "indexLabel": "MONOGRAF / PROFIL",
+    "title": "Merekayasa kegunaan, merajut atmosfer.",
+    "lead": "Saya Sakti, seorang pengembang yang berfokus pada Pengembangan Full-Stack dan Pengembangan Game. Saya membangun produk digital yang memadukan kerapian sistem di balik layar dengan interaksi yang nyaman bagi pengguna.",
+    "storyHeading": "01 / Latar Belakang & Sudut Pandang",
+    "storyP1": "Ketertarikan saya pada dunia komputasi berawal dari dua pertanyaan yang saling melengkapi: bagaimana aplikasi kompleks mengelola data secara andal di balik layar, dan bagaimana dunia interaktif mampu membangkitkan rasa ingin tahu di layar.",
+    "storyP2": "Alih-alih membatasi diri pada satu kotak sempit, saya mendalami rekayasa aplikasi full-stack sekaligus pengembangan game. Bekerja dengan React, TypeScript, Laravel, dan MySQL melatih saya merancang API, skema relasional, dan antarmuka yang mudah dipelihara. Membangun aplikasi dengan Flutter dan Odoo memperkenalkan saya pada alur kerja operasional nyata di perangkat mobile. Sementara itu, bereksperimen dengan Godot memungkinkan saya merancang mesin state, progresi narasi, dan interaksi spasial dari nol.",
+    "storyP3": "Kini, saya mendekati setiap proyek—baik platform ulasan, aplikasi operasional mobile, maupun konsep RPG simulasi kehidupan—dengan standar yang sama: pahami masalahnya secara mendalam, bangun arsitektur yang jernih, dan perhatikan setiap detail interaksi.",
+    "philosophyHeading": "02 / Prinsip Rekayasa",
+    "principles": [
+      {
+        "code": "P.01",
+        "title": "Struktur Sebelum Dekorasi",
+        "body": "Model data yang andal dan alur state yang jelas jauh lebih penting daripada hiasan visual semata. Antarmuka yang baik lahir dari logika domain yang tertata."
+      },
+      {
+        "code": "P.02",
+        "title": "Persilangan Dua Disiplin",
+        "body": "Pengembangan game mengajarkan ketanggapan interaksi dan kejelasan state; rekayasa full-stack mengajarkan modularitas, integritas skema, dan kemudahan pemeliharaan."
+      },
+      {
+        "code": "P.03",
+        "title": "Karya yang Jujur & Terawat",
+        "body": "Menulis kode yang dapat dibaca, ditelusuri, dan dikembangkan lebih lanjut oleh rekan kerja maupun diri sendiri di masa depan tanpa hambatan."
+      },
+      {
+        "code": "P.04",
+        "title": "Rasa Ingin Tahu Berkelanjutan",
+        "body": "Teknologi terus bergerak. Tetap bereksperimen secara langsung dengan runtime, engine, dan pola arsitektur baru menjaga ketajaman dalam memecahkan masalah."
+      }
+    ],
+    "profileSheetHeading": "03 / Lembar Spesifikasi Pengembang",
+    "specName": "Nama",
+    "specFocus": "Fokus Utama",
+    "specFocusVal": "Pengembangan Full-Stack & Pengembangan Game",
+    "specLanguages": "Bahasa Komunikasi",
+    "specLanguagesVal": "Bahasa Indonesia (Utama), Bahasa Inggris (Profesional)",
+    "specInterests": "Minat Teknis",
+    "specInterestsVal": "Arsitektur Web, Alur Kerja Mobile, Sistem RPG Indie, Ergonomi UI"
+  },
+  "experiencePage": {
+    "indexLabel": "CATATAN / PERJALANAN",
+    "title": "Pengalaman & Catatan Praktik",
+    "subtitle": "Dokumentasi faktual mengenai praktik pengembangan proyek, rekayasa perangkat lunak independen, serta slot terstruktur untuk riwayat karier formal.",
+    "integrityNoticeTitle": "Catatan Integritas Konten",
+    "integrityNoticeBody": "Sesuai dengan prinsip keaslian konten, tidak ada nama perusahaan, tanggal kerja, atau metrik klaim yang dikarang. Pengalaman rekayasa berbasis proyek didokumentasikan bersama slot placeholder yang ditandai dengan jelas agar Sakti dapat menambahkan riwayat pekerjaan atau pendidikan resmi melalui src/data/portfolio.ts.",
+    "typePractice": "Rekayasa Independen",
+    "typePlaceholder": "Slot Input Pemilik",
+    "deliverablesLabel": "Fokus Utama & Hasil Kerja"
+  },
+  "certificatesPage": {
+    "indexLabel": "REGISTRI / SERTIFIKAT",
+    "title": "Sertifikat & Pengakuan",
+    "subtitle": "Tonggak pembelajaran terverifikasi, kredensial teknis, dan slot registri terstruktur untuk sertifikat resmi.",
+    "integrityNoticeTitle": "Tanpa Kredensial Rekayasa",
+    "integrityNoticeBody": "Slot di bawah ini ditandai secara eksplisit agar pemilik portofolio dapat mengisi judul sertifikat asli, institusi penerbit, tanggal, dan tautan verifikasi di dalam src/data/portfolio.ts.",
+    "issuerLabel": "Institusi Penerbit",
+    "dateLabel": "Diterbitkan",
+    "credentialIdLabel": "Status Kredensial",
+    "verifyLink": "Verifikasi Kredensial",
+    "placeholderBadge": "Menunggu Input Pemilik"
+  },
+  "contact": {
+    "heading": "Saluran Komunikasi Langsung",
+    "description": "Baik Anda seorang perekrut yang sedang meninjau kecocokan teknis, klien yang merencanakan produk web atau mobile, maupun sesama pengembang yang tertarik berkolaborasi dalam proyek game atau perangkat lunak, silakan hubungi saya.",
+    "emailLabel": "Surat Elektronik",
+    "githubLabel": "Profil GitHub",
+    "linkedinLabel": "Jaringan LinkedIn",
+    "copyEmail": "Salin Alamat",
+    "copied": "Tersalin ke papan klip",
+    "statusAvailable": "Terbuka untuk diskusi & peluang kolaborasi",
+    "ownerNote": "Perbarui tautan kontak di src/data/portfolio.ts"
+  },
+  "footer": {
+    "colophon": "Dirancang dan direkayasa sebagai monograf dwibahasa. Dibangun menggunakan Next.js, TypeScript, Tailwind CSS, dan next-intl.",
+    "rights": "Seluruh hak cipta dilindungi.",
+    "navigation": "Direktori",
+    "backToTop": "Kembali ke Atas"
+  }
+}
+
