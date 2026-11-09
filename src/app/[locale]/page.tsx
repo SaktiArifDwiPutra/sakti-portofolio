@@ -21,8 +21,8 @@ export default async function HomePage({
   const homeT = await getTranslations({ locale, namespace: 'home' });
 
   const critiplay = getProjectBySlug('critiplay')!;
-  const laundryflow = getProjectBySlug('laundryflow')!;
-  const negeriKelabu = getProjectBySlug('negeri-kelabu')!;
+  const dausAnakSoleh = getProjectBySlug('daus-anak-soleh')!;
+  const websitePilketos = getProjectBySlug('website-pilketos')!;
 
   return (
     <div className="space-y-24 sm:space-y-36">
@@ -61,8 +61,33 @@ export default async function HomePage({
         {/* 3 Flagship Projects with 3D Tilt Interaction */}
         <div className="space-y-10 sm:space-y-14">
           <ProjectTiltCard project={critiplay} orderNumber="01 // WEB ARCHITECTURE & RATINGS" />
-          <ProjectTiltCard project={laundryflow} orderNumber="02 // MOBILE CLIENT & ERP DISPATCH" />
-          <ProjectTiltCard project={negeriKelabu} orderNumber="03 // INDIE GAME MECHANICS" />
+          <ProjectTiltCard project={dausAnakSoleh} orderNumber="02 // CANVAS 2D ARITHMETIC GAME" />
+          <ProjectTiltCard project={websitePilketos} orderNumber="03 // MULTI-ROLE E-VOTING SYSTEM" />
+        </div>
+
+        {/* View All Projects Banner */}
+        <div className="p-8 sm:p-10 rounded-3xl theme-card border border-[var(--border-hairline)] shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-1 text-center sm:text-left">
+            <span className="font-mono text-xs text-[var(--accent-primary)] uppercase tracking-wider font-semibold">
+              01.4 // FULL PROJECT ARCHIVE
+            </span>
+            <h3 className="font-display text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
+              {locale === 'id' ? 'Eksplorasi Seluruh Koleksi Proyek' : 'Explore All Engineering Case Studies'}
+            </h3>
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
+              {locale === 'id'
+                ? 'Termasuk LaundryFlow (Mobile Flutter + Odoo ERP), Negeri Kelabu (Godot 4 RPG), dan arsitektur lainnya.'
+                : 'Including LaundryFlow (Flutter Mobile + Odoo ERP), Negeri Kelabu (Godot 4 RPG), and full repositories.'}
+            </p>
+          </div>
+          <Link
+            href="/projects"
+            prefetch={true}
+            className="interactive-btn interactive-btn-primary px-6 py-3.5 text-xs font-mono uppercase tracking-wider shadow-lg shrink-0"
+          >
+            <span>{homeT('viewAllWorks')} (05)</span>
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 

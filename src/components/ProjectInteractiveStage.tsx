@@ -12,6 +12,12 @@ export function ProjectInteractiveStage({ slug, locale }: StageProps) {
   if (slug === 'critiplay') {
     return <CritiPlayStage locale={locale} />;
   }
+  if (slug === 'daus-anak-soleh') {
+    return <DausAnakSolehStage locale={locale} />;
+  }
+  if (slug === 'website-pilketos') {
+    return <PilketosStage locale={locale} />;
+  }
   if (slug === 'laundryflow') {
     return <LaundryFlowStage locale={locale} />;
   }
@@ -624,6 +630,338 @@ function NegeriKelabuStage({ locale }: { locale: Locale }) {
             signal emitted: EventBus.on_dialogue_choice_selected(&quot;
             {choiceTaken}&quot;)
           </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================================
+   STAGE IV: DAUS ANAK SOLEH — 2D CANVAS MATH PUZZLE ENGINE
+============================================================================ */
+function DausAnakSolehStage({ locale }: { locale: Locale }) {
+  const isId = locale === 'id';
+  const [level, setLevel] = useState<1 | 2 | 3>(1);
+  const [score, setScore] = useState(150);
+  const [streak, setStreak] = useState(3);
+  const [answeredState, setAnsweredState] = useState<'idle' | 'correct' | 'wrong'>('idle');
+  const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
+
+  const questions = [
+    {
+      q: '5 + 8 = ?',
+      options: [12, 13, 14, 15],
+      correct: 13,
+      context: isId ? 'Bantu Daus menghitung kurma untuk berbuka puasa' : 'Help Daus count dates for Iftar',
+    },
+    {
+      q: '15 - 7 = ?',
+      options: [6, 7, 8, 9],
+      correct: 8,
+      context: isId ? 'Daus membagikan buku Iqro ke perpustakaan desa' : 'Daus donates Iqro books to the village library',
+    },
+    {
+      q: '4 × 6 = ?',
+      options: [20, 22, 24, 28],
+      correct: 24,
+      context: isId ? 'Menghitung jumlah lentera penerang jalan madrasah' : 'Counting street lanterns for the madrasah',
+    },
+  ];
+
+  const currentQ = questions[activeQuestionIndex];
+
+  const handleAnswer = (choice: number) => {
+    if (answeredState !== 'idle') return;
+
+    if (choice === currentQ.correct) {
+      setAnsweredState('correct');
+      setScore((s) => s + 50 * level);
+      setStreak((st) => st + 1);
+      setTimeout(() => {
+        setActiveQuestionIndex((prev) => (prev + 1) % questions.length);
+        setAnsweredState('idle');
+      }, 1000);
+    } else {
+      setAnsweredState('wrong');
+      setStreak(0);
+      setTimeout(() => {
+        setAnsweredState('idle');
+      }, 800);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-hairline)] pb-4 font-mono text-xs">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-[var(--accent-primary)] animate-pulse" />
+          <span className="text-[var(--text-primary)] font-bold">
+            {isId ? 'SIMULATOR MEKANIKA CANVAS 2D' : '2D CANVAS GAME ENGINE STAGE'}
+          </span>
+          <span className="px-2 py-0.5 rounded-full theme-chip text-[10px]">HTML5 / Web Audio</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <span className="text-[var(--text-muted)]">
+            {isId ? 'Skor' : 'Score'}: <strong className="text-[var(--accent-primary)] font-mono">{score}</strong>
+          </span>
+          <span className="text-[var(--text-muted)]">
+            Streak: <strong className="text-amber-400 font-mono">🔥 {streak}x</strong>
+          </span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-8 p-6 sm:p-8 rounded-2xl border border-[var(--border-hairline)] bg-[var(--bg-canvas)] space-y-6">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono text-[var(--accent-primary)]">
+              LEVEL 0{level} // {level === 1 ? (isId ? 'Penjumlahan Dasar' : 'Basic Addition') : level === 2 ? (isId ? 'Pengurangan Cepat' : 'Speed Subtraction') : (isId ? 'Perkalian Cerdas' : 'Multiplication Quest')}
+            </span>
+            <div className="flex gap-1.5 font-mono text-xs">
+              {([1, 2, 3] as const).map((lvl) => (
+                <button
+                  key={lvl}
+                  onClick={() => setLevel(lvl)}
+                  className={`px-2.5 py-1 rounded-md transition-all ${
+                    level === lvl
+                      ? 'bg-[var(--accent-primary)] text-black font-bold'
+                      : 'theme-chip hover:border-[var(--accent-primary)]/40 text-[var(--text-muted)]'
+                  }`}
+                >
+                  L{lvl}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="p-6 rounded-xl bg-[var(--surface-hover)] border border-[var(--border-hairline)] text-center space-y-3">
+            <p className="text-xs font-mono text-[var(--text-muted)]">
+              {currentQ.context}
+            </p>
+            <div className="text-4xl sm:text-5xl font-mono font-extrabold text-[var(--text-primary)] tracking-wider">
+              {currentQ.q}
+            </div>
+
+            {answeredState === 'correct' && (
+              <p className="text-xs font-mono text-emerald-400 font-bold animate-bounce pt-2">
+                ✨ {isId ? 'Masha Allah! Jawaban Tepat (+50 Poin)' : 'Correct Answer! (+50 Points)'}
+              </p>
+            )}
+            {answeredState === 'wrong' && (
+              <p className="text-xs font-mono text-rose-400 font-bold pt-2">
+                ❌ {isId ? 'Kurang tepat, coba lagi ya!' : 'Incorrect, try again!'}
+              </p>
+            )}
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {currentQ.options.map((opt) => (
+              <button
+                key={opt}
+                onClick={() => handleAnswer(opt)}
+                disabled={answeredState !== 'idle'}
+                className="p-4 rounded-xl theme-card hover:border-[var(--accent-primary)] font-mono text-xl font-bold text-[var(--text-primary)] hover:scale-105 active:scale-95 transition-all text-center shadow-md disabled:opacity-50"
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="lg:col-span-4 p-5 rounded-2xl theme-chip space-y-4 font-mono text-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-[var(--border-hairline)]">
+            <span className="font-bold text-[var(--text-primary)]">RUNTIME TELEMETRY</span>
+            <span className="text-[10px] text-emerald-400">60 FPS TICK</span>
+          </div>
+
+          <div className="space-y-2.5 text-[var(--text-secondary)]">
+            <div className="flex justify-between">
+              <span>Canvas Loop:</span>
+              <span className="text-[var(--text-primary)]">requestAnimationFrame</span>
+            </div>
+            <div className="flex justify-between">
+              <span>State FSM:</span>
+              <span className="text-[var(--accent-primary)]">PLAYING_STAGE</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Web Audio API:</span>
+              <span className="text-emerald-400">SYNTH_CHIME_ACTIVE</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Target Viewport:</span>
+              <span className="text-[var(--text-primary)]">HiDPI Retina (2.0x)</span>
+            </div>
+          </div>
+
+          <p className="text-[11px] text-[var(--text-muted)] leading-relaxed pt-2 border-t border-[var(--border-hairline)]">
+            {isId
+              ? 'Arsitektur game mengisolasi render canvas dari state logic sehingga dapat dimainkan mulus di browser ponsel tanpa lag.'
+              : 'The game architecture decouples canvas draw calls from arithmetic FSM logic for zero-lag mobile playability.'}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================================
+   STAGE V: WEBSITE PILKETOS — REAL-TIME E-VOTING & TELEMETRY DASHBOARD
+============================================================================ */
+function PilketosStage({ locale }: { locale: Locale }) {
+  const isId = locale === 'id';
+  const [candidates, setCandidates] = useState([
+    { id: 1, name: 'Rayhan & Nadia', vision: 'Inovasi Digital & Lingkungan Bersih', votes: 142, color: '#38bdf8' },
+    { id: 2, name: 'Sakti & Fadhil', vision: 'Kreativitas Teknologi & Kolaborasi', votes: 198, color: '#c2ed30' },
+    { id: 3, name: 'Zahra & Kevin', vision: 'Pengembangan Bakat Seni & Olahraga', votes: 85, color: '#f43f5e' },
+  ]);
+  const [hasVoted, setHasVoted] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState<number | null>(null);
+
+  const totalVotes = candidates.reduce((sum, c) => sum + c.votes, 0);
+
+  const handleVote = (id: number) => {
+    if (hasVoted) return;
+    setCandidates((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, votes: c.votes + 1 } : c))
+    );
+    setSelectedCandidate(id);
+    setHasVoted(true);
+  };
+
+  const handleReset = () => {
+    setHasVoted(false);
+    setSelectedCandidate(null);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-hairline)] pb-4 font-mono text-xs">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-[var(--text-primary)] font-bold">
+            {isId ? 'SIMULATOR E-VOTING REAL-TIME PILKETOS' : 'PILKETOS REAL-TIME E-VOTING STAGE'}
+          </span>
+          <span className="px-2 py-0.5 rounded-full theme-chip text-[10px]">PHP Native / MySQL / Chart.js</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-[var(--text-muted)]">
+            {isId ? 'Total Suara Masuk' : 'Total Ballots'}: <strong className="text-[var(--accent-primary)] font-mono">{totalVotes}</strong>
+          </span>
+          {hasVoted && (
+            <button
+              onClick={handleReset}
+              className="text-[10px] font-mono text-[var(--accent-primary)] underline hover:opacity-80"
+            >
+              [Reset Sesi]
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-7 space-y-4">
+          <span className="font-mono text-xs uppercase text-[var(--text-muted)] tracking-wider block font-semibold">
+            {isId ? 'Surat Suara Digital (Pilih Satu Kandidat)' : 'Digital Ballot (Select Candidate)'}
+          </span>
+
+          <div className="space-y-3">
+            {candidates.map((c) => {
+              const isSelected = selectedCandidate === c.id;
+              const percentage = ((c.votes / totalVotes) * 100).toFixed(1);
+
+              return (
+                <div
+                  key={c.id}
+                  className={`p-4 sm:p-5 rounded-2xl border transition-all ${
+                    isSelected
+                      ? 'border-[var(--accent-primary)] bg-[var(--surface-hover)] shadow-lg'
+                      : 'border-[var(--border-hairline)] theme-card hover:border-[var(--border-hairline)]/80'
+                  }`}
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="h-7 w-7 rounded-xl flex items-center justify-center font-mono font-bold text-xs"
+                        style={{ backgroundColor: `${c.color}20`, color: c.color }}
+                      >
+                        0{c.id}
+                      </span>
+                      <div>
+                        <h4 className="font-display font-bold text-sm sm:text-base text-[var(--text-primary)]">
+                          {c.name}
+                        </h4>
+                        <p className="text-xs text-[var(--text-secondary)] font-mono">
+                          {c.vision}
+                        </p>
+                      </div>
+                    </div>
+
+                    {!hasVoted ? (
+                      <button
+                        onClick={() => handleVote(c.id)}
+                        className="px-3 py-1.5 rounded-full interactive-btn interactive-btn-primary font-mono text-xs"
+                      >
+                        {isId ? 'Pilih Paslon' : 'Vote'}
+                      </button>
+                    ) : (
+                      <span className="font-mono text-xs font-bold" style={{ color: c.color }}>
+                        {percentage}% ({c.votes} {isId ? 'suara' : 'votes'})
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Real-time bar */}
+                  <div className="h-2 w-full rounded-full bg-[var(--bg-canvas)] overflow-hidden mt-3">
+                    <div
+                      className="h-full rounded-full transition-all duration-700 ease-out"
+                      style={{
+                        width: `${percentage}%`,
+                        backgroundColor: c.color,
+                      }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="lg:col-span-5 p-5 rounded-2xl theme-chip space-y-4 font-mono text-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-[var(--border-hairline)]">
+            <span className="font-bold text-[var(--text-primary)]">ADMIN AUDIT CONSOLE</span>
+            <span className="text-[10px] text-emerald-400">SESSION: SECURED</span>
+          </div>
+
+          <div className="space-y-2 text-[var(--text-secondary)]">
+            <div className="flex justify-between">
+              <span>Auth Guard:</span>
+              <span className="text-emerald-400">PASSED (Siswa Token)</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Double-Vote Lock:</span>
+              <span className="text-[var(--accent-primary)]">
+                {hasVoted ? 'LOCKED (1 Vote Used)' : 'READY (1 Vote Available)'}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span>Database Query:</span>
+              <span className="text-[var(--text-primary)]">UPDATE votes SET total = total + 1</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Telemetry Feed:</span>
+              <span className="text-sky-400">Chart.js Auto-Recalculate</span>
+            </div>
+          </div>
+
+          <div className="p-3 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-hairline)] text-[11px] text-[var(--text-muted)] space-y-1">
+            <span className="text-[var(--accent-primary)] font-bold block">
+              {isId ? 'Integritas Suara Terjamin' : 'Election Integrity Guaranteed'}
+            </span>
+            <p>
+              {isId
+                ? 'Setelah siswa mengonfirmasi pilihan, token pemilih dinonaktifkan di MySQL sehingga tidak dapat memberikan suara ulang.'
+                : 'Upon ballot confirmation, the voter token is instantly invalidated in MySQL to prevent double voting.'}
+            </p>
+          </div>
         </div>
       </div>
     </div>

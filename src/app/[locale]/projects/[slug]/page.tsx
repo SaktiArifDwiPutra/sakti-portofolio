@@ -109,7 +109,20 @@ export default async function ProjectDetailPage({
 
               {/* Action Links */}
               <div className="pt-2 flex flex-wrap items-center gap-3">
-                {project.links.repository && (
+                {project.links.repositories && project.links.repositories.length > 0 ? (
+                  project.links.repositories.map((repo) => (
+                    <a
+                      key={repo.url}
+                      href={repo.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="interactive-btn interactive-btn-secondary px-5 py-2.5 text-xs font-mono"
+                    >
+                      <GithubIcon className="h-4 w-4" />
+                      <span>{repo.name}</span>
+                    </a>
+                  ))
+                ) : project.links.repository ? (
                   <a
                     href={project.links.repository}
                     target="_blank"
@@ -119,18 +132,28 @@ export default async function ProjectDetailPage({
                     <GithubIcon className="h-4 w-4" />
                     <span>{t('repoLink')}</span>
                   </a>
-                )}
+                ) : null}
 
-                {project.links.demo && (
-                  <a
-                    href={project.links.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="interactive-btn interactive-btn-primary px-5 py-2.5 text-xs font-mono shadow-md"
-                  >
-                    <span>{t('demoLink')}</span>
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
+                {project.links.demo !== undefined && (
+                  project.links.demo ? (
+                    <a
+                      href={project.links.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="interactive-btn interactive-btn-primary px-5 py-2.5 text-xs font-mono shadow-md"
+                    >
+                      <span>{t('demoLink')}</span>
+                      <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  ) : (
+                    <span
+                      className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-dashed border-[var(--border-hairline)] bg-[var(--surface-hover)] text-xs font-mono text-[var(--text-muted)] cursor-help"
+                      title="Live deployment URL placeholder — insert URL in src/data/portfolio.ts"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5 opacity-50" />
+                      <span>{locale === 'id' ? 'Tautan Live: [Siap Diisi]' : 'Live Demo: [Pending Setup]'}</span>
+                    </span>
+                  )
                 )}
               </div>
             </div>

@@ -146,7 +146,20 @@ export function ProjectTiltCard({ project, orderNumber }: ProjectTiltCardProps) 
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </Link>
 
-              {project.links.repository && (
+              {project.links.repositories && project.links.repositories.length > 0 ? (
+                project.links.repositories.map((repo) => (
+                  <a
+                    key={repo.url}
+                    href={repo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="interactive-btn interactive-btn-secondary px-4 py-2.5 text-xs font-mono"
+                  >
+                    <GithubIcon className="h-3.5 w-3.5" />
+                    <span>{repo.name}</span>
+                  </a>
+                ))
+              ) : project.links.repository ? (
                 <a
                   href={project.links.repository}
                   target="_blank"
@@ -156,18 +169,28 @@ export function ProjectTiltCard({ project, orderNumber }: ProjectTiltCardProps) 
                   <GithubIcon className="h-3.5 w-3.5" />
                   <span>Source Code</span>
                 </a>
-              )}
+              ) : null}
 
-              {project.links.demo && (
-                <a
-                  href={project.links.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="interactive-btn interactive-btn-secondary px-4 py-2.5 text-xs font-mono text-[var(--accent-primary)]"
-                >
-                  <ExternalLink className="h-3.5 w-3.5" />
-                  <span>Live App</span>
-                </a>
+              {project.links.demo !== undefined && (
+                project.links.demo ? (
+                  <a
+                    href={project.links.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="interactive-btn interactive-btn-secondary px-4 py-2.5 text-xs font-mono text-[var(--accent-primary)] hover:border-[var(--accent-primary)]"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                    <span>Live App</span>
+                  </a>
+                ) : (
+                  <span
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-dashed border-[var(--border-hairline)] bg-[var(--surface-hover)] text-xs font-mono text-[var(--text-muted)]"
+                    title="Live URL slot prepared — fill link in src/data/portfolio.ts"
+                  >
+                    <ExternalLink className="h-3 w-3 opacity-50" />
+                    <span>Live: [Pending Setup]</span>
+                  </span>
+                )
               )}
             </div>
           </div>
