@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#111315"/>
+  <rect x="64" y="56" width="1072" height="563" stroke="#F0F0E9" stroke-opacity="0.18" stroke-width="1.5"/>
+  <text x="96" y="102" fill="#B8F36B" font-family="monospace" font-size="13" letter-spacing="2">PLATE II // LAUNDRYFLOW MOBILE-TO-ERP DATA PIPELINE</text>
+  <line x1="64" y1="126" x2="1136" y2="126" stroke="#F0F0E9" stroke-opacity="0.14"/>
+
+  <rect x="110" y="210" width="280" height="280" fill="#171A1D" stroke="#B8F36B" stroke-width="1.5"/>
+  <text x="138" y="250" fill="#B8F36B" font-family="monospace" font-size="12">01 / MOBILE OPERATOR</text>
+  <text x="138" y="284" fill="#F0F0E9" font-family="sans-serif" font-weight="700" font-size="22">Flutter UI Views</text>
+  <text x="138" y="326" fill="#A2A8AE" font-family="monospace" font-size="12">• Intake &amp; Weight Input</text>
+  <text x="138" y="354" fill="#A2A8AE" font-family="monospace" font-size="12">• Stage Queue Board</text>
+  <text x="138" y="382" fill="#A2A8AE" font-family="monospace" font-size="12">• Customer Lookup</text>
+
+  <line x1="390" y1="350" x2="460" y2="350" stroke="#B8F36B" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <rect x="460" y="210" width="280" height="280" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.3" stroke-width="1.5"/>
+  <text x="488" y="250" fill="#A2A8AE" font-family="monospace" font-size="12">02 / SERVICE BRIDGE</text>
+  <text x="488" y="284" fill="#F0F0E9" font-family="sans-serif" font-weight="700" font-size="22">Dart Odoo Adapter</text>
+  <text x="488" y="326" fill="#A2A8AE" font-family="monospace" font-size="12">• Session Auth Handling</text>
+  <text x="488" y="354" fill="#A2A8AE" font-family="monospace" font-size="12">• Typed Model Mapping</text>
+  <text x="488" y="382" fill="#A2A8AE" font-family="monospace" font-size="12">• Request Retry &amp; Validation</text>
+
+  <line x1="740" y1="350" x2="810" y2="350" stroke="#B8F36B" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <rect x="810" y="210" width="280" height="280" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.3" stroke-width="1.5"/>
+  <text x="838" y="250" fill="#A2A8AE" font-family="monospace" font-size="12">03 / ENTERPRISE CORE</text>
+  <text x="838" y="284" fill="#F0F0E9" font-family="sans-serif" font-weight="700" font-size="22">Odoo Backend</text>
+  <text x="838" y="326" fill="#A2A8AE" font-family="monospace" font-size="12">• Order &amp; Partner Models</text>
+  <text x="838" y="354" fill="#A2A8AE" font-family="monospace" font-size="12">• Service Catalog Rules</text>
+  <text x="838" y="382" fill="#A2A8AE" font-family="monospace" font-size="12">• Centralized Accounting</text>
+</svg>
+

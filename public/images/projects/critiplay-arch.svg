@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#111315"/>
+  <rect x="64" y="56" width="1072" height="563" stroke="#F0F0E9" stroke-opacity="0.18" stroke-width="1.5"/>
+  <text x="96" y="102" fill="#B8F36B" font-family="monospace" font-size="13" letter-spacing="2">PLATE II // CRITIPLAY THREE-TIER SYSTEM TOPOLOGY</text>
+  <line x1="64" y1="126" x2="1136" y2="126" stroke="#F0F0E9" stroke-opacity="0.14"/>
+
+  <!-- Node 1 -->
+  <rect x="110" y="210" width="280" height="280" fill="#171A1D" stroke="#B8F36B" stroke-width="1.5"/>
+  <text x="138" y="250" fill="#B8F36B" font-family="monospace" font-size="12">01 / CLIENT VIEWPORT</text>
+  <text x="138" y="284" fill="#F0F0E9" font-family="sans-serif" font-weight="700" font-size="22">React + TypeScript</text>
+  <text x="138" y="326" fill="#A2A8AE" font-family="monospace" font-size="12">• Typed Review Forms</text>
+  <text x="138" y="354" fill="#A2A8AE" font-family="monospace" font-size="12">• Genre &amp; Score Filters</text>
+  <text x="138" y="382" fill="#A2A8AE" font-family="monospace" font-size="12">• Optimistic UI Updates</text>
+
+  <!-- Connector 1 -> 2 -->
+  <line x1="390" y1="350" x2="460" y2="350" stroke="#B8F36B" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="398" y="336" fill="#A2A8AE" font-family="monospace" font-size="10">JSON / REST</text>
+
+  <!-- Node 2 -->
+  <rect x="460" y="210" width="280" height="280" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.3" stroke-width="1.5"/>
+  <text x="488" y="250" fill="#A2A8AE" font-family="monospace" font-size="12">02 / DOMAIN BACKEND</text>
+  <text x="488" y="284" fill="#F0F0E9" font-family="sans-serif" font-weight="700" font-size="22">Laravel API</text>
+  <text x="488" y="326" fill="#A2A8AE" font-family="monospace" font-size="12">• FormRequest Validation</text>
+  <text x="488" y="354" fill="#A2A8AE" font-family="monospace" font-size="12">• Auth &amp; Rate Limiting</text>
+  <text x="488" y="382" fill="#A2A8AE" font-family="monospace" font-size="12">• Eloquent ORM Serialization</text>
+
+  <!-- Connector 2 -> 3 -->
+  <line x1="740" y1="350" x2="810" y2="350" stroke="#B8F36B" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="752" y="336" fill="#A2A8AE" font-family="monospace" font-size="10">PDO / SQL</text>
+
+  <!-- Node 3 -->
+  <rect x="810" y="210" width="280" height="280" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.3" stroke-width="1.5"/>
+  <text x="838" y="250" fill="#A2A8AE" font-family="monospace" font-size="12">03 / DATA PERSISTENCE</text>
+  <text x="838" y="284" fill="#F0F0E9" font-family="sans-serif" font-weight="700" font-size="22">MySQL Relational DB</text>
+  <text x="838" y="326" fill="#A2A8AE" font-family="monospace" font-size="12">• Normalized Game Catalog</text>
+  <text x="838" y="354" fill="#A2A8AE" font-family="monospace" font-size="12">• Indexed Foreign Keys</text>
+  <text x="838" y="382" fill="#A2A8AE" font-family="monospace" font-size="12">• Aggregate Rating Views</text>
+</svg>
+

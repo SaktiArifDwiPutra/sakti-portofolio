@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#111315"/>
+  <g stroke="#F0F0E9" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="112" x2="1200" y2="112"/>
+    <line x1="0" y1="560" x2="1200" y2="560"/>
+    <line x1="380" y1="0" x2="380" y2="675"/>
+    <line x1="820" y1="0" x2="820" y2="675"/>
+  </g>
+  <rect x="64" y="56" width="1072" height="563" stroke="#F0F0E9" stroke-opacity="0.18" stroke-width="1.5"/>
+  <line x1="64" y1="112" x2="1136" y2="112" stroke="#F0F0E9" stroke-opacity="0.16"/>
+  <rect x="92" y="76" width="10" height="10" fill="#B8F36B"/>
+  <text x="116" y="86" fill="#F0F0E9" font-family="monospace" font-size="13" letter-spacing="2">LAUNDRYFLOW // FLUTTER MOBILE + ODOO ERP INTEGRATION</text>
+  <text x="910" y="86" fill="#A2A8AE" font-family="monospace" font-size="12" letter-spacing="1.5">FLUTTER + ODOO BACKEND</text>
+
+  <!-- Mobile Device Anatomy Frame (Left/Center) -->
+  <rect x="120" y="148" width="310" height="436" rx="16" fill="#171A1D" stroke="#B8F36B" stroke-width="1.5"/>
+  <line x1="120" y1="202" x2="430" y2="202" stroke="#F0F0E9" stroke-opacity="0.12"/>
+  <text x="148" y="180" fill="#B8F36B" font-family="monospace" font-size="11">FLUTTER CLIENT // ORDER QUEUE</text>
+
+  <!-- Mobile Cards -->
+  <rect x="144" y="222" width="262" height="92" rx="6" fill="#1D2124" stroke="#F0F0E9" stroke-opacity="0.16"/>
+  <text x="162" y="248" fill="#B8F36B" font-family="monospace" font-size="11">ORD-2048 // WASHING STAGE</text>
+  <text x="162" y="274" fill="#F0F0E9" font-family="sans-serif" font-weight="600" font-size="15">Express Batch — 6.5 kg</text>
+  <text x="162" y="298" fill="#A2A8AE" font-family="monospace" font-size="11">SYNCED WITH ODOO PARTNER</text>
+
+  <rect x="144" y="330" width="262" height="92" rx="6" fill="#1D2124" stroke="#F0F0E9" stroke-opacity="0.12"/>
+  <text x="162" y="356" fill="#E5A93C" font-family="monospace" font-size="11">ORD-2049 // IRONING &amp; QA</text>
+  <text x="162" y="382" fill="#F0F0E9" font-family="sans-serif" font-weight="600" font-size="15">Standard Care — 4.0 kg</text>
+  <text x="162" y="406" fill="#A2A8AE" font-family="monospace" font-size="11">STATE: IN_PROGRESS</text>
+
+  <rect x="144" y="438" width="262" height="118" rx="6" fill="#1D2124" stroke="#B8F36B" stroke-opacity="0.4"/>
+  <text x="162" y="466" fill="#A2A8AE" font-family="monospace" font-size="11">QUICK STAGE TRANSITION</text>
+  <rect x="162" y="484" width="226" height="48" rx="4" fill="#B8F36B"/>
+  <text x="206" y="513" fill="#111315" font-family="monospace" font-weight="700" font-size="13">ADVANCE ORDER STATE</text>
+
+  <!-- Sync Bridge Lines -->
+  <line x1="430" y1="300" x2="540" y2="300" stroke="#B8F36B" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="430" y1="420" x2="540" y2="420" stroke="#F0F0E9" stroke-opacity="0.35" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <text x="448" y="286" fill="#B8F36B" font-family="monospace" font-size="11">RPC / API SYNC</text>
+
+  <!-- Right Panel: Odoo ERP Backend Models -->
+  <rect x="540" y="148" width="548" height="436" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.16"/>
+  <text x="576" y="190" fill="#A2A8AE" font-family="monospace" font-size="12" letter-spacing="1.5">ODOO ERP BACKEND // CENTRALIZED BUSINESS MODELS</text>
+  <line x1="576" y1="212" x2="1052" y2="212" stroke="#F0F0E9" stroke-opacity="0.1"/>
+
+  <rect x="576" y="240" width="224" height="140" fill="#1D2124" stroke="#F0F0E9" stroke-opacity="0.14"/>
+  <text x="598" y="272" fill="#B8F36B" font-family="monospace" font-size="11">MODEL: laundry.order</text>
+  <text x="598" y="302" fill="#F0F0E9" font-family="monospace" font-size="12">• partner_id (Customer)</text>
+  <text x="598" y="326" fill="#F0F0E9" font-family="monospace" font-size="12">• state (Workflow Stage)</text>
+  <text x="598" y="350" fill="#F0F0E9" font-family="monospace" font-size="12">• service_line_ids</text>
+
+  <rect x="828" y="240" width="224" height="140" fill="#1D2124" stroke="#F0F0E9" stroke-opacity="0.14"/>
+  <text x="850" y="272" fill="#E5A93C" font-family="monospace" font-size="11">MODEL: res.partner</text>
+  <text x="850" y="302" fill="#F0F0E9" font-family="monospace" font-size="12">• customer_profile</text>
+  <text x="850" y="326" fill="#F0F0E9" font-family="monospace" font-size="12">• order_history_count</text>
+  <text x="850" y="350" fill="#F0F0E9" font-family="monospace" font-size="12">• contact_channel</text>
+
+  <rect x="576" y="406" width="476" height="142" fill="#1D2124" stroke="#F0F0E9" stroke-opacity="0.14"/>
+  <text x="598" y="438" fill="#A2A8AE" font-family="monospace" font-size="11">WORKFLOW STATE PIPELINE</text>
+  <text x="598" y="478" fill="#F0F0E9" font-family="monospace" font-size="14">[RECEIVED] ──► [WASHING] ──► [IRONING] ──► [READY] ──► [DONE]</text>
+  <text x="598" y="516" fill="#B8F36B" font-family="monospace" font-size="11">REAL-TIME STATE PERSISTENCE BETWEEN MOBILE OPERATOR &amp; ODOO CORE</text>
+</svg>
+

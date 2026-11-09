@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#111315"/>
+  <!-- Architectural Blueprint Grid -->
+  <g stroke="#F0F0E9" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="96" x2="1200" y2="96"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="0" y1="435" x2="1200" y2="435"/>
+    <line x1="0" y1="585" x2="1200" y2="585"/>
+    <line x1="96" y1="0" x2="96" y2="675"/>
+    <line x1="420" y1="0" x2="420" y2="675"/>
+    <line x1="780" y1="0" x2="780" y2="675"/>
+    <line x1="1104" y1="0" x2="1104" y2="675"/>
+  </g>
+  <!-- Outer Frame -->
+  <rect x="64" y="56" width="1072" height="563" stroke="#F0F0E9" stroke-opacity="0.18" stroke-width="1.5"/>
+  <!-- Top Header Bar -->
+  <line x1="64" y1="112" x2="1136" y2="112" stroke="#F0F0E9" stroke-opacity="0.16" stroke-width="1"/>
+  <rect x="92" y="76" width="10" height="10" fill="#B8F36B"/>
+  <text x="116" y="86" fill="#F0F0E9" font-family="monospace" font-size="13" letter-spacing="2">CRITIPLAY // EDITORIAL RATING &amp; REVIEW PLATFORM</text>
+  <text x="935" y="86" fill="#A2A8AE" font-family="monospace" font-size="12" letter-spacing="1.5">REACT + TS + LARAVEL</text>
+
+  <!-- Left Column: Rating Distribution Module -->
+  <rect x="96" y="144" width="300" height="440" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.14"/>
+  <text x="124" y="182" fill="#A2A8AE" font-family="monospace" font-size="11" letter-spacing="1.5">AGGREGATE CRITIQUE SCORE</text>
+  <text x="124" y="254" fill="#B8F36B" font-family="sans-serif" font-weight="700" font-size="68">9.2</text>
+  <text x="242" y="246" fill="#687077" font-family="monospace" font-size="16">/ 10.0</text>
+  <line x1="124" y1="282" x2="368" y2="282" stroke="#F0F0E9" stroke-opacity="0.1"/>
+
+  <!-- Histogram Bars -->
+  <text x="124" y="314" fill="#A2A8AE" font-family="monospace" font-size="11">10 ★</text>
+  <rect x="170" y="304" width="190" height="8" fill="#24292E"/>
+  <rect x="170" y="304" width="152" height="8" fill="#B8F36B"/>
+
+  <text x="124" y="344" fill="#A2A8AE" font-family="monospace" font-size="11">09 ★</text>
+  <rect x="170" y="334" width="190" height="8" fill="#24292E"/>
+  <rect x="170" y="334" width="168" height="8" fill="#B8F36B"/>
+
+  <text x="124" y="374" fill="#A2A8AE" font-family="monospace" font-size="11">08 ★</text>
+  <rect x="170" y="364" width="190" height="8" fill="#24292E"/>
+  <rect x="170" y="364" width="96" height="8" fill="#F0F0E9" fill-opacity="0.65"/>
+
+  <text x="124" y="404" fill="#A2A8AE" font-family="monospace" font-size="11">07 ★</text>
+  <rect x="170" y="394" width="190" height="8" fill="#24292E"/>
+  <rect x="170" y="394" width="42" height="8" fill="#F0F0E9" fill-opacity="0.35"/>
+
+  <!-- Taxonomy Meta -->
+  <line x1="124" y1="436" x2="368" y2="436" stroke="#F0F0E9" stroke-opacity="0.1"/>
+  <text x="124" y="468" fill="#687077" font-family="monospace" font-size="11">SCHEMA RELATION</text>
+  <text x="124" y="492" fill="#F0F0E9" font-family="monospace" font-size="13">games 1 ─── * reviews</text>
+  <text x="124" y="516" fill="#F0F0E9" font-family="monospace" font-size="13">users 1 ─── * ratings</text>
+  <text x="124" y="552" fill="#B8F36B" font-family="monospace" font-size="11">MYSQL INDEXED QUERIES</text>
+
+  <!-- Right Main Workspace: Review Matrix & Editorial Cards -->
+  <rect x="424" y="144" width="680" height="196" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.14"/>
+  <text x="456" y="184" fill="#B8F36B" font-family="monospace" font-size="11" letter-spacing="1.5">FEATURED CRITIQUE // VERIFIED PAYLOAD</text>
+  <rect x="456" y="204" width="380" height="16" fill="#F0F0E9" fill-opacity="0.88"/>
+  <rect x="456" y="236" width="560" height="10" fill="#A2A8AE" fill-opacity="0.45"/>
+  <rect x="456" y="256" width="510" height="10" fill="#A2A8AE" fill-opacity="0.45"/>
+  <rect x="456" y="276" width="420" height="10" fill="#A2A8AE" fill-opacity="0.3"/>
+  <rect x="980" y="172" width="92" height="44" stroke="#B8F36B" stroke-width="1.2"/>
+  <text x="1002" y="199" fill="#B8F36B" font-family="monospace" font-weight="700" font-size="16">9.5</text>
+
+  <!-- Lower Split Panels -->
+  <rect x="424" y="364" width="328" height="220" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.14"/>
+  <text x="452" y="400" fill="#A2A8AE" font-family="monospace" font-size="11">CLIENT LAYER // REACT + TS</text>
+  <text x="452" y="432" fill="#F0F0E9" font-family="sans-serif" font-weight="600" font-size="18">Typed Catalog Filtering</text>
+  <rect x="452" y="456" width="84" height="24" stroke="#F0F0E9" stroke-opacity="0.25"/>
+  <text x="466" y="472" fill="#F0F0E9" font-family="monospace" font-size="11">RPG</text>
+  <rect x="546" y="456" width="96" height="24" stroke="#B8F36B" stroke-opacity="0.6"/>
+  <text x="562" y="472" fill="#B8F36B" font-family="monospace" font-size="11">INDIE</text>
+  <rect x="452" y="502" width="260" height="8" fill="#A2A8AE" fill-opacity="0.3"/>
+  <rect x="452" y="522" width="210" height="8" fill="#A2A8AE" fill-opacity="0.2"/>
+
+  <rect x="776" y="364" width="328" height="220" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.14"/>
+  <text x="804" y="400" fill="#A2A8AE" font-family="monospace" font-size="11">API LAYER // LARAVEL + MYSQL</text>
+  <text x="804" y="432" fill="#F0F0E9" font-family="sans-serif" font-weight="600" font-size="18">REST Resource Pipeline</text>
+  <text x="804" y="472" fill="#B8F36B" font-family="monospace" font-size="12">GET /api/v1/games?genre=rpg</text>
+  <text x="804" y="498" fill="#A2A8AE" font-family="monospace" font-size="12">POST /api/v1/reviews</text>
+  <text x="804" y="534" fill="#687077" font-family="monospace" font-size="11">STATUS: 200 OK // EAGER LOADED</text>
+</svg>
+

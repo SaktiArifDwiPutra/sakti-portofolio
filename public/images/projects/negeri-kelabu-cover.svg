@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#111315"/>
+  <!-- Isometric / Spatial Grid Lines -->
+  <g stroke="#F0F0E9" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="112" x2="1200" y2="112"/>
+    <line x1="0" y1="460" x2="1200" y2="460"/>
+    <line x1="300" y1="112" x2="150" y2="619"/>
+    <line x1="600" y1="112" x2="600" y2="619"/>
+    <line x1="900" y1="112" x2="1050" y2="619"/>
+  </g>
+  <rect x="64" y="56" width="1072" height="563" stroke="#F0F0E9" stroke-opacity="0.18" stroke-width="1.5"/>
+  <line x1="64" y1="112" x2="1136" y2="112" stroke="#F0F0E9" stroke-opacity="0.16"/>
+  <rect x="92" y="76" width="10" height="10" fill="#E5A93C"/>
+  <text x="116" y="86" fill="#F0F0E9" font-family="monospace" font-size="13" letter-spacing="2">NEGERI KELABU // INDIE LIFE-SIMULATION RPG CONCEPT</text>
+  <text x="920" y="86" fill="#E5A93C" font-family="monospace" font-size="12" letter-spacing="1.5">GODOT ENGINE + GDSCRIPT</text>
+
+  <!-- Top-Left HUD Overlay: Day & Time Cycle -->
+  <rect x="104" y="144" width="280" height="108" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.2"/>
+  <text x="128" y="176" fill="#E5A93C" font-family="monospace" font-size="11" letter-spacing="1.5">WORLD CLOCK // DAY 14</text>
+  <text x="128" y="210" fill="#F0F0E9" font-family="sans-serif" font-weight="700" font-size="24">17:40 — Dusk</text>
+  <text x="128" y="234" fill="#A2A8AE" font-family="monospace" font-size="11">AMBIENT STATE: OVERCAST_RAIN</text>
+
+  <!-- Top-Right Scene Node Tree Overlay -->
+  <rect x="808" y="144" width="288" height="210" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.2"/>
+  <text x="832" y="176" fill="#B8F36B" font-family="monospace" font-size="11" letter-spacing="1.5">GODOT SCENE HIERARCHY</text>
+  <text x="832" y="208" fill="#F0F0E9" font-family="monospace" font-size="12">▼ WorldRoot (Node2D)</text>
+  <text x="852" y="232" fill="#A2A8AE" font-family="monospace" font-size="12">├─ TimeCycleManager</text>
+  <text x="852" y="256" fill="#B8F36B" font-family="monospace" font-size="12">├─ PlayerEntity (CharacterBody2D)</text>
+  <text x="852" y="280" fill="#A2A8AE" font-family="monospace" font-size="12">├─ TownDistrictTileMap</text>
+  <text x="852" y="304" fill="#E5A93C" font-family="monospace" font-size="12">└─ DialogueCanvasLayer</text>
+  <text x="832" y="336" fill="#687077" font-family="monospace" font-size="10">SIGNAL: on_interaction_triggered()</text>
+
+  <!-- Center World Spatial Representation -->
+  <rect x="440" y="210" width="320" height="180" stroke="#F0F0E9" stroke-opacity="0.15" stroke-dasharray="6 6"/>
+  <circle cx="540" cy="300" r="24" fill="#1D2124" stroke="#B8F36B" stroke-width="2"/>
+  <text x="514" y="344" fill="#B8F36B" font-family="monospace" font-size="11">PLAYER_FSM</text>
+
+  <circle cx="660" cy="285" r="22" fill="#1D2124" stroke="#E5A93C" stroke-width="1.5"/>
+  <text x="636" y="328" fill="#E5A93C" font-family="monospace" font-size="11">NPC_NODE</text>
+  <circle cx="660" cy="285" r="54" stroke="#E5A93C" stroke-opacity="0.35" stroke-dasharray="3 3"/>
+
+  <!-- Bottom Narrative Dialogue Box -->
+  <rect x="104" y="432" width="992" height="152" fill="#171A1D" stroke="#F0F0E9" stroke-opacity="0.28" stroke-width="1.5"/>
+  <rect x="128" y="420" width="180" height="24" fill="#E5A93C"/>
+  <text x="144" y="436" fill="#111315" font-family="monospace" font-weight="700" font-size="11" letter-spacing="1.5">WARUNG KEEPER // NPC</text>
+  <text x="136" y="478" fill="#F0F0E9" font-family="sans-serif" font-size="19">"The rain always arrives before the evening train. Will you rest here or head to the old district?"</text>
+  <rect x="136" y="512" width="280" height="36" fill="#1D2124" stroke="#B8F36B" stroke-width="1"/>
+  <text x="154" y="535" fill="#B8F36B" font-family="monospace" font-size="12">▸ [1] Stay and listen (+Rest)</text>
+  <rect x="432" y="512" width="320" height="36" fill="#1D2124" stroke="#F0F0E9" stroke-opacity="0.2"/>
+  <text x="450" y="535" fill="#A2A8AE" font-family="monospace" font-size="12">  [2] Walk toward the station</text>
+</svg>
+
