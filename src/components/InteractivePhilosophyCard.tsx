@@ -93,41 +93,8 @@ export function InteractivePhilosophyCard({ principle, locale }: InteractivePhil
       );
     }
 
-    // AESTH-03
-    return (
-      <div className="mt-4 pt-3 border-t border-white/[0.08] text-xs font-mono">
-        <button
-          type="button"
-          onClick={() => setActiveDemo((prev) => !prev)}
-          className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20 transition-all cursor-pointer"
-        >
-          <span className="flex items-center gap-1.5">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>{activeDemo ? (isId ? 'Tutup Game Loop' : 'Close Game Loop') : (isId ? 'Jalankan Game Loop 60FPS' : 'Run 60FPS Loop')}</span>
-          </span>
-          <span className="text-[10px] uppercase font-bold text-amber-400">Phaser 3</span>
-        </button>
-
-        <AnimatePresence>
-          {activeDemo && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="mt-2.5 p-3 rounded-xl bg-black/60 border border-white/10 text-[11px] font-mono text-neutral-300 space-y-1 overflow-hidden"
-            >
-              <div className="flex justify-between text-[10px] text-neutral-400">
-                <span>update(time, delta)</span>
-                <span className="text-amber-400 font-bold">60.0 FPS</span>
-              </div>
-              <p className="text-[10px] text-amber-300">
-                &gt; SceneTree tick: Canvas 2D sprites choreographed with tactile feedback in Daus Anak Soleh.
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    );
+    // AESTH-03 (No interactive game loop per user instruction)
+    return null;
   };
 
   return (
@@ -149,3 +116,4 @@ export function InteractivePhilosophyCard({ principle, locale }: InteractivePhil
     </div>
   );
 }
+

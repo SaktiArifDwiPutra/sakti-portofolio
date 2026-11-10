@@ -5,6 +5,7 @@ import { Link, type Locale } from '@/i18n/routing';
 import { OWNER_PROFILE } from '@/data/portfolio';
 import { ContactSection } from '@/components/ContactSection';
 import { ProfileHoloCard } from '@/components/ProfileHoloCard';
+import { SpecSheetFlipCard } from '@/components/SpecSheetFlipCard';
 import { InteractivePhilosophyCard } from '@/components/InteractivePhilosophyCard';
 import { Compass, Sparkles, User, Layers, Cpu, Gamepad2, Shield } from 'lucide-react';
 
@@ -81,34 +82,19 @@ export default async function AboutPage({
               </div>
             </div>
 
-            {/* Spec Sheet Table */}
-            <div className="p-8 sm:p-10 rounded-3xl theme-card border border-white/[0.08] shadow-xl">
-              <div className="flex items-center justify-between pb-4 border-b border-[var(--border-hairline)]">
-                <span className="font-mono text-xs font-bold tracking-wider text-[var(--accent-primary)] uppercase">
-                  03 // {t('profileSheetHeading')}
-                </span>
-                <Compass className="h-4 w-4 text-[var(--accent-primary)]" />
-              </div>
-
-              <div className="divide-y divide-[var(--border-hairline)] font-mono text-xs pt-2">
-                <div className="py-3.5 flex justify-between gap-2">
-                  <span className="text-[var(--text-muted)]">{t('specName')}</span>
-                  <span className="font-bold text-[var(--text-primary)]">{OWNER_PROFILE.name}</span>
-                </div>
-                <div className="py-3.5 flex justify-between gap-2">
-                  <span className="text-[var(--text-muted)]">{t('specFocus')}</span>
-                  <span className="text-[var(--text-primary)] text-right font-medium">{t('specFocusVal')}</span>
-                </div>
-                <div className="py-3.5 flex justify-between gap-2">
-                  <span className="text-[var(--text-muted)]">{t('specLanguages')}</span>
-                  <span className="text-[var(--text-primary)] text-right">{t('specLanguagesVal')}</span>
-                </div>
-                <div className="py-3.5 flex flex-col gap-1.5">
-                  <span className="text-[var(--text-muted)]">{t('specInterests')}</span>
-                  <span className="text-[var(--text-primary)] leading-relaxed">{t('specInterestsVal')}</span>
-                </div>
-              </div>
-            </div>
+            {/* 3D Flip Developer Specification Sheet with Arcade Snake Game */}
+            <SpecSheetFlipCard
+              name={OWNER_PROFILE.name}
+              specHeading={t('profileSheetHeading')}
+              specNameLabel={t('specName')}
+              specFocusLabel={t('specFocus')}
+              specFocusVal={t('specFocusVal')}
+              specLanguagesLabel={t('specLanguages')}
+              specLanguagesVal={t('specLanguagesVal')}
+              specInterestsLabel={t('specInterests')}
+              specInterestsVal={t('specInterestsVal')}
+              locale={locale}
+            />
           </div>
         </div>
       </section>

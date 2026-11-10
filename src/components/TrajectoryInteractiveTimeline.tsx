@@ -2,21 +2,22 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { ExperienceEntry } from '@/data/portfolio';
 import { tField } from '@/data/portfolio';
 import type { Locale } from '@/i18n/routing';
 import {
   Calendar,
-  ChevronRight,
   ExternalLink,
   Gamepad2,
   Globe,
-  Layers,
   Sparkles,
+  ChevronRight,
+  X,
+  Compass,
+  Layers,
+  MapPin,
   CheckCircle2,
-  Clock,
-  Code2,
 } from 'lucide-react';
 
 interface TrajectoryInteractiveTimelineProps {
@@ -36,8 +37,8 @@ const PROJECT_COVERS: Record<string, string> = {
 const PROJECT_ACTIONS: Record<string, { url: string; labelId: string; labelEn: string; icon: string }> = {
   'exp-critiplay-collab': {
     url: 'https://www.critiplay.my.id',
-    labelId: 'Buka Live CritiPlay',
-    labelEn: 'Open Live CritiPlay',
+    labelId: 'Live CritiPlay',
+    labelEn: 'Live CritiPlay',
     icon: 'globe',
   },
   'exp-daus-gamedev': {
@@ -72,221 +73,232 @@ function renderWithPartnerLink(text: string) {
 
 export function TrajectoryInteractiveTimeline({ experiences, locale }: TrajectoryInteractiveTimelineProps) {
   const isId = locale === 'id';
-  const [activeNodeId, setActiveNodeId] = useState<string>(experiences[0]?.id || '');
-
-  const scrollToNode = (id: string) => {
-    setActiveNodeId(id);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  };
+  const [selectedMilestone, setSelectedMilestone] = useState<ExperienceEntry | null>(null);
 
   return (
-    <div className="space-y-10 sm:space-y-12">
-      {/* Top Telemetry & Timeline Navigation Bar */}
-      <div className="p-4 sm:p-6 rounded-2xl theme-card border border-white/[0.08] shadow-lg space-y-4">
-        {/* Telemetry Stat Badges */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-white/[0.06] text-xs font-mono">
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span className="text-[var(--accent-primary)] font-bold">TIMELINE TELEMETRY</span>
+    <div className="space-y-12 sm:space-y-16">
+      {/* Journey Map Header Telemetry */}
+      <div className="p-5 sm:p-7 rounded-2xl theme-card border border-white/[0.08] shadow-xl flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 rounded-xl bg-[var(--accent-primary)]/10 text-[var(--accent-primary)]">
+            <Compass className="h-5 w-5 animate-spin-slow" />
           </div>
-
-          <div className="flex flex-wrap items-center gap-2 text-[11px] text-[var(--text-muted)]">
-            <span className="px-2.5 py-0.5 rounded-full bg-white/[0.03] border border-white/[0.08]">
-              {experiences.length} {isId ? 'Milestone' : 'Milestones'}
+          <div>
+            <span className="font-mono text-[10px] uppercase text-[var(--accent-primary)] font-bold tracking-wider block">
+              EXPEDITION PATH // 2025 - 2026
             </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-white/[0.03] border border-white/[0.08]">
-              2 {isId ? 'Sistem Produksi' : 'Live Platforms'}
-            </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-white/[0.03] border border-white/[0.08]">
-              1 {isId ? 'Game Edukasi' : 'Published Game'}
-            </span>
+            <h3 className="font-display font-bold text-lg text-white">
+              {isId ? 'Peta Perjalanan Rekayasa & Game' : 'Engineering & Game Dev Journey'}
+            </h3>
           </div>
         </div>
 
-        {/* Interactive Milestones Time Travel Bar */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-          {experiences.map((exp) => {
-            const isActive = activeNodeId === exp.id;
-            const shortName = exp.id === 'exp-pilketos-school'
-              ? 'Pilketos'
-              : exp.id === 'exp-daus-gamedev'
-              ? 'Daus Anak Soleh'
-              : exp.id === 'exp-obathaus'
-              ? 'Obat Haus'
-              : exp.id === 'exp-coordina'
-              ? 'Coordina'
-              : exp.id === 'exp-critiplay-collab'
-              ? 'CritiPlay'
-              : 'Dragonhold';
+        <div className="flex items-center gap-2 font-mono text-xs text-[var(--text-muted)]">
+          <MapPin className="h-4 w-4 text-emerald-400" />
+          <span>{experiences.length} {isId ? 'Titik Singgah Perjalanan' : 'Waypoints Tracked'}</span>
+        </div>
+      </div>
+
+      {/* Winding Downward Journey Path */}
+      <div className="relative max-w-4xl mx-auto py-6">
+        {/* Central Glowing Journey Path Line */}
+        <div
+          aria-hidden="true"
+          className="absolute left-6 md:left-1/2 top-4 bottom-4 w-1 -translate-x-1/2 bg-gradient-to-b from-cyan-400 via-purple-500 to-amber-400 shadow-[0_0_15px_rgba(0,240,255,0.4)] rounded-full"
+        />
+
+        {/* Milestone Steps Along the Path */}
+        <div className="space-y-16 sm:space-y-24">
+          {experiences.map((exp, idx) => {
+            const isEven = idx % 2 === 0;
+            const coverImage = PROJECT_COVERS[exp.id];
+            const action = PROJECT_ACTIONS[exp.id];
 
             return (
-              <button
-                key={exp.id}
-                type="button"
-                onClick={() => scrollToNode(exp.id)}
-                className={`px-3.5 py-1.5 rounded-xl font-mono text-xs whitespace-nowrap transition-all border shrink-0 cursor-pointer ${
-                  isActive
-                    ? 'bg-[var(--accent-primary)] text-black font-bold border-[var(--accent-primary)] shadow-md shadow-[var(--accent-primary)]/20 scale-105'
-                    : 'bg-white/[0.02] text-[var(--text-secondary)] border-white/[0.08] hover:border-white/20 hover:text-white'
-                }`}
-              >
-                <span>{exp.index} // {shortName}</span>
-              </button>
+              <div key={exp.id} className="relative flex flex-col md:flex-row items-center">
+                {/* 1. Date Stamped Directly On The Journey Path */}
+                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
+                  {/* Glowing Node Dot */}
+                  <span
+                    className={`h-5 w-5 rounded-full border-2 bg-black shadow-lg transition-transform hover:scale-125 ${
+                      exp.isPlaceholder
+                        ? 'border-amber-400 shadow-amber-500/40'
+                        : 'border-cyan-400 shadow-[0_0_12px_#00f0ff]'
+                    }`}
+                  />
+
+                  {/* Date Pill Stamped Right On Path */}
+                  <div className="mt-2 px-3 py-1 rounded-full bg-black/90 border border-white/20 text-[11px] font-mono text-cyan-300 font-bold whitespace-nowrap backdrop-blur-md shadow-xl flex items-center gap-1.5">
+                    <Calendar className="h-3 w-3 text-[var(--accent-primary)]" />
+                    <span>{tField(exp.period, locale)}</span>
+                  </div>
+                </div>
+
+                {/* 2. Compact Square Card Layout (Alternating Left & Right on Desktop) */}
+                <div
+                  className={`w-full pl-14 md:pl-0 md:w-1/2 mt-12 md:mt-0 ${
+                    isEven ? 'md:pr-12 md:text-right' : 'md:pl-12 md:ml-auto md:text-left'
+                  }`}
+                >
+                  <motion.div
+                    whileHover={{ y: -4, scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                    onClick={() => setSelectedMilestone(exp)}
+                    className="group relative max-w-[320px] mx-auto md:mx-0 rounded-2xl theme-card border border-white/[0.08] hover:border-[var(--accent-primary)]/60 p-4 shadow-xl cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-[var(--accent-primary)]/10"
+                  >
+                    {/* Square Cover Photo Frame */}
+                    <div className="relative aspect-square w-full rounded-xl overflow-hidden border border-white/[0.08] bg-black/60 shadow-inner group-hover:border-[var(--accent-primary)]/40 transition-colors">
+                      {coverImage ? (
+                        <Image
+                          src={coverImage}
+                          alt={tField(exp.role, locale)}
+                          fill
+                          sizes="320px"
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-105 pointer-events-none"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center font-mono text-xs text-neutral-500">
+                          PROTOTYPE
+                        </div>
+                      )}
+
+                      {/* Vignette Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none" />
+
+                      {/* Top Corner Entry Number */}
+                      <span className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-black/80 border border-white/15 text-[10px] font-mono font-bold text-[var(--accent-primary)] backdrop-blur-md">
+                        NO. {exp.index}
+                      </span>
+
+                      {/* Status Tag */}
+                      <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-black/80 border border-white/15 text-[9px] font-mono text-white/80 backdrop-blur-md">
+                        {exp.isPlaceholder ? (isId ? 'Pengerjaan' : 'In-Progress') : (isId ? 'Rilis' : 'Released')}
+                      </span>
+
+                      {/* Bottom Title on Image */}
+                      <div className="absolute bottom-2.5 inset-x-2.5 text-left">
+                        <h4 className="font-display font-bold text-sm sm:text-base text-white truncate drop-shadow-md">
+                          {tField(exp.organization, locale).replace(/Proyek Sekolah |Produksi Game Indie |Sistem POS & Inventaris Apotek |Platform Penyiaran Event Real-Time |Proyek Kolaborasi /g, '')}
+                        </h4>
+                        <p className="font-mono text-[10px] text-cyan-300 truncate">
+                          {tField(exp.role, locale)}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Card Footer Actions */}
+                    <div className="mt-3 flex items-center justify-between gap-2 text-left">
+                      <span className="font-mono text-[10px] text-[var(--text-muted)] group-hover:text-white transition-colors flex items-center gap-1">
+                        <span>{isId ? 'Buka Rincian' : 'View Specs'}</span>
+                        <ChevronRight className="h-3 w-3 text-[var(--accent-primary)]" />
+                      </span>
+
+                      {action && (
+                        <a
+                          href={action.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[var(--accent-primary)] text-black font-mono text-[10px] font-bold uppercase tracking-wider hover:brightness-110 active:scale-95 transition-all shadow-sm"
+                        >
+                          {action.icon === 'game' ? (
+                            <Gamepad2 className="h-3 w-3 text-black" />
+                          ) : (
+                            <Globe className="h-3 w-3 text-black" />
+                          )}
+                          <span>{isId ? action.labelId : action.labelEn}</span>
+                          <ExternalLink className="h-2.5 w-2.5 text-black" />
+                        </a>
+                      )}
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
             );
           })}
         </div>
       </div>
 
-      {/* Main Trajectory Visual Feed */}
-      <div className="relative pl-6 sm:pl-8 space-y-10 sm:space-y-14 before:absolute before:left-2 sm:before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-gradient-to-b before:from-[var(--accent-primary)] before:via-white/10 before:to-transparent">
-        {experiences.map((exp) => {
-          const deliverables = exp.deliverables[locale] ?? exp.deliverables.en;
-          const coverImage = PROJECT_COVERS[exp.id];
-          const action = PROJECT_ACTIONS[exp.id];
-          const isActive = activeNodeId === exp.id;
-
-          return (
-            <div
-              key={exp.id}
-              id={exp.id}
-              onClick={() => setActiveNodeId(exp.id)}
-              className="relative group transition-all duration-300"
+      {/* Detailed Milestone Modal (Opens on clicking any square card) */}
+      <AnimatePresence>
+        {selectedMilestone && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            onClick={() => setSelectedMilestone(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md animate-fadeIn"
+          >
+            <motion.div
+              initial={{ scale: 0.94, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-2xl w-full bg-[var(--bg-elevated)] border border-white/[0.1] rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto"
             >
-              {/* Glowing Node on Rail */}
-              <div className="absolute -left-[27px] sm:-left-[35px] top-4 flex items-center justify-center">
-                <span
-                  className={`h-4 w-4 rounded-full bg-[var(--bg-canvas)] border-2 transition-all shadow-md ${
-                    isActive
-                      ? 'border-[var(--accent-primary)] scale-125 shadow-[0_0_12px_var(--accent-primary)]'
-                      : exp.isPlaceholder
-                      ? 'border-dashed border-amber-500/70 shadow-amber-500/20'
-                      : 'border-white/40 group-hover:border-[var(--accent-primary)] group-hover:scale-110'
-                  }`}
-                />
+              {/* Modal Header */}
+              <div className="flex items-start justify-between gap-4 pb-4 border-b border-white/[0.08]">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-mono text-xs font-bold text-[var(--accent-primary)]">
+                      ENTRY // {selectedMilestone.index}
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-white/[0.04] text-[10px] font-mono text-[var(--text-muted)] border border-white/10">
+                      {tField(selectedMilestone.period, locale)}
+                    </span>
+                  </div>
+                  <h3 className="font-display font-bold text-2xl text-white">
+                    {tField(selectedMilestone.role, locale)}
+                  </h3>
+                  <p className="font-mono text-xs text-[var(--text-secondary)] mt-1">
+                    {renderWithPartnerLink(tField(selectedMilestone.organization, locale))}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedMilestone(null)}
+                  className="p-2 rounded-full bg-white/[0.05] hover:bg-white/[0.1] text-white transition-colors cursor-pointer"
+                  aria-label="Close Modal"
+                >
+                  <X className="h-5 w-5" />
+                </button>
               </div>
 
-              {/* Milestone Card */}
-              <article
-                className={`rounded-3xl theme-card p-6 sm:p-9 transition-all duration-300 shadow-xl border ${
-                  isActive
-                    ? 'border-[var(--accent-primary)]/60 bg-[var(--bg-elevated)] shadow-2xl shadow-[var(--accent-primary)]/10 ring-1 ring-[var(--accent-primary)]/20'
-                    : exp.isPlaceholder
-                    ? 'border-dashed border-amber-500/30 bg-[var(--bg-canvas)]/40 hover:border-amber-500/60'
-                    : 'border-white/[0.08] hover:border-[var(--accent-primary)]/40 hover:shadow-2xl hover:shadow-[var(--accent-primary)]/5'
-                }`}
-              >
-                {/* Milestone Header */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-white/[0.08]">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase">
-                        ENTRY // {exp.index}
-                      </span>
-                      <span className="px-2.5 py-0.5 rounded-full theme-chip text-[10px] font-mono text-[var(--text-muted)]">
-                        {exp.isPlaceholder ? (isId ? 'Dalam Pengerjaan' : 'In Progress') : (isId ? 'Rilis Rekayasa' : 'Engineering Release')}
-                      </span>
-                    </div>
+              {/* Summary */}
+              <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
+                {renderWithPartnerLink(tField(selectedMilestone.summary, locale))}
+              </p>
 
-                    <h2 className="font-display font-bold text-2xl sm:text-3xl text-[var(--text-primary)]">
-                      {tField(exp.role, locale)}
-                    </h2>
-                    <p className="font-mono text-xs sm:text-sm text-[var(--text-secondary)] mt-1 font-medium">
-                      {renderWithPartnerLink(tField(exp.organization, locale))}
-                    </p>
-                  </div>
-
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full theme-chip text-xs font-mono text-[var(--text-primary)]">
-                    <Calendar className="h-3.5 w-3.5 text-[var(--accent-primary)]" />
-                    <span>{tField(exp.period, locale)}</span>
-                  </div>
-                </div>
-
-                {/* Card Content Grid: Narrative Left, Visual Mockup Right */}
-                <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                  {/* Left Column: Narrative & Deliverables */}
-                  <div className="lg:col-span-7 space-y-4">
-                    <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
-                      {renderWithPartnerLink(tField(exp.summary, locale))}
-                    </p>
-
-                    {/* Deliverables Bullet List */}
-                    <div className="space-y-2 pt-2">
-                      <span className="font-mono text-[11px] uppercase text-[var(--text-muted)] tracking-wider block font-semibold">
-                        {isId ? 'Pencapaian & Kontribusi Utama:' : 'Key Deliverables & Responsibilities:'}
-                      </span>
-                      <ul className="space-y-1.5 text-xs sm:text-sm text-[var(--text-secondary)]">
-                        {deliverables.map((item, dIdx) => (
-                          <li key={dIdx} className="flex items-start gap-2">
-                            <ChevronRight className="h-4 w-4 text-[var(--accent-primary)] shrink-0 mt-0.5" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Right Column: Visual Screenshot Mockup & Direct Test Drive Action */}
-                  <div className="lg:col-span-5 space-y-3">
-                    {coverImage && (
-                      <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-white/[0.1] bg-black/60 shadow-lg group/img">
-                        <Image
-                          src={coverImage}
-                          alt={tField(exp.role, locale)}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 400px"
-                          className="object-cover object-top transition-transform duration-500 group-hover/img:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-
-                        {/* Visual Badge overlay */}
-                        <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-[10px] font-mono text-white/90">
-                          <span className="px-2 py-0.5 rounded bg-black/75 border border-white/20">
-                            {tField(exp.domain, locale)}
-                          </span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Direct Action Link Button if Live Preview Exists */}
-                    {action && (
-                      <a
-                        href={action.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-md hover:shadow-cyan-500/20 active:scale-[0.98] cursor-pointer"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {action.icon === 'game' ? (
-                          <Gamepad2 className="h-4 w-4 text-black" />
-                        ) : (
-                          <Globe className="h-4 w-4 text-black" />
-                        )}
-                        <span>{isId ? action.labelId : action.labelEn}</span>
-                        <ExternalLink className="h-3.5 w-3.5 text-black" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                {/* Tech Pills Bar */}
-                <div className="mt-6 pt-5 border-t border-white/[0.08] flex flex-wrap gap-2">
-                  {exp.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 rounded-full theme-chip font-mono text-xs text-[var(--text-primary)]"
-                    >
-                      {tech}
-                    </span>
+              {/* Deliverables */}
+              <div className="space-y-2.5">
+                <span className="font-mono text-xs uppercase text-[var(--text-muted)] tracking-wider block font-semibold">
+                  {isId ? 'Tanggung Jawab & Rekayasa Utama:' : 'Key Engineering Deliverables:'}
+                </span>
+                <ul className="space-y-2 text-xs sm:text-sm text-[var(--text-secondary)]">
+                  {(selectedMilestone.deliverables[locale] ?? selectedMilestone.deliverables.en).map((item, dIdx) => (
+                    <li key={dIdx} className="flex items-start gap-2">
+                      <ChevronRight className="h-4 w-4 text-[var(--accent-primary)] shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </li>
                   ))}
-                </div>
-              </article>
-            </div>
-          );
-        })}
-      </div>
+                </ul>
+              </div>
+
+              {/* Technologies */}
+              <div className="pt-4 border-t border-white/[0.08] flex flex-wrap gap-2">
+                {selectedMilestone.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1 rounded-full theme-chip font-mono text-xs text-white"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
