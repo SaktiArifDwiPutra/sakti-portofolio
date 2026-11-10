@@ -230,7 +230,7 @@ export function HeroInteractive() {
               Flagship Projects
             </span>
             <p className="text-xs text-[var(--text-muted)] mt-1.5">
-              CritiPlay, LaundryFlow &amp; Negeri Kelabu RPG.
+              CritiPlay, Daus Anak Soleh &amp; Website Pilketos.
             </p>
           </div>
 

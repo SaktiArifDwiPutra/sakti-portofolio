@@ -150,15 +150,15 @@ export default async function HomePage({
               </h3>
               <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
                 {locale === 'id'
-                  ? 'Mengeksplorasi dunia simulasi atmosferik menggunakan Godot Engine 4 dan GDScript. Merancang sistem pohon scene modular, komunikasi berbasis sinyal, mesin state, dan narasi yang responsif terhadap tindakan pemain.'
-                  : 'Prototyping atmospheric simulation loops using Godot Engine 4 and GDScript. Designing modular scene tree architectures, signal buses, finite state machines, and player-responsive narrative dialogues.'}
+                  ? 'Membangun game interaktif dan prototipe mekanik 2D/3D dengan HTML 5 Canvas, Phaser Framework, dan Godot Engine. Berfokus pada loop gameplay yang responsif, state machine, kalkulasi matematika edukatif, dan arsitektur modular yang menyenangkan.'
+                  : 'Crafting interactive games and 2D/3D mechanic prototypes with HTML 5 Canvas, Phaser Framework, and Godot Engine. Focused on responsive gameplay loops, finite state machines, educational mechanics, and modular game architectures.'}
               </p>
             </div>
 
             <div className="pt-6 mt-6 border-t border-[var(--border-hairline)] flex items-center justify-between font-mono text-xs text-[var(--text-muted)]">
-              <span>Godot 4 • GDScript • State Systems</span>
-              <Link href="/projects/negeri-kelabu" prefetch={true} className="text-[var(--accent-primary)] flex items-center gap-1 group-hover:translate-x-1 transition-transform font-semibold">
-                <span>Negeri Kelabu</span>
+              <span>HTML 5 • Phaser • Godot</span>
+              <Link href="/projects" prefetch={true} className="text-[var(--accent-primary)] flex items-center gap-1 group-hover:translate-x-1 transition-transform font-semibold">
+                <span>{locale === 'id' ? 'Koleksi Game' : 'Game Catalog'}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
