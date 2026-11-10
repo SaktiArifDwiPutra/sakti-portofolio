@@ -28,7 +28,7 @@ interface ProfileHoloCardProps {
  * public/images/profile/sakti-hacker.jpg
  */
 export const PROFILE_PHOTO_SRC = '/images/profile/sakti-pilot.png';
-export const HACKER_PHOTO_SRC = '/images/profile/sakti-hacker.jpg';
+export const HACKER_PHOTO_SRC = '/images/profile/sakti-joker.jpg';
 // =======================================================================
 
 // Array kubus piksel warna-warni yang muncul saat glitch animasi swap
