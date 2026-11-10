@@ -64,8 +64,9 @@ export function TechGravitySandbox() {
   const sandboxRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
 
-  // Pointer drag tracking refs (prevents snap-back completely)
+  // Pointer drag & throw velocity tracking refs
   const dragStartRef = useRef<{ pointerX: number; pointerY: number; nodeX: number; nodeY: number } | null>(null);
+  const velocityHistoryRef = useRef<Array<{ x: number; y: number; time: number }>>([]);
 
   // Rigid boundaries ensuring capsules never cross the container edges
   const MIN_X = 6;
@@ -73,8 +74,10 @@ export function TechGravitySandbox() {
   const MIN_Y = 8;
   const MAX_Y = 82;
 
-  // Floating physics animation loop with rigid boundary reflection
+  // Floating physics animation loop with rigid boundary reflection & throw damping
   useEffect(() => {
+    const TARGET_AMBIENT_SPEED = 0.17;
+
     const interval = setInterval(() => {
       setNodes((prevNodes) =>
         prevNodes.map((node) => {
@@ -86,20 +89,36 @@ export function TechGravitySandbox() {
           let nextVy = node.vy;
 
           // Rigid bounce: guaranteed direction inversion (cannot penetrate or disappear)
+          // With slight bounce restitution (0.92) for high-speed impacts
           if (nextX <= MIN_X) {
-            nextVx = Math.abs(nextVx); // strictly bounce rightward
+            nextVx = Math.abs(nextVx) * 0.92; // strictly bounce rightward
             nextX = MIN_X;
           } else if (nextX >= MAX_X) {
-            nextVx = -Math.abs(nextVx); // strictly bounce leftward
+            nextVx = -Math.abs(nextVx) * 0.92; // strictly bounce leftward
             nextX = MAX_X;
           }
 
           if (nextY <= MIN_Y) {
-            nextVy = Math.abs(nextVy); // strictly bounce downward
+            nextVy = Math.abs(nextVy) * 0.92; // strictly bounce downward
             nextY = MIN_Y;
           } else if (nextY >= MAX_Y) {
-            nextVy = -Math.abs(nextVy); // strictly bounce upward
+            nextVy = -Math.abs(nextVy) * 0.92; // strictly bounce upward
             nextY = MAX_Y;
+          }
+
+          // Air resistance / friction damping:
+          // If thrown quickly, smoothly decelerate down to ambient floating drift
+          const currentSpeed = Math.hypot(nextVx, nextVy);
+          if (currentSpeed > TARGET_AMBIENT_SPEED) {
+            const dampedSpeed = Math.max(TARGET_AMBIENT_SPEED, currentSpeed * 0.955);
+            const dampingFactor = dampedSpeed / currentSpeed;
+            nextVx *= dampingFactor;
+            nextVy *= dampingFactor;
+          } else if (currentSpeed < 0.08 && currentSpeed > 0) {
+            // Keep ambient float active so it doesn't freeze
+            const boost = TARGET_AMBIENT_SPEED / currentSpeed;
+            nextVx *= boost;
+            nextVy *= boost;
           }
 
           return {
@@ -116,7 +135,7 @@ export function TechGravitySandbox() {
     return () => clearInterval(interval);
   }, [draggingNodeId]);
 
-  // Smooth pointer drag handlers (no snap-back, drops exactly where released)
+  // Smooth pointer drag handlers with throw/fling physics
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>, node: TechNode) => {
     e.stopPropagation();
     e.preventDefault();
@@ -130,6 +149,7 @@ export function TechGravitySandbox() {
       nodeX: node.x,
       nodeY: node.y,
     };
+    velocityHistoryRef.current = [{ x: e.clientX, y: e.clientY, time: performance.now() }];
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -147,6 +167,15 @@ export function TechGravitySandbox() {
         n.id === draggingNodeId ? { ...n, x: clampedX, y: clampedY } : n
       )
     );
+
+    // Track recent motion history for instantaneous throw velocity
+    const now = performance.now();
+    const history = velocityHistoryRef.current;
+    history.push({ x: e.clientX, y: e.clientY, time: now });
+    // Keep sliding window of recent 90ms
+    while (history.length > 2 && now - history[0].time > 90) {
+      history.shift();
+    }
   };
 
   const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -156,8 +185,57 @@ export function TechGravitySandbox() {
       } catch {
         // Safe fallback
       }
+
+      const now = performance.now();
+      const history = velocityHistoryRef.current;
+      let throwVx = 0;
+      let throwVy = 0;
+
+      if (history.length >= 2 && sandboxRef.current) {
+        const oldest = history[0];
+        const newest = history[history.length - 1];
+        const dt = newest.time - oldest.time;
+        const timeSinceLastMove = now - newest.time;
+
+        // Only fling if released while still moving (within 70ms of last move event)
+        if (dt > 10 && timeSinceLastMove < 70) {
+          const rect = sandboxRef.current.getBoundingClientRect();
+          const dxPercent = ((newest.x - oldest.x) / rect.width) * 100;
+          const dyPercent = ((newest.y - oldest.y) / rect.height) * 100;
+
+          // Velocity in percent per 45ms physics tick
+          throwVx = (dxPercent / dt) * 45;
+          throwVy = (dyPercent / dt) * 45;
+
+          // Clamp maximum throw speed so it stays within visible, enjoyable physics
+          const MAX_THROW_SPEED = 2.6;
+          const throwSpeed = Math.hypot(throwVx, throwVy);
+          if (throwSpeed > MAX_THROW_SPEED) {
+            const scale = MAX_THROW_SPEED / throwSpeed;
+            throwVx *= scale;
+            throwVy *= scale;
+          }
+        }
+      }
+
+      const hasThrow = Math.hypot(throwVx, throwVy) > 0.22;
+
+      setNodes((prev) =>
+        prev.map((n) => {
+          if (n.id === draggingNodeId) {
+            return {
+              ...n,
+              vx: hasThrow ? throwVx : (Math.random() > 0.5 ? 0.16 : -0.16),
+              vy: hasThrow ? throwVy : (Math.random() > 0.5 ? 0.16 : -0.16),
+            };
+          }
+          return n;
+        })
+      );
+
       setDraggingNodeId(null);
       dragStartRef.current = null;
+      velocityHistoryRef.current = [];
     }
   };
 
@@ -167,7 +245,7 @@ export function TechGravitySandbox() {
     setNodes((prevNodes) =>
       prevNodes.map((node) => {
         const angle = Math.random() * Math.PI * 2;
-        const speed = 1.1 + Math.random() * 1.4;
+        const speed = 1.3 + Math.random() * 1.2;
         return {
           ...node,
           vx: Math.cos(angle) * speed,
@@ -177,15 +255,8 @@ export function TechGravitySandbox() {
     );
 
     setTimeout(() => {
-      setNodes((prevNodes) =>
-        prevNodes.map((node) => ({
-          ...node,
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: (Math.random() - 0.5) * 0.35,
-        }))
-      );
       setImpulseActive(false);
-    }, 850);
+    }, 700);
   };
 
   const handleMouseMoveSandbox = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -292,6 +363,7 @@ export function TechGravitySandbox() {
             <div
               key={node.id}
               onPointerDown={(e) => handlePointerDown(e, node)}
+              onPointerCancel={handlePointerUp}
               className="absolute -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing z-20 group"
               style={{
                 left: `${node.x}%`,
