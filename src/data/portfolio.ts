@@ -1094,12 +1094,20 @@ export const TECH_STACK: TechStackCategory[] = [
     },
     items: [
       {
-        name: 'React & Next.js',
+        name: 'React',
         role: {
-          en: 'Component architecture, routing & SSR/SSG web applications',
-          id: 'Arsitektur komponen, perutean & aplikasi web modern',
+          en: 'Component hierarchy, custom state hooks & reactive review feeds',
+          id: 'Hierarki komponen, hook state kustom & antarmuka reaktif',
         },
-        context: 'CritiPlay / Web Systems',
+        context: 'CritiPlay',
+      },
+      {
+        name: 'Next.js',
+        role: {
+          en: 'App Router architecture, SSG/SSR bilingual workflows & speed',
+          id: 'Arsitektur App Router, alur kerja dwibahasa SSG/SSR & kecepatan',
+        },
+        context: 'Portfolio Platform',
       },
       {
         name: 'TypeScript',
@@ -1110,12 +1118,28 @@ export const TECH_STACK: TechStackCategory[] = [
         context: 'CritiPlay / Full-Stack',
       },
       {
-        name: 'Flutter & Dart',
+        name: 'JavaScript',
         role: {
-          en: 'Cross-platform mobile UI & operational workflow apps',
-          id: 'Antarmuka mobile lintas platform & aplikasi alur kerja operasional',
+          en: 'Core web scripting, DOM manipulation & client-side state',
+          id: 'Pemrograman web inti, manipulasi DOM & state sisi klien',
         },
-        context: 'LaundryFlow',
+        context: 'Web & Canvas Apps',
+      },
+      {
+        name: 'HTML 5',
+        role: {
+          en: 'Semantic markup structure, accessibility & 2D Canvas context',
+          id: 'Struktur markup semantik, aksesibilitas & konteks 2D Canvas',
+        },
+        context: 'Daus Anak Soleh & Web',
+      },
+      {
+        name: 'CSS',
+        role: {
+          en: 'Modern layouts, flexbox, CSS Grid choreography & responsive media',
+          id: 'Tata letak modern, flexbox, CSS Grid & media responsif',
+        },
+        context: 'Web Layouts',
       },
       {
         name: 'Tailwind CSS',
@@ -1125,22 +1149,38 @@ export const TECH_STACK: TechStackCategory[] = [
         },
         context: 'Web Interfaces',
       },
+      {
+        name: 'Flutter',
+        role: {
+          en: 'Cross-platform mobile UI client & status board ergonomics',
+          id: 'Klien antarmuka mobile lintas platform & ergonomi status pesanan',
+        },
+        context: 'LaundryFlow Mobile',
+      },
+      {
+        name: 'Dart',
+        role: {
+          en: 'Strongly typed domain models, serialization & mobile logic',
+          id: 'Model domain bertipe kuat, serialisasi data & logika mobile',
+        },
+        context: 'LaundryFlow Client',
+      },
     ],
   },
   {
     id: 'backend-data',
     code: 'SPEC.02',
     title: {
-      en: 'Backend, API & Enterprise Systems',
-      id: 'Backend, API & Sistem Enterprise',
+      en: 'Backend, APIs & Databases',
+      id: 'Backend, API & Basis Data',
     },
     description: {
-      en: 'Server-side logic, relational data modeling, and business process integration.',
-      id: 'Logika sisi server, pemodelan data relasional, dan integrasi proses bisnis.',
+      en: 'Server-side logic, relational data modeling, and enterprise integration.',
+      id: 'Logika sisi server, pemodelan data relasional, dan integrasi enterprise.',
     },
     items: [
       {
-        name: 'Laravel (PHP)',
+        name: 'Laravel',
         role: {
           en: 'RESTful API design, authentication, Eloquent ORM & validation',
           id: 'Desain API RESTful, autentikasi, Eloquent ORM & validasi',
@@ -1148,12 +1188,60 @@ export const TECH_STACK: TechStackCategory[] = [
         context: 'CritiPlay Backend',
       },
       {
+        name: 'PHP',
+        role: {
+          en: 'Multi-role authentication guards, sessions & electoral tallying',
+          id: 'Penjaga autentikasi multi-peran, sesi & kalkulasi suara',
+        },
+        context: 'Website Pilketos',
+      },
+      {
+        name: 'Node.js',
+        role: {
+          en: 'Server-side runtime, build automation & asynchronous services',
+          id: 'Runtime sisi server, otomasi build & layanan asinkron',
+        },
+        context: 'Full-Stack Services',
+      },
+      {
+        name: 'Hono.js',
+        role: {
+          en: 'Lightweight web standards routing, edge APIs & fast microservices',
+          id: 'Perutean berbasis standar web ringan, API edge & microservice cepat',
+        },
+        context: 'Cloud Edge APIs',
+      },
+      {
         name: 'MySQL',
         role: {
-          en: 'Relational database schema design, indexing & query optimization',
-          id: 'Desain skema basis data relasional, pengindeksan & optimasi kueri',
+          en: 'Relational database schema design, indexing & transaction safety',
+          id: 'Desain skema basis data relasional, pengindeksan & keamanan transaksi',
         },
-        context: 'CritiPlay Persistence',
+        context: 'CritiPlay & Pilketos',
+      },
+      {
+        name: 'PostgreSQL',
+        role: {
+          en: 'Advanced relational persistence, schemas & ACID compliance',
+          id: 'Penyimpanan data relasional lanjutan, skema & kepatuhan ACID',
+        },
+        context: 'Database Engineering',
+      },
+      {
+        name: 'SQLite',
+        role: {
+          en: 'Embedded zero-configuration local database for caching & apps',
+          id: 'Basis data lokal tanpa konfigurasi untuk caching & aplikasi',
+        },
+        context: 'Embedded Storage',
+      },
+      {
+        name: 'Supabase',
+        role: {
+          en: 'Postgres cloud infrastructure, real-time channels & Row Level Security',
+          id: 'Infrastruktur cloud Postgres, kanal real-time & Row Level Security',
+        },
+        context: 'Cloud Backend',
       },
       {
         name: 'Odoo ERP',
@@ -1169,19 +1257,27 @@ export const TECH_STACK: TechStackCategory[] = [
     id: 'game-dev',
     code: 'SPEC.03',
     title: {
-      en: 'Game Development & Interactive Systems',
-      id: 'Pengembangan Game & Sistem Interaktif',
+      en: 'Game Development & Interactive Media',
+      id: 'Pengembangan Game & Media Interaktif',
     },
     description: {
-      en: 'Simulation loops, scene trees, state machines, and interactive storytelling tools.',
-      id: 'Alur simulasi, pohon scene, mesin state, dan perangkat penceritaan interaktif.',
+      en: 'Simulation loops, scene trees, state machines, and interactive mechanics.',
+      id: 'Alur simulasi, pohon scene, mesin state, dan mekanika interaktif.',
     },
     items: [
       {
-        name: 'Godot Engine',
+        name: 'Phaser',
         role: {
-          en: 'Node-based scene architecture, signal systems & 2D/3D game loops',
-          id: 'Arsitektur scene berbasis node, sistem sinyal & alur permainan',
+          en: 'HTML5 2D game framework, sprite animations & educational mechanics',
+          id: 'Framework game 2D HTML5, animasi sprite & mekanika edukatif',
+        },
+        context: 'Daus Anak Soleh',
+      },
+      {
+        name: 'Godot',
+        role: {
+          en: 'Node-based scene architecture, signal buses & 2D game loops',
+          id: 'Arsitektur scene berbasis node, bus sinyal & alur permainan 2D',
         },
         context: 'Negeri Kelabu',
       },
@@ -1194,12 +1290,12 @@ export const TECH_STACK: TechStackCategory[] = [
         context: 'Negeri Kelabu',
       },
       {
-        name: 'Systems & Narrative Design',
+        name: 'Docker',
         role: {
-          en: 'Life-simulation mechanics, progression balancing & world state logic',
-          id: 'Mekanika simulasi kehidupan, keseimbangan progresi & logika state dunia',
+          en: 'Containerization, reproducible deployment stacks & compose orchestration',
+          id: 'Kontainerisasi, tumpukan deployment terisolasi & orkestrasi compose',
         },
-        context: 'Interactive Prototypes',
+        context: 'Dragonhold & Tools',
       },
     ],
   },

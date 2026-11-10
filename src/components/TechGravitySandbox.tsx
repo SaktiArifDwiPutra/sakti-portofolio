@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Zap, Cpu, Activity, Move } from 'lucide-react';
+import { Sparkles, Zap, Cpu, Activity, Move, Search } from 'lucide-react';
 
 interface TechNode {
   id: string;
   name: string;
-  category: 'frontend' | 'backend' | 'game' | 'mobile' | 'tools';
+  category: 'frontend' | 'backend' | 'game' | 'mobile' | 'database' | 'tools';
   color: string;
   x: number;
   y: number;
@@ -19,31 +19,53 @@ interface TechNode {
 }
 
 const ALL_GITHUB_TECH_NODES: TechNode[] = [
-  { id: 'react', name: 'React 19', category: 'frontend', color: '#61dafb', x: 20, y: 30, vx: 0.18, vy: 0.22, iconText: 'Re', projectNote: 'CritiPlay component hierarchy & reactive review feeds', role: 'Frontend UI' },
-  { id: 'typescript', name: 'TypeScript', category: 'frontend', color: '#3178c6', x: 45, y: 22, vx: -0.2, vy: 0.15, iconText: 'TS', projectNote: 'End-to-end type safety in CritiPlay, Dragonhold & Coordina', role: 'Type Systems' },
-  { id: 'nextjs', name: 'Next.js 15', category: 'frontend', color: '#ffffff', x: 72, y: 28, vx: 0.15, vy: -0.22, iconText: 'Nx', projectNote: 'App router, SSG/SSR bilingual architectures', role: 'Full-Stack Framework' },
-  { id: 'php', name: 'PHP Native', category: 'backend', color: '#8892be', x: 15, y: 68, vx: 0.22, vy: -0.16, iconText: 'PHP', projectNote: 'Pilketos Web App multi-role authentication & voting engine', role: 'Server-Side Web' },
-  { id: 'laravel', name: 'Laravel', category: 'backend', color: '#ff2d20', x: 38, y: 72, vx: -0.18, vy: 0.18, iconText: 'Lv', projectNote: 'RESTful API architecture & Eloquent ORM in CritiPlay', role: 'Backend Framework' },
-  { id: 'mysql', name: 'MySQL', category: 'backend', color: '#00758f', x: 60, y: 65, vx: 0.2, vy: -0.19, iconText: 'SQL', projectNote: 'Relational data schemas for Pilketos, CritiPlay & School databases', role: 'Relational Database' },
-  { id: 'python', name: 'Python', category: 'backend', color: '#3776ab', x: 82, y: 68, vx: -0.22, vy: -0.14, iconText: 'Py', projectNote: 'Custom Odoo ERP module development in eventflow_management', role: 'ERP Scripting' },
-  { id: 'odoo', name: 'Odoo ERP', category: 'backend', color: '#06b6d4', x: 50, y: 48, vx: 0.14, vy: 0.22, iconText: 'Od', projectNote: 'Resource modeling in LaundryFlow & eventflow_management module', role: 'Enterprise Systems' },
-  { id: 'flutter', name: 'Flutter & Dart', category: 'mobile', color: '#54c5f8', x: 12, y: 48, vx: 0.2, vy: -0.22, iconText: 'Fl', projectNote: 'Operational mobile workflow app in LaundryFlow', role: 'Cross-Platform Mobile' },
-  { id: 'canvas', name: 'HTML5 & Canvas Game', category: 'game', color: '#f59e0b', x: 86, y: 25, vx: -0.16, vy: 0.2, iconText: 'JS', projectNote: 'Interactive educational game mechanics in Daus Anak Soleh', role: 'Game Programming' },
-  { id: 'godot', name: 'Godot Engine 4', category: 'game', color: '#478cbf', x: 84, y: 46, vx: 0.22, vy: -0.18, iconText: 'Gd', projectNote: 'Node-based scene composition & signal architecture in Negeri Kelabu', role: 'Indie Game Engine' },
-  { id: 'tailwind', name: 'Tailwind CSS', category: 'frontend', color: '#38bdf8', x: 32, y: 42, vx: -0.19, vy: -0.15, iconText: 'TW', projectNote: 'Fluid responsive layout tokens & design systems', role: 'Utility Styling' },
-  { id: 'docker', name: 'Docker', category: 'tools', color: '#2496ed', x: 68, y: 45, vx: 0.16, vy: 0.2, iconText: 'Dk', projectNote: 'Containerization & compose orchestrations in Dragonhold', role: 'DevOps & Containers' },
+  // Frontend
+  { id: 'react', name: 'React', category: 'frontend', color: '#61dafb', x: 16, y: 22, vx: 0.16, vy: 0.18, iconText: 'Re', projectNote: 'Component hierarchy, custom hooks & reactive UI feeds in CritiPlay', role: 'Frontend UI Library' },
+  { id: 'nextjs', name: 'Next.js', category: 'frontend', color: '#00f0ff', x: 36, y: 16, vx: -0.18, vy: 0.14, iconText: 'Nx', projectNote: 'App Router, SSG/SSR bilingual internationalization & fast web apps', role: 'Full-Stack Framework' },
+  { id: 'typescript', name: 'TypeScript', category: 'frontend', color: '#3178c6', x: 58, y: 20, vx: 0.14, vy: -0.19, iconText: 'TS', projectNote: 'Strict type contracts & end-to-end domain safety across projects', role: 'Type Systems' },
+  { id: 'javascript', name: 'JavaScript', category: 'frontend', color: '#f7df1e', x: 80, y: 18, vx: -0.15, vy: 0.2, iconText: 'JS', projectNote: 'Core client scripting, asynchronous fetch pipelines & game state', role: 'Core Scripting' },
+  { id: 'html5', name: 'HTML 5', category: 'frontend', color: '#e34f26', x: 14, y: 40, vx: 0.19, vy: -0.15, iconText: 'H5', projectNote: 'Semantic markup, accessible structure & HTML 5 2D Canvas engine', role: 'Semantic & Canvas' },
+  { id: 'css', name: 'CSS', category: 'frontend', color: '#1572b6', x: 32, y: 38, vx: -0.17, vy: -0.18, iconText: 'CSS', projectNote: 'Modern responsive styling, flexbox/grid choreography & animations', role: 'Layout & Styling' },
+  { id: 'tailwind', name: 'Tailwind CSS', category: 'frontend', color: '#38bdf8', x: 50, y: 35, vx: 0.15, vy: 0.18, iconText: 'TW', projectNote: 'Fluid responsive layout tokens, cyberpunk aesthetics & design systems', role: 'Utility Styling' },
+
+  // Backend
+  { id: 'laravel', name: 'Laravel', category: 'backend', color: '#ff2d20', x: 70, y: 38, vx: -0.18, vy: 0.15, iconText: 'Lv', projectNote: 'REST API architecture, Eloquent ORM & token authentication in CritiPlay', role: 'Backend Framework' },
+  { id: 'php', name: 'PHP', category: 'backend', color: '#777bb4', x: 88, y: 36, vx: 0.14, vy: -0.16, iconText: 'PHP', projectNote: 'Pilketos web voting system, multi-role auth & session security', role: 'Server-Side Web' },
+  { id: 'nodejs', name: 'Node.js', category: 'backend', color: '#68a063', x: 20, y: 56, vx: 0.17, vy: 0.14, iconText: 'Node', projectNote: 'Server-side runtime, build pipelines, asynchronous APIs & tooling', role: 'JavaScript Runtime' },
+  { id: 'hono', name: 'Hono.js', category: 'backend', color: '#e36002', x: 40, y: 54, vx: -0.16, vy: -0.17, iconText: 'Hono', projectNote: 'Lightweight web standards routing, cloud functions & edge APIs', role: 'Edge Web Standards' },
+  { id: 'python', name: 'Python', category: 'backend', color: '#3776ab', x: 60, y: 55, vx: 0.18, vy: -0.15, iconText: 'Py', projectNote: 'Custom ERP business logic & module development in eventflow_management', role: 'ERP & Scripting' },
+  { id: 'odoo', name: 'Odoo ERP', category: 'backend', color: '#06b6d4', x: 80, y: 56, vx: -0.15, vy: 0.18, iconText: 'Od', projectNote: 'Enterprise model synchronization & mobile dispatch bridging in LaundryFlow', role: 'Enterprise Systems' },
+
+  // Mobile
+  { id: 'flutter', name: 'Flutter', category: 'mobile', color: '#54c5f8', x: 16, y: 72, vx: 0.15, vy: -0.16, iconText: 'Fl', projectNote: 'Cross-platform mobile client & ergonomic status boards in LaundryFlow', role: 'Mobile Framework' },
+  { id: 'dart', name: 'Dart', category: 'mobile', color: '#0175c2', x: 34, y: 70, vx: -0.18, vy: 0.14, iconText: 'Dart', projectNote: 'Strongly typed client domain models & Odoo RPC adapters in LaundryFlow', role: 'Client Language' },
+
+  // Game Dev
+  { id: 'phaser', name: 'Phaser', category: 'game', color: '#f39c12', x: 52, y: 72, vx: 0.16, vy: 0.17, iconText: 'Ph', projectNote: 'Core game framework powering math puzzle mechanics in Daus Anak Soleh', role: 'HTML5 Game Engine' },
+  { id: 'godot', name: 'Godot', category: 'game', color: '#478cbf', x: 70, y: 70, vx: -0.17, vy: -0.15, iconText: 'Gd', projectNote: 'Scene tree composition & signal architecture in Negeri Kelabu', role: 'Indie Game Engine' },
+  { id: 'gdscript', name: 'GDScript', category: 'game', color: '#659ad2', x: 88, y: 72, vx: 0.15, vy: 0.16, iconText: 'GS', projectNote: 'State machines, dialogue branch parsers & day rhythm simulation loops', role: 'Game Scripting' },
+
+  // Database
+  { id: 'mysql', name: 'MySQL', category: 'database', color: '#00758f', x: 26, y: 30, vx: -0.15, vy: 0.17, iconText: 'SQL', projectNote: 'Relational schemas, foreign key integrity & transactions in CritiPlay & Pilketos', role: 'Relational Database' },
+  { id: 'postgresql', name: 'PostgreSQL', category: 'database', color: '#336791', x: 46, y: 32, vx: 0.18, vy: -0.14, iconText: 'PG', projectNote: 'Enterprise relational persistence, advanced indexing & ACID query guarantees', role: 'Relational Database' },
+  { id: 'sqlite', name: 'SQLite', category: 'database', color: '#003b57', x: 66, y: 30, vx: -0.16, vy: -0.16, iconText: 'Lite', projectNote: 'Zero-configuration embedded local database for mobile caching & desktop apps', role: 'Embedded Database' },
+  { id: 'supabase', name: 'Supabase', category: 'database', color: '#3ecf8e', x: 76, y: 48, vx: 0.17, vy: 0.15, iconText: 'Supa', projectNote: 'Cloud Postgres backend, Row Level Security, instant REST APIs & auth', role: 'Backend-as-a-Service' },
+
+  // Tools
+  { id: 'docker', name: 'Docker', category: 'tools', color: '#2496ed', x: 36, y: 46, vx: -0.14, vy: 0.17, iconText: 'Dk', projectNote: 'Containerization, reproducible runtimes & docker-compose in Dragonhold', role: 'DevOps & Containers' },
 ];
 
 export function TechGravitySandbox() {
   const [nodes, setNodes] = useState<TechNode[]>(ALL_GITHUB_TECH_NODES);
-  const [activeFilter, setActiveFilter] = useState<'all' | 'frontend' | 'backend' | 'game' | 'mobile' | 'tools'>('all');
+  const [activeFilter, setActiveFilter] = useState<'all' | 'frontend' | 'backend' | 'game' | 'mobile' | 'database' | 'tools'>('all');
   const [selectedNode, setSelectedNode] = useState<TechNode>(ALL_GITHUB_TECH_NODES[0]);
+  const [typedQuery, setTypedQuery] = useState('');
   const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
   const [impulseActive, setImpulseActive] = useState(false);
   const sandboxRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
 
-  // Floating physics animation loop (only animates nodes that are NOT currently being dragged by user)
+  // Floating physics animation loop with rigid boundary reflection (CANNOT penetrate container)
   useEffect(() => {
     const interval = setInterval(() => {
       setNodes((prevNodes) =>
@@ -55,14 +77,27 @@ export function TechGravitySandbox() {
           let nextVx = node.vx;
           let nextVy = node.vy;
 
-          // Stay inside container bounds (7% to 93%)
-          if (nextX <= 7 || nextX >= 93) {
-            nextVx = -nextVx;
-            nextX = Math.max(7, Math.min(93, nextX));
+          // Safe boundaries strictly inside container box (capsule stays fully enclosed)
+          const MIN_X = 6;
+          const MAX_X = 94;
+          const MIN_Y = 8;
+          const MAX_Y = 82;
+
+          // Rigid bounce: guaranteed direction inversion
+          if (nextX <= MIN_X) {
+            nextVx = Math.abs(nextVx); // bounce strictly rightward
+            nextX = MIN_X;
+          } else if (nextX >= MAX_X) {
+            nextVx = -Math.abs(nextVx); // bounce strictly leftward
+            nextX = MAX_X;
           }
-          if (nextY <= 12 || nextY >= 88) {
-            nextVy = -nextVy;
-            nextY = Math.max(12, Math.min(88, nextY));
+
+          if (nextY <= MIN_Y) {
+            nextVy = Math.abs(nextVy); // bounce strictly downward
+            nextY = MIN_Y;
+          } else if (nextY >= MAX_Y) {
+            nextVy = -Math.abs(nextVy); // bounce strictly upward
+            nextY = MAX_Y;
           }
 
           return {
@@ -79,13 +114,33 @@ export function TechGravitySandbox() {
     return () => clearInterval(interval);
   }, [draggingNodeId]);
 
+  // Handle typing to match language color
+  const handleTypeQuery = (val: string) => {
+    setTypedQuery(val);
+    const cleaned = val.trim().toLowerCase();
+    if (!cleaned) return;
+
+    // Search matching tech
+    const match = nodes.find(
+      (n) =>
+        n.name.toLowerCase() === cleaned ||
+        n.id.toLowerCase() === cleaned ||
+        n.iconText.toLowerCase() === cleaned ||
+        n.name.toLowerCase().includes(cleaned)
+    );
+
+    if (match) {
+      setSelectedNode(match);
+    }
+  };
+
   // Trigger Anti-Gravity Shockwave
   const triggerAntiGravityImpulse = () => {
     setImpulseActive(true);
     setNodes((prevNodes) =>
       prevNodes.map((node) => {
         const angle = Math.random() * Math.PI * 2;
-        const speed = 1.3 + Math.random() * 1.6;
+        const speed = 1.1 + Math.random() * 1.4;
         return {
           ...node,
           vx: Math.cos(angle) * speed,
@@ -98,8 +153,8 @@ export function TechGravitySandbox() {
       setNodes((prevNodes) =>
         prevNodes.map((node) => ({
           ...node,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
         }))
       );
       setImpulseActive(false);
@@ -120,27 +175,31 @@ export function TechGravitySandbox() {
       ? nodes
       : nodes.filter((n) => n.category === activeFilter);
 
+  // Active theme color matching current typed / selected language
+  const activeContainerColor = selectedNode.color || 'var(--accent-primary)';
+
   return (
     <div className="space-y-6">
       {/* Interactive Control Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl theme-card shadow-md">
         {/* Category Filters */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {(
             [
-              { id: 'all', label: 'All Tech' },
-              { id: 'frontend', label: 'Frontend / Web' },
-              { id: 'backend', label: 'Backend / APIs' },
+              { id: 'all', label: 'All Tech (22)' },
+              { id: 'frontend', label: 'Frontend' },
+              { id: 'backend', label: 'Backend' },
+              { id: 'database', label: 'Database' },
               { id: 'game', label: 'Game Engines' },
               { id: 'mobile', label: 'Mobile' },
-              { id: 'tools', label: 'DevOps / Tools' },
+              { id: 'tools', label: 'DevOps' },
             ] as const
           ).map((tab) => (
             <button
               key={tab.id}
               type="button"
               onClick={() => setActiveFilter(tab.id)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all ${
+              className={`px-3 py-1.5 rounded-full text-xs font-mono transition-all ${
                 activeFilter === tab.id
                   ? 'bg-[var(--accent-primary)] text-[var(--accent-primary-ink)] font-bold shadow-md'
                   : 'theme-chip hover:border-[var(--accent-primary)]/40'
@@ -162,22 +221,58 @@ export function TechGravitySandbox() {
         </button>
       </div>
 
-      {/* Main Physics Arena Container with Touch / Mouse Drag Support */}
+      {/* Dynamic Color Match Search Bar */}
+      <div
+        className="flex flex-wrap items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl border transition-all duration-300 backdrop-blur-md"
+        style={{
+          borderColor: `${activeContainerColor}60`,
+          backgroundColor: `${activeContainerColor}08`,
+          boxShadow: `0 0 25px ${activeContainerColor}18`,
+        }}
+      >
+        <div className="flex items-center gap-2.5 flex-1 min-w-[240px]">
+          <Search className="h-4 w-4 transition-colors" style={{ color: activeContainerColor }} />
+          <input
+            type="text"
+            value={typedQuery}
+            onChange={(e) => handleTypeQuery(e.target.value)}
+            placeholder="Type a tech to sync color (e.g. Laravel, JS, React, Dart, Supabase, HTML 5)..."
+            className="w-full bg-transparent text-xs sm:text-sm font-mono text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none"
+          />
+        </div>
+
+        <div className="flex items-center gap-2 font-mono text-xs">
+          <span className="text-[var(--text-muted)] text-[11px] hidden sm:inline">Active Container Color:</span>
+          <span
+            className="px-2.5 py-1 rounded-full font-bold text-xs uppercase shadow-sm transition-all duration-300"
+            style={{
+              backgroundColor: activeContainerColor,
+              color: '#000000',
+            }}
+          >
+            {selectedNode.name} ({activeContainerColor})
+          </span>
+        </div>
+      </div>
+
+      {/* Main Physics Arena Container with Dynamic Language Color Border & Interior Glow */}
       <div
         ref={sandboxRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={() => setMousePos({ x: -1000, y: -1000 })}
-        className="relative h-[440px] sm:h-[500px] w-full rounded-3xl theme-card overflow-hidden shadow-2xl select-none touch-none"
+        className="relative h-[480px] sm:h-[540px] w-full rounded-3xl overflow-hidden select-none touch-none transition-all duration-500 border-2"
         style={{
-          background: 'radial-gradient(ellipse 90% 80% at 50% 50%, rgba(20, 24, 33, 0.95), var(--bg-canvas))',
+          borderColor: activeContainerColor,
+          boxShadow: `0 0 45px ${activeContainerColor}30, inset 0 0 50px ${activeContainerColor}12`,
+          background: 'radial-gradient(ellipse 90% 80% at 50% 50%, rgba(10, 14, 22, 0.96), var(--bg-canvas))',
         }}
       >
-        {/* Background Coordinate Grid */}
-        <div 
-          aria-hidden="true" 
-          className="absolute inset-0 opacity-[0.07] pointer-events-none"
+        {/* Background Coordinate Grid with language color tint */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 opacity-[0.08] pointer-events-none transition-colors duration-500"
           style={{
-            backgroundImage: 'linear-gradient(to right, var(--text-primary) 1px, transparent 1px), linear-gradient(to bottom, var(--text-primary) 1px, transparent 1px)',
+            backgroundImage: `linear-gradient(to right, ${activeContainerColor} 1px, transparent 1px), linear-gradient(to bottom, ${activeContainerColor} 1px, transparent 1px)`,
             backgroundSize: '40px 40px',
           }}
         />
@@ -185,8 +280,12 @@ export function TechGravitySandbox() {
         {/* Dynamic Gravitational Cursor Glow */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute w-64 h-64 rounded-full bg-[var(--accent-primary)] opacity-[0.06] blur-[70px] -translate-x-1/2 -translate-y-1/2 transition-transform duration-75"
-          style={{ left: `${mousePos.x}%`, top: `${mousePos.y}%` }}
+          className="pointer-events-none absolute w-64 h-64 rounded-full opacity-[0.12] blur-[75px] -translate-x-1/2 -translate-y-1/2 transition-transform duration-75"
+          style={{
+            left: `${mousePos.x}%`,
+            top: `${mousePos.y}%`,
+            backgroundColor: activeContainerColor,
+          }}
         />
 
         {/* Interactive Draggable Floating Tech Nodes */}
@@ -199,22 +298,24 @@ export function TechGravitySandbox() {
               key={node.id}
               drag
               dragConstraints={sandboxRef}
-              dragElastic={0.06}
-              onDragStart={() => setDraggingNodeId(node.id)}
+              dragElastic={0}
+              onDragStart={() => {
+                setDraggingNodeId(node.id);
+                setSelectedNode(node);
+              }}
               onDragEnd={(e, info) => {
                 setDraggingNodeId(null);
-                // Update node position relative to sandbox container
                 if (sandboxRef.current) {
                   const rect = sandboxRef.current.getBoundingClientRect();
-                  const newX = Math.max(7, Math.min(93, ((info.point.x - rect.left) / rect.width) * 100));
-                  const newY = Math.max(12, Math.min(88, ((info.point.y - rect.top) / rect.height) * 100));
+                  const newX = Math.max(6, Math.min(94, ((info.point.x - rect.left) / rect.width) * 100));
+                  const newY = Math.max(8, Math.min(82, ((info.point.y - rect.top) / rect.height) * 100));
                   setNodes((prev) =>
                     prev.map((n) => (n.id === node.id ? { ...n, x: newX, y: newY } : n))
                   );
                 }
               }}
               whileHover={{ scale: 1.15 }}
-              whileDrag={{ scale: 1.3, zIndex: 60, cursor: 'grabbing' }}
+              whileDrag={{ scale: 1.25, zIndex: 60, cursor: 'grabbing' }}
               onClick={() => setSelectedNode(node)}
               className="absolute -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing z-20 group"
               style={{
@@ -225,15 +326,15 @@ export function TechGravitySandbox() {
             >
               {/* Outer Glowing Tactile Capsule */}
               <div
-                className={`relative flex items-center justify-center rounded-2xl p-3 sm:p-3.5 backdrop-blur-md transition-all duration-200 ${
+                className={`relative flex items-center justify-center rounded-2xl p-2.5 sm:p-3 backdrop-blur-md transition-all duration-200 ${
                   isSelected
-                    ? 'border-2 shadow-2xl'
+                    ? 'border-2 shadow-2xl scale-110'
                     : 'border hover:shadow-lg'
                 }`}
                 style={{
-                  backgroundColor: isSelected ? 'rgba(255,255,255,0.14)' : 'rgba(255, 255, 255, 0.05)',
-                  borderColor: isSelected ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.12)',
-                  boxShadow: isSelected ? '0 0 28px rgba(0, 240, 255, 0.45)' : 'none',
+                  backgroundColor: isSelected ? 'rgba(255,255,255,0.18)' : 'rgba(255, 255, 255, 0.05)',
+                  borderColor: isSelected ? node.color : 'rgba(255, 255, 255, 0.14)',
+                  boxShadow: isSelected ? `0 0 25px ${node.color}70` : 'none',
                 }}
               >
                 {/* Tech Monogram / Icon */}
@@ -252,7 +353,7 @@ export function TechGravitySandbox() {
               </div>
 
               {/* Tooltip Tag */}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1.5 px-2 py-0.5 rounded-full bg-black/85 border border-white/10 text-[10px] font-mono text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-md">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1.5 px-2 py-0.5 rounded-full bg-black/90 border border-white/10 text-[10px] font-mono text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-md">
                 {node.name}
               </div>
             </motion.div>
@@ -262,12 +363,12 @@ export function TechGravitySandbox() {
         {/* Arena Telemetry Bar */}
         <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between font-mono text-[11px] text-[var(--text-muted)] pointer-events-none">
           <div className="flex items-center gap-2">
-            <Activity className="h-3.5 w-3.5 text-[var(--accent-primary)] animate-pulse" />
-            <span>ZERO-G COMPUTATION CHAMBER</span>
+            <Activity className="h-3.5 w-3.5 animate-pulse" style={{ color: activeContainerColor }} />
+            <span>ZERO-G COMPUTATION CHAMBER // RIGID WALL REFLECTION</span>
           </div>
           <span className="flex items-center gap-1.5">
-            <Move className="h-3 w-3 text-[var(--accent-primary)]" />
-            <span>DRAG ANY BOX WITH CURSOR OR THUMB 🕹️</span>
+            <Move className="h-3 w-3" style={{ color: activeContainerColor }} />
+            <span>DRAG OR TYPE TECH TO SYNC CONTAINER 🕹️</span>
           </span>
         </div>
       </div>
@@ -280,7 +381,11 @@ export function TechGravitySandbox() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
-          className="p-5 sm:p-6 rounded-2xl theme-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+          className="p-5 sm:p-6 rounded-2xl theme-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border"
+          style={{
+            borderColor: `${activeContainerColor}40`,
+            boxShadow: `0 10px 30px -10px ${activeContainerColor}20`,
+          }}
         >
           <div className="space-y-1.5">
             <div className="flex items-center gap-2.5">
@@ -300,7 +405,7 @@ export function TechGravitySandbox() {
           </div>
 
           <div className="shrink-0 flex items-center gap-2 font-mono text-xs text-[var(--text-muted)]">
-            <Cpu className="h-4 w-4 text-[var(--accent-primary)]" />
+            <Cpu className="h-4 w-4" style={{ color: selectedNode.color }} />
             <span>Verified in GitHub Repos</span>
           </div>
         </motion.div>
