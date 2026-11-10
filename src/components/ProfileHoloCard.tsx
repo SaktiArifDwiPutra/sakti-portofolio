@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion, useInView } from 'framer-motion';
-import { Lock } from 'lucide-react';
+import { Lock, Sparkles } from 'lucide-react';
 
 interface ProfileHoloCardProps {
   name: string;
@@ -14,55 +14,38 @@ interface ProfileHoloCardProps {
 export const PROFILE_PHOTO_SRC = '/images/profile/sakti-pilot.png';
 export const HACKER_PHOTO_SRC = '/images/profile/sakti-hacker.jpg';
 
-// Grid ukuran 8 kolom × 10 baris untuk transisi piksel diagonal (Bottom-Left ke Top-Right)
-const GRID_COLS = 8;
-const GRID_ROWS = 10;
-const TOTAL_DIAG = GRID_COLS + GRID_ROWS - 2; // Nilai maksimum diagonal
-
-interface DiagonalPixel {
-  col: number;
-  row: number;
-  diagRatio: number; // 0.0 di pojok kiri bawah, 1.0 di pojok kanan atas
-  color: string;
-  size: number;
-}
-
-// Generate titik-titik kubus piksel dengan urutan diagonal dari kiri-bawah (0, ROWS-1) ke kanan-atas (COLS-1, 0)
-const DIAGONAL_PIXELS: DiagonalPixel[] = [];
-const PALETTE = ['#00f0ff', '#ff0055', '#a855f7', '#ffea00', '#00ff66', '#ffffff'];
-
-for (let r = 0; r < GRID_ROWS; r++) {
-  for (let c = 0; c < GRID_COLS; c++) {
-    // Jarak diagonal dari kiri bawah:
-    // Kiri-bawah adalah c = 0, r = GRID_ROWS - 1. Jarak = c + (GRID_ROWS - 1 - r).
-    const diagDist = c + (GRID_ROWS - 1 - r);
-    const diagRatio = diagDist / TOTAL_DIAG;
-    const color = PALETTE[(c * 3 + r * 7) % PALETTE.length];
-    DIAGONAL_PIXELS.push({
-      col: c,
-      row: r,
-      diagRatio,
-      color,
-      size: (c + r) % 3 === 0 ? 22 : (c + r) % 2 === 0 ? 16 : 12,
-    });
-  }
-}
-
 export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
   const isId = locale === 'id';
   const shouldReduceMotion = useReducedMotion();
   const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { once: true, amount: 0.4 });
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isInView = useInView(cardRef, { once: true, amount: 0.35 });
 
   const [viewMode, setViewMode] = useState<'pilot' | 'hacker'>('pilot');
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isEating, setIsEating] = useState(false);
   const [hasTeased, setHasTeased] = useState(false);
   const [isTeasing, setIsTeasing] = useState(false);
 
-  // 3D Pointer Tilt State
+  // Preloaded image references for instant 60fps canvas pixel distortion eater
+  const pilotImgRef = useRef<HTMLImageElement | null>(null);
+  const hackerImgRef = useRef<HTMLImageElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const pImg = new window.Image();
+      pImg.src = PROFILE_PHOTO_SRC;
+      pilotImgRef.current = pImg;
+
+      const hImg = new window.Image();
+      hImg.src = HACKER_PHOTO_SRC;
+      hackerImgRef.current = hImg;
+    }
+  }, []);
+
+  // Desktop Pointer Tilt State
   const [tilt, setTilt] = useState({ x: 0, y: 0, glareX: 50, glareY: 50, isHovered: false });
 
-  // One-time mobile & desktop scroll peek teaser (tanpa teks instruksi, hanya gerakan visual rasa ingin tahu)
+  // One-time mobile & desktop scroll peek teaser (visual curiosity cue)
   useEffect(() => {
     if (isInView && !hasTeased && !shouldReduceMotion) {
       setHasTeased(true);
@@ -74,19 +57,19 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
     }
   }, [isInView, hasTeased, shouldReduceMotion]);
 
-  // Handle Mouse Tilt (Desktop tactile feedback)
+  // Desktop Mouse Tilt
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const normX = (x / rect.width) * 2 - 1; // -1 to 1
-    const normY = (y / rect.height) * 2 - 1; // -1 to 1
+    const normX = (x / rect.width) * 2 - 1;
+    const normY = (y / rect.height) * 2 - 1;
 
     setTilt({
-      x: -normY * 4.5, // tiltX (derajat)
-      y: normX * 5.5,  // tiltY (derajat)
+      x: -normY * 4.5,
+      y: normX * 5.5,
       glareX: (x / rect.width) * 100,
       glareY: (y / rect.height) * 100,
       isHovered: true,
@@ -97,23 +80,116 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
     setTilt((prev) => ({ ...prev, x: 0, y: 0, isHovered: false }));
   }, []);
 
-  // Handle Card Click (Trigger bottom-left to top-right diagonal wave transformation)
+  // ---------------------------------------------------------------------------
+  // PIXEL DISTORTION EATER TRANSITION (Bottom-Left -> Top-Right Diagonal Wave)
+  // ---------------------------------------------------------------------------
   const toggleIdentity = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
+    if (isEating) return;
 
-    // Ganti persona tepat saat gelombang diagonal mencapai separuh jalan (240ms)
-    setTimeout(() => {
+    const canvas = canvasRef.current;
+    const fromImg = viewMode === 'pilot' ? pilotImgRef.current : hackerImgRef.current;
+    const toImg = viewMode === 'pilot' ? hackerImgRef.current : pilotImgRef.current;
+
+    // Fallback jika gambar belum siap di canvas
+    if (!canvas || !fromImg || !toImg || !fromImg.complete || !toImg.complete) {
       setViewMode((prev) => (prev === 'pilot' ? 'hacker' : 'pilot'));
-    }, 240);
+      return;
+    }
 
-    // Selesaikan efek gelombang (560ms)
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 560);
-  }, [isTransitioning]);
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      setViewMode((prev) => (prev === 'pilot' ? 'hacker' : 'pilot'));
+      return;
+    }
 
-  // Keyboard accessibility (Enter / Space)
+    setIsEating(true);
+
+    const width = 320;
+    const height = 400;
+    canvas.width = width;
+    canvas.height = height;
+
+    const blockSize = 16;
+    const cols = Math.ceil(width / blockSize);
+    const rows = Math.ceil(height / blockSize);
+    const maxDiag = cols - 1 + rows - 1; // Jarak diagonal maksimum (kanan atas)
+
+    const duration = 650; // ms
+    let startTime: number | null = null;
+    let animId: number;
+
+    const renderWave = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(1, elapsed / duration);
+
+      // Gelombang menyapu dari pojok kiri bawah (diag = 0) ke kanan atas (diag = maxDiag)
+      const waveFront = progress * (maxDiag + 8);
+      const waveBand = 3.5; // Lebar pita distorsi piksel aktif
+
+      ctx.clearRect(0, 0, width, height);
+
+      const colors = ['#00f0ff', '#ff0055', '#a855f7', '#ffea00', '#00ff66'];
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          // Jarak diagonal dari pojok kiri bawah (c=0, r=rows-1)
+          const diag = c + (rows - 1 - r);
+          const bx = c * blockSize;
+          const by = r * blockSize;
+
+          if (diag < waveFront - waveBand) {
+            // 1. SUDAH DIMAKAN (EATEN): Langsung menampilkan foto baru secara bersih
+            ctx.drawImage(toImg, bx, by, blockSize, blockSize, bx, by, blockSize, blockSize);
+          } else if (diag <= waveFront + 1) {
+            // 2. SEDANG DIMAKAN DISTORSI PIKSEL (ACTIVE EATER WAVE):
+            // Ada jitter, pergeseran kubus piksel warna-warni, dan foto baru mulai muncul seketika!
+            const jitterX = (Math.random() - 0.5) * 8;
+            const jitterY = (Math.random() - 0.5) * 6;
+
+            // Sebagian blok di gelombang langsung menyingkap foto tujuan (toImg)
+            const showNew = Math.random() > 0.35;
+            const activeImg = showNew ? toImg : fromImg;
+
+            ctx.drawImage(
+              activeImg,
+              bx,
+              by,
+              blockSize,
+              blockSize,
+              bx + jitterX,
+              by + jitterY,
+              blockSize,
+              blockSize
+            );
+
+            // Kubus piksel warna-warni berkedip di garis batas pemakan
+            if (Math.random() > 0.4) {
+              ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+              ctx.globalAlpha = 0.8;
+              ctx.fillRect(bx + jitterX, by + jitterY, blockSize, blockSize);
+              ctx.globalAlpha = 1.0;
+            }
+          } else {
+            // 3. BELUM TERSENTUH GELOMBANG: Masih menampilkan foto lama
+            ctx.drawImage(fromImg, bx, by, blockSize, blockSize, bx, by, blockSize, blockSize);
+          }
+        }
+      }
+
+      if (progress < 1) {
+        animId = requestAnimationFrame(renderWave);
+      } else {
+        // Transisi selesai total
+        setViewMode((prev) => (prev === 'pilot' ? 'hacker' : 'pilot'));
+        setIsEating(false);
+      }
+    };
+
+    animId = requestAnimationFrame(renderWave);
+  }, [isEating, viewMode]);
+
+  // Keyboard accessibility
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -138,7 +214,28 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
       onMouseLeave={handleMouseLeave}
       className="relative select-none outline-none group cursor-pointer focus-visible:ring-2 focus-visible:ring-cyan-400/80 rounded-3xl"
     >
-      {/* Visual Cue: Stacked Card Sub-Layer (Memberi petunjuk visual bahwa ada lapisan sisi lain tanpa instruksi teks) */}
+      {/* Mobile Visual Cue 1: Folded Corner Peel (Dog-Ear Tab) di Pojok Kanan-Atas */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 right-0 w-9 h-9 pointer-events-none z-30 overflow-hidden rounded-tr-3xl"
+      >
+        {/* Corner Flap Triangle */}
+        <div
+          className={`absolute top-0 right-0 w-8 h-8 -translate-y-2 translate-x-2 rotate-45 border shadow-xl transition-all duration-300 group-hover:scale-110 ${
+            isHacker
+              ? 'bg-purple-900/90 border-purple-400/70 shadow-purple-500/30'
+              : 'bg-cyan-900/90 border-cyan-400/70 shadow-cyan-500/30'
+          }`}
+        />
+        {/* Subtle breathing micro-dot */}
+        <span
+          className={`absolute top-2 right-2 h-1.5 w-1.5 rounded-full animate-ping ${
+            isHacker ? 'bg-purple-400' : 'bg-cyan-400'
+          }`}
+        />
+      </div>
+
+      {/* Mobile Visual Cue 2: Stacked Card Sub-Layer Offset (Petunjuk fisik kartu bertumpuk) */}
       <div
         aria-hidden="true"
         className={`absolute inset-0 rounded-3xl transition-transform duration-300 pointer-events-none -z-10 translate-x-1.5 translate-y-1.5 sm:translate-x-2 sm:translate-y-2 border ${
@@ -172,7 +269,7 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
             : 'border-white/[0.08] hover:border-cyan-400/50 shadow-cyan-950/10'
         }`}
       >
-        {/* Dynamic Glare Highlight (mengikuti kursor di desktop) */}
+        {/* Dynamic Glare Highlight di Desktop */}
         {tilt.isHovered && !shouldReduceMotion && (
           <div
             aria-hidden="true"
@@ -183,55 +280,6 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
           />
         )}
 
-        {/* DIAGONAL PIXEL WAVE OVERLAY: Bergerak dari Kiri-Bawah ke Kanan-Atas saat transisi */}
-        {isTransitioning && (
-          <div aria-hidden="true" className="absolute inset-0 z-40 pointer-events-none overflow-hidden">
-            {/* Sapuan cahaya diagonal */}
-            <div
-              className="absolute inset-0 bg-gradient-to-tr from-cyan-400/20 via-purple-500/20 to-transparent mix-blend-screen animate-pulse"
-              style={{
-                clipPath: 'polygon(0% 100%, 100% 0%, 100% 100%)',
-              }}
-            />
-
-            {/* Partikel Kubus Piksel Berantai dari Kiri-Bawah ke Kanan-Atas */}
-            {DIAGONAL_PIXELS.map((p, idx) => {
-              // Delay berbanding lurus dengan jarak diagonalnya
-              const startDelay = p.diagRatio * 0.28; // 0s di kiri bawah s/d 0.28s di kanan atas
-              const leftPercent = (p.col / GRID_COLS) * 100 + 4;
-              const topPercent = (p.row / GRID_ROWS) * 100 + 4;
-
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{
-                    scale: [0, 1.35, 0.9, 0],
-                    opacity: [0, 1, 0.85, 0],
-                    x: [(p.col % 2 === 0 ? -4 : 4), 0],
-                    y: [(p.row % 2 === 0 ? 4 : -4), 0],
-                  }}
-                  transition={{
-                    duration: 0.32,
-                    delay: startDelay,
-                    ease: 'easeOut',
-                  }}
-                  style={{
-                    position: 'absolute',
-                    left: `${leftPercent}%`,
-                    top: `${topPercent}%`,
-                    width: `${p.size}px`,
-                    height: `${p.size}px`,
-                    backgroundColor: p.color,
-                    boxShadow: `0 0 10px ${p.color}`,
-                    imageRendering: 'pixelated',
-                  }}
-                />
-              );
-            })}
-          </div>
-        )}
-
         {/* Viewport Foto Portrait dengan Corner Cyber Brackets */}
         <div
           className={`relative aspect-[4/5] w-full max-w-[320px] mx-auto rounded-2xl overflow-hidden border-2 bg-[var(--bg-canvas)] shadow-2xl transition-all duration-500 ${
@@ -240,12 +288,11 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
               : 'border-cyan-400/40 shadow-[0_0_35px_rgba(0,240,255,0.12)]'
           }`}
         >
-          {/* Dual Layer Photos: Sapuan Transisi Mulus Diagonal dari Kiri-Bawah ke Kanan-Atas */}
+          {/* Static Photo Layers */}
           <div className="relative w-full h-full">
-            {/* Foto 1: Sakti Pilot (Normal) */}
             <div
-              className={`absolute inset-0 transition-all duration-500 ${
-                isHacker ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+              className={`absolute inset-0 transition-opacity duration-300 ${
+                isHacker ? 'opacity-0' : 'opacity-100'
               }`}
             >
               <Image
@@ -258,10 +305,9 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
               />
             </div>
 
-            {/* Foto 2: Sakti Hacker (Alter Ego) */}
             <div
-              className={`absolute inset-0 transition-all duration-500 ${
-                isHacker ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+              className={`absolute inset-0 transition-opacity duration-300 ${
+                isHacker ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <Image
@@ -274,6 +320,15 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
               />
             </div>
           </div>
+
+          {/* ACTIVE CANVAS PIXEL DISTORTION EATER OVERLAY (Menyapu dari Kiri Bawah ke Kanan Atas) */}
+          <canvas
+            ref={canvasRef}
+            className={`absolute inset-0 w-full h-full pointer-events-none z-20 ${
+              isEating ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{ imageRendering: 'pixelated' }}
+          />
 
           {/* Vignette Overlay Lembut */}
           <div

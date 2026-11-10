@@ -143,10 +143,19 @@ export function SpecSheetFlipCard({
           {/* FRONT FACE: 03 // Developer Specification Sheet */}
           <div
             onClick={() => setIsFlipped(true)}
-            className={`p-6 sm:p-8 rounded-3xl theme-card border border-white/[0.08] hover:border-[var(--accent-primary)]/50 shadow-2xl transition-all duration-300 select-none [backface-visibility:hidden] flex flex-col justify-between ${
+            className={`relative p-6 sm:p-8 rounded-3xl theme-card border border-white/[0.08] hover:border-[var(--accent-primary)]/50 shadow-2xl transition-all duration-300 select-none [backface-visibility:hidden] flex flex-col justify-between ${
               isFlipped ? 'pointer-events-none' : 'pointer-events-auto'
             }`}
           >
+            {/* Mobile Visual Cue: Tactile Folded Corner Peel (Dog-Ear Tab di Pojok Kanan-Atas) */}
+            <div
+              aria-hidden="true"
+              className="absolute top-0 right-0 w-9 h-9 pointer-events-none z-20 overflow-hidden rounded-tr-3xl"
+            >
+              <div className="absolute top-0 right-0 w-8 h-8 -translate-y-2 translate-x-2 rotate-45 border border-amber-400/60 bg-amber-500/20 shadow-lg shadow-amber-500/20 transition-all duration-300 group-hover:scale-110" />
+              <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-amber-400 animate-ping" />
+            </div>
+
             {/* Dynamic Glare Highlight on Front Face */}
             {tilt.isHovered && !isFlipped && !shouldReduceMotion && (
               <div
@@ -204,7 +213,8 @@ export function SpecSheetFlipCard({
 
           {/* BACK FACE: "A Tiny World, After Hours" Pixel Art Micro-Environment */}
           <div
-            className={`absolute inset-0 p-5 sm:p-6 rounded-3xl theme-card border border-amber-500/30 bg-[#12131a] shadow-2xl [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col justify-between ${
+            onClick={() => setIsFlipped(false)}
+            className={`absolute inset-0 p-5 sm:p-6 rounded-3xl theme-card border border-amber-500/30 bg-[#12131a] shadow-2xl [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col justify-between cursor-pointer ${
               !isFlipped ? 'pointer-events-none' : 'pointer-events-auto'
             }`}
           >

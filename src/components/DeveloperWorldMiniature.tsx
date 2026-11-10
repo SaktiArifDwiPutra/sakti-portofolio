@@ -680,7 +680,10 @@ export function DeveloperWorldMiniature({ locale, isFlipped, onFlipBack }: Devel
         {/* Day / Night Toggle Pill */}
         <button
           type="button"
-          onClick={toggleTimeOfDay}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleTimeOfDay();
+          }}
           className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-[11px] font-mono text-white transition-all cursor-pointer shadow-sm active:scale-95"
           title={isId ? 'Klik untuk mengganti waktu siang / malam' : 'Click to toggle day / night'}
         >
@@ -699,7 +702,11 @@ export function DeveloperWorldMiniature({ locale, isFlipped, onFlipBack }: Devel
       </div>
 
       {/* 2. Main Pixel Art Canvas Stage with Interactive Click Zones */}
-      <div className="relative w-full max-w-[380px] mx-auto my-auto aspect-[3/2] rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#12131a] group">
+      {/* Box Animasi: Menghentikan perambatan klik agar tidak membalik kartu saat berinteraksi di dalam box */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-[380px] mx-auto my-auto aspect-[3/2] rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#12131a] group cursor-default"
+      >
         {/* Crisp HTML5 Canvas */}
         <canvas
           ref={canvasRef}
@@ -774,20 +781,15 @@ export function DeveloperWorldMiniature({ locale, isFlipped, onFlipBack }: Devel
         </AnimatePresence>
       </div>
 
-      {/* 3. Footer Bar: Minimal & Peaceful Navigation */}
-      <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between font-mono text-[11px]">
-        <div className="flex items-center gap-1.5 text-[var(--text-muted)] text-[10px]">
+      {/* 3. Footer Bar: Minimal & Peaceful Indicator (Tombol spesifikasi dihapus; cukup klik area kartu di luar box animasi) */}
+      <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between font-mono text-[10px] text-[var(--text-muted)] pointer-events-none select-none">
+        <div className="flex items-center gap-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-amber-400/80 animate-pulse" />
           <span>MINI_WORLD // COZY_STUDIO</span>
         </div>
-        <button
-          type="button"
-          onClick={onFlipBack}
-          className="ml-auto inline-flex items-center gap-1.5 text-amber-300 hover:text-amber-200 transition-colors cursor-pointer"
-        >
-          <RotateCw className="h-3 w-3" />
-          <span>{isId ? 'Spesifikasi' : 'Specifications'}</span>
-        </button>
+        <span className="text-amber-400/50">
+          {isId ? 'Tap di luar studio untuk kembali' : 'Tap outside studio to return'}
+        </span>
       </div>
     </div>
   );
