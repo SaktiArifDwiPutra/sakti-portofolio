@@ -19,6 +19,7 @@ import {
   ArrowUpRight,
   CheckCircle2,
   ExternalLink,
+  User,
 } from 'lucide-react';
 import { GithubIcon } from '@/components/SocialIcons';
 
@@ -154,6 +155,19 @@ export default async function ProjectDetailPage({
                       <span>{locale === 'id' ? 'Tautan Live: [Siap Diisi]' : 'Live Demo: [Pending Setup]'}</span>
                     </span>
                   )
+                )}
+
+                {project.links.collaborator && (
+                  <a
+                    href={project.links.collaborator.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="interactive-btn interactive-btn-secondary px-5 py-2.5 text-xs font-mono text-cyan-400 border-cyan-500/30 hover:border-cyan-400"
+                    title="Collaborator / Partner Credit"
+                  >
+                    <User className="h-4 w-4" />
+                    <span>Partner: {project.links.collaborator.name}</span>
+                  </a>
                 )}
               </div>
             </div>

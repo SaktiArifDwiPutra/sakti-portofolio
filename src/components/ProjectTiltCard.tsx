@@ -6,7 +6,7 @@ import { useLocale } from 'next-intl';
 import { Link, type Locale } from '@/i18n/routing';
 import type { ProjectEntry } from '@/data/portfolio';
 import { tField } from '@/data/portfolio';
-import { ArrowUpRight, ExternalLink, Sparkles, FolderGit2 } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Sparkles, FolderGit2, User } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
 
 interface ProjectTiltCardProps {
@@ -191,6 +191,19 @@ export function ProjectTiltCard({ project, orderNumber }: ProjectTiltCardProps) 
                     <span>Live: [Pending Setup]</span>
                   </span>
                 )
+              )}
+
+              {project.links.collaborator && (
+                <a
+                  href={project.links.collaborator.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="interactive-btn interactive-btn-secondary px-3.5 py-2 text-xs font-mono text-cyan-400 border-cyan-500/30 hover:border-cyan-400"
+                  title="Collaborator / Partner Credit"
+                >
+                  <User className="h-3.5 w-3.5" />
+                  <span>Partner: {project.links.collaborator.name}</span>
+                </a>
               )}
             </div>
           </div>

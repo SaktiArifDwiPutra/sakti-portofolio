@@ -76,8 +76,8 @@ export default async function HomePage({
             </h3>
             <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
               {locale === 'id'
-                ? 'Termasuk LaundryFlow (Mobile Flutter + Odoo ERP), Negeri Kelabu (Godot 4 RPG), dan arsitektur lainnya.'
-                : 'Including LaundryFlow (Flutter Mobile + Odoo ERP), Negeri Kelabu (Godot 4 RPG), and full repositories.'}
+                ? 'Termasuk Dragonhold (Next.js + Hono Monorepo), Coordina (Real-Time WebSocket), Obathaus (Laravel + Vue 3), dan LaundryFlow (Flutter + Odoo).'
+                : 'Including Dragonhold (Next.js + Hono Monorepo), Coordina (Real-Time WebSocket), Obathaus (Laravel + Vue 3), and LaundryFlow (Flutter + Odoo).'}
             </p>
           </div>
           <Link
@@ -85,7 +85,7 @@ export default async function HomePage({
             prefetch={true}
             className="interactive-btn interactive-btn-primary px-6 py-3.5 text-xs font-mono uppercase tracking-wider shadow-lg shrink-0"
           >
-            <span>{homeT('viewAllWorks')} (05)</span>
+            <span>{homeT('viewAllWorks')} (07)</span>
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>

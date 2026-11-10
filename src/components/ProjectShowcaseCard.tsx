@@ -7,7 +7,7 @@ import { Link, type Locale } from '@/i18n/routing';
 import type { ProjectEntry } from '@/data/portfolio';
 import { tField } from '@/data/portfolio';
 import { ProjectInteractiveStage } from '@/components/ProjectInteractiveStage';
-import { ArrowUpRight, ExternalLink, Play, Layers, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Play, Layers, Sparkles, CheckCircle2, User } from 'lucide-react';
 import { GithubIcon } from '@/components/SocialIcons';
 
 interface ProjectShowcaseCardProps {
@@ -127,6 +127,19 @@ export function ProjectShowcaseCard({ project, orderNumber }: ProjectShowcaseCar
               >
                 <ExternalLink className="h-3.5 w-3.5" />
                 <span>Live Demo</span>
+              </a>
+            )}
+
+            {project.links.collaborator && (
+              <a
+                href={project.links.collaborator.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-cyan-500/30 text-cyan-400 font-mono text-xs font-medium hover:border-cyan-400 transition-all"
+                title="Collaborator / Partner Credit"
+              >
+                <User className="h-3.5 w-3.5" />
+                <span>Partner: {project.links.collaborator.name}</span>
               </a>
             )}
           </div>

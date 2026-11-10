@@ -65,6 +65,10 @@ export interface ProjectEntry {
     repository?: string;
     repositories?: { name: string; url: string }[];
     demo?: string;
+    collaborator?: {
+      name: string;
+      url: string;
+    };
     note?: LocalizedText;
   };
 }
@@ -130,36 +134,36 @@ export const PROJECTS: ProjectEntry[] = [
     name: 'CritiPlay',
     disciplineGroup: 'fullstack',
     category: {
-      en: 'Full-Stack Web Platform',
-      id: 'Platform Web Full-Stack',
+      en: 'Collaborative Full-Stack Web Platform',
+      id: 'Platform Web Kolaboratif Full-Stack',
     },
     tagline: {
-      en: 'A structured game rating and editorial review platform built with React, TypeScript, Laravel, and MySQL.',
-      id: 'Platform penilaian dan ulasan game terstruktur yang dibangun dengan React, TypeScript, Laravel, dan MySQL.',
+      en: 'A structured game rating and editorial review platform built with React, TypeScript, Laravel, and PostgreSQL (Neon DB).',
+      id: 'Platform penilaian dan ulasan game terstruktur yang dibangun dengan React, TypeScript, Laravel, dan PostgreSQL (Neon DB).',
     },
     description: {
-      en: 'CritiPlay is a full-stack web platform designed for cataloging, rating, and reviewing video games. It pairs a typed React & TypeScript client interface with a RESTful Laravel backend and a relational MySQL schema.',
-      id: 'CritiPlay adalah platform web full-stack yang dirancang untuk mengatalogkan, memberi nilai, dan mengulas video game. Proyek ini memadukan antarmuka klien React & TypeScript bertipe kuat dengan backend RESTful Laravel serta skema relasional MySQL.',
+      en: 'CritiPlay is a full-stack collaborative web platform designed for cataloging, rating, and reviewing video games. Developed in engineering collaboration with partner Khairul (https://github.com/Kyunn17) with a decoupled production architecture: a typed React & TypeScript client interface hosted on Vercel, paired with a dedicated Laravel REST API server connected to PostgreSQL hosted on Neon DB.',
+      id: 'CritiPlay adalah platform web kolaboratif full-stack yang dirancang untuk mengatalogkan, memberi nilai, dan mengulas video game. Dikembangkan berkolaborasi bersama mitra Khairul (https://github.com/Kyunn17) dengan arsitektur produksi decoupled: antarmuka klien React & TypeScript bertipe kuat yang di-host di Vercel, terhubung ke server backend API Laravel terpisah dengan basis data PostgreSQL di Neon DB.',
     },
     editorialOverview: {
       en: [
-        'CritiPlay was conceived to bring editorial structure to community game reviews. Rather than treating user ratings as isolated numbers, the platform organizes games by metadata, release taxonomy, and written critical perspectives.',
-        'From an engineering standpoint, CritiPlay separates presentation state from domain validation: a React and TypeScript frontend handles responsive filtering, review composition, and rating breakdowns, while a Laravel API manages authentication, relational queries, and score aggregation over MySQL.',
+        'CritiPlay was conceived to bring editorial structure to community game reviews. The project is an engineering collaboration with partner Khairul (credited at https://github.com/Kyunn17).',
+        'From an architectural standpoint, CritiPlay decouples presentation from backend services: a modern React & TypeScript client hosted on Vercel manages interactive filtering and review interfaces, while a separate dedicated Laravel API server handles authentication and business logic connected to a cloud PostgreSQL database hosted on Neon DB.',
       ],
       id: [
-        'CritiPlay dirancang untuk menghadirkan struktur editorial pada ulasan game komunitas. Alih-alih memperlakukan penilaian pengguna sekadar sebagai angka tunggal, platform ini mengorganisasikan game berdasarkan metadata, taksonomi rilis, dan ulasan tertulis yang terstruktur.',
-        'Dari sisi rekayasa perangkat lunak, CritiPlay memisahkan state antarmuka dari validasi domain: frontend React dan TypeScript menangani penyaringan interaktif, penulisan ulasan, dan rincian skor, sementara API Laravel mengelola autentikasi, kueri relasional, serta agregasi penilaian di atas MySQL.',
+        'CritiPlay dirancang untuk menghadirkan struktur editorial pada ulasan game komunitas. Proyek ini merupakan kolaborasi rekayasa perangkat lunak bersama mitra Khairul (dikreditkan di https://github.com/Kyunn17).',
+        'Dari sisi arsitektur, CritiPlay memisahkan antarmuka dari layanan backend: klien React & TypeScript modern yang di-host di Vercel menangani penyaringan interaktif dan antarmuka ulasan, sementara server API Laravel terpisah menangani autentikasi dan logika bisnis yang terhubung ke database cloud PostgreSQL di Neon DB.',
       ],
     },
     coverImage: '/images/projects/critiplay-cover.png',
-    techStack: ['React', 'TypeScript', 'Laravel', 'MySQL', 'REST API', 'Tailwind CSS'],
+    techStack: ['React', 'TypeScript', 'Laravel', 'PostgreSQL', 'Neon DB', 'Vercel', 'Tailwind CSS', 'REST API'],
     role: {
-      en: 'Full-Stack Developer (Architecture, Frontend & Backend API)',
-      id: 'Pengembang Full-Stack (Arsitektur, Frontend & API Backend)',
+      en: 'Lead Full-Stack Developer & Product Designer (Design, Concept, Complete Backend Architecture & Frontend Finishing)',
+      id: 'Lead Full-Stack Developer & Desainer Produk (Desain, Konsep, Arsitektur Backend Penuh & Finishing Frontend)',
     },
     status: {
-      en: 'Functional Prototype / Active Development',
-      id: 'Prototipe Fungsional / Pengembangan Aktif',
+      en: 'Live Production (www.critiplay.my.id)',
+      id: 'Aktif Dipublikasikan (www.critiplay.my.id)',
     },
     features: [
       {
@@ -199,30 +203,30 @@ export const PROJECTS: ProjectEntry[] = [
     challenges: [
       {
         title: {
-          en: 'Relational Schema Design for Multi-Criteria Reviews',
-          id: 'Desain Skema Relasional untuk Ulasan Multi-Kriteria',
+          en: 'Decoupled Client-Server Performance & CORS Security',
+          id: 'Performa Klien-Server Terpisah & Keamanan CORS',
         },
         problem: {
-          en: 'Querying game listings alongside aggregated review scores and user metadata can introduce N+1 query bottlenecks as catalog data grows.',
-          id: 'Mengambil daftar game beserta agregasi skor ulasan dan metadata pengguna berisiko memicu masalah kueri N+1 saat data katalog bertambah.',
+          en: 'Managing seamless session authentication and cookie security between Vercel frontend and standalone backend server.',
+          id: 'Mengelola autentikasi sesi dan keamanan cookie secara mulus antara frontend Vercel dan server backend terpisah.',
         },
         solution: {
-          en: 'Structured Eloquent relationships with eager loading, indexed foreign keys in MySQL, and dedicated Laravel API Resource transformers to keep response payloads predictable.',
-          id: 'Menyusun relasi Eloquent dengan eager loading, indeks kunci asing di MySQL, serta transformer API Resource Laravel khusus agar ukuran respons tetap terukur.',
+          en: 'Configured proper CORS headers, secure token passing, and optimized JSON API resource serialization.',
+          id: 'Mengonfigurasi header CORS yang tepat, pengiriman token aman, dan serialisasi resource JSON API yang optimal.',
         },
       },
       {
         title: {
-          en: 'Synchronizing Optimistic UI State with Backend Validation',
-          id: 'Sinkronisasi State Antarmuka dengan Validasi Backend',
+          en: 'Serverless PostgreSQL Cold Starts on Neon DB',
+          id: 'Koneksi Serverless PostgreSQL di Neon DB',
         },
         problem: {
-          en: 'Submitting or editing a review requires immediate visual feedback without risking inconsistent rating totals.',
-          id: 'Pengiriman atau penyuntingan ulasan membutuhkan umpan balik visual instan tanpa mengorbankan konsistensi total penilaian.',
+          en: 'Handling connection pooling and latency spikes during sudden community traffic spikes.',
+          id: 'Menangani pooling koneksi dan lonjakan latensi saat traffic komunitas meningkat.',
         },
         solution: {
-          en: 'Implemented strict TypeScript form state handling paired with structured validation responses from Laravel controllers.',
-          id: 'Menerapkan pengelolaan state formulir TypeScript yang ketat yang dipadukan dengan respons validasi terstruktur dari controller Laravel.',
+          en: 'Utilized Neon connection pooling with optimized relational queries, indexing, and eager loading in Laravel Eloquent.',
+          id: 'Memanfaatkan Neon connection pooling dengan kueri relasional terindeks dan eager loading di Laravel Eloquent.',
         },
       },
     ],
@@ -231,13 +235,13 @@ export const PROJECTS: ProjectEntry[] = [
         id: 'client',
         code: 'LAYER 01',
         layerName: {
-          en: 'Client Presentation & State',
-          id: 'Presentasi Klien & State',
+          en: 'Client Presentation & State (Vercel)',
+          id: 'Presentasi Klien & State (Vercel)',
         },
         tech: 'React + TypeScript',
         summary: {
-          en: 'Component-driven catalog grids, review composer, and typed API hooks.',
-          id: 'Grid katalog berbasis komponen, editor ulasan, dan hook API bertipe kuat.',
+          en: 'Component-driven catalog grids, review composer, and typed API hooks hosted on Vercel.',
+          id: 'Grid katalog berbasis komponen, editor ulasan, dan hook API bertipe kuat yang di-host di Vercel.',
         },
         specs: {
           en: ['Strict TypeScript DTO models', 'Modular filter & search state', 'Responsive editorial review cards'],
@@ -248,13 +252,13 @@ export const PROJECTS: ProjectEntry[] = [
         id: 'api',
         code: 'LAYER 02',
         layerName: {
-          en: 'Application & Domain API',
-          id: 'Aplikasi & API Domain',
+          en: 'Decoupled Backend API Server',
+          id: 'Server API Backend Terpisah',
         },
         tech: 'Laravel (PHP)',
         summary: {
-          en: 'RESTful controllers, request validation, authentication guards, and resource serialization.',
-          id: 'Controller RESTful, validasi request, penjaga autentikasi, dan serialisasi resource.',
+          en: 'RESTful controllers, request validation, authentication guards, and resource serialization on standalone server.',
+          id: 'Controller RESTful, validasi request, penjaga autentikasi, dan serialisasi resource pada server mandiri.',
         },
         specs: {
           en: ['FormRequest validation rules', 'API Resource JSON formatting', 'Session / Token authentication'],
@@ -265,17 +269,17 @@ export const PROJECTS: ProjectEntry[] = [
         id: 'data',
         code: 'LAYER 03',
         layerName: {
-          en: 'Relational Persistence',
-          id: 'Penyimpanan Relasional',
+          en: 'Cloud Relational Persistence (Neon DB)',
+          id: 'Penyimpanan Relasional Cloud (Neon DB)',
         },
-        tech: 'MySQL',
+        tech: 'PostgreSQL (Neon)',
         summary: {
-          en: 'Normalized tables for games, genres, users, ratings, and review threads.',
-          id: 'Tabel ternormalisasi untuk data game, genre, pengguna, penilaian, dan ulasan.',
+          en: 'Serverless PostgreSQL database on Neon DB with normalized tables for games, genres, users, ratings, and reviews.',
+          id: 'Database PostgreSQL serverless di Neon DB dengan tabel ternormalisasi untuk game, genre, pengguna, rating, dan ulasan.',
         },
         specs: {
-          en: ['Foreign key constraints', 'Indexed lookup columns', 'Aggregated score calculation queries'],
-          id: ['Batasan kunci asing (Foreign Key)', 'Kolom pencarian terindeks', 'Kueri kalkulasi agregasi skor'],
+          en: ['Neon pooled connection', 'Foreign key constraints', 'Aggregated score calculation queries'],
+          id: ['Koneksi pooled Neon DB', 'Batasan kunci asing (Foreign Key)', 'Kueri kalkulasi agregasi skor'],
         },
       },
     ],
@@ -299,12 +303,12 @@ export const PROJECTS: ProjectEntry[] = [
         id: 'cp-plate-2',
         plateNumber: 'PLATE II',
         title: {
-          en: 'React–Laravel–MySQL Data Flow',
-          id: 'Alur Data React–Laravel–MySQL',
+          en: 'Vercel–Laravel–PostgreSQL (Neon DB) Architecture',
+          id: 'Arsitektur Vercel–Laravel–PostgreSQL (Neon DB)',
         },
         caption: {
-          en: 'Request lifecycle from typed TypeScript client actions through Laravel controllers to MySQL relational storage.',
-          id: 'Siklus request dari aksi klien TypeScript melewati controller Laravel menuju penyimpanan relasional MySQL.',
+          en: 'Decoupled lifecycle: Vercel frontend communicating with dedicated Laravel API server persisting to Neon DB cloud PostgreSQL.',
+          id: 'Siklus decoupled: Frontend Vercel berkomunikasi dengan server API Laravel mandiri dan database cloud PostgreSQL di Neon DB.',
         },
         aspectRatio: '16/9',
         imageSrc: '/images/projects/critiplay-arch.svg',
@@ -313,10 +317,14 @@ export const PROJECTS: ProjectEntry[] = [
     ],
     links: {
       repository: 'https://github.com/SaktiArifDwiPutra/CritiPlay',
-      demo: '', // [OWNER INPUT]: Insert live deployment URL here
+      demo: 'https://www.critiplay.my.id',
+      collaborator: {
+        name: 'Khairul (Kyunn17)',
+        url: 'https://github.com/Kyunn17',
+      },
       note: {
-        en: 'Repository link active; live deployment slot prepared.',
-        id: 'Tautan repositori aktif; slot deployment live telah disiapkan.',
+        en: 'Collaborative engineering with Khairul (https://github.com/Kyunn17). Live platform active at www.critiplay.my.id.',
+        id: 'Proyek rekayasa kolaboratif bersama Khairul (https://github.com/Kyunn17). Platform live aktif di www.critiplay.my.id.',
       },
     },
   },
@@ -326,73 +334,87 @@ export const PROJECTS: ProjectEntry[] = [
     name: 'Daus Anak Soleh',
     disciplineGroup: 'gamedev',
     category: {
-      en: 'Islamic Educational Math Game',
-      id: 'Game Edukasi Matematika Islami',
+      en: 'Children Islamic Prayer Puzzle Game',
+      id: 'Game Teka-Teki Edukasi Gerakan & Bacaan Sholat Anak',
     },
     tagline: {
-      en: 'Interactive web-based math puzzle adventure built with HTML5 Canvas, modern JavaScript, and thematic soundscapes.',
-      id: 'Petualangan teka-teki matematika berbasis web yang dibangun dengan HTML5 Canvas, JavaScript modern, dan latar suara tematik.',
+      en: 'Interactive educational puzzle adventure teaching Muslim prayer movements, readings, and sequences with 2D gameplay.',
+      id: 'Game teka-teki edukatif interaktif yang mengajarkan urutan gerakan dan bacaan sholat untuk anak-anak muslim.',
     },
     description: {
-      en: 'Daus Anak Soleh is an engaging educational web game where players guide Daus through arithmetic challenges and Islamic knowledge trivia, designed with custom 2D canvas rendering, sound effects, and level progression mechanics.',
-      id: 'Daus Anak Soleh adalah game edukasi interaktif berbasis web tempat pemain memandu Daus menyelesaikan tantangan aritmatika dan pengetahuan Islam, dirancang dengan sistem render 2D canvas, efek suara, dan mekanika tingkatan level.',
+      en: 'Daus Anak Soleh is an interactive children\'s educational puzzle game designed to teach Muslim prayer (sholat) movements and prayer readings. Players guide Daus through illustrated puzzles and sequence challenges matching each sholat posture with its proper recitation, built using Phaser Framework, HTML 5 Canvas, and modern JavaScript.',
+      id: 'Daus Anak Soleh adalah game teka-teki edukasi anak yang dirancang untuk mempelajari gerakan dan bacaan sholat bagi umat muslim. Pemain memandu karakter Daus menyelesaikan tantangan puzzle interaktif yang mencocokkan setiap rukun gerakan sholat dengan bacaan yang tepat, dibangun dengan Phaser Framework, HTML 5 Canvas, dan JavaScript modern.',
     },
     editorialOverview: {
       en: [
-        'Educational game development demands a balance between engaging playfulness and pedagogical precision. Daus Anak Soleh was crafted as a browser-first interactive experience without external heavyweight runtimes, leveraging native HTML5 Canvas and modern JavaScript.',
-        'The gameplay loop presents players with arithmetic hurdles and Islamic cultural quizzes embedded within an illustrated journey. It utilizes custom audio management, state machines for stage transitions, and modular sprite-based rendering.',
+        'Teaching fundamental Islamic worship through play requires engaging visual storytelling and rigorous procedural accuracy. Daus Anak Soleh was crafted as a browser-first children\'s puzzle game that breaks down the steps of Islamic prayer (sholat)—from takbiratul ihram to salam—into memorable interactive puzzle mechanics.',
+        'The gameplay challenges children to arrange correct prayer postures, match Arabic and translated prayer recitations, and unlock progressive prayer stages within an illustrated Islamic journey. Engineered with Phaser Framework and HTML 5 Canvas for responsive zero-latency web play.',
       ],
       id: [
-        'Pengembangan game edukatif membutuhkan keseimbangan antara pengalaman bermain yang menyenangkan dan akurasi pedagogis. Daus Anak Soleh dirancang sebagai pengalaman interaktif berbasis peramban (browser-first) tanpa runtime eksternal yang berat, memanfaatkan HTML5 Canvas murni dan JavaScript modern.',
-        'Alur permainan menyajikan tantangan berhitung aritmatika dan kuis pengetahuan Islami di dalam petualangan bergambar. Game ini mengimplementasikan manajemen audio khusus, state machine untuk transisi level, dan render modular berbasis sprite.',
+        'Mengajarkan ibadah fundamental sholat kepada anak-anak membutuhkan pendekatan visual yang menyenangkan serta akurasi rukun yang tepat. Daus Anak Soleh dirancang sebagai game teka-teki edukasi berbasis peramban yang memandu tahapan sholat—dari takbiratul ihram hingga salam—menjadi mekanika puzzle interaktif yang mudah diingat.',
+        'Pemain ditantang untuk menyusun urutan gerakan sholat yang benar, mencocokkan postur tubuh dengan bacaan doa sholat, serta membuka tingkat tantangan berikutnya dalam perjalanan yang ramah anak. Dikembangkan menggunakan Phaser Framework dan HTML 5 Canvas agar dapat dimainkan secara instan di peramban.',
       ],
     },
     coverImage: '/images/projects/daus-anak-soleh-cover.png',
-    techStack: ['HTML5', 'Canvas API', 'JavaScript (ES6+)', 'CSS3', 'Web Audio API'],
+    techStack: ['Phaser', 'HTML 5 Canvas', 'JavaScript', 'Web Audio API', 'Pixel Art', 'CSS'],
     role: {
-      en: 'Game Developer (Canvas Architecture, Mechanics & Audio)',
-      id: 'Pengembang Game (Arsitektur Canvas, Mekanika & Audio)',
+      en: 'Game Developer (Canvas Architecture, Prayer Mechanics & Audio)',
+      id: 'Pengembang Game (Arsitektur Canvas, Mekanika Rukun Sholat & Audio)',
     },
     status: {
-      en: 'Live on Itch.io',
-      id: 'Telah Dirilis di Itch.io',
+      en: 'Finished Production / Live on Itch.io',
+      id: 'Produksi Selesai / Telah Dirilis di Itch.io',
     },
     features: [
       {
         code: 'DAS-01',
         title: {
-          en: 'Arithmetic Puzzle Progression Engine',
-          id: 'Mesin Progresi Teka-Teki Aritmatika',
+          en: 'Prayer Posture & Movement Puzzle Engine',
+          id: 'Mesin Teka-Teki Gerakan & Postur Sholat',
         },
         description: {
-          en: 'Dynamic equation generation covering addition, subtraction, and multiplication with scaling difficulty.',
-          id: 'Pembangkitan persamaan dinamis mencakup penjumlahan, pengurangan, dan perkalian dengan tingkat kesulitan bertahap.',
+          en: 'Interactive drag-and-match puzzle challenges verifying correct posture order from Takbiratul Ihram to Salam.',
+          id: 'Tantangan teka-teki seret-dan-cocokkan interaktif yang memverifikasi urutan postur dari Takbiratul Ihram hingga Salam.',
         },
       },
       {
         code: 'DAS-02',
         title: {
-          en: 'HTML5 2D Canvas Sprite Renderer',
-          id: 'Renderer Sprite Canvas 2D HTML5',
+          en: 'Prayer Recitation Audio & Reading Matching',
+          id: 'Sistem Pencocokan Bacaan Doa Sholat & Audio',
+        },
+        description: {
+          en: 'Dynamic audio cues and Arabic script flashcards reinforcing correct prayer recitations for each posture.',
+          id: 'Efek audio dinamis dan kartu teks doa Arab yang memperkuat ingatan bacaan doa sholat pada setiap gerakan.',
+        },
+      },
+      {
+        code: 'DAS-03',
+        title: {
+          en: 'HTML 5 2D Canvas Sprite Renderer',
+          id: 'Renderer Sprite Canvas 2D HTML 5',
         },
         description: {
           en: 'Custom lightweight render loop executing at 60 FPS across desktop and mobile browsers without third-party plugins.',
           id: 'Loop render ringan kustom berkinerja 60 FPS pada peramban desktop maupun ponsel tanpa plugin pihak ketiga.',
         },
       },
-      {
-        code: 'DAS-03',
-        title: {
-          en: 'Interactive Audio & SFX System',
-          id: 'Sistem Audio & Efek Suara Interaktif',
-        },
-        description: {
-          en: 'Thematic background music and responsive celebratory audio cues using Web Audio API.',
-          id: 'Musik latar tematik dan efek audio responsif berbasis Web Audio API.',
-        },
-      },
     ],
     challenges: [
+      {
+        title: {
+          en: 'Pedagogical Accuracy in Prayer Sequences',
+          id: 'Akurasi Pedagogis dalam Urutan Gerakan Sholat',
+        },
+        problem: {
+          en: 'Ensuring prayer movements follow strict Islamic sequence rules while maintaining an intuitive puzzle flow for young children.',
+          id: 'Memastikan urutan gerakan sholat mengikuti rukun yang shahih sekaligus mempertahankan alur teka-teki yang intuitif bagi anak.',
+        },
+        solution: {
+          en: 'Implemented a state machine validating each step before unlocking subsequent prayer postures, with encouraging feedback.',
+          id: 'Menerapkan mesin status (state machine) yang memvalidasi setiap tahapan sebelum membuka gerakan berikutnya disertai pesan penyemangat.',
+        },
+      },
       {
         title: {
           en: 'Responsive Canvas Scaling Across Mobile Viewports',
@@ -407,20 +429,6 @@ export const PROJECTS: ProjectEntry[] = [
           id: 'Menerapkan penskalaan resolusi dinamis berbasis window.devicePixelRatio yang dipadukan dengan translasi koordinat logika.',
         },
       },
-      {
-        title: {
-          en: 'Smooth State Management without Game Engine Bloat',
-          id: 'Manajemen State Mulus Tanpa Beban Engine Eksternal',
-        },
-        problem: {
-          en: 'Maintaining menu, level selection, active gameplay, and victory stages without spaghetti code in raw JavaScript.',
-          id: 'Mengelola perpindahan menu, pemilihan level, gameplay aktif, dan layar kemenangan tanpa kode yang rumit di JavaScript murni.',
-        },
-        solution: {
-          en: 'Structured a finite state machine (FSM) separating input handling, game update tick, and render cycles into distinct modules.',
-          id: 'Menyusun finite state machine (FSM) yang memisahkan penanganan input, pembaruan tick game, dan siklus render ke dalam modul terpisah.',
-        },
-      },
     ],
     anatomyLayers: [
       {
@@ -430,7 +438,7 @@ export const PROJECTS: ProjectEntry[] = [
           en: '2D Canvas Render Layer',
           id: 'Lapisan Render Canvas 2D',
         },
-        tech: 'HTML5 Canvas API',
+        tech: 'Phaser + HTML 5 Canvas API',
         summary: {
           en: 'Sprite sheet slicing, dynamic background scrolling, and UI overlay rendering.',
           id: 'Pemotongan sprite sheet, latar belakang bergulir dinamis, dan render overlay antarmuka.',
@@ -444,30 +452,30 @@ export const PROJECTS: ProjectEntry[] = [
         id: 'game-logic',
         code: 'LAYER 02',
         layerName: {
-          en: 'Game State & Math Logic',
-          id: 'Logika State & Matematika Game',
+          en: 'Prayer Movement & Puzzle Logic',
+          id: 'Logika Gerakan Sholat & Teka-Teki',
         },
         tech: 'JavaScript (ES6+)',
         summary: {
-          en: 'Arithmetic question generators, collision checks, score tallying, and stage state machines.',
-          id: 'Pembangkit soal aritmatika, pengecekan tabrakan/klik, kalkulasi skor, dan mesin status level.',
+          en: 'Prayer posture matching algorithms, collision checks, score tallying, and stage state machines.',
+          id: 'Algoritma pencocokan gerakan sholat, pengecekan tabrakan/klik, kalkulasi skor, dan mesin status level.',
         },
         specs: {
-          en: ['Finite State Machine transitions', 'Dynamic math challenge matrix', 'Local progress retention'],
-          id: ['Transisi Finite State Machine', 'Matriks tantangan matematika dinamis', 'Penyimpanan progres lokal'],
+          en: ['Finite State Machine transitions', 'Dynamic prayer puzzle challenge matrix', 'Local progress retention'],
+          id: ['Transisi Finite State Machine', 'Matriks tantangan puzzle sholat dinamis', 'Penyimpanan progres lokal'],
         },
       },
       {
         id: 'audio-subsystem',
         code: 'LAYER 03',
         layerName: {
-          en: 'Audio Subsystem',
-          id: 'Subsistem Audio',
+          en: 'Recitation & Audio Subsystem',
+          id: 'Subsistem Audio & Bacaan Sholat',
         },
-        tech: 'Web Audio API / HTML5 Audio',
+        tech: 'Web Audio API / HTML 5 Audio',
         summary: {
-          en: 'Thematic soundtrack streaming with low-latency celebratory sound effects on user actions.',
-          id: 'Streaming lagu tema dengan latensi rendah untuk efek suara apresiasi saat aksi pemain.',
+          en: 'Thematic soundtrack streaming with low-latency recitation sound effects on user actions.',
+          id: 'Streaming lagu tema dengan latensi rendah untuk efek suara bacaan sholat saat aksi pemain.',
         },
         specs: {
           en: ['Mute toggle with persistence', 'Polyphonic SFX playback', 'Mobile audio unlock handshake'],
@@ -883,198 +891,483 @@ export const PROJECTS: ProjectEntry[] = [
     },
   },
   {
-    slug: 'negeri-kelabu',
+    slug: 'dragonhold',
     index: '05',
-    name: 'Negeri Kelabu',
-    disciplineGroup: 'gamedev',
+    name: 'Dragonhold',
+    disciplineGroup: 'fullstack',
     category: {
-      en: 'Indie Game Development (Life-Sim RPG)',
-      id: 'Pengembangan Game Indie (RPG Simulasi Kehidupan)',
+      en: 'Full-Stack Monorepo Architecture',
+      id: 'Arsitektur Monorepo Full-Stack',
     },
     tagline: {
-      en: 'An indie life-simulation RPG concept developed with Godot.',
-      id: 'Konsep game RPG simulasi kehidupan indie yang dikembangkan menggunakan Godot.',
+      en: 'A high-performance TypeScript monorepo pairing Next.js with a modular Hono API server and PostgreSQL persistence.',
+      id: 'Monorepo TypeScript berkinerja tinggi memadukan Next.js dengan server API Hono modular dan persistensi PostgreSQL.',
     },
     description: {
-      en: 'Negeri Kelabu is an independent life-simulation RPG concept built in Godot Engine. It explores everyday routines, atmospheric world-building, character interactions, and time-driven state progression.',
-      id: 'Negeri Kelabu adalah konsep RPG simulasi kehidupan independen yang dikembangkan di Godot Engine. Proyek ini mengeksplorasi rutinitas keseharian, pembangunan atmosfer dunia, interaksi antarkarakter, dan progresi state berbasis waktu.',
+      en: 'Dragonhold is a scalable full-stack monorepo platform managed via pnpm workspaces. It pairs a Next.js web application with a lightweight, sub-millisecond Hono REST API server, Drizzle ORM, Zod contract validation, and PostgreSQL. Engineered with strict cross-package type sharing and containerized runtime environments.',
+      id: 'Dragonhold adalah platform monorepo full-stack terukur yang dikelola melalui pnpm workspaces. Platform ini menggabungkan aplikasi web Next.js dengan server REST API Hono yang sangat cepat, Drizzle ORM, validasi kontrak Zod, dan basis data PostgreSQL. Dirancang dengan pembagian tipe data ketat antarpaket serta lingkungan runtime berkontainer.',
     },
     editorialOverview: {
       en: [
-        'Negeri Kelabu ("The Grey Land") investigates how quiet, grounded daily mechanics can tell a resonant story. Rather than centering purely on combat loops, the concept focuses on life-simulation rhythms—managing time, navigating social dialogues, and observing subtle environmental shifts.',
-        'Developed in Godot, the project emphasizes modular scene composition, signal-driven communication between gameplay systems, and a clean separation between narrative data and world rendering.',
+        'Modern web platforms demand modular separation of concerns without sacrificing development velocity or type parity. Dragonhold demonstrates an industrial pnpm monorepo architecture uniting @dragonhold/web, @dragonhold/api, and @dragonhold/shared under a unified codebase.',
+        'The backend API leverages Hono on Node.js paired with Drizzle ORM and Zod schemas, yielding instantaneous response times and zero-overhead routing, while the Next.js frontend delivers responsive, accessible interfaces styled with Tailwind CSS.',
       ],
       id: [
-        'Negeri Kelabu mengeksplorasi bagaimana mekanika keseharian yang tenang dan membumi dapat menyampaikan cerita yang berkesan. Alih-alih hanya berpusat pada pertarungan, konsep ini menonjolkan ritme simulasi kehidupan—mengelola waktu, menjalin dialog sosial, dan mengamati perubahan lingkungan.',
-        'Dikembangkan menggunakan Godot, proyek ini menekankan komposisi scene yang modular, komunikasi berbasis sinyal (signal-driven) antarsistem permainan, serta pemisahan yang rapi antara data narasi dan perenderan dunia.',
+        'Platform web modern membutuhkan pemisahan modul yang rapi tanpa mengorbankan kecepatan pengembangan atau keselarasan tipe data. Dragonhold mendemonstrasikan arsitektur monorepo pnpm tingkat industri yang menyatukan @dragonhold/web, @dragonhold/api, dan @dragonhold/shared dalam satu basis kode terpadu.',
+        'API backend memanfaatkan Hono di atas Node.js yang dipadukan dengan Drizzle ORM dan skema validasi Zod untuk respons kueri instan tanpa beban routing berlebih, sedangkan frontend Next.js menghadirkan antarmuka responsif dan aksesibel dengan Tailwind CSS.',
       ],
     },
-    coverImage: '/images/projects/negeri-kelabu-cover.svg',
-    techStack: ['Godot Engine', 'GDScript', 'State Machines', '2D/RPG Systems', 'Scene Architecture'],
+    coverImage: '/images/projects/dragonhold-cover.svg',
+    techStack: ['Next.js', 'React', 'Hono', 'TypeScript', 'Drizzle ORM', 'PostgreSQL', 'Tailwind CSS', 'Docker', 'Zod', 'Node.js'],
     role: {
-      en: 'Solo Game Developer & Systems Designer',
-      id: 'Pengembang Game Independen & Perancang Sistem',
+      en: 'Monorepo Architect & Backend Systems Engineer',
+      id: 'Arsitek Monorepo & Perekayasa Sistem Backend',
     },
     status: {
-      en: 'Concept & Systems Prototype',
-      id: 'Konsep & Prototipe Sistem',
+      en: 'Active Development / Monorepo Core',
+      id: 'Dalam Pengembangan Aktif / Inti Monorepo',
     },
     features: [
       {
-        code: 'NK-01',
+        code: 'DH-01',
         title: {
-          en: 'Time & Daily Rhythm Simulation',
-          id: 'Simulasi Waktu & Ritme Harian',
+          en: 'Unified Monorepo Workspace Pipeline',
+          id: 'Pipeline Workspace Monorepo Terpadu',
         },
         description: {
-          en: 'World state system tracking day phases, environmental mood transitions, and schedule-aware interactions.',
-          id: 'Sistem state dunia yang melacak fase waktu harian, transisi suasana lingkungan, dan interaksi yang peka terhadap jadwal.',
+          en: 'Pnpm workspaces orchestrating independent apps and shared domain packages with zero redundant dependencies.',
+          id: 'Pnpm workspaces yang mengorkestrasi aplikasi mandiri dan paket domain bersama tanpa redundansi dependensi.',
         },
       },
       {
-        code: 'NK-02',
+        code: 'DH-02',
         title: {
-          en: 'Modular Dialogue & Event Architecture',
-          id: 'Arsitektur Dialog & Event Modular',
+          en: 'Sub-Millisecond Hono REST API Server',
+          id: 'Server REST API Hono Berkecepatan Tinggi',
         },
         description: {
-          en: 'Data-driven conversation nodes and conditional triggers that respond to player choices and world variables.',
-          id: 'Node percakapan berbasis data dan pemicu bersyarat yang merespons pilihan pemain serta variabel dunia.',
+          en: 'Ultra-lightweight HTTP routing with Zod schema validation guards and Argon2 password hashing.',
+          id: 'Perutean HTTP sangat ringan dengan penjaga validasi skema Zod dan hashing kata sandi Argon2.',
         },
       },
       {
-        code: 'NK-03',
+        code: 'DH-03',
         title: {
-          en: 'Godot Node & Signal Composition',
-          id: 'Komposisi Node & Signal Godot',
+          en: 'Type-Safe Drizzle ORM & PostgreSQL Persistence',
+          id: 'Persistensi PostgreSQL & Drizzle ORM Type-Safe',
         },
         description: {
-          en: 'Decoupled character controllers, interaction zones, and HUD overlays communicating via Godot signals.',
-          id: 'Pengendali karakter, zona interaksi, dan antarmuka HUD terpisah yang saling berkomunikasi melalui sinyal Godot.',
+          en: 'Declarative schema migrations, zero-cost relational mappings, and connection pooling.',
+          id: 'Migrasi skema deklaratif, pemetaan relasional tanpa overhead biaya komputasi, dan connection pooling.',
         },
       },
     ],
     challenges: [
       {
         title: {
-          en: 'Decoupling World State from Individual Scenes',
-          id: 'Memisahkan State Dunia dari Scene Individual',
+          en: 'Cross-Package Type Integrity in Monorepos',
+          id: 'Integritas Tipe Data Lintas Paket dalam Monorepo',
         },
         problem: {
-          en: 'In a life-simulation RPG, transitioning between indoor and outdoor scenes must preserve time progression, NPC states, and inventory data seamlessly.',
-          id: 'Dalam RPG simulasi kehidupan, perpindahan antar-scene dalam dan luar ruangan harus mempertahankan progresi waktu, status NPC, dan data inventaris secara mulus.',
+          en: 'Keeping client and server data transfer objects (DTOs) in sync during rapid backend iteration.',
+          id: 'Menjaga sinkronisasi DTO klien dan server selama iterasi backend yang cepat.',
         },
         solution: {
-          en: 'Designed autoloaded manager singletons and signal buses in Godot so scene transitions read and mutate a unified world state smoothly.',
-          id: 'Merancang singleton pengelola (Autoload) dan bus sinyal di Godot sehingga perpindahan scene membaca serta memperbarui state dunia terpadu secara konsisten.',
+          en: 'Established an internal @dragonhold/shared package exporting single-source Zod schemas and TypeScript types.',
+          id: 'Membangun paket internal @dragonhold/shared yang mengekspor skema Zod dan tipe TypeScript sebagai sumber tunggal.',
         },
       },
       {
         title: {
-          en: 'Structuring Scalable Narrative & Interaction Logic',
-          id: 'Menyusun Logika Narasi & Interaksi yang Mudah Dikembangkan',
+          en: 'Zero-Bloat Minimalist HTTP Architecture',
+          id: 'Arsitektur HTTP Minimalis Tanpa Beban Berlebih',
         },
         problem: {
-          en: 'Hardcoding dialogue branches inside character scripts quickly becomes brittle as world interactions grow.',
-          id: 'Menanamkan percabangan dialog secara langsung di dalam skrip karakter akan cepat menjadi rumit seiring bertambahnya interaksi dunia.',
+          en: 'Heavy traditional backend frameworks introduce memory overhead and slower boot cycles.',
+          id: 'Framework backend tradisional yang berat menimbulkan beban memori dan siklus boot yang lebih lambat.',
         },
         solution: {
-          en: 'Separated interaction triggers from dialogue data structures, allowing reusable interaction components across different NPCs and objects.',
-          id: 'Memisahkan pemicu interaksi dari struktur data dialog, sehingga komponen interaksi dapat digunakan kembali di berbagai NPC dan objek.',
+          en: 'Adopted Hono framework with @hono/node-server and @hono/zod-validator for optimal cold-start and execution speeds.',
+          id: 'Mengadopsi framework Hono dengan @hono/node-server dan @hono/zod-validator untuk kecepatan boot dan eksekusi optimal.',
         },
       },
     ],
     anatomyLayers: [
       {
-        id: 'world-loop',
+        id: 'web-app',
         code: 'LAYER 01',
         layerName: {
-          en: 'World Simulation & Time Manager',
-          id: 'Simulasi Dunia & Pengelola Waktu',
+          en: 'Web Presentation Layer (@dragonhold/web)',
+          id: 'Lapisan Presentasi Web (@dragonhold/web)',
         },
-        tech: 'Godot Autoload + GDScript',
+        tech: 'Next.js 16 + React 19',
         summary: {
-          en: 'Global clock, day-cycle state broadcasts, and persistent world flags.',
-          id: 'Jam global, penyiaran status siklus hari, dan penanda state dunia persisten.',
+          en: 'Responsive dashboard and interface components styled with Tailwind CSS 4.',
+          id: 'Dasbor responsif dan komponen antarmuka yang ditata dengan Tailwind CSS 4.',
         },
         specs: {
-          en: ['Signal-driven phase transitions', 'Scene-persistent state dictionary', 'Ambient lighting / mood hooks'],
-          id: ['Transisi fase berbasis sinyal', 'Penyimpanan state lintas scene', 'Pengait pencahayaan & atmosfer'],
+          en: ['Strict typechecking', 'Component-driven layout', 'Sub-second client hydration'],
+          id: ['Pemeriksaan tipe data ketat', 'Tata letak berbasis komponen', 'Hidrasi klien sangat cepat'],
         },
       },
       {
-        id: 'entity-fsm',
+        id: 'api-service',
         code: 'LAYER 02',
         layerName: {
-          en: 'Character & Interaction State Machine',
-          id: 'Mesin State Karakter & Interaksi',
+          en: 'Microservice API Layer (@dragonhold/api)',
+          id: 'Lapisan API Microservice (@dragonhold/api)',
         },
-        tech: 'Godot Nodes + Finite State Machine',
+        tech: 'Hono (Node.js)',
         summary: {
-          en: 'Handles movement, collision raycasts/areas, and context-sensitive interaction prompts.',
-          id: 'Menangani pergerakan, deteksi area interaksi, dan pemicu aksi kontekstual.',
+          en: 'Lightweight REST routing, middleware guards, and authentication services.',
+          id: 'Perutean REST ringan, middleware pelindung, dan layanan autentikasi.',
         },
         specs: {
-          en: ['Idle / Move / Interact states', 'Area2D interactionables', 'Decoupled input handling'],
-          id: ['State Diam / Bergerak / Interaksi', 'Deteksi objek Area2D', 'Pengelolaan input terpisah'],
+          en: ['Zod request validation', 'Argon2 encryption', 'Automated test suite'],
+          id: ['Validasi request Zod', 'Enkripsi Argon2', 'Rangkaian pengujian otomatis'],
         },
       },
       {
-        id: 'narrative-ui',
+        id: 'db-layer',
         code: 'LAYER 03',
         layerName: {
-          en: 'Dialogue & HUD Presentation Layer',
-          id: 'Lapisan Presentasi Dialog & HUD',
+          en: 'Relational Database (@dragonhold/db)',
+          id: 'Basis Data Relasional (@dragonhold/db)',
         },
-        tech: 'Godot Control Nodes',
+        tech: 'Drizzle ORM + PostgreSQL',
         summary: {
-          en: 'Renders dialogue sequences, choice prompts, and non-intrusive life-sim HUD indicators.',
-          id: 'Merender rangkaian dialog, pilihan respons, dan indikator HUD simulasi yang tidak mengganggu layar.',
+          en: 'Type-safe SQL query generation, schema migrations, and seeded test environments.',
+          id: 'Pembangkitan kueri SQL type-safe, migrasi skema, dan lingkungan uji bersemai.',
         },
         specs: {
-          en: ['Structured dialogue parser', 'Condition-checked choices', 'Minimalist atmospheric UI'],
-          id: ['Pengurai dialog terstruktur', 'Pilihan dengan pemeriksaan kondisi', 'UI atmosferik minimalis'],
+          en: ['Database migrations', 'Relational schema relations', 'Automated seeds'],
+          id: ['Migrasi basis data', 'Relasi skema relasional', 'Seeding data otomatis'],
         },
       },
     ],
     gallery: [
       {
-        id: 'nk-plate-1',
+        id: 'dh-plate-1',
         plateNumber: 'PLATE I',
         title: {
-          en: 'World Viewport & Atmospheric HUD Concept',
-          id: 'Konsep Viewport Dunia & HUD Atmosferik',
+          en: 'Monorepo Architecture & Workspace Blueprint',
+          id: 'Cetak Biru Arsitektur Monorepo & Workspace',
         },
         caption: {
-          en: 'Visual blueprint of Negeri Kelabu showing day-phase indicators, interaction zones, and narrative dialogue framing.',
-          id: 'Cetak biru visual Negeri Kelabu yang menampilkan indikator fase hari, zona interaksi, dan pembingkaian dialog naratif.',
+          en: 'Structural view of apps and shared packages communicating across Dragonhold pnpm workspace.',
+          id: 'Tampilan struktural aplikasi dan paket bersama yang berkomunikasi di dalam workspace pnpm Dragonhold.',
         },
         aspectRatio: '16/9',
-        imageSrc: '/images/projects/negeri-kelabu-cover.svg',
-        diagramType: 'interface',
-      },
-      {
-        id: 'nk-plate-2',
-        plateNumber: 'PLATE II',
-        title: {
-          en: 'Godot Scene Tree & Signal Bus Architecture',
-          id: 'Arsitektur Pohon Scene & Bus Sinyal Godot',
-        },
-        caption: {
-          en: 'System diagram illustrating how the Time Manager, Player FSM, and Dialogue Controller communicate without tight coupling.',
-          id: 'Diagram sistem yang mengilustrasikan komunikasi antara Pengelola Waktu, FSM Pemain, dan Pengendali Dialog tanpa ketergantungan kaku.',
-        },
-        aspectRatio: '16/9',
-        imageSrc: '/images/projects/negeri-kelabu-arch.svg',
+        imageSrc: '/images/projects/dragonhold-cover.svg',
         diagramType: 'architecture',
       },
     ],
     links: {
-      repository: 'https://github.com/SaktiArifDwiPutra/obathaus',
-      demo: '', // [OWNER INPUT]: Insert live deployment URL here
+      repository: 'https://github.com/SaktiArifDwiPutra/Dragonhold',
+      demo: '',
       note: {
-        en: 'Repository link active; live deployment slot prepared.',
-        id: 'Tautan repositori aktif; slot deployment live telah disiapkan.',
+        en: 'Active repository on GitHub; live deployment slot prepared.',
+        id: 'Repositori aktif di GitHub; slot deployment live telah disiapkan.',
+      },
+    },
+  },
+  {
+    slug: 'coordina',
+    index: '06',
+    name: 'Coordina',
+    disciplineGroup: 'fullstack',
+    category: {
+      en: 'Real-Time Event Coordination Platform',
+      id: 'Platform Koordinasi Acara Real-Time',
+    },
+    tagline: {
+      en: 'A collaborative real-time event management system powered by Laravel, WebSockets, and modern frontend tooling.',
+      id: 'Sistem manajemen dan koordinasi acara real-time kolaboratif ditenagai oleh Laravel, WebSockets, dan Vite.',
+    },
+    description: {
+      en: 'Coordina is a real-time event and team coordination platform built with Laravel, Vite, and Tailwind CSS. It leverages WebSockets (Pusher & Laravel Echo) for instantaneous live broadcasts, task state synchronizations, and team communications without page reloads.',
+      id: 'Coordina adalah platform koordinasi acara dan operasional tim real-time yang dibangun menggunakan Laravel, Vite, dan Tailwind CSS. Memanfaatkan WebSockets (Pusher & Laravel Echo) untuk siaran pembaruan instan, sinkronisasi status tugas, dan komunikasi tim tanpa refresh halaman.',
+    },
+    editorialOverview: {
+      en: [
+        'Live events and operational coordination require zero-latency status broadcasts between field staff and organizers. Coordina addresses this with an event-driven architecture using Laravel event broadcasting.',
+        'By integrating Laravel Echo and Pusher WebSockets with a reactive frontend built with Vite and Tailwind CSS, Coordina ensures team rosters, schedule shifts, and urgent alerts synchronize instantly across all connected screens.',
+      ],
+      id: [
+        'Acara langsung dan koordinasi operasional membutuhkan siaran status tanpa latensi antara staf lapangan dan panitia penyelenggara. Coordina menjawab kebutuhan ini dengan arsitektur berbasis event menggunakan Laravel event broadcasting.',
+        'Dengan memadukan Laravel Echo dan WebSockets Pusher dengan frontend reaktif berbasis Vite dan Tailwind CSS, Coordina memastikan daftar penugasan tim, perubahan jadwal, dan peringatan darurat tersinkronisasi seketika di semua layar terhubung.',
+      ],
+    },
+    coverImage: '/images/projects/coordina-cover.svg',
+    techStack: ['Laravel', 'PHP', 'Vite', 'Tailwind CSS', 'WebSockets', 'Pusher', 'MySQL', 'JavaScript'],
+    role: {
+      en: 'Full-Stack Developer & Real-Time Systems Engineer',
+      id: 'Pengembang Full-Stack & Perekayasa Sistem Real-Time',
+    },
+    status: {
+      en: 'Functional System / Open Source',
+      id: 'Sistem Fungsional / Open Source',
+    },
+    features: [
+      {
+        code: 'CD-01',
+        title: {
+          en: 'Real-Time WebSocket Event Broadcasting',
+          id: 'Siaran Event Real-Time Berbasis WebSocket',
+        },
+        description: {
+          en: 'Instant state propagation through public and private authenticated Laravel broadcast channels.',
+          id: 'Penyebaran status instan melalui channel broadcast Laravel publik dan privat terautentikasi.',
+        },
+      },
+      {
+        code: 'CD-02',
+        title: {
+          en: 'Collaborative Task & Schedule Dispatch',
+          id: 'Pengelolaan Tugas & Penjadwalan Kolaboratif',
+        },
+        description: {
+          en: 'Live drag-and-drop schedule board reflecting real-time updates across all team coordinators.',
+          id: 'Papan jadwal seret-dan-lepas langsung yang mencerminkan pembaruan real-time di semua koordinator tim.',
+        },
+      },
+      {
+        code: 'CD-03',
+        title: {
+          en: 'Lightning-Fast Vite & Tailwind Tooling',
+          id: 'Build Tooling Vite & Tailwind Super Cepat',
+        },
+        description: {
+          en: 'Optimized frontend asset compilation delivering snappy client interactions on both mobile and desktop.',
+          id: 'Kompilasi aset frontend teroptimasi yang menghadirkan interaksi klien responsif di ponsel maupun desktop.',
+        },
+      },
+    ],
+    challenges: [
+      {
+        title: {
+          en: 'Authenticated WebSocket Channel Authorization',
+          id: 'Otorisasi Channel WebSocket Terautentikasi',
+        },
+        problem: {
+          en: 'Preventing unauthorized clients from subscribing to sensitive coordinator communication channels.',
+          id: 'Mencegah klien yang tidak berwenang berlangganan ke saluran komunikasi koordinasi yang sensitif.',
+        },
+        solution: {
+          en: 'Implemented strict Laravel broadcast authorization gates validating session tokens on socket handshakes.',
+          id: 'Menerapkan gerbang otorisasi broadcast Laravel yang ketat untuk memvalidasi token sesi saat inisialisasi socket.',
+        },
+      },
+    ],
+    anatomyLayers: [
+      {
+        id: 'client-layer',
+        code: 'LAYER 01',
+        layerName: {
+          en: 'Reactive Client Layer',
+          id: 'Lapisan Klien Reaktif',
+        },
+        tech: 'Vite + JavaScript + Laravel Echo',
+        summary: {
+          en: 'Live DOM updates, sound cues, and WebSocket listener subscriptions.',
+          id: 'Pembaruan DOM langsung, efek suara, dan langganan listener WebSocket.',
+        },
+        specs: {
+          en: ['Pusher JS client', 'Tailwind utility styling', 'Responsive mobile layout'],
+          id: ['Klien Pusher JS', 'Penataan gaya utilitas Tailwind', 'Tata letak ramah seluler'],
+        },
+      },
+      {
+        id: 'backend-layer',
+        code: 'LAYER 02',
+        layerName: {
+          en: 'Event Broadcasting Engine',
+          id: 'Mesin Penyiaran Event',
+        },
+        tech: 'Laravel (PHP)',
+        summary: {
+          en: 'Asynchronous event listeners, queue workers, and broadcast channel authorization.',
+          id: 'Listener event asinkron, antrean pemroses (queue workers), dan otorisasi channel broadcast.',
+        },
+        specs: {
+          en: ['ShouldBroadcast events', 'Redis queue integration', 'Database transaction safety'],
+          id: ['Event ShouldBroadcast', 'Integrasi antrean Redis', 'Keamanan transaksi basis data'],
+        },
+      },
+    ],
+    gallery: [
+      {
+        id: 'cd-plate-1',
+        plateNumber: 'PLATE I',
+        title: {
+          en: 'Real-Time Event Dispatch Board',
+          id: 'Papan Koordinasi Event Real-Time',
+        },
+        caption: {
+          en: 'Interface layout of Coordina showing live task channels, broadcast status, and team member presence.',
+          id: 'Tata letak antarmuka Coordina yang menampilkan channel tugas langsung, status siaran, dan kehadiran anggota tim.',
+        },
+        aspectRatio: '16/9',
+        imageSrc: '/images/projects/coordina-cover.svg',
+        diagramType: 'interface',
+      },
+    ],
+    links: {
+      repository: 'https://github.com/SaktiArifDwiPutra/coordina',
+      demo: '',
+      note: {
+        en: 'Active repository on GitHub; live deployment slot prepared.',
+        id: 'Repositori aktif di GitHub; slot deployment live telah disiapkan.',
+      },
+    },
+  },
+  {
+    slug: 'obathaus',
+    index: '07',
+    name: 'Obathaus',
+    disciplineGroup: 'fullstack',
+    category: {
+      en: 'Pharmacy Inventory & Ordering System',
+      id: 'Sistem Inventaris Farmasi & Pemesanan Kasir',
+    },
+    tagline: {
+      en: 'A streamlined medical inventory, stock tracking, and POS ordering application built with Laravel, Inertia.js, and Vue 3.',
+      id: 'Aplikasi inventaris obat, pelacakan stok, dan kasir pemesanan yang dibangun dengan Laravel, Inertia.js, dan Vue 3.',
+    },
+    description: {
+      en: 'Obathaus is an integrated pharmacy inventory and point-of-sale management system. Engineered with a single-page application experience using Inertia.js and Vue 3 atop a resilient Laravel backend, providing instant stock reconciliation, drug categorizations, and transaction auditing.',
+      id: 'Obathaus adalah sistem manajemen inventaris farmasi dan kasir (point-of-sale) terintegrasi. Dirancang dengan pengalaman Single Page Application (SPA) menggunakan Inertia.js dan Vue 3 di atas backend Laravel yang andal, menghadirkan pencatatan stok instan, kategorisasi obat, dan audit transaksi penjualan.',
+    },
+    editorialOverview: {
+      en: [
+        'Healthcare retail and pharmacy management require rigorous batch auditing, expiration tracking, and zero friction at the checkout counter. Obathaus eliminates the traditional full-page reload bottleneck using Inertia.js.',
+        'With Vue 3 powering dynamic cart calculations and modal interactions on the client side, and Laravel handling database transactions and stock deduction atomicity on the server, Obathaus delivers high operational throughput.',
+      ],
+      id: [
+        'Manajemen ritel kesehatan dan apotek membutuhkan audit batch yang ketat, pelacakan masa kedaluwarsa, dan transaksi kasir tanpa jeda waktu. Obathaus meniadakan hambatan muat ulang halaman tradisional dengan memanfaatkan Inertia.js.',
+        'Dengan Vue 3 yang menggerakkan kalkulasi keranjang dinamis dan interaksi modal di sisi klien, serta Laravel yang mengelola transaksi basis data dan pengurangan stok secara atomik di sisi server, Obathaus menghadirkan kinerja operasional yang tinggi.',
+      ],
+    },
+    coverImage: '/images/projects/obathaus-cover.svg',
+    techStack: ['Laravel', 'Inertia.js', 'Vue 3', 'PHP', 'Tailwind CSS', 'MySQL', 'Vite'],
+    role: {
+      en: 'Full-Stack Developer (Laravel + Inertia/Vue SPA)',
+      id: 'Pengembang Full-Stack (Laravel + Inertia/Vue SPA)',
+    },
+    status: {
+      en: 'Completed System / Open Source',
+      id: 'Sistem Selesai / Open Source',
+    },
+    features: [
+      {
+        code: 'OB-01',
+        title: {
+          en: 'Instant POS Cashier & Checkout Terminal',
+          id: 'Terminal Kasir & Checkout POS Instan',
+        },
+        description: {
+          en: 'Rapid prescription and medicine search with instant stock calculation and receipt generation.',
+          id: 'Pencarian resep dan obat cepat dengan kalkulasi stok instan dan pencetakan bukti transaksi.',
+        },
+      },
+      {
+        code: 'OB-02',
+        title: {
+          en: 'Single Page App Flow via Inertia.js & Vue 3',
+          id: 'Alur Single Page App via Inertia.js & Vue 3',
+        },
+        description: {
+          en: 'Fluid client navigation without API bloat, preserving complete server-side routing security.',
+          id: 'Navigasi klien yang mulus tanpa beban overhead API, mempertahankan keamanan routing server secara penuh.',
+        },
+      },
+      {
+        code: 'OB-03',
+        title: {
+          en: 'Batch Expiry & Inventory Tracking',
+          id: 'Pelacakan Inventaris & Kedaluwarsa Batch',
+        },
+        description: {
+          en: 'Automated warnings for low-stock thresholds and upcoming expiry dates.',
+          id: 'Peringatan otomatis untuk batas minimum stok dan tanggal kedaluwarsa yang mendekat.',
+        },
+      },
+    ],
+    challenges: [
+      {
+        title: {
+          en: 'Atomic Stock Deductions Under Concurrent Checkouts',
+          id: 'Pengurangan Stok Atomik Saat Transaksi Serentak',
+        },
+        problem: {
+          en: 'Concurrent cashiers selling the same scarce medicine batches risking negative inventory anomalies.',
+          id: 'Kasir yang menjual batch obat terbatas secara bersamaan berisiko menimbulkan anomali stok negatif.',
+        },
+        solution: {
+          en: 'Encapsulated checkout logic in Laravel DB::transaction with pessimistic row locking.',
+          id: 'Membungkus logika checkout dalam DB::transaction Laravel dengan penguncian baris pesimistik (pessimistic locking).',
+        },
+      },
+    ],
+    anatomyLayers: [
+      {
+        id: 'client-spa',
+        code: 'LAYER 01',
+        layerName: {
+          en: 'Inertia.js + Vue 3 Client Interface',
+          id: 'Antarmuka Klien Inertia.js + Vue 3',
+        },
+        tech: 'Vue 3 + Inertia.js',
+        summary: {
+          en: 'Reactive point-of-sale views, search filters, and real-time form validation.',
+          id: 'Tampilan kasir reaktif, filter pencarian, dan validasi formulir real-time.',
+        },
+        specs: {
+          en: ['Composition API', 'Tailwind styling', 'Zero-reload page transitions'],
+          id: ['Composition API', 'Penataan gaya Tailwind', 'Transisi halaman tanpa reload'],
+        },
+      },
+      {
+        id: 'server-core',
+        code: 'LAYER 02',
+        layerName: {
+          en: 'Inventory & Transaction Domain Core',
+          id: 'Inti Domain Transaksi & Inventaris',
+        },
+        tech: 'Laravel (PHP)',
+        summary: {
+          en: 'ACID transactional inventory controllers, PDF receipt generation, and authentication.',
+          id: 'Controller inventaris transaksional ACID, pembuatan bukti PDF, dan autentikasi.',
+        },
+        specs: {
+          en: ['Eloquent ORM', 'FormRequest authorization', 'Database transactions'],
+          id: ['Eloquent ORM', 'Otorisasi FormRequest', 'Transaksi basis data'],
+        },
+      },
+    ],
+    gallery: [
+      {
+        id: 'ob-plate-1',
+        plateNumber: 'PLATE I',
+        title: {
+          en: 'Pharmacy Cashier & Inventory Terminal',
+          id: 'Terminal Kasir & Inventaris Farmasi',
+        },
+        caption: {
+          en: 'Interface layout of Obathaus showing instant item lookup, cart summary, and stock reconciliation.',
+          id: 'Tata letak antarmuka Obathaus yang menampilkan pencarian obat instan, ringkasan keranjang, dan rekonsiliasi stok.',
+        },
+        aspectRatio: '16/9',
+        imageSrc: '/images/projects/obathaus-cover.svg',
+        diagramType: 'interface',
+      },
+    ],
+    links: {
+      repository: 'https://github.com/SaktiArifDwiPutra/obathaus',
+      demo: '',
+      note: {
+        en: 'Active repository on GitHub; live deployment slot prepared.',
+        id: 'Repositori aktif di GitHub; slot deployment live telah disiapkan.',
       },
     },
   },
@@ -1279,7 +1572,7 @@ export const TECH_STACK: TechStackCategory[] = [
           en: 'Node-based scene architecture, signal buses & 2D game loops',
           id: 'Arsitektur scene berbasis node, bus sinyal & alur permainan 2D',
         },
-        context: 'Negeri Kelabu',
+        context: 'Game Prototypes',
       },
       {
         name: 'GDScript',
@@ -1287,7 +1580,7 @@ export const TECH_STACK: TechStackCategory[] = [
           en: 'Gameplay scripting, finite state machines & custom dialogue parsers',
           id: 'Pemrograman mekanika permainan, mesin state & pengurai dialog',
         },
-        context: 'Negeri Kelabu',
+        context: 'Game Systems',
       },
       {
         name: 'Docker',
@@ -1315,32 +1608,32 @@ export const EXPERIENCES: ExperienceEntry[] = [
       id: 'Lead Full-Stack Architect & Desainer Produk',
     },
     organization: {
-      en: 'Collaborative Project (w/ Khairul • 80-20 Contribution)',
-      id: 'Proyek Kolaborasi (bersama Khairul • Kontribusi 80-20)',
+      en: 'Collaborative Project (w/ Khairul • Partner Credit)',
+      id: 'Proyek Kolaborasi (bersama Khairul • Partner Credit)',
     },
     domain: {
       en: 'Community Game Review & Platform Architecture',
       id: 'Platform Penilaian & Komunitas Game',
     },
     summary: {
-      en: 'Collaborative platform developed with Khairul (80-20 contribution split). I conceptualized the entire design, themes, and UI/UX; engineered the complete backend architecture (Laravel REST API & MySQL); and executed frontend finishing, followed by independent post-publishing frontend perfection. Khairul contributed to frontend development during production.',
-      id: 'Proyek platform web kolaboratif yang dikembangkan bersama Khairul dengan rasio kontribusi 80-20. Saya merancang keseluruhan konsep, tema, dan desain UI/UX; membangun seluruh arsitektur backend (Laravel REST API & MySQL); serta melakukan finishing frontend dan menyempurnakannya secara mandiri pasca-publikasi. Khairul membantu pengembangan frontend selama masa produksi.',
+      en: 'Collaborative web platform developed with partner Khairul (https://github.com/Kyunn17). I spearheaded the product concept, visual theme, and UI/UX design; architected the complete backend from scratch (Laravel REST API with PostgreSQL on Neon DB); and completed the frontend finishing and post-publishing optimization. Built with a decoupled architecture separating the Vercel frontend from the dedicated backend API server, active live at www.critiplay.my.id.',
+      id: 'Platform ulasan game kolaboratif yang dikembangkan bersama mitra Khairul (https://github.com/Kyunn17). Saya memimpin konsep produk, tema visual, dan desain UI/UX; merancang seluruh backend dari nol (Laravel REST API dengan PostgreSQL di Neon DB); serta menyelesaikan finishing frontend dan penyempurnaan pasca-publikasi. Dibangun dengan arsitektur decoupled yang memisahkan frontend Vercel dari server API backend terpisah, aktif live di www.critiplay.my.id.',
     },
     deliverables: {
       en: [
-        'Conceived full product vision, visual identity, responsive typography, and reactive UI architecture in React & Tailwind CSS.',
-        'Engineered 100% of the backend services, relational MySQL schemas, entity relations, and performant REST APIs in Laravel.',
-        'Collaborative workflow: guided production frontend with Khairul, followed by comprehensive independent frontend polish and performance optimization post-release.',
-        'Implemented community game catalogs, rating aggregation formulas, and interactive review systems.',
+        'Conceived and crafted complete product vision, visual theme, responsive typography, and reactive UI architecture in React & Tailwind CSS.',
+        'Architected and built 100% of the backend infrastructure: relational database schemas, secure authentication, and performant REST APIs in Laravel.',
+        'Configured decoupled production deployment: frontend hosted on Vercel, separate dedicated backend API server, and serverless PostgreSQL on Neon DB.',
+        'Executed frontend finishing, responsive polish, and post-release performance optimization on live production site (www.critiplay.my.id).',
       ],
       id: [
-        'Memimpin konsep produk, identitas visual, tipografi responsif, dan arsitektur UI reaktif menggunakan React & Tailwind CSS.',
-        'Membangun 100% backend: skema basis data relasional MySQL, otentikasi, relasi entitas, dan endpoint RESTful API di Laravel.',
-        'Alur kerja kolaboratif: memandu pengembangan frontend bersama Khairul selama produksi, dilanjutkan penyempurnaan frontend mandiri secara menyeluruh pasca-publikasi.',
-        'Mengimplementasikan indeks katalog game, formula agregasi penilaian pengguna, dan sistem review interaktif.',
+        'Merancang visi produk menyeluruh, tema visual, tipografi responsif, dan arsitektur UI reaktif menggunakan React & Tailwind CSS.',
+        'Membangun 100% infrastruktur backend: skema database relasional, autentikasi aman, dan endpoint RESTful API di Laravel.',
+        'Mengonfigurasi deployment arsitektur terpisah: frontend di-host di Vercel, server API backend terpisah, dan basis data serverless PostgreSQL di Neon DB.',
+        'Melakukan finishing frontend, polesan responsif, dan optimasi performa pasca-rilis pada platform live aktif (www.critiplay.my.id).',
       ],
     },
-    technologies: ['React', 'TypeScript', 'Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'REST API'],
+    technologies: ['React', 'TypeScript', 'Laravel', 'PostgreSQL', 'Neon DB', 'Vercel', 'Tailwind CSS', 'REST API'],
   },
   {
     id: 'exp-pilketos-school',

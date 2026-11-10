@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050811" />
+      <stop offset="50%" stop-color="#090f1f" />
+      <stop offset="100%" stop-color="#0c0716" />
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="100%" stop-color="#4facfe" />
+    </linearGradient>
+    <linearGradient id="magentaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f857a6" />
+      <stop offset="100%" stop-color="#ff5858" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0, 242, 254, 0.07)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="750" fill="url(#bg)" />
+  <rect width="1200" height="750" fill="url(#grid)" />
+
+  <!-- Ambient Glows -->
+  <circle cx="280" cy="220" r="220" fill="#00f2fe" opacity="0.08" filter="blur(60px)" />
+  <circle cx="920" cy="520" r="240" fill="#f857a6" opacity="0.06" filter="blur(70px)" />
+
+  <!-- Outer Frame -->
+  <rect x="40" y="40" width="1120" height="670" rx="20" fill="none" stroke="rgba(0, 242, 254, 0.2)" stroke-width="1.5" />
+  
+  <!-- Corner Tech Brackets -->
+  <path d="M 35 70 L 35 35 L 70 35" fill="none" stroke="#00f2fe" stroke-width="3" />
+  <path d="M 1165 70 L 1165 35 L 1130 35" fill="none" stroke="#00f2fe" stroke-width="3" />
+  <path d="M 35 680 L 35 715 L 70 715" fill="none" stroke="#00f2fe" stroke-width="3" />
+  <path d="M 1165 680 L 1165 715 L 1130 715" fill="none" stroke="#00f2fe" stroke-width="3" />
+
+  <!-- Header HUD Tag -->
+  <rect x="80" y="80" width="310" height="34" rx="8" fill="rgba(0, 242, 254, 0.08)" stroke="rgba(0, 242, 254, 0.3)" />
+  <circle cx="102" cy="97" r="4" fill="#00f2fe" />
+  <text x="118" y="102" font-family="monospace" font-size="12" font-weight="700" fill="#00f2fe" letter-spacing="2">SPEC // FULLSTACK MONOREPO</text>
+
+  <!-- Big Title -->
+  <text x="80" y="210" font-family="system-ui, -apple-system, sans-serif" font-size="76" font-weight="900" fill="#ffffff" letter-spacing="-1">Dragonhold</text>
+  <text x="80" y="255" font-family="monospace" font-size="16" fill="rgba(255, 255, 255, 0.6)" letter-spacing="1">NEXT.JS 16 • HONO REST API • DRIZZLE ORM • POSTGRESQL</text>
+
+  <!-- Central Architecture Diagram -->
+  <g transform="translate(80, 310)">
+    <!-- Package Web Card -->
+    <rect x="0" y="0" width="310" height="180" rx="14" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(0, 242, 254, 0.35)" stroke-width="1.5" />
+    <text x="24" y="42" font-family="monospace" font-size="11" font-weight="700" fill="#00f2fe" letter-spacing="1.5">APP // FRONTEND</text>
+    <text x="24" y="80" font-family="system-ui, sans-serif" font-size="24" font-weight="800" fill="#ffffff">@dragonhold/web</text>
+    <text x="24" y="112" font-family="monospace" font-size="13" fill="rgba(255, 255, 255, 0.65)">Next.js 16 + React 19</text>
+    <text x="24" y="136" font-family="monospace" font-size="13" fill="rgba(255, 255, 255, 0.65)">Tailwind CSS 4 App</text>
+    <rect x="24" y="148" width="90" height="18" rx="4" fill="rgba(0, 242, 254, 0.15)" />
+    <text x="32" y="161" font-family="monospace" font-size="9" fill="#00f2fe" font-weight="700">PORT: 3000</text>
+
+    <!-- Flow Connector -->
+    <path d="M 310 90 L 390 90" stroke="rgba(0, 242, 254, 0.5)" stroke-width="2" stroke-dasharray="6,4" />
+    <polygon points="385,86 395,90 385,94" fill="#00f2fe" />
+
+    <!-- Shared Package Badge -->
+    <rect x="365" y="45" width="190" height="90" rx="10" fill="rgba(248, 87, 166, 0.08)" stroke="rgba(248, 87, 166, 0.4)" />
+    <text x="382" y="74" font-family="monospace" font-size="10" font-weight="700" fill="#f857a6">SHARED CONTRACTS</text>
+    <text x="382" y="100" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#ffffff">@dragonhold/shared</text>
+    <text x="382" y="120" font-family="monospace" font-size="10" fill="rgba(255, 255, 255, 0.5)">Zod Schemas &amp; Types</text>
+
+    <!-- Package API Card -->
+    <rect x="580" y="0" width="310" height="180" rx="14" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(0, 242, 254, 0.35)" stroke-width="1.5" />
+    <text x="604" y="42" font-family="monospace" font-size="11" font-weight="700" fill="#00f2fe" letter-spacing="1.5">APP // BACKEND</text>
+    <text x="604" y="80" font-family="system-ui, sans-serif" font-size="24" font-weight="800" fill="#ffffff">@dragonhold/api</text>
+    <text x="604" y="112" font-family="monospace" font-size="13" fill="rgba(255, 255, 255, 0.65)">Hono Framework (Node.js)</text>
+    <text x="604" y="136" font-family="monospace" font-size="13" fill="rgba(255, 255, 255, 0.65)">High-Performance REST</text>
+    <rect x="604" y="148" width="90" height="18" rx="4" fill="rgba(0, 242, 254, 0.15)" />
+    <text x="612" y="161" font-family="monospace" font-size="9" fill="#00f2fe" font-weight="700">PORT: 4000</text>
+
+    <!-- Connector to Database -->
+    <path d="M 890 90 L 930 90" stroke="rgba(0, 242, 254, 0.5)" stroke-width="2" stroke-dasharray="6,4" />
+    <polygon points="925,86 935,90 925,94" fill="#00f2fe" />
+
+    <!-- Database Card -->
+    <rect x="930" y="20" width="110" height="140" rx="12" fill="rgba(51, 103, 145, 0.15)" stroke="rgba(51, 103, 145, 0.5)" stroke-width="1.5" />
+    <ellipse cx="985" cy="50" rx="36" ry="12" fill="rgba(51, 103, 145, 0.4)" stroke="#336791" stroke-width="1.5" />
+    <path d="M 949 50 L 949 110 A 36 12 0 0 0 1021 110 L 1021 50" fill="none" stroke="#336791" stroke-width="1.5" />
+    <text x="985" y="132" font-family="monospace" font-size="10" font-weight="700" fill="#336791" text-anchor="middle">DRIZZLE</text>
+    <text x="985" y="146" font-family="monospace" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">POSTGRES</text>
+  </g>
+
+  <!-- Footer Status -->
+  <g transform="translate(80, 640)">
+    <circle cx="10" cy="10" r="5" fill="#00f2fe" />
+    <text x="26" y="14" font-family="monospace" font-size="13" fill="rgba(255, 255, 255, 0.7)">WORKSPACE: PNPM 9 • STRICT TYPESCRIPT • ZERO-BLOAT REST PIPELINE</text>
+  </g>
+</svg>
+

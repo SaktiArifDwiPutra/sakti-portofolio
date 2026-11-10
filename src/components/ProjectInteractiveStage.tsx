@@ -21,7 +21,16 @@ export function ProjectInteractiveStage({ slug, locale }: StageProps) {
   if (slug === 'laundryflow') {
     return <LaundryFlowStage locale={locale} />;
   }
-  return <NegeriKelabuStage locale={locale} />;
+  if (slug === 'dragonhold') {
+    return <DragonholdStage locale={locale} />;
+  }
+  if (slug === 'coordina') {
+    return <CoordinaStage locale={locale} />;
+  }
+  if (slug === 'obathaus') {
+    return <ObathausStage locale={locale} />;
+  }
+  return <DragonholdStage locale={locale} />;
 }
 
 /* ============================================================================
@@ -444,191 +453,105 @@ function LaundryFlowStage({ locale }: { locale: Locale }) {
 }
 
 /* ============================================================================
-   STAGE III: NEGERI KELABU — LIFE-SIM RPG WORLD CLOCK & DIALOGUE STAGE
+   STAGE III: DRAGONHOLD — FULL-STACK MONOREPO & HONO API TEST-BENCH
 ============================================================================ */
-function NegeriKelabuStage({ locale }: { locale: Locale }) {
+function DragonholdStage({ locale }: { locale: Locale }) {
   const isId = locale === 'id';
+  const [latency, setLatency] = useState<number | null>(null);
+  const [requestCount, setRequestCount] = useState(1);
+  const [activeTab, setActiveTab] = useState<'api' | 'drizzle'>('api');
 
-  const phases = [
-    {
-      id: 'dawn',
-      clock: '06:30',
-      name: isId ? 'Kabut Pagi' : 'Morning Mist',
-      ambient: 'dawn_fog_shader',
-      bgTint: 'rgba(184, 210, 195, 0.06)',
-      npcLine: isId
-        ? '"Udara pagi di distrik lama selalu dingin. Kopi hitamnya baru saja diseduh kalau kau ingin singgah sebelum berangkat."'
-        : '"Morning air in the old district always carries a chill. Fresh black coffee is ready if you want to sit before heading out."',
-    },
-    {
-      id: 'dusk',
-      clock: '17:40',
-      name: isId ? 'Hujan Senja' : 'Dusk Rain',
-      ambient: 'overcast_rain_particles',
-      bgTint: 'rgba(224, 122, 71, 0.08)',
-      npcLine: isId
-        ? '"Hujan selalu turun tepat sebelum kereta sore lewat. Kau mau berteduh sebentar di warung atau langsung pulang?"'
-        : '"The rain always arrives right before the evening train passes. Will you take shelter at the stall or walk home?"',
-    },
-    {
-      id: 'night',
-      clock: '22:15',
-      name: isId ? 'Lentera Malam' : 'Night Quiet',
-      ambient: 'lantern_point_lights',
-      bgTint: 'rgba(120, 140, 190, 0.07)',
-      bgBorder: 'rgba(224, 122, 71, 0.3)',
-      npcLine: isId
-        ? '"Jalanan sudah lengang. Hanya suara jangkrik dan lampu warung yang masih menyala di ujung gang."'
-        : '"The streets have gone quiet now. Only crickets and the stall lantern left glowing at the end of the alley."',
-    },
-  ];
-
-  const [phaseIdx, setPhaseIdx] = useState(1);
-  const [choiceTaken, setChoiceTaken] = useState<'stay' | 'walk'>('stay');
-
-  const currentPhase = phases[phaseIdx];
+  const handleTestPing = () => {
+    const start = performance.now();
+    // Simulate sub-millisecond Hono runtime dispatch
+    setTimeout(() => {
+      const duration = Math.max(0.8, Number((performance.now() - start).toFixed(1)));
+      setLatency(duration);
+      setRequestCount((c) => c + 1);
+    }, 40);
+  };
 
   return (
-    <div
-      className="border-t border-b border-hairline p-6 sm:p-8 lg:p-10 transition-colors duration-300"
-      style={{ backgroundColor: currentPhase.bgTint }}
-    >
-      <div className="flex flex-wrap items-baseline justify-between gap-4 pb-6 border-b border-hairline">
-        <div>
-          <span className="font-mono text-xs text-accent-ochre tracking-wider uppercase">
-            {isId
-              ? 'Eksibisi Interaktif 03 — Siklus Waktu & State Narasi Negeri Kelabu'
-              : 'Interactive Exhibition 03 — Negeri Kelabu World Clock & Narrative State'}
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-hairline)] pb-4 font-mono text-xs">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+          <span className="text-[var(--text-primary)] font-bold">
+            {isId ? 'TEST-BENCH MONOREPO DRAGONHOLD' : 'DRAGONHOLD MONOREPO TEST-BENCH'}
           </span>
-          <p className="text-sm text-secondary-ink mt-1">
-            {isId
-              ? 'Ganti fase waktu dunia dan pilih respons percakapan untuk melihat perubahan sinyal Godot dan variabel memori dunia.'
-              : 'Switch the world time phase and choose a dialogue response to observe Godot signal emissions and world memory flags.'}
-          </p>
+          <span className="px-2 py-0.5 rounded-full theme-chip text-[10px]">pnpm / Next.js 16 / Hono</span>
         </div>
-        <span className="font-mono text-xs text-muted-ink">
-          Godot Engine · GDScript · Finite State Machine
-        </span>
+        <button
+          onClick={handleTestPing}
+          className="interactive-btn interactive-btn-primary px-3 py-1.5 rounded-full text-xs font-mono font-bold"
+        >
+          ⚡ {isId ? 'Uji Dispatch Hono API' : 'Benchmark Hono Dispatch'}
+        </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-8 items-start">
-        {/* Left: Atmospheric Narrative Viewport (7 cols) */}
-        <div className="lg:col-span-7 bg-canvas border border-hairline p-6 sm:p-8 space-y-6">
-          {/* Time of Day Controls */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-hairline pb-5">
-            <div>
-              <span className="font-mono text-xs text-muted-ink block">
-                {isId ? 'SIKLUS WAKTU DUNIA' : 'WORLD TIME CYCLE'}
-              </span>
-              <span className="font-serif text-2xl sm:text-3xl text-primary-ink">
-                {currentPhase.clock} — {currentPhase.name}
-              </span>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {phases.map((p, idx) => {
-                const active = idx === phaseIdx;
-                return (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => setPhaseIdx(idx)}
-                    aria-pressed={active}
-                    className={`px-3 py-1.5 font-mono text-xs border transition-colors ${
-                      active
-                        ? 'border-[var(--accent-secondary)] bg-elevated text-accent-ochre font-semibold'
-                        : 'border-hairline bg-surface text-secondary-ink hover:text-primary-ink'
-                    }`}
-                  >
-                    {p.clock}
-                  </button>
-                );
-              })}
-            </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-7 p-6 rounded-2xl theme-card border border-[var(--border-hairline)] space-y-4 font-mono text-xs">
+          <div className="flex items-center justify-between border-b border-[var(--border-hairline)] pb-3">
+            <span className="text-[var(--accent-primary)] font-bold">WORKSPACE PACKAGES</span>
+            <span className="text-[10px] text-emerald-400">TYPE-SAFE SYNC</span>
           </div>
 
-          {/* Dialogue Vignette */}
-          <div className="py-2">
-            <span className="font-mono text-xs text-accent-ochre uppercase tracking-wider">
-              {isId ? 'Penjaga Warung // Dialog NPC' : 'Stall Keeper // NPC Dialogue'}
-            </span>
-            <blockquote className="mt-3 font-serif text-xl sm:text-2xl text-primary-ink leading-relaxed italic">
-              {currentPhase.npcLine}
-            </blockquote>
-          </div>
+          <div className="space-y-3">
+            <div className="p-3 rounded-xl bg-[var(--surface-hover)] border border-[var(--border-hairline)] flex justify-between items-center">
+              <div>
+                <span className="font-bold text-[var(--text-primary)] block">@dragonhold/web</span>
+                <span className="text-[11px] text-[var(--text-secondary)]">Next.js 16 App Router + Tailwind 4</span>
+              </div>
+              <span className="px-2 py-1 rounded theme-chip text-[10px] text-cyan-400">Client UI</span>
+            </div>
 
-          {/* Player Dialogue Choices */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            <button
-              type="button"
-              onClick={() => setChoiceTaken('stay')}
-              className={`p-3.5 text-left border font-mono text-xs transition-colors ${
-                choiceTaken === 'stay'
-                  ? 'border-[var(--accent-primary)] bg-elevated text-accent'
-                  : 'border-hairline bg-surface text-secondary-ink hover:text-primary-ink'
-              }`}
-            >
-              ▸ [1]{' '}
-              {isId
-                ? 'Singgah dan dengarkan cerita (+Tenang)'
-                : 'Stay and listen to the story (+Rest)'}
-            </button>
-            <button
-              type="button"
-              onClick={() => setChoiceTaken('walk')}
-              className={`p-3.5 text-left border font-mono text-xs transition-colors ${
-                choiceTaken === 'walk'
-                  ? 'border-[var(--accent-primary)] bg-elevated text-accent'
-                  : 'border-hairline bg-surface text-secondary-ink hover:text-primary-ink'
-              }`}
-            >
-              ▸ [2]{' '}
-              {isId
-                ? 'Lanjutkan perjalanan menyusuri jalan (+Eksplorasi)'
-                : 'Continue walking down the road (+Explore)'}
-            </button>
+            <div className="p-3 rounded-xl bg-[var(--surface-hover)] border border-[var(--border-hairline)] flex justify-between items-center">
+              <div>
+                <span className="font-bold text-[var(--text-primary)] block">@dragonhold/api</span>
+                <span className="text-[11px] text-[var(--text-secondary)]">Hono REST API + Zod Validator</span>
+              </div>
+              <span className="px-2 py-1 rounded theme-chip text-[10px] text-emerald-400">Port 4000</span>
+            </div>
+
+            <div className="p-3 rounded-xl bg-[var(--surface-hover)] border border-[var(--border-hairline)] flex justify-between items-center">
+              <div>
+                <span className="font-bold text-[var(--text-primary)] block">@dragonhold/shared</span>
+                <span className="text-[11px] text-[var(--text-secondary)]">Single-source Zod Schemas &amp; DTOs</span>
+              </div>
+              <span className="px-2 py-1 rounded theme-chip text-[10px] text-amber-400">Cross-Package</span>
+            </div>
           </div>
         </div>
 
-        {/* Right: Godot Autoload & Signal Bus Telemetry (5 cols) */}
-        <div className="lg:col-span-5 bg-canvas border border-hairline p-6 sm:p-8 space-y-5">
-          <div className="border-b border-hairline pb-3 flex items-center justify-between">
-            <span className="font-mono text-xs text-muted-ink">
-              GODOT AUTOLOAD STATE
-            </span>
-            <span className="font-mono text-xs text-accent-ochre">
-              WorldState.gd
-            </span>
+        <div className="lg:col-span-5 p-5 rounded-2xl theme-chip space-y-4 font-mono text-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-[var(--border-hairline)]">
+            <span className="font-bold text-[var(--text-primary)]">RUNTIME TELEMETRY</span>
+            <span className="text-[10px] text-emerald-400">SUB-MS DISPATCH</span>
           </div>
 
-          <dl className="divide-y divide-[var(--border-hairline)] font-mono text-xs">
-            <div className="py-2.5 flex justify-between">
-              <dt className="text-muted-ink">time_phase</dt>
-              <dd className="text-primary-ink">&quot;{currentPhase.id}&quot;</dd>
+          <div className="space-y-2 text-[var(--text-secondary)]">
+            <div className="flex justify-between">
+              <span>Hono Routing Latency:</span>
+              <strong className="text-cyan-400 font-bold">{latency !== null ? `${latency} ms` : '1.2 ms'}</strong>
             </div>
-            <div className="py-2.5 flex justify-between">
-              <dt className="text-muted-ink">environment_preset</dt>
-              <dd className="text-accent-ochre">
-                &quot;{currentPhase.ambient}&quot;
-              </dd>
+            <div className="flex justify-between">
+              <span>Request Counter:</span>
+              <span className="text-[var(--text-primary)]">#{requestCount} completed</span>
             </div>
-            <div className="py-2.5 flex justify-between">
-              <dt className="text-muted-ink">last_dialogue_branch</dt>
-              <dd className="text-accent">
-                &quot;branch_{choiceTaken}&quot;
-              </dd>
+            <div className="flex justify-between">
+              <span>Zod Validation:</span>
+              <span className="text-emerald-400">PASSED (Zero Schema Drift)</span>
             </div>
-            <div className="py-2.5 flex justify-between">
-              <dt className="text-muted-ink">player_morale_delta</dt>
-              <dd className="text-primary-ink">
-                {choiceTaken === 'stay' ? '+15 (Rested)' : '+10 (Observant)'}
-              </dd>
+            <div className="flex justify-between">
+              <span>Drizzle ORM Query:</span>
+              <span className="text-[var(--accent-primary)]">SELECT * FROM entities LIMIT 1</span>
             </div>
-          </dl>
+          </div>
 
-          <p className="text-xs text-muted-ink font-mono pt-2">
-            signal emitted: EventBus.on_dialogue_choice_selected(&quot;
-            {choiceTaken}&quot;)
+          <p className="text-[11px] text-[var(--text-muted)] leading-relaxed pt-2 border-t border-[var(--border-hairline)]">
+            {isId
+              ? 'Arsitektur monorepo pnpm mengisolasi layanan web dan API dengan performa tinggi tanpa overhead modul redundan.'
+              : 'Pnpm monorepo architecture isolates Next.js presentation from lightweight Hono API microservices.'}
           </p>
         </div>
       </div>
@@ -637,7 +560,178 @@ function NegeriKelabuStage({ locale }: { locale: Locale }) {
 }
 
 /* ============================================================================
-   STAGE IV: DAUS ANAK SOLEH — 2D CANVAS MATH PUZZLE ENGINE
+   STAGE V: COORDINA — REAL-TIME WEBSOCKET EVENT BROADCAST SIMULATOR
+============================================================================ */
+function CoordinaStage({ locale }: { locale: Locale }) {
+  const isId = locale === 'id';
+  const [eventLogs, setEventLogs] = useState<string[]>([
+    'Socket connection established on private-channel.coordination.01',
+    'Initial shift payload synchronized across 12 field coordinators',
+  ]);
+
+  const handleEmitBroadcast = () => {
+    const time = new Date().toLocaleTimeString();
+    const eventName = isId ? `Pembaruan Tugas Lapangan #${eventLogs.length + 1}` : `Field Dispatch Event #${eventLogs.length + 1}`;
+    setEventLogs((prev) => [`[${time}] ${eventName} broadcasted via Pusher WebSocket`, ...prev.slice(0, 4)]);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-hairline)] pb-4 font-mono text-xs">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-[var(--text-primary)] font-bold">
+            {isId ? 'SIMULATOR SIARAN WEBSOCKET COORDINA' : 'COORDINA WEBSOCKET BROADCAST STAGE'}
+          </span>
+          <span className="px-2 py-0.5 rounded-full theme-chip text-[10px]">Laravel Echo / Pusher</span>
+        </div>
+        <button
+          onClick={handleEmitBroadcast}
+          className="interactive-btn interactive-btn-primary px-3 py-1.5 rounded-full text-xs font-mono font-bold"
+        >
+          📡 {isId ? 'Siarkan Event Baru' : 'Dispatch Live Broadcast'}
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-7 p-6 rounded-2xl theme-card border border-[var(--border-hairline)] space-y-3 font-mono text-xs">
+          <span className="text-[var(--accent-primary)] font-bold block mb-2">LIVE BROADCAST CONSOLE</span>
+          <div className="space-y-2">
+            {eventLogs.map((log, idx) => (
+              <div key={idx} className="p-3 rounded-lg bg-[var(--surface-hover)] border border-[var(--border-hairline)] text-[var(--text-secondary)]">
+                <span className="text-emerald-400 mr-2">●</span>
+                {log}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="lg:col-span-5 p-5 rounded-2xl theme-chip space-y-4 font-mono text-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-[var(--border-hairline)]">
+            <span className="font-bold text-[var(--text-primary)]">CHANNEL STATUS</span>
+            <span className="text-[10px] text-emerald-400">PRESENCE ACTIVE</span>
+          </div>
+
+          <div className="space-y-2 text-[var(--text-secondary)]">
+            <div className="flex justify-between">
+              <span>Channel:</span>
+              <span className="text-cyan-400 font-bold">presence-event.coordination</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Subscribers:</span>
+              <span className="text-[var(--text-primary)]">12 active client nodes</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Auth Handshake:</span>
+              <span className="text-emerald-400">PASSED (Session Bearer)</span>
+            </div>
+          </div>
+
+          <p className="text-[11px] text-[var(--text-muted)] leading-relaxed pt-2 border-t border-[var(--border-hairline)]">
+            {isId
+              ? 'Event ShouldBroadcast di Laravel menyebarkan perubahan status tugas ke seluruh klien dalam hitungan milidetik tanpa reload.'
+              : 'Laravel event broadcasting pushes task mutations to all connected client screens instantaneously without page reload.'}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================================
+   STAGE VI: OBATHAUS — INERTIA.JS + VUE 3 PHARMACY POS TEST-BENCH
+============================================================================ */
+function ObathausStage({ locale }: { locale: Locale }) {
+  const isId = locale === 'id';
+  const [stock, setStock] = useState(48);
+  const [totalSales, setTotalSales] = useState(12);
+  const [lastReceipt, setLastReceipt] = useState<string | null>(null);
+
+  const handleCheckout = () => {
+    if (stock <= 0) return;
+    setStock((s) => s - 1);
+    setTotalSales((t) => t + 1);
+    setLastReceipt(`TRX-${Math.floor(1000 + Math.random() * 9000)}`);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-hairline)] pb-4 font-mono text-xs">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-teal-400 animate-pulse" />
+          <span className="text-[var(--text-primary)] font-bold">
+            {isId ? 'TERMINAL KASIR FARMASI OBATHAUS' : 'OBATHAUS PHARMACY POS STAGE'}
+          </span>
+          <span className="px-2 py-0.5 rounded-full theme-chip text-[10px]">Inertia.js / Vue 3 / Laravel</span>
+        </div>
+        <button
+          onClick={handleCheckout}
+          disabled={stock <= 0}
+          className="interactive-btn interactive-btn-primary px-3 py-1.5 rounded-full text-xs font-mono font-bold disabled:opacity-50"
+        >
+          💊 {isId ? 'Checkout & Potong Stok' : 'Instant POS Checkout'}
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-7 p-6 rounded-2xl theme-card border border-[var(--border-hairline)] space-y-4 font-mono text-xs">
+          <div className="flex items-center justify-between border-b border-[var(--border-hairline)] pb-3">
+            <span className="text-[var(--accent-primary)] font-bold">REKONSILIASI STOK OBAT</span>
+            <span className="text-[10px] text-teal-400">TRANSAKSI ATOMIK</span>
+          </div>
+
+          <div className="p-4 rounded-xl bg-[var(--surface-hover)] border border-[var(--border-hairline)] flex justify-between items-center">
+            <div>
+              <span className="font-bold text-sm text-[var(--text-primary)] block">Paracetamol 500mg (Batch #B92)</span>
+              <span className="text-[11px] text-[var(--text-secondary)]">Kategori: Analgesik / Antipiretik</span>
+            </div>
+            <div className="text-right">
+              <span className="text-xl font-bold font-mono text-teal-400">{stock}</span>
+              <span className="block text-[10px] text-[var(--text-muted)]">Sisa Stok</span>
+            </div>
+          </div>
+
+          {lastReceipt && (
+            <div className="p-3 rounded-lg bg-teal-950/30 border border-teal-500/30 text-teal-300">
+              ✓ {isId ? `Transaksi Berhasil! Struk Kasir: ${lastReceipt} (Stok terpotong otomatis via DB::transaction)` : `Transaction Complete! Receipt: ${lastReceipt} (Atomic deduction)`}
+            </div>
+          )}
+        </div>
+
+        <div className="lg:col-span-5 p-5 rounded-2xl theme-chip space-y-4 font-mono text-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-[var(--border-hairline)]">
+            <span className="font-bold text-[var(--text-primary)]">POS ENGINE HUD</span>
+            <span className="text-[10px] text-emerald-400">INERTIA PROTOCOL</span>
+          </div>
+
+          <div className="space-y-2 text-[var(--text-secondary)]">
+            <div className="flex justify-between">
+              <span>Frontend Stack:</span>
+              <span className="text-cyan-400 font-bold">Inertia.js + Vue 3 SPA</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Concurrency Lock:</span>
+              <span className="text-emerald-400">Pessimistic Row Lock</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Sales Volume:</span>
+              <span className="text-[var(--text-primary)]">{totalSales} item terjual</span>
+            </div>
+          </div>
+
+          <p className="text-[11px] text-[var(--text-muted)] leading-relaxed pt-2 border-t border-[var(--border-hairline)]">
+            {isId
+              ? 'Arsitektur monolitik modern Inertia.js menghadirkan kecepatan Single Page App tanpa kerumitan REST API redundan.'
+              : 'Inertia.js hybrid architecture provides SPA fluidity while maintaining complete Laravel backend routing security.'}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================================
+   STAGE IV: DAUS ANAK SOLEH — 2D PRAYER PUZZLE & RECITATION ENGINE
 ============================================================================ */
 function DausAnakSolehStage({ locale }: { locale: Locale }) {
   const isId = locale === 'id';
@@ -649,38 +743,46 @@ function DausAnakSolehStage({ locale }: { locale: Locale }) {
 
   const questions = [
     {
-      q: '5 + 8 = ?',
-      options: [12, 13, 14, 15],
-      correct: 13,
-      context: isId ? 'Bantu Daus menghitung kurma untuk berbuka puasa' : 'Help Daus count dates for Iftar',
+      q: isId ? 'Gerakan pertama untuk memulai sholat setelah berniat adalah...?' : 'The first posture to begin prayer after intention is...?',
+      options: isId ? ['Takbiratul Ihram', 'Rukuk', 'Sujud', 'Tahiyat Awal'] : ['Takbiratul Ihram', 'Rukuk (Bowing)', 'Sujud (Prostration)', 'Tahiyat Awal'],
+      correct: 0,
+      recitation: 'Allahu Akbar (الله أكبر)',
+      context: isId ? 'Rukun Sholat 01 // Posisi Berdiri Menghadap Kiblat' : 'Prayer Pillar 01 // Standing Posture Facing Qibla',
     },
     {
-      q: '15 - 7 = ?',
-      options: [6, 7, 8, 9],
-      correct: 8,
-      context: isId ? 'Daus membagikan buku Iqro ke perpustakaan desa' : 'Daus donates Iqro books to the village library',
+      q: isId ? 'Doa apakah yang dibaca saat posisi Rukuk (membungkuk rata)?' : 'What prayer is recited during the Rukuk (bowing) posture?',
+      options: [
+        'Subhana Rabbiyal Azimi wa Bihamdih',
+        'Subhana Rabbiyal A\'la wa Bihamdih',
+        'Rabbighfirli warhamni',
+        'Attahiyyaatu lillaahi',
+      ],
+      correct: 0,
+      recitation: 'سُبْحَانَ رَبِّيَ الْعَظِيمِ وَبِحَمْدِهِ',
+      context: isId ? 'Rukun Sholat 05 // Membungkuk meletakkan tangan di lutut' : 'Prayer Pillar 05 // Bowing hands on knees',
     },
     {
-      q: '4 × 6 = ?',
-      options: [20, 22, 24, 28],
-      correct: 24,
-      context: isId ? 'Menghitung jumlah lentera penerang jalan madrasah' : 'Counting street lanterns for the madrasah',
+      q: isId ? 'Setelah bangkit dari rukuk (I\'tidal), gerakan rukun berikutnya adalah...?' : 'After rising from Rukuk (I\'tidal), the next sequential movement is...?',
+      options: isId ? ['Sujud Pertama', 'Salam ke Kanan', 'Duduk Antara Dua Sujud', 'Tahiyat Akhir'] : ['First Sujud', 'Salam to Right', 'Sitting Between Sujud', 'Tahiyat Akhir'],
+      correct: 0,
+      recitation: 'Subhana Rabbiyal A\'la wa Bihamdih (سُبْحَانَ رَبِّيَ الْأَعْلَى)',
+      context: isId ? 'Rukun Sholat 08 // Dahi dan kedua telapak tangan di sajadah' : 'Prayer Pillar 08 // Forehead and palms on prayer mat',
     },
   ];
 
   const currentQ = questions[activeQuestionIndex];
 
-  const handleAnswer = (choice: number) => {
+  const handleAnswer = (choiceIndex: number) => {
     if (answeredState !== 'idle') return;
 
-    if (choice === currentQ.correct) {
+    if (choiceIndex === currentQ.correct) {
       setAnsweredState('correct');
       setScore((s) => s + 50 * level);
       setStreak((st) => st + 1);
       setTimeout(() => {
         setActiveQuestionIndex((prev) => (prev + 1) % questions.length);
         setAnsweredState('idle');
-      }, 1000);
+      }, 1200);
     } else {
       setAnsweredState('wrong');
       setStreak(0);
@@ -696,9 +798,9 @@ function DausAnakSolehStage({ locale }: { locale: Locale }) {
         <div className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-[var(--accent-primary)] animate-pulse" />
           <span className="text-[var(--text-primary)] font-bold">
-            {isId ? 'SIMULATOR MEKANIKA CANVAS 2D' : '2D CANVAS GAME ENGINE STAGE'}
+            {isId ? 'SIMULATOR TEKA-TEKI GERAKAN & BACAAN SHOLAT' : 'PRAYER MOVEMENT & RECITATION PUZZLE STAGE'}
           </span>
-          <span className="px-2 py-0.5 rounded-full theme-chip text-[10px]">HTML5 / Web Audio</span>
+          <span className="px-2 py-0.5 rounded-full theme-chip text-[10px]">Phaser / HTML 5 Canvas</span>
         </div>
         <div className="flex items-center gap-4">
           <span className="text-[var(--text-muted)]">
@@ -714,7 +816,7 @@ function DausAnakSolehStage({ locale }: { locale: Locale }) {
         <div className="lg:col-span-8 p-6 sm:p-8 rounded-2xl border border-[var(--border-hairline)] bg-[var(--bg-canvas)] space-y-6">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono text-[var(--accent-primary)]">
-              LEVEL 0{level} // {level === 1 ? (isId ? 'Penjumlahan Dasar' : 'Basic Addition') : level === 2 ? (isId ? 'Pengurangan Cepat' : 'Speed Subtraction') : (isId ? 'Perkalian Cerdas' : 'Multiplication Quest')}
+              LEVEL 0{level} // {level === 1 ? (isId ? 'Rukun Gerakan Sholat' : 'Prayer Postures') : level === 2 ? (isId ? 'Pencocokan Doa Sholat' : 'Recitation Match') : (isId ? 'Rangkaian Tertib Sholat' : 'Full Prayer Sequence')}
             </span>
             <div className="flex gap-1.5 font-mono text-xs">
               {([1, 2, 3] as const).map((lvl) => (
@@ -734,32 +836,36 @@ function DausAnakSolehStage({ locale }: { locale: Locale }) {
           </div>
 
           <div className="p-6 rounded-xl bg-[var(--surface-hover)] border border-[var(--border-hairline)] text-center space-y-3">
-            <p className="text-xs font-mono text-[var(--text-muted)]">
+            <p className="text-xs font-mono text-[var(--accent-primary)] font-semibold">
               {currentQ.context}
             </p>
-            <div className="text-4xl sm:text-5xl font-mono font-extrabold text-[var(--text-primary)] tracking-wider">
+            <div className="text-lg sm:text-2xl font-display font-bold text-[var(--text-primary)]">
               {currentQ.q}
+            </div>
+            <div className="text-xs font-mono text-cyan-400/80">
+              {isId ? 'Lafaz / Bacaan: ' : 'Recitation: '}
+              <span className="font-semibold text-white">{currentQ.recitation}</span>
             </div>
 
             {answeredState === 'correct' && (
               <p className="text-xs font-mono text-emerald-400 font-bold animate-bounce pt-2">
-                ✨ {isId ? 'Masha Allah! Jawaban Tepat (+50 Poin)' : 'Correct Answer! (+50 Points)'}
+                ✨ {isId ? 'Masha Allah! Gerakan & Bacaan Tepat (+50 Poin)' : 'Masha Allah! Correct Movement & Recitation (+50 Points)'}
               </p>
             )}
             {answeredState === 'wrong' && (
               <p className="text-xs font-mono text-rose-400 font-bold pt-2">
-                ❌ {isId ? 'Kurang tepat, coba lagi ya!' : 'Incorrect, try again!'}
+                ❌ {isId ? 'Kurang tepat, coba ingat kembali rukunnya ya!' : 'Not quite right, check the prayer order!'}
               </p>
             )}
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {currentQ.options.map((opt) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {currentQ.options.map((opt, optIdx) => (
               <button
                 key={opt}
-                onClick={() => handleAnswer(opt)}
+                onClick={() => handleAnswer(optIdx)}
                 disabled={answeredState !== 'idle'}
-                className="p-4 rounded-xl theme-card hover:border-[var(--accent-primary)] font-mono text-xl font-bold text-[var(--text-primary)] hover:scale-105 active:scale-95 transition-all text-center shadow-md disabled:opacity-50"
+                className="p-4 rounded-xl theme-card hover:border-[var(--accent-primary)] font-mono text-sm sm:text-base font-semibold text-[var(--text-primary)] hover:scale-[1.02] active:scale-[0.98] transition-all text-center shadow-md disabled:opacity-50"
               >
                 {opt}
               </button>
@@ -769,33 +875,33 @@ function DausAnakSolehStage({ locale }: { locale: Locale }) {
 
         <div className="lg:col-span-4 p-5 rounded-2xl theme-chip space-y-4 font-mono text-xs">
           <div className="flex items-center justify-between pb-3 border-b border-[var(--border-hairline)]">
-            <span className="font-bold text-[var(--text-primary)]">RUNTIME TELEMETRY</span>
-            <span className="text-[10px] text-emerald-400">60 FPS TICK</span>
+            <span className="font-bold text-[var(--text-primary)]">GAMEPLAY ENGINE HUD</span>
+            <span className="text-[10px] text-emerald-400">PHASER 2D</span>
           </div>
 
           <div className="space-y-2.5 text-[var(--text-secondary)]">
             <div className="flex justify-between">
-              <span>Canvas Loop:</span>
-              <span className="text-[var(--text-primary)]">requestAnimationFrame</span>
+              <span>Framework:</span>
+              <span className="text-[var(--text-primary)]">Phaser + HTML 5 Canvas</span>
             </div>
             <div className="flex justify-between">
-              <span>State FSM:</span>
-              <span className="text-[var(--accent-primary)]">PLAYING_STAGE</span>
+              <span>Prayer State:</span>
+              <span className="text-[var(--accent-primary)]">RUKUN_MATCHING</span>
             </div>
             <div className="flex justify-between">
-              <span>Web Audio API:</span>
-              <span className="text-emerald-400">SYNTH_CHIME_ACTIVE</span>
+              <span>Audio Synthesis:</span>
+              <span className="text-emerald-400">RECITATION_AUDIO_READY</span>
             </div>
             <div className="flex justify-between">
-              <span>Target Viewport:</span>
-              <span className="text-[var(--text-primary)]">HiDPI Retina (2.0x)</span>
+              <span>Pedagogy:</span>
+              <span className="text-[var(--text-primary)]">Children Islamic Education</span>
             </div>
           </div>
 
           <p className="text-[11px] text-[var(--text-muted)] leading-relaxed pt-2 border-t border-[var(--border-hairline)]">
             {isId
-              ? 'Arsitektur game mengisolasi render canvas dari state logic sehingga dapat dimainkan mulus di browser ponsel tanpa lag.'
-              : 'The game architecture decouples canvas draw calls from arithmetic FSM logic for zero-lag mobile playability.'}
+              ? 'Game teka-teki edukasi interaktif anak untuk mempelajari urutan gerakan dan bacaan doa sholat bagi umat muslim dengan Phaser.'
+              : 'Interactive educational children\'s puzzle game teaching Muslim prayer postures and recitations using Phaser Framework.'}
           </p>
         </div>
       </div>
