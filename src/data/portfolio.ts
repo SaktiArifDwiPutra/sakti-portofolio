@@ -111,6 +111,11 @@ export interface CertificateEntry {
   category: LocalizedText;
   statusNote: LocalizedText;
   credentialUrl?: string;
+  credentialId?: string;
+  images: string[];
+  hours?: string;
+  description: LocalizedText;
+  skills: string[];
 }
 
 export const OWNER_PROFILE = {
@@ -1827,78 +1832,74 @@ export const EXPERIENCES: ExperienceEntry[] = [
 
 export const CERTIFICATES: CertificateEntry[] = [
   {
-    id: 'cert-slot-01',
+    id: 'cert-dicoding-ai',
     code: 'CERT-01',
-    isPlaceholder: true,
+    isPlaceholder: false,
     title: {
-      en: '[OWNER INPUT: Full-Stack / Web Engineering Certificate Title]',
-      id: '[INPUT PEMILIK: Judul Sertifikat Rekayasa Web / Full-Stack]',
+      en: 'Belajar Dasar AI (Basic Artificial Intelligence)',
+      id: 'Belajar Dasar AI (Artificial Intelligence Fundamentals)',
     },
     issuer: {
-      en: '[OWNER INPUT: Issuing Organization / Platform]',
-      id: '[INPUT PEMILIK: Institusi / Platform Penerbit]',
+      en: 'Dicoding Indonesia & Google Cloud Partner',
+      id: 'Dicoding Indonesia & Google Cloud Partner',
     },
     date: {
-      en: '[Year / Month]',
-      id: '[Tahun / Bulan]',
+      en: 'October 4, 2025',
+      id: '4 Oktober 2025',
     },
     category: {
-      en: 'Full-Stack & Software Engineering',
-      id: 'Rekayasa Perangkat Lunak & Full-Stack',
+      en: 'Artificial Intelligence & Machine Learning',
+      id: 'Kecerdasan Buatan & Machine Learning',
     },
+    credentialId: 'KEXL21330ZG2',
+    credentialUrl: 'https://www.dicoding.com/certificates/KEXL21330ZG2',
+    hours: '10 Jam Pembelajaran',
+    images: [
+      '/images/certificate/Dicoding dasar AI.jpg',
+      '/images/certificate/Dicoding dasar AI2.jpg',
+    ],
+    description: {
+      en: 'Verified competency certificate awarded by Dicoding Indonesia in partnership with Google Cloud for mastering foundational concepts of AI, Data for AI, Machine Learning principles, and Deep Learning neural architectures (10 hours of coursework with examination).',
+      id: 'Sertifikat kompetensi kelulusan resmi dari Dicoding Indonesia bermitra dengan Google Cloud. Mempelajari konsep fundamental AI, pemanfaatan data untuk AI, pengantar Machine Learning, hingga arsitektur Deep Learning dengan total 10 jam kurikulum teruji.',
+    },
+    skills: ['Artificial Intelligence', 'Machine Learning', 'Deep Learning', 'Neural Networks', 'Google Cloud Partner'],
     statusNote: {
-      en: 'Update in src/data/portfolio.ts with official credential ID and verification URL.',
-      id: 'Perbarui di src/data/portfolio.ts dengan ID kredensial resmi dan tautan verifikasi.',
+      en: 'Verified Competency Certificate (Valid through October 4, 2028)',
+      id: 'Sertifikat Kompetensi Terverifikasi (Berlaku hingga 4 Oktober 2028)',
     },
   },
   {
-    id: 'cert-slot-02',
+    id: 'cert-ddc-2026',
     code: 'CERT-02',
-    isPlaceholder: true,
+    isPlaceholder: false,
     title: {
-      en: '[OWNER INPUT: Mobile / Backend / Cloud Development Certificate]',
-      id: '[INPUT PEMILIK: Sertifikat Pengembangan Mobile / Backend / Cloud]',
+      en: 'Dicoding Developer Conference 2026',
+      id: 'Dicoding Developer Conference 2026',
     },
     issuer: {
-      en: '[OWNER INPUT: Issuing Organization / Academy]',
-      id: '[INPUT PEMILIK: Institusi / Akademi Penerbit]',
+      en: 'Dicoding Indonesia (Strategic Partner: EKRAF)',
+      id: 'Dicoding Indonesia (Strategic Partner: EKRAF)',
     },
     date: {
-      en: '[Year / Month]',
-      id: '[Tahun / Bulan]',
+      en: 'April 25, 2026',
+      id: '25 April 2026',
     },
     category: {
-      en: 'Mobile & Enterprise Systems',
-      id: 'Sistem Mobile & Enterprise',
+      en: 'Developer Conference & Tech Ecosystem',
+      id: 'Konferensi Pengembang & Ekosistem Teknologi',
     },
+    hours: 'Full-Day Conference',
+    images: [
+      '/images/certificate/Sertifikat DDC 2026.jpg',
+    ],
+    description: {
+      en: 'Official Certificate of Attendance awarded to Sakti Arif D.S for participating in the Dicoding Developer Conference (DDC) 2026 in Bandung. Featuring cutting-edge sessions on modern software engineering, AI advancements, and developer career scaling.',
+      id: 'Sertifikat kehadiran resmi yang diberikan kepada Sakti Arif D.S atas keikutsertaannya dalam Dicoding Developer Conference (DDC) 2026 di Bandung. Membahas perkembangan rekayasa perangkat lunak modern, integrasi AI, serta percepatan karier teknologi.',
+    },
+    skills: ['Software Engineering', 'AI Trends', 'Tech Conference', 'Developer Community', 'Ecosystem'],
     statusNote: {
-      en: 'Update in src/data/portfolio.ts with official credential ID and verification URL.',
-      id: 'Perbarui di src/data/portfolio.ts dengan ID kredensial resmi dan tautan verifikasi.',
-    },
-  },
-  {
-    id: 'cert-slot-03',
-    code: 'CERT-03',
-    isPlaceholder: true,
-    title: {
-      en: '[OWNER INPUT: Game Development / Computer Science Credential]',
-      id: '[INPUT PEMILIK: Kredensial Pengembangan Game / Ilmu Komputer]',
-    },
-    issuer: {
-      en: '[OWNER INPUT: Issuing Institution / Event]',
-      id: '[INPUT PEMILIK: Institusi / Penyelenggara]',
-    },
-    date: {
-      en: '[Year / Month]',
-      id: '[Tahun / Bulan]',
-    },
-    category: {
-      en: 'Game Development & Interactive Media',
-      id: 'Pengembangan Game & Media Interaktif',
-    },
-    statusNote: {
-      en: 'Update in src/data/portfolio.ts with official credential ID and verification URL.',
-      id: 'Perbarui di src/data/portfolio.ts dengan ID kredensial resmi dan tautan verifikasi.',
+      en: 'Official Attendance Certificate (Bandung, April 25, 2026)',
+      id: 'Sertifikat Kehadiran Resmi (Bandung, 25 April 2026)',
     },
   },
 ];
