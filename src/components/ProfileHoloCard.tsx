@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion, useInView } from 'framer-motion';
-import { Lock, Sparkles } from 'lucide-react';
 
 interface ProfileHoloCardProps {
   name: string;
@@ -13,6 +12,31 @@ interface ProfileHoloCardProps {
 
 export const PROFILE_PHOTO_SRC = '/images/profile/sakti-pilot.png';
 export const HACKER_PHOTO_SRC = '/images/profile/sakti-hacker.jpg';
+
+// Helper untuk menggambar gambar ke canvas dengan 'object-cover' persis seperti Next.js Image
+function drawImageCover(
+  ctx: CanvasRenderingContext2D,
+  img: HTMLImageElement,
+  w: number,
+  h: number
+) {
+  if (!img.naturalWidth || !img.naturalHeight) return;
+  const imgRatio = img.naturalWidth / img.naturalHeight;
+  const targetRatio = w / h;
+  let sw = img.naturalWidth;
+  let sh = img.naturalHeight;
+  let sx = 0;
+  let sy = 0;
+
+  if (imgRatio > targetRatio) {
+    sw = img.naturalHeight * targetRatio;
+    sx = (img.naturalWidth - sw) / 2;
+  } else {
+    sh = img.naturalWidth / targetRatio;
+    sy = (img.naturalHeight - sh) / 2;
+  }
+  ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
+}
 
 export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
   const isId = locale === 'id';
@@ -26,20 +50,50 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
   const [hasTeased, setHasTeased] = useState(false);
   const [isTeasing, setIsTeasing] = useState(false);
 
-  // Preloaded image references for instant 60fps canvas pixel distortion eater
-  const pilotImgRef = useRef<HTMLImageElement | null>(null);
-  const hackerImgRef = useRef<HTMLImageElement | null>(null);
+  // Buffer offscreen canvas berukuran persis 320×400 agar crop & piksel 100% pas bebas blank
+  const offscreenPilotRef = useRef<HTMLCanvasElement | null>(null);
+  const offscreenHackerRef = useRef<HTMLCanvasElement | null>(null);
+  const imagesLoadedRef = useRef(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const pImg = new window.Image();
-      pImg.src = PROFILE_PHOTO_SRC;
-      pilotImgRef.current = pImg;
+    if (typeof window === 'undefined') return;
 
-      const hImg = new window.Image();
-      hImg.src = HACKER_PHOTO_SRC;
-      hackerImgRef.current = hImg;
-    }
+    const cWidth = 320;
+    const cHeight = 400;
+
+    const canPilot = document.createElement('canvas');
+    canPilot.width = cWidth;
+    canPilot.height = cHeight;
+    offscreenPilotRef.current = canPilot;
+
+    const canHacker = document.createElement('canvas');
+    canHacker.width = cWidth;
+    canHacker.height = cHeight;
+    offscreenHackerRef.current = canHacker;
+
+    let loadedCount = 0;
+    const checkAllLoaded = () => {
+      loadedCount++;
+      if (loadedCount >= 2) {
+        imagesLoadedRef.current = true;
+      }
+    };
+
+    const img1 = new window.Image();
+    img1.src = PROFILE_PHOTO_SRC;
+    img1.onload = () => {
+      const ctx1 = canPilot.getContext('2d');
+      if (ctx1) drawImageCover(ctx1, img1, cWidth, cHeight);
+      checkAllLoaded();
+    };
+
+    const img2 = new window.Image();
+    img2.src = HACKER_PHOTO_SRC;
+    img2.onload = () => {
+      const ctx2 = canHacker.getContext('2d');
+      if (ctx2) drawImageCover(ctx2, img2, cWidth, cHeight);
+      checkAllLoaded();
+    };
   }, []);
 
   // Desktop Pointer Tilt State
@@ -87,11 +141,14 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
     if (isEating) return;
 
     const canvas = canvasRef.current;
-    const fromImg = viewMode === 'pilot' ? pilotImgRef.current : hackerImgRef.current;
-    const toImg = viewMode === 'pilot' ? hackerImgRef.current : pilotImgRef.current;
+    const pilotCanvas = offscreenPilotRef.current;
+    const hackerCanvas = offscreenHackerRef.current;
 
-    // Fallback jika gambar belum siap di canvas
-    if (!canvas || !fromImg || !toImg || !fromImg.complete || !toImg.complete) {
+    // Menentukan canvas asal (from) dan tujuan (to)
+    const fromCanvas = viewMode === 'pilot' ? pilotCanvas : hackerCanvas;
+    const toCanvas = viewMode === 'pilot' ? hackerCanvas : pilotCanvas;
+
+    if (!canvas || !fromCanvas || !toCanvas) {
       setViewMode((prev) => (prev === 'pilot' ? 'hacker' : 'pilot'));
       return;
     }
@@ -112,47 +169,48 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
     const blockSize = 16;
     const cols = Math.ceil(width / blockSize);
     const rows = Math.ceil(height / blockSize);
-    const maxDiag = cols - 1 + rows - 1; // Jarak diagonal maksimum (kanan atas)
+    const maxDiag = cols - 1 + rows - 1; // Diagonal maksimum (pojok kanan atas)
 
-    const duration = 650; // ms
+    const duration = 600; // ms
     let startTime: number | null = null;
     let animId: number;
+
+    const colors = ['#00f0ff', '#ff0055', '#a855f7', '#ffea00', '#00ff66'];
 
     const renderWave = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const elapsed = timestamp - startTime;
       const progress = Math.min(1, elapsed / duration);
 
-      // Gelombang menyapu dari pojok kiri bawah (diag = 0) ke kanan atas (diag = maxDiag)
+      // Gelombang distorsi bergerak diagonal dari kiri bawah (diag = 0) ke kanan atas (diag = maxDiag)
       const waveFront = progress * (maxDiag + 8);
-      const waveBand = 3.5; // Lebar pita distorsi piksel aktif
+      const waveBand = 3.5;
 
       ctx.clearRect(0, 0, width, height);
 
-      const colors = ['#00f0ff', '#ff0055', '#a855f7', '#ffea00', '#00ff66'];
-
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          // Jarak diagonal dari pojok kiri bawah (c=0, r=rows-1)
+          // Jarak diagonal dari kiri bawah (c = 0, r = rows - 1)
           const diag = c + (rows - 1 - r);
           const bx = c * blockSize;
           const by = r * blockSize;
 
           if (diag < waveFront - waveBand) {
-            // 1. SUDAH DIMAKAN (EATEN): Langsung menampilkan foto baru secara bersih
-            ctx.drawImage(toImg, bx, by, blockSize, blockSize, bx, by, blockSize, blockSize);
+            // 1. AREA YANG SUDAH DIMAKAN (CONSUMED / EATEN):
+            // LANGSUNG MENAMPILKAN GAMBAR BARU (toCanvas) SECARA JERNIH TANPA MENUNGGU SELESAI
+            ctx.drawImage(toCanvas, bx, by, blockSize, blockSize, bx, by, blockSize, blockSize);
           } else if (diag <= waveFront + 1) {
-            // 2. SEDANG DIMAKAN DISTORSI PIKSEL (ACTIVE EATER WAVE):
-            // Ada jitter, pergeseran kubus piksel warna-warni, dan foto baru mulai muncul seketika!
+            // 2. GELOMBANG DISTORSI AKTIF (ACTIVE DISTORTION EATER WAVE):
+            // Jittering, chromatic noise, dan potongan gambar baru mulai menembus
             const jitterX = (Math.random() - 0.5) * 8;
             const jitterY = (Math.random() - 0.5) * 6;
 
-            // Sebagian blok di gelombang langsung menyingkap foto tujuan (toImg)
+            // Sebagian blok di gelombang langsung menyingkap toCanvas
             const showNew = Math.random() > 0.35;
-            const activeImg = showNew ? toImg : fromImg;
+            const activeSource = showNew ? toCanvas : fromCanvas;
 
             ctx.drawImage(
-              activeImg,
+              activeSource,
               bx,
               by,
               blockSize,
@@ -163,16 +221,17 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
               blockSize
             );
 
-            // Kubus piksel warna-warni berkedip di garis batas pemakan
-            if (Math.random() > 0.4) {
+            // Kubus piksel warna-warni berkedip di garis pemakan
+            if (Math.random() > 0.45) {
               ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
               ctx.globalAlpha = 0.8;
               ctx.fillRect(bx + jitterX, by + jitterY, blockSize, blockSize);
               ctx.globalAlpha = 1.0;
             }
           } else {
-            // 3. BELUM TERSENTUH GELOMBANG: Masih menampilkan foto lama
-            ctx.drawImage(fromImg, bx, by, blockSize, blockSize, bx, by, blockSize, blockSize);
+            // 3. AREA YANG BELUM TERSENTUH GELOMBANG:
+            // Masih menampilkan gambar lama (fromCanvas) secara utuh
+            ctx.drawImage(fromCanvas, bx, by, blockSize, blockSize, bx, by, blockSize, blockSize);
           }
         }
       }
@@ -180,7 +239,7 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
       if (progress < 1) {
         animId = requestAnimationFrame(renderWave);
       } else {
-        // Transisi selesai total
+        // Transisi selesai, update state mode dan nonaktifkan canvas
         setViewMode((prev) => (prev === 'pilot' ? 'hacker' : 'pilot'));
         setIsEating(false);
       }
@@ -219,7 +278,6 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
         aria-hidden="true"
         className="absolute top-0 right-0 w-9 h-9 pointer-events-none z-30 overflow-hidden rounded-tr-3xl"
       >
-        {/* Corner Flap Triangle */}
         <div
           className={`absolute top-0 right-0 w-8 h-8 -translate-y-2 translate-x-2 rotate-45 border shadow-xl transition-all duration-300 group-hover:scale-110 ${
             isHacker
@@ -227,7 +285,6 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
               : 'bg-cyan-900/90 border-cyan-400/70 shadow-cyan-500/30'
           }`}
         />
-        {/* Subtle breathing micro-dot */}
         <span
           className={`absolute top-2 right-2 h-1.5 w-1.5 rounded-full animate-ping ${
             isHacker ? 'bg-purple-400' : 'bg-cyan-400'
@@ -280,7 +337,7 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
           />
         )}
 
-        {/* Viewport Foto Portrait dengan Corner Cyber Brackets */}
+        {/* Viewport Foto Portrait dengan Corner Cyber Brackets (Bersih tanpa teks alter ego/pilot/exp) */}
         <div
           className={`relative aspect-[4/5] w-full max-w-[320px] mx-auto rounded-2xl overflow-hidden border-2 bg-[var(--bg-canvas)] shadow-2xl transition-all duration-500 ${
             isHacker
@@ -357,24 +414,6 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
               isHacker ? 'border-purple-400' : 'border-cyan-400'
             }`}
           />
-
-          {/* Persona Floating Tag */}
-          <div className="absolute bottom-3 inset-x-3 flex items-center justify-between text-[11px] font-mono text-white/90 backdrop-blur-md bg-black/75 px-3 py-1.5 rounded-lg border border-white/10 shadow-lg">
-            {isHacker ? (
-              <>
-                <span className="font-bold text-purple-300 flex items-center gap-1">
-                  <Lock className="h-3 w-3 text-purple-400" />
-                  <span>ALTER EGO // SHADOW</span>
-                </span>
-                <span className="text-cyan-400 font-semibold">CLEARANCE // ROOT</span>
-              </>
-            ) : (
-              <>
-                <span className="font-bold text-cyan-300">PILOT // SAKTI</span>
-                <span className="text-emerald-400 font-semibold">EXP // 3+ YRS</span>
-              </>
-            )}
-          </div>
         </div>
 
         {/* Identity Details - Bersih, Elegan, & Rapi */}
