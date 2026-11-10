@@ -774,18 +774,19 @@ export function DeveloperWorldMiniature({ locale, isFlipped, onFlipBack }: Devel
         </AnimatePresence>
       </div>
 
-      {/* 3. Footer Bar: Peaceful Interaction Hints & Flip Back */}
+      {/* 3. Footer Bar: Minimal & Peaceful Navigation */}
       <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between font-mono text-[11px]">
-        <span className="text-[var(--text-muted)] text-[10px] hidden sm:inline">
-          {isId ? 'Klik jendela (waktu) · monitor · karakter' : 'Click window · monitor · character'}
-        </span>
+        <div className="flex items-center gap-1.5 text-[var(--text-muted)] text-[10px]">
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-400/80 animate-pulse" />
+          <span>MINI_WORLD // COZY_STUDIO</span>
+        </div>
         <button
           type="button"
           onClick={onFlipBack}
-          className="ml-auto inline-flex items-center gap-1.5 text-amber-300 hover:text-amber-200 hover:underline transition-colors cursor-pointer"
+          className="ml-auto inline-flex items-center gap-1.5 text-amber-300 hover:text-amber-200 transition-colors cursor-pointer"
         >
           <RotateCw className="h-3 w-3" />
-          <span>{isId ? 'Kembali ke Spesifikasi ↩' : 'Flip back to Specs ↩'}</span>
+          <span>{isId ? 'Spesifikasi' : 'Specifications'}</span>
         </button>
       </div>
     </div>
