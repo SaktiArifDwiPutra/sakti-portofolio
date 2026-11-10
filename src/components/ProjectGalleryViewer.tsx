@@ -44,7 +44,7 @@ export function ProjectGalleryViewer({
               >
                 <span>{plate.plateNumber}</span>
                 <span className="hidden sm:inline">
-                  — {tField(plate.title, locale)}
+                  : {tField(plate.title, locale)}
                 </span>
               </button>
             );
@@ -62,7 +62,7 @@ export function ProjectGalleryViewer({
         <div className="relative w-full aspect-video border border-hairline overflow-hidden bg-[#111315]">
           <Image
             src={activePlate.imageSrc}
-            alt={`${projectName} — ${tField(activePlate.title, locale)}`}
+            alt={`${projectName}: ${tField(activePlate.title, locale)}`}
             fill
             sizes="(max-width: 1200px) 100vw, 1200px"
             className="object-contain"

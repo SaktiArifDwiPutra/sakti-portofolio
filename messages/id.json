@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "Sakti — Pengembang Full-Stack & Game",
+    "title": "Sakti | Pengembang Full-Stack & Game",
     "description": "Portofolio personal dan monograf proyek arsitektural milik Sakti, pengembang yang berfokus pada Pengembangan Full-Stack dan Pengembangan Game.",
-    "aboutTitle": "Profil — Sakti",
-    "projectsTitle": "Arsip Proyek & Studi Kasus — Sakti",
-    "experienceTitle": "Pengalaman & Perjalanan — Sakti",
-    "certificatesTitle": "Sertifikat & Kredensial — Sakti"
+    "aboutTitle": "Profil | Sakti",
+    "projectsTitle": "Arsip Proyek & Studi Kasus | Sakti",
+    "experienceTitle": "Pengalaman & Perjalanan | Sakti",
+    "certificatesTitle": "Sertifikat & Kredensial | Sakti"
   },
   "nav": {
     "home": "Indeks",
@@ -27,7 +27,7 @@
     "rolePrimary": "Pengembang Full-Stack",
     "roleSecondary": "Pengembangan Game",
     "headline": "Membangun arsitektur perangkat lunak yang andal dan dunia interaktif yang ekspresif.",
-    "lead": "Saya Sakti—pengembang independen yang menjembatani rekayasa full-stack terstruktur dengan eksperimen mekanika game. Baik saat merancang backend relasional, alur kerja operasional mobile, maupun sistem RPG naratif, saya berfokus pada kejelasan struktur, ketanggapan interaksi, dan kualitas eksekusi.",
+    "lead": "Saya Sakti, pengembang independen yang menjembatani rekayasa full-stack terstruktur dengan eksperimen mekanika game. Baik saat merancang backend relasional, alur kerja operasional mobile, maupun sistem RPG naratif, saya berfokus pada kejelasan struktur, ketanggapan interaksi, dan kualitas eksekusi.",
     "ctaPrimary": "Jelajahi Karya Pilihan",
     "ctaSecondary": "Baca Profil Pengembang",
     "disciplineLabel": "Fokus Utama",
@@ -43,7 +43,7 @@
   "home": {
     "selectedWorksIndex": "01 / KARYA PILIHAN",
     "selectedWorksTitle": "Produk Terstruktur & Prototipe Interaktif",
-    "selectedWorksSubtitle": "Setiap proyek diperlakukan sebagai persoalan arsitektural—menyeimbangkan pemodelan data, ergonomi antarmuka, dan kenyamanan eksekusi.",
+    "selectedWorksSubtitle": "Setiap proyek diperlakukan sebagai persoalan arsitektural, menyeimbangkan pemodelan data, ergonomi antarmuka, dan kenyamanan eksekusi.",
     "viewAllWorks": "Lihat Katalog Proyek Lengkap",
     "readCaseStudy": "Baca Studi Kasus Editorial",
     "livePreview": "Anatomi Interaktif",
@@ -82,7 +82,7 @@
     "inspectProject": "Buka Studi Kasus",
     "architecturePreview": "Anatomi Sistem",
     "extensibleNoteTitle": "Registri Proyek Modular",
-    "extensibleNoteBody": "Seluruh data proyek dirender dari struktur bertipe kuat di src/data/portfolio.ts—memudahkan penambahan proyek baru tanpa mengubah komponen tata letak."
+    "extensibleNoteBody": "Seluruh data proyek dirender dari struktur bertipe kuat di src/data/portfolio.ts, memudahkan penambahan proyek baru tanpa mengubah komponen tata letak."
   },
   "projectDetail": {
     "backToCatalog": "Kembali ke Katalog Karya",
@@ -105,15 +105,15 @@
     "prevProject": "Studi Kasus Sebelumnya"
   },
   "aboutPage": {
-    "indexLabel": "MONOGRAF / PROFIL",
+    "indexLabel": "PROFIL",
     "title": "Merekayasa kegunaan, merajut atmosfer.",
     "lead": "Saya Sakti, seorang pengembang yang berfokus pada Pengembangan Full-Stack dan Pengembangan Game. Saya membangun produk digital yang memadukan kerapian sistem di balik layar dengan interaksi yang nyaman bagi pengguna.",
-    "storyHeading": "01 / Latar Belakang & Sudut Pandang",
+    "storyHeading": "Latar Belakang & Sudut Pandang",
     "storyP1": "Ketertarikan saya pada dunia komputasi berawal dari dua pertanyaan yang saling melengkapi: bagaimana aplikasi kompleks mengelola data secara andal di balik layar, dan bagaimana dunia interaktif mampu membangkitkan rasa ingin tahu di layar.",
     "storyP2": "Alih-alih membatasi diri pada satu kotak sempit, saya mendalami rekayasa aplikasi full-stack sekaligus pengembangan game. Bekerja dengan React, TypeScript, Laravel, dan MySQL melatih saya merancang API, skema relasional, dan antarmuka yang mudah dipelihara. Membangun aplikasi dengan Flutter dan Odoo memperkenalkan saya pada alur kerja operasional nyata di perangkat mobile. Sementara itu, bereksperimen dengan Godot memungkinkan saya merancang mesin state, progresi narasi, dan interaksi spasial dari nol.",
-    "storyP3": "Kini, saya mendekati setiap proyek—baik platform ulasan, aplikasi operasional mobile, maupun konsep RPG simulasi kehidupan—dengan standar yang sama: pahami masalahnya secara mendalam, bangun arsitektur yang jernih, dan perhatikan setiap detail interaksi.",
-    "philosophyHeading": "02 / Prinsip Rekayasa",
-    "principlesHeading": "02 / Prinsip Rekayasa",
+    "storyP3": "Kini, saya mendekati setiap proyek (baik platform ulasan, aplikasi operasional mobile, maupun konsep game) dengan standar yang sama: pahami masalahnya secara mendalam, bangun arsitektur yang jernih, dan perhatikan setiap detail interaksi.",
+    "philosophyHeading": "Prinsip Rekayasa",
+    "principlesHeading": "Prinsip Rekayasa",
     "principles": [
       {
         "code": "P.01",
@@ -136,12 +136,12 @@
         "body": "Teknologi terus bergerak. Tetap bereksperimen secara langsung dengan runtime, engine, dan pola arsitektur baru menjaga ketajaman dalam memecahkan masalah."
       }
     ],
-    "profileSheetHeading": "03 / Lembar Spesifikasi Pengembang",
+    "profileSheetHeading": "Lembar Spesifikasi Pengembang",
     "specName": "Nama",
     "specFocus": "Fokus Utama",
     "specFocusVal": "Pengembangan Full-Stack & Pengembangan Game",
     "specLanguages": "Bahasa Komunikasi",
-    "specLanguagesVal": "Bahasa Indonesia (Utama), Bahasa Inggris (Profesional)",
+    "specLanguagesVal": "Bahasa Indonesia (Utama), Bahasa Inggris (Dasar / Pemula)",
     "specInterests": "Minat Teknis",
     "specInterestsVal": "Arsitektur Web, Alur Kerja Mobile, Sistem RPG Indie, Ergonomi UI"
   },

@@ -61,7 +61,7 @@ export default async function HomePage({
         {/* 3 Flagship Projects with 3D Tilt Interaction */}
         <div className="space-y-10 sm:space-y-14">
           <ProjectTiltCard project={critiplay} orderNumber="01 // WEB ARCHITECTURE & RATINGS" />
-          <ProjectTiltCard project={dausAnakSoleh} orderNumber="02 // CANVAS 2D ARITHMETIC GAME" />
+          <ProjectTiltCard project={dausAnakSoleh} orderNumber="02 // 2D ISLAMIC PRAYER PUZZLE GAME" />
           <ProjectTiltCard project={websitePilketos} orderNumber="03 // MULTI-ROLE E-VOTING SYSTEM" />
         </div>
 

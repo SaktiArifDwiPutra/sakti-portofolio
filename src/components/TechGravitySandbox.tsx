@@ -41,7 +41,7 @@ const ALL_GITHUB_TECH_NODES: TechNode[] = [
   { id: 'dart', name: 'Dart', category: 'mobile', color: '#0175c2', x: 34, y: 70, vx: -0.18, vy: 0.14, projectNote: 'Strongly typed client domain models & Odoo RPC adapters in LaundryFlow', role: 'Client Language' },
 
   // Game Dev
-  { id: 'phaser', name: 'Phaser', category: 'game', color: '#f39c12', x: 52, y: 72, vx: 0.16, vy: 0.17, projectNote: 'Core game framework powering math puzzle mechanics in Daus Anak Soleh', role: 'HTML5 Game Engine' },
+  { id: 'phaser', name: 'Phaser', category: 'game', color: '#f39c12', x: 52, y: 72, vx: 0.16, vy: 0.17, projectNote: 'Core HTML5 game engine powering Daus Anak Soleh prayer puzzle', role: 'HTML5 Game Engine' },
   { id: 'godot', name: 'Godot', category: 'game', color: '#478cbf', x: 70, y: 70, vx: -0.17, vy: -0.15, projectNote: 'Scene tree composition & signal architecture in Negeri Kelabu', role: 'Indie Game Engine' },
   { id: 'gdscript', name: 'GDScript', category: 'game', color: '#659ad2', x: 88, y: 72, vx: 0.15, vy: 0.16, projectNote: 'State machines, dialogue branch parsers & day rhythm simulation loops', role: 'Game Scripting' },
 

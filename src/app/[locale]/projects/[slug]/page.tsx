@@ -45,7 +45,7 @@ export async function generateMetadata({
   }
   const loc = (routing.locales.includes(locale as Locale) ? locale : 'en') as Locale;
   return {
-    title: `${project.name} — ${tField(project.category, loc)}`,
+    title: `${project.name} | ${tField(project.category, loc)}`,
     description: tField(project.description, loc),
   };
 }
@@ -164,13 +164,19 @@ export default async function ProjectDetailPage({
                       rel="noopener noreferrer"
                       className="interactive-btn interactive-btn-primary px-5 py-2.5 text-xs font-mono shadow-md"
                     >
-                      <span>{project.slug === 'critiplay' ? 'Live Link Preview' : t('demoLink')}</span>
+                      <span>
+                        {project.slug === 'critiplay'
+                          ? 'Live Link Preview'
+                          : project.slug === 'daus-anak-soleh'
+                          ? (locale === 'id' ? 'Mainkan di itch.io' : 'Play on itch.io')
+                          : t('demoLink')}
+                      </span>
                       <ArrowUpRight className="h-4 w-4" />
                     </a>
                   ) : (
                     <span
                       className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-dashed border-[var(--border-hairline)] bg-[var(--surface-hover)] text-xs font-mono text-[var(--text-muted)] cursor-help"
-                      title="Live deployment URL placeholder — insert URL in src/data/portfolio.ts"
+                      title="Live deployment URL placeholder: insert URL in src/data/portfolio.ts"
                     >
                       <ExternalLink className="h-3.5 w-3.5 opacity-50" />
                       <span>{locale === 'id' ? 'Tautan Live: [Siap Diisi]' : 'Live Demo: [Pending Setup]'}</span>

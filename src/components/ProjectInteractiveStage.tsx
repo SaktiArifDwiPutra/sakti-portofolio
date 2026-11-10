@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Globe, ShieldCheck, Activity, ArrowUpRight } from 'lucide-react';
+import { ExternalLink, Globe, ShieldCheck, Activity, ArrowUpRight, Gamepad2, Play } from 'lucide-react';
 import type { Locale } from '@/i18n/routing';
 
 interface StageProps {
@@ -36,7 +36,7 @@ export function ProjectInteractiveStage({ slug, locale }: StageProps) {
 }
 
 /* ============================================================================
-   STAGE I: CRITIPLAY — LIVE LINK PREVIEW
+   STAGE I: CRITIPLAY : LIVE LINK PREVIEW
 ============================================================================ */
 function CritiPlayStage({ locale }: { locale: Locale }) {
   const isId = locale === 'id';
@@ -89,7 +89,7 @@ function CritiPlayStage({ locale }: { locale: Locale }) {
             </div>
 
             <h4 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight">
-              CritiPlay — Community Game Reviews
+              CritiPlay: Community Game Reviews
             </h4>
 
             <p className="text-xs sm:text-sm text-white/80 line-clamp-2 leading-relaxed">
@@ -143,7 +143,7 @@ function CritiPlayStage({ locale }: { locale: Locale }) {
 }
 
 /* ============================================================================
-   STAGE II: LAUNDRYFLOW — MOBILE ORDER DISPATCH & ODOO ERP SYNC
+   STAGE II: LAUNDRYFLOW : MOBILE ORDER DISPATCH & ODOO ERP SYNC
 ============================================================================ */
 function LaundryFlowStage({ locale }: { locale: Locale }) {
   const isId = locale === 'id';
@@ -192,8 +192,8 @@ function LaundryFlowStage({ locale }: { locale: Locale }) {
         <div>
           <span className="font-mono text-xs text-accent tracking-wider uppercase">
             {isId
-              ? 'Eksibisi Interaktif 02 — Sinkronisasi Status Flutter & Odoo ERP'
-              : 'Interactive Exhibition 02 — Flutter Mobile & Odoo ERP State Sync'}
+              ? 'Eksibisi Interaktif 02 : Sinkronisasi Status Flutter & Odoo ERP'
+              : 'Interactive Exhibition 02 : Flutter Mobile & Odoo ERP State Sync'}
           </span>
           <p className="text-sm text-secondary-ink mt-1">
             {isId
@@ -324,7 +324,7 @@ function LaundryFlowStage({ locale }: { locale: Locale }) {
 }
 
 /* ============================================================================
-   STAGE III: DRAGONHOLD — FULL-STACK MONOREPO & HONO API TEST-BENCH
+   STAGE III: DRAGONHOLD : FULL-STACK MONOREPO & HONO API TEST-BENCH
 ============================================================================ */
 function DragonholdStage({ locale }: { locale: Locale }) {
   const isId = locale === 'id';
@@ -431,7 +431,7 @@ function DragonholdStage({ locale }: { locale: Locale }) {
 }
 
 /* ============================================================================
-   STAGE V: COORDINA — REAL-TIME WEBSOCKET EVENT BROADCAST SIMULATOR
+   STAGE V: COORDINA : REAL-TIME WEBSOCKET EVENT BROADCAST SIMULATOR
 ============================================================================ */
 function CoordinaStage({ locale }: { locale: Locale }) {
   const isId = locale === 'id';
@@ -510,7 +510,7 @@ function CoordinaStage({ locale }: { locale: Locale }) {
 }
 
 /* ============================================================================
-   STAGE VI: OBATHAUS — INERTIA.JS + VUE 3 PHARMACY POS TEST-BENCH
+   STAGE VI: OBATHAUS : INERTIA.JS + VUE 3 PHARMACY POS TEST-BENCH
 ============================================================================ */
 function ObathausStage({ locale }: { locale: Locale }) {
   const isId = locale === 'id';
@@ -602,178 +602,106 @@ function ObathausStage({ locale }: { locale: Locale }) {
 }
 
 /* ============================================================================
-   STAGE IV: DAUS ANAK SOLEH — 2D PRAYER PUZZLE & RECITATION ENGINE
+   STAGE IV: DAUS ANAK SOLEH : PLAY ON ITCH.IO & LIVE GAME PREVIEW
 ============================================================================ */
 function DausAnakSolehStage({ locale }: { locale: Locale }) {
   const isId = locale === 'id';
-  const [level, setLevel] = useState<1 | 2 | 3>(1);
-  const [score, setScore] = useState(150);
-  const [streak, setStreak] = useState(3);
-  const [answeredState, setAnsweredState] = useState<'idle' | 'correct' | 'wrong'>('idle');
-  const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
-
-  const questions = [
-    {
-      q: isId ? 'Gerakan pertama untuk memulai sholat setelah berniat adalah...?' : 'The first posture to begin prayer after intention is...?',
-      options: isId ? ['Takbiratul Ihram', 'Rukuk', 'Sujud', 'Tahiyat Awal'] : ['Takbiratul Ihram', 'Rukuk (Bowing)', 'Sujud (Prostration)', 'Tahiyat Awal'],
-      correct: 0,
-      recitation: 'Allahu Akbar (الله أكبر)',
-      context: isId ? 'Rukun Sholat 01 // Posisi Berdiri Menghadap Kiblat' : 'Prayer Pillar 01 // Standing Posture Facing Qibla',
-    },
-    {
-      q: isId ? 'Doa apakah yang dibaca saat posisi Rukuk (membungkuk rata)?' : 'What prayer is recited during the Rukuk (bowing) posture?',
-      options: [
-        'Subhana Rabbiyal Azimi wa Bihamdih',
-        'Subhana Rabbiyal A\'la wa Bihamdih',
-        'Rabbighfirli warhamni',
-        'Attahiyyaatu lillaahi',
-      ],
-      correct: 0,
-      recitation: 'سُبْحَانَ رَبِّيَ الْعَظِيمِ وَبِحَمْدِهِ',
-      context: isId ? 'Rukun Sholat 05 // Membungkuk meletakkan tangan di lutut' : 'Prayer Pillar 05 // Bowing hands on knees',
-    },
-    {
-      q: isId ? 'Setelah bangkit dari rukuk (I\'tidal), gerakan rukun berikutnya adalah...?' : 'After rising from Rukuk (I\'tidal), the next sequential movement is...?',
-      options: isId ? ['Sujud Pertama', 'Salam ke Kanan', 'Duduk Antara Dua Sujud', 'Tahiyat Akhir'] : ['First Sujud', 'Salam to Right', 'Sitting Between Sujud', 'Tahiyat Akhir'],
-      correct: 0,
-      recitation: 'Subhana Rabbiyal A\'la wa Bihamdih (سُبْحَانَ رَبِّيَ الْأَعْلَى)',
-      context: isId ? 'Rukun Sholat 08 // Dahi dan kedua telapak tangan di sajadah' : 'Prayer Pillar 08 // Forehead and palms on prayer mat',
-    },
-  ];
-
-  const currentQ = questions[activeQuestionIndex];
-
-  const handleAnswer = (choiceIndex: number) => {
-    if (answeredState !== 'idle') return;
-
-    if (choiceIndex === currentQ.correct) {
-      setAnsweredState('correct');
-      setScore((s) => s + 50 * level);
-      setStreak((st) => st + 1);
-      setTimeout(() => {
-        setActiveQuestionIndex((prev) => (prev + 1) % questions.length);
-        setAnsweredState('idle');
-      }, 1200);
-    } else {
-      setAnsweredState('wrong');
-      setStreak(0);
-      setTimeout(() => {
-        setAnsweredState('idle');
-      }, 800);
-    }
-  };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-hairline)] pb-4 font-mono text-xs">
+    <div className="rounded-2xl border border-white/[0.08] bg-[var(--bg-elevated)] overflow-hidden shadow-2xl">
+      {/* Viewport Chrome Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3 bg-[var(--bg-surface)] border-b border-white/[0.08]">
+        {/* Window Dots & Game Title */}
         <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-[var(--accent-primary)] animate-pulse" />
-          <span className="text-[var(--text-primary)] font-bold">
-            {isId ? 'SIMULATOR TEKA-TEKI GERAKAN & BACAAN SHOLAT' : 'PRAYER MOVEMENT & RECITATION PUZZLE STAGE'}
+          <div className="flex items-center gap-1.5">
+            <span className="h-3 w-3 rounded-full bg-red-500/80 inline-block" />
+            <span className="h-3 w-3 rounded-full bg-yellow-500/80 inline-block" />
+            <span className="h-3 w-3 rounded-full bg-green-500/80 inline-block" />
+          </div>
+          <span className="font-mono text-[11px] text-[var(--text-muted)] ml-2 hidden sm:inline">
+            DAUS ANAK SOLEH : BROWSER 2D GAME
           </span>
-          <span className="px-2 py-0.5 rounded-full theme-chip text-[10px]">Phaser / HTML 5 Canvas</span>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="text-[var(--text-muted)]">
-            {isId ? 'Skor' : 'Score'}: <strong className="text-[var(--accent-primary)] font-mono">{score}</strong>
-          </span>
-          <span className="text-[var(--text-muted)]">
-            Streak: <strong className="text-amber-400 font-mono">🔥 {streak}x</strong>
-          </span>
+
+        {/* itch.io URL Pill */}
+        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono">
+          <Gamepad2 className="h-3.5 w-3.5 text-amber-400" />
+          <span className="text-white font-medium">archdragonstudio.itch.io/daus-anak-soleh</span>
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse ml-1" />
+        </div>
+
+        {/* Engine Tag */}
+        <div className="hidden md:flex items-center gap-2 font-mono text-[11px] text-[var(--text-muted)]">
+          <Activity className="h-3.5 w-3.5 text-amber-400" />
+          <span>Phaser 3 · HTML 5 Canvas · itch.io</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-8 p-6 sm:p-8 rounded-2xl border border-[var(--border-hairline)] bg-[var(--bg-canvas)] space-y-6">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-mono text-[var(--accent-primary)]">
-              LEVEL 0{level} // {level === 1 ? (isId ? 'Rukun Gerakan Sholat' : 'Prayer Postures') : level === 2 ? (isId ? 'Pencocokan Doa Sholat' : 'Recitation Match') : (isId ? 'Rangkaian Tertib Sholat' : 'Full Prayer Sequence')}
-            </span>
-            <div className="flex gap-1.5 font-mono text-xs">
-              {([1, 2, 3] as const).map((lvl) => (
-                <button
-                  key={lvl}
-                  onClick={() => setLevel(lvl)}
-                  className={`px-2.5 py-1 rounded-md transition-all ${
-                    level === lvl
-                      ? 'bg-[var(--accent-primary)] text-black font-bold'
-                      : 'theme-chip hover:border-[var(--accent-primary)]/40 text-[var(--text-muted)]'
-                  }`}
-                >
-                  L{lvl}
-                </button>
-              ))}
+      {/* Game Visual Preview Screen */}
+      <div className="relative aspect-[16/9] sm:aspect-[16/8] w-full bg-[var(--bg-canvas)] overflow-hidden group/game">
+        <Image
+          src="/images/projects/daus-anak-soleh-cover.png"
+          alt="Daus Anak Soleh Gameplay Preview"
+          fill
+          className="object-cover object-center transition-transform duration-700 group-hover/game:scale-[1.03]"
+          priority
+        />
+        {/* Cyberpunk Vignette & Action Card */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent flex flex-col justify-end p-5 sm:p-8">
+          <div className="max-w-xl space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-xs font-semibold backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-amber-400 animate-ping inline-block" />
+              <span>{isId ? 'Game Edukasi Anak Islami' : 'Children Islamic Educational Game'}</span>
             </div>
-          </div>
 
-          <div className="p-6 rounded-xl bg-[var(--surface-hover)] border border-[var(--border-hairline)] text-center space-y-3">
-            <p className="text-xs font-mono text-[var(--accent-primary)] font-semibold">
-              {currentQ.context}
+            <h4 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight">
+              Daus Anak Soleh : Petualangan Teka-Teki Sholat
+            </h4>
+
+            <p className="text-xs sm:text-sm text-white/80 line-clamp-2 leading-relaxed">
+              {isId
+                ? 'Game petualangan teka-teki edukatif interaktif anak untuk mempelajari urutan rukun gerakan dan bacaan doa sholat bagi umat muslim dengan Phaser dan HTML 5 Canvas.'
+                : 'Interactive children educational puzzle adventure teaching Muslim prayer postures and recitations with 2D gameplay built using Phaser Framework.'}
             </p>
-            <div className="text-lg sm:text-2xl font-display font-bold text-[var(--text-primary)]">
-              {currentQ.q}
-            </div>
-            <div className="text-xs font-mono text-cyan-400/80">
-              {isId ? 'Lafaz / Bacaan: ' : 'Recitation: '}
-              <span className="font-semibold text-white">{currentQ.recitation}</span>
-            </div>
 
-            {answeredState === 'correct' && (
-              <p className="text-xs font-mono text-emerald-400 font-bold animate-bounce pt-2">
-                ✨ {isId ? 'Masha Allah! Gerakan & Bacaan Tepat (+50 Poin)' : 'Masha Allah! Correct Movement & Recitation (+50 Points)'}
-              </p>
-            )}
-            {answeredState === 'wrong' && (
-              <p className="text-xs font-mono text-rose-400 font-bold pt-2">
-                ❌ {isId ? 'Kurang tepat, coba ingat kembali rukunnya ya!' : 'Not quite right, check the prayer order!'}
-              </p>
-            )}
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {currentQ.options.map((opt, optIdx) => (
-              <button
-                key={opt}
-                onClick={() => handleAnswer(optIdx)}
-                disabled={answeredState !== 'idle'}
-                className="p-4 rounded-xl theme-card hover:border-[var(--accent-primary)] font-mono text-sm sm:text-base font-semibold text-[var(--text-primary)] hover:scale-[1.02] active:scale-[0.98] transition-all text-center shadow-md disabled:opacity-50"
+            {/* Direct Redirect to itch.io Play Button */}
+            <div className="pt-2 flex flex-wrap items-center gap-3">
+              <a
+                href="https://archdragonstudio.itch.io/daus-anak-soleh"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/btn inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-300 to-emerald-400 hover:from-amber-300 hover:to-emerald-300 text-black font-mono text-xs sm:text-sm font-extrabold uppercase tracking-wider transition-all duration-200 shadow-xl shadow-amber-500/20 hover:shadow-amber-400/40 hover:scale-[1.02] active:scale-[0.98]"
               >
-                {opt}
-              </button>
-            ))}
+                <Play className="h-4 w-4 text-black fill-black" />
+                <span>{isId ? 'Mainkan di itch.io' : 'Play Game on itch.io'}</span>
+                <ExternalLink className="h-4 w-4 text-black transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+              </a>
+
+              <span className="font-mono text-[11px] text-white/60">
+                Direct redirect → archdragonstudio.itch.io/daus-anak-soleh
+              </span>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="lg:col-span-4 p-5 rounded-2xl theme-chip space-y-4 font-mono text-xs">
-          <div className="flex items-center justify-between pb-3 border-b border-[var(--border-hairline)]">
-            <span className="font-bold text-[var(--text-primary)]">GAMEPLAY ENGINE HUD</span>
-            <span className="text-[10px] text-emerald-400">PHASER 2D</span>
-          </div>
-
-          <div className="space-y-2.5 text-[var(--text-secondary)]">
-            <div className="flex justify-between">
-              <span>Framework:</span>
-              <span className="text-[var(--text-primary)]">Phaser + HTML 5 Canvas</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Prayer State:</span>
-              <span className="text-[var(--accent-primary)]">RUKUN_MATCHING</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Audio Synthesis:</span>
-              <span className="text-emerald-400">RECITATION_AUDIO_READY</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Pedagogy:</span>
-              <span className="text-[var(--text-primary)]">Children Islamic Education</span>
-            </div>
-          </div>
-
-          <p className="text-[11px] text-[var(--text-muted)] leading-relaxed pt-2 border-t border-[var(--border-hairline)]">
-            {isId
-              ? 'Game teka-teki edukasi interaktif anak untuk mempelajari urutan gerakan dan bacaan doa sholat bagi umat muslim dengan Phaser.'
-              : 'Interactive educational children\'s puzzle game teaching Muslim prayer postures and recitations using Phaser Framework.'}
-          </p>
+      {/* Game Spec Footer */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-3 sm:p-4 bg-[var(--bg-surface)] border-t border-white/[0.08] font-mono text-xs">
+        <div className="p-2 rounded-lg bg-white/[0.02]">
+          <span className="text-[var(--text-muted)] text-[10px] uppercase block">Platform</span>
+          <span className="text-amber-400 font-bold">itch.io Browser</span>
+        </div>
+        <div className="p-2 rounded-lg bg-white/[0.02]">
+          <span className="text-[var(--text-muted)] text-[10px] uppercase block">Engine</span>
+          <span className="text-white font-semibold">Phaser 3</span>
+        </div>
+        <div className="p-2 rounded-lg bg-white/[0.02]">
+          <span className="text-[var(--text-muted)] text-[10px] uppercase block">Context</span>
+          <span className="text-white font-semibold">HTML 5 Canvas 2D</span>
+        </div>
+        <div className="p-2 rounded-lg bg-white/[0.02]">
+          <span className="text-[var(--text-muted)] text-[10px] uppercase block">Pedagogy</span>
+          <span className="text-emerald-400 font-semibold">Edukasi Sholat</span>
         </div>
       </div>
     </div>
@@ -781,7 +709,7 @@ function DausAnakSolehStage({ locale }: { locale: Locale }) {
 }
 
 /* ============================================================================
-   STAGE V: WEBSITE PILKETOS — REAL-TIME E-VOTING & TELEMETRY DASHBOARD
+   STAGE V: WEBSITE PILKETOS : REAL-TIME E-VOTING & TELEMETRY DASHBOARD
 ============================================================================ */
 function PilketosStage({ locale }: { locale: Locale }) {
   const isId = locale === 'id';

@@ -180,16 +180,24 @@ export function ProjectTiltCard({ project, orderNumber }: ProjectTiltCardProps) 
                     className={`interactive-btn interactive-btn-secondary px-4 py-2.5 text-xs font-mono ${
                       project.slug === 'critiplay'
                         ? 'border-cyan-500/40 text-cyan-400 hover:border-cyan-400 font-bold'
+                        : project.slug === 'daus-anak-soleh'
+                        ? 'border-amber-500/40 text-amber-400 hover:border-amber-400 font-bold'
                         : 'text-[var(--accent-primary)] hover:border-[var(--accent-primary)]'
                     }`}
                   >
                     <ExternalLink className="h-3.5 w-3.5" />
-                    <span>{project.slug === 'critiplay' ? 'Live Link Preview' : 'Live App'}</span>
+                    <span>
+                      {project.slug === 'critiplay'
+                        ? 'Live Link Preview'
+                        : project.slug === 'daus-anak-soleh'
+                        ? (locale === 'id' ? 'Mainkan di itch.io' : 'Play on itch.io')
+                        : 'Live App'}
+                    </span>
                   </a>
                 ) : (
                   <span
                     className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-dashed border-[var(--border-hairline)] bg-[var(--surface-hover)] text-xs font-mono text-[var(--text-muted)]"
-                    title="Live URL slot prepared — fill link in src/data/portfolio.ts"
+                    title="Live URL slot prepared: fill link in src/data/portfolio.ts"
                   >
                     <ExternalLink className="h-3 w-3 opacity-50" />
                     <span>Live: [Pending Setup]</span>
@@ -231,7 +239,7 @@ export function ProjectTiltCard({ project, orderNumber }: ProjectTiltCardProps) 
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end justify-between p-4 sm:p-5">
                 <span className="font-mono text-xs text-white drop-shadow">
-                  {project.name} — Preview
+                  {project.name}: Preview
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 border border-white/20 font-mono text-[11px] text-[var(--accent-primary)] backdrop-blur-md">
                   <span>Explore</span>

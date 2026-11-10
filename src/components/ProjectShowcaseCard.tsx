@@ -126,11 +126,19 @@ export function ProjectShowcaseCard({ project, orderNumber }: ProjectShowcaseCar
                 className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md ${
                   project.slug === 'critiplay'
                     ? 'bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black hover:scale-[1.02] shadow-cyan-500/20'
+                    : project.slug === 'daus-anak-soleh'
+                    ? 'bg-gradient-to-r from-amber-400 via-yellow-300 to-emerald-400 hover:from-amber-300 hover:to-emerald-300 text-black hover:scale-[1.02] shadow-amber-500/20'
                     : 'bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] text-[var(--accent-primary)] hover:border-[var(--accent-primary)]'
                 }`}
               >
                 <ExternalLink className="h-3.5 w-3.5" />
-                <span>{project.slug === 'critiplay' ? 'Live Link Preview' : 'Live Demo'}</span>
+                <span>
+                  {project.slug === 'critiplay'
+                    ? 'Live Link Preview'
+                    : project.slug === 'daus-anak-soleh'
+                    ? (locale === 'id' ? 'Mainkan di itch.io' : 'Play on itch.io')
+                    : 'Live Demo'}
+                </span>
               </a>
             )}
 
@@ -171,6 +179,8 @@ export function ProjectShowcaseCard({ project, orderNumber }: ProjectShowcaseCar
                 <span>
                   {project.slug === 'critiplay'
                     ? (locale === 'id' ? 'Live Link Preview' : 'Live Link Preview')
+                    : project.slug === 'daus-anak-soleh'
+                    ? (locale === 'id' ? 'Pratinjau Live Game' : 'Live Game Preview')
                     : (locale === 'id' ? 'Simulator Interaktif' : 'Live Interactive Simulator')}
                 </span>
               </button>
@@ -190,7 +200,7 @@ export function ProjectShowcaseCard({ project, orderNumber }: ProjectShowcaseCar
             </div>
 
             <span className="font-mono text-[11px] text-[var(--text-muted)] hidden sm:inline">
-              {project.slug === 'critiplay' ? 'LIVE DEPLOYMENT' : 'LIVE TEST BENCH'}
+              {project.slug === 'critiplay' || project.slug === 'daus-anak-soleh' ? 'LIVE PRODUCTION' : 'LIVE TEST BENCH'}
             </span>
           </div>
 
@@ -209,7 +219,7 @@ export function ProjectShowcaseCard({ project, orderNumber }: ProjectShowcaseCar
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-4">
                     <p className="font-mono text-xs text-white">
-                      {project.name} — Technical Architecture Diagram
+                      {project.name}: Technical Architecture Diagram
                     </p>
                   </div>
                 </div>

@@ -303,8 +303,8 @@ export const PROJECTS: ProjectEntry[] = [
         id: 'cp-plate-2',
         plateNumber: 'PLATE II',
         title: {
-          en: 'Vercel–Laravel–PostgreSQL (Neon DB) Architecture',
-          id: 'Arsitektur Vercel–Laravel–PostgreSQL (Neon DB)',
+          en: 'Vercel / Laravel / PostgreSQL (Neon DB) Architecture',
+          id: 'Arsitektur Vercel / Laravel / PostgreSQL (Neon DB)',
         },
         caption: {
           en: 'Decoupled lifecycle: Vercel frontend communicating with dedicated Laravel API server persisting to Neon DB cloud PostgreSQL.',
@@ -347,11 +347,11 @@ export const PROJECTS: ProjectEntry[] = [
     },
     editorialOverview: {
       en: [
-        'Teaching fundamental Islamic worship through play requires engaging visual storytelling and rigorous procedural accuracy. Daus Anak Soleh was crafted as a browser-first children\'s puzzle game that breaks down the steps of Islamic prayer (sholat)—from takbiratul ihram to salam—into memorable interactive puzzle mechanics.',
+        'Teaching fundamental Islamic worship through play requires engaging visual storytelling and rigorous procedural accuracy. Daus Anak Soleh was crafted as a browser-first children\'s puzzle game that breaks down the steps of Islamic prayer (sholat), from takbiratul ihram to salam, into memorable interactive puzzle mechanics.',
         'The gameplay challenges children to arrange correct prayer postures, match Arabic and translated prayer recitations, and unlock progressive prayer stages within an illustrated Islamic journey. Engineered with Phaser Framework and HTML 5 Canvas for responsive zero-latency web play.',
       ],
       id: [
-        'Mengajarkan ibadah fundamental sholat kepada anak-anak membutuhkan pendekatan visual yang menyenangkan serta akurasi rukun yang tepat. Daus Anak Soleh dirancang sebagai game teka-teki edukasi berbasis peramban yang memandu tahapan sholat—dari takbiratul ihram hingga salam—menjadi mekanika puzzle interaktif yang mudah diingat.',
+        'Mengajarkan ibadah fundamental sholat kepada anak-anak membutuhkan pendekatan visual yang menyenangkan serta akurasi rukun yang tepat. Daus Anak Soleh dirancang sebagai game teka-teki edukasi berbasis peramban yang memandu tahapan sholat, dari takbiratul ihram hingga salam, menjadi mekanika puzzle interaktif yang mudah diingat.',
         'Pemain ditantang untuk menyusun urutan gerakan sholat yang benar, mencocokkan postur tubuh dengan bacaan doa sholat, serta membuka tingkat tantangan berikutnya dalam perjalanan yang ramah anak. Dikembangkan menggunakan Phaser Framework dan HTML 5 Canvas agar dapat dimainkan secara instan di peramban.',
       ],
     },
@@ -710,11 +710,11 @@ export const PROJECTS: ProjectEntry[] = [
     editorialOverview: {
       en: [
         'Operational service businesses rely on fast, low-friction data entry on the shop floor while needing structured accounting and inventory records in the back office. LaundryFlow bridges that gap by pairing a tactile Flutter mobile client with an Odoo backend.',
-        'Staff can intake garments, assign service types, update washing/ironing/ready stages, and synchronize order records directly with Odoo models—eliminating manual double-entry between mobile operators and backend administration.',
+        'Staff can intake garments, assign service types, update washing/ironing/ready stages, and synchronize order records directly with Odoo models, eliminating manual double-entry between mobile operators and backend administration.',
       ],
       id: [
         'Bisnis layanan operasional membutuhkan pencatatan data yang cepat dan praktis di lapangan, sekaligus memerlukan pembukuan dan pencatatan terstruktur di sistem pusat. LaundryFlow menjembatani kebutuhan tersebut dengan memadukan klien mobile Flutter yang responsif dan backend Odoo.',
-        'Staf operasional dapat mencatat penerimaan pakaian, menentukan jenis layanan, memperbarui tahapan pencucian/penyetrikaan/siap ambil, serta menyinkronkan data pesanan langsung dengan model Odoo—menghilangkan pencatatan ganda secara manual.',
+        'Staf operasional dapat mencatat penerimaan pakaian, menentukan jenis layanan, memperbarui tahapan pencucian/penyetrikaan/siap ambil, serta menyinkronkan data pesanan langsung dengan model Odoo, menghilangkan pencatatan ganda secara manual.',
       ],
     },
     coverImage: '/images/projects/laundryflow-cover.svg',
@@ -1596,12 +1596,164 @@ export const TECH_STACK: TechStackCategory[] = [
 
 export const EXPERIENCES: ExperienceEntry[] = [
   {
-    id: 'exp-critiplay-collab',
+    id: 'exp-pilketos-school',
     index: '01',
     isPlaceholder: false,
     period: {
-      en: '2024 – Present // Published',
-      id: '2024 – Sekarang // Dipublikasikan',
+      en: 'November 7, 2025',
+      id: '7 November 2025',
+    },
+    role: {
+      en: 'Lead Web Engineer & Systems Architect',
+      id: 'Pengembang Web Utama & Arsitek Sistem',
+    },
+    organization: {
+      en: 'School Project (Website Pilketos)',
+      id: 'Proyek Sekolah (Website Pilketos)',
+    },
+    domain: {
+      en: 'Digital Student Council Election & Real-Time Ballot Tally',
+      id: 'Sistem Pemilihan Ketua OSIS Digital & Rekapitulasi Real-Time',
+    },
+    summary: {
+      en: 'Engineered the official school student council digital election platform (Website Pilketos), replacing manual paper ballots with a secure, tamper-resistant, real-time responsive web voting system for hundreds of students.',
+      id: 'Mengembangkan platform web resmi pemilihan ketua OSIS (Website Pilketos) untuk memodernisasi pemungutan suara sekolah dari surat suara fisik menjadi sistem digital yang terverifikasi, aman, dan real-time untuk ratusan pemilih siswa.',
+    },
+    deliverables: {
+      en: [
+        'Designed single-use unique voter token generation and authentication to eliminate duplicate voting and preserve absolute ballot anonymity.',
+        'Built real-time administrative vote count visualizer and candidate tally dashboard.',
+        'Optimized mobile-first interface for rapid, frictionless voting across concurrent student voter sessions.',
+      ],
+      id: [
+        'Merancang otentikasi token pemilih unik sekali pakai untuk mencegah kecurangan dan menjaga kerahasiaan pilihan pemilih.',
+        'Membangun dasbor visualisasi rekapitulasi perolehan suara calon ketua OSIS secara real-time untuk panitia dan siswa.',
+        'Mengoptimalkan antarmuka responsif ramah seluler agar ratusan siswa dapat memberikan suara secara serentak tanpa kendala.',
+      ],
+    },
+    technologies: ['PHP', 'Laravel', 'MySQL', 'JavaScript', 'Tailwind CSS', 'HTML 5'],
+  },
+  {
+    id: 'exp-daus-gamedev',
+    index: '02',
+    isPlaceholder: false,
+    period: {
+      en: 'April 9, 2026',
+      id: '9 April 2026',
+    },
+    role: {
+      en: 'Indie Game Developer & Systems Engineer',
+      id: 'Pengembang Game Indie & Perekayasa Sistem Game',
+    },
+    organization: {
+      en: 'Indie Game Production (Daus Anak Soleh)',
+      id: 'Produksi Game Indie (Daus Anak Soleh)',
+    },
+    domain: {
+      en: '2D Action-Adventure & Educational Game Mechanics',
+      id: 'Petualangan Aksi 2D & Mekanika Game Edukasi',
+    },
+    summary: {
+      en: 'Engineered and completed 2D educational children puzzle game "Daus Anak Soleh" using Phaser Framework, HTML 5 Canvas, and JavaScript, teaching Islamic prayer movements (sholat) and recitations through interactive visual gameplay.',
+      id: 'Mengembangkan dan menyelesaikan game petualangan edukatif anak 2D "Daus Anak Soleh" menggunakan Phaser Framework, HTML 5 Canvas, dan JavaScript untuk mengajarkan urutan rukun gerakan dan bacaan doa sholat bagi umat muslim.',
+    },
+    deliverables: {
+      en: [
+        'Engineered complete 2D HTML 5 Canvas gameplay loop: arcade physics collisions, jump mechanics, and smooth scene transitions in Phaser.',
+        'Designed and implemented interactive quiz dialogue mechanics, scoring algorithms, and educational checkpoints.',
+        'Assembled pixel-art spritesheets, animations, and sound triggers into a zero-dependency browser gameplay experience published on itch.io.',
+      ],
+      id: [
+        'Membangun loop gameplay HTML 5 Canvas dari nol: deteksi tabrakan fisika arcade, pergerakan platformer, dan transisi scene di Phaser.',
+        'Merancang dan mengimplementasikan mekanika dialog kuis edukatif interaktif, kalkulasi skor, serta checkpoint capaian.',
+        'Mengintegrasikan spritesheet pixel art, animasi karakter, dan pemicu audio menjadi pengalaman bermain langsung di browser yang dipublikasikan di itch.io.',
+      ],
+    },
+    technologies: ['Phaser', 'JavaScript', 'HTML 5 Canvas', 'Game Physics', 'itch.io'],
+  },
+  {
+    id: 'exp-obathaus',
+    index: '03',
+    isPlaceholder: false,
+    period: {
+      en: 'May 7, 2026',
+      id: '7 Mei 2026',
+    },
+    role: {
+      en: 'Full-Stack Web Developer & POS Engineer',
+      id: 'Pengembang Web Full-Stack & Perekayasa POS',
+    },
+    organization: {
+      en: 'Pharmacy POS & Stock Management (Obat Haus)',
+      id: 'Sistem POS & Inventaris Apotek (Obat Haus)',
+    },
+    domain: {
+      en: 'Pharmacy Point of Sale & Atomic Stock Control',
+      id: 'Point of Sale Apotek & Pengendalian Stok Atomik',
+    },
+    summary: {
+      en: 'Developed full-stack pharmacy inventory and cashier POS platform using Laravel, Inertia.js, Vue 3, and MySQL, implementing batch tracking, unit conversions, and atomic stock deductions during checkout.',
+      id: 'Mengembangkan platform manajemen inventaris dan kasir apotek full-stack menggunakan Laravel, Inertia.js, Vue 3, dan MySQL dengan pelacakan batch kedaluwarsa serta deduksi stok atomik saat checkout kasir.',
+    },
+    deliverables: {
+      en: [
+        'Engineered atomic transactional checkout flow preventing negative inventory anomalies under concurrent cashier orders.',
+        'Designed normalized relational medicine taxonomy schema supporting generic vs brand-name classification and dosage units.',
+        'Implemented reactive Vue 3 and Inertia.js single-page application experience with sub-second instant product search.',
+      ],
+      id: [
+        'Merancang alur transaksi checkout atomik yang mencegah anomali stok negatif saat transaksi kasir berjalan serentak.',
+        'Menyusun skema database relasional obat yang mendukung klasifikasi nama generik vs merek dagang serta satuan dosis.',
+        'Mengimplementasikan SPA reaktif dengan Vue 3 dan Inertia.js untuk pencarian cepat katalog obat tanpa refresh halaman.',
+      ],
+    },
+    technologies: ['Laravel', 'Inertia.js', 'Vue 3', 'MySQL', 'Tailwind CSS'],
+  },
+  {
+    id: 'exp-coordina',
+    index: '04',
+    isPlaceholder: false,
+    period: {
+      en: 'May 18, 2026',
+      id: '18 Mei 2026',
+    },
+    role: {
+      en: 'Backend & Real-Time Systems Engineer',
+      id: 'Perekayasa Backend & Sistem Real-Time',
+    },
+    organization: {
+      en: 'Real-Time Event Broadcasting (Coordina)',
+      id: 'Platform Penyiaran Event Real-Time (Coordina)',
+    },
+    domain: {
+      en: 'WebSocket Infrastructure & Real-Time Collaboration',
+      id: 'Infrastruktur WebSocket & Kolaborasi Real-Time',
+    },
+    summary: {
+      en: 'Developed real-time event broadcasting platform using Laravel, Vite, Tailwind CSS 4, and WebSockets (Pusher / Laravel Echo) for instantaneous live state distribution across connected clients.',
+      id: 'Mengembangkan platform penyiaran event real-time menggunakan Laravel, Vite, Tailwind CSS 4, dan WebSocket (Pusher / Laravel Echo) untuk sinkronisasi state instan antar pengguna yang terhubung.',
+    },
+    deliverables: {
+      en: [
+        'Implemented low-latency bidirectional event broadcasting over secure WebSocket channels.',
+        'Designed presence channels and connection lifecycle monitoring with sub-100ms message delivery.',
+        'Built responsive team dispatch dashboard with reactive activity streams and notification telemetry.',
+      ],
+      id: [
+        'Mengimplementasikan penyiaran event dua arah berlatensi rendah melalui channel WebSocket yang aman.',
+        'Merancang presence channel dan pemantauan siklus koneksi pengguna dengan transmisi pesan di bawah 100 milidetik.',
+        'Membangun dasbor koordinasi tim yang responsif dengan feed aktivitas langsung dan telemetri notifikasi.',
+      ],
+    },
+    technologies: ['Laravel', 'Vite', 'Tailwind CSS 4', 'WebSockets', 'Pusher', 'Laravel Echo'],
+  },
+  {
+    id: 'exp-critiplay-collab',
+    index: '05',
+    isPlaceholder: false,
+    period: {
+      en: 'August 28, 2026',
+      id: '28 Agustus 2026',
     },
     role: {
       en: 'Lead Full-Stack Architect & Product Designer',
@@ -1636,87 +1788,11 @@ export const EXPERIENCES: ExperienceEntry[] = [
     technologies: ['React', 'TypeScript', 'Laravel', 'PostgreSQL', 'Neon DB', 'Vercel', 'Tailwind CSS', 'REST API'],
   },
   {
-    id: 'exp-pilketos-school',
-    index: '02',
-    isPlaceholder: false,
-    period: {
-      en: 'School Project Deployment',
-      id: 'Implementasi Proyek Sekolah',
-    },
-    role: {
-      en: 'Lead Web Engineer & Systems Architect',
-      id: 'Pengembang Web Utama & Arsitek Sistem',
-    },
-    organization: {
-      en: 'School Project (Website Pilketos)',
-      id: 'Proyek Sekolah (Website Pilketos)',
-    },
-    domain: {
-      en: 'Digital Student Council Election & Real-Time Ballot Tally',
-      id: 'Sistem Pemilihan Ketua OSIS Digital & Rekapitulasi Real-Time',
-    },
-    summary: {
-      en: 'Engineered the official school student council digital election platform (Website Pilketos), replacing manual paper ballots with a secure, tamper-resistant, real-time responsive web voting system for hundreds of students.',
-      id: 'Mengembangkan platform web resmi pemilihan ketua OSIS (Website Pilketos) untuk memodernisasi pemungutan suara sekolah dari surat suara fisik menjadi sistem digital yang terverifikasi, aman, dan real-time untuk ratusan pemilih siswa.',
-    },
-    deliverables: {
-      en: [
-        'Designed single-use unique voter token generation and authentication to eliminate duplicate voting and preserve absolute ballot anonymity.',
-        'Built real-time administrative vote count visualizer and candidate tally dashboard.',
-        'Optimized mobile-first interface for rapid, frictionless voting across concurrent student voter sessions.',
-      ],
-      id: [
-        'Merancang otentikasi token pemilih unik sekali pakai untuk mencegah kecurangan dan menjaga kerahasiaan pilihan pemilih.',
-        'Membangun dasbor visualisasi rekapitulasi perolehan suara calon ketua OSIS secara real-time untuk panitia dan siswa.',
-        'Mengoptimalkan antarmuka responsif ramah seluler agar ratusan siswa dapat memberikan suara secara serentak tanpa kendala.',
-      ],
-    },
-    technologies: ['PHP', 'Laravel', 'MySQL', 'JavaScript', 'Tailwind CSS', 'HTML 5'],
-  },
-  {
-    id: 'exp-daus-gamedev',
-    index: '03',
-    isPlaceholder: false,
-    period: {
-      en: 'Completed Production',
-      id: 'Produksi Selesai',
-    },
-    role: {
-      en: 'Indie Game Developer & Systems Engineer',
-      id: 'Pengembang Game Indie & Perekayasa Sistem Game',
-    },
-    organization: {
-      en: 'Indie Game Production (Daus Anak Soleh)',
-      id: 'Produksi Game Indie (Daus Anak Soleh)',
-    },
-    domain: {
-      en: '2D Action-Adventure & Educational Game Mechanics',
-      id: 'Petualangan Aksi 2D & Mekanika Game Edukasi',
-    },
-    summary: {
-      en: 'Engineered and fully completed 2D educational adventure game "Daus Anak Soleh" using Phaser Framework, HTML 5 Canvas, and JavaScript. Delivered complete arcade physics, quiz dialogue mechanics, collectible religious items, and boss challenges.',
-      id: 'Mengembangkan dan menuntaskan secara penuh game petualangan edukatif 2D "Daus Anak Soleh" menggunakan Phaser Framework, HTML 5 Canvas, dan JavaScript. Menghadirkan fisika arcade lengkap, mekanika kuis islami, pengumpulan item ibadah, dan tantangan boss.',
-    },
-    deliverables: {
-      en: [
-        'Engineered complete 2D HTML 5 Canvas gameplay loop: arcade physics collisions, jump mechanics, and smooth scene transitions in Phaser.',
-        'Designed and implemented interactive quiz dialogue mechanics, scoring algorithms, and educational checkpoints.',
-        'Assembled pixel-art spritesheets, animations, and sound triggers into a zero-dependency browser gameplay experience.',
-      ],
-      id: [
-        'Membangun loop gameplay HTML 5 Canvas dari nol: deteksi tabrakan fisika arcade, pergerakan platformer, dan transisi scene di Phaser.',
-        'Merancang dan mengimplementasikan mekanika dialog kuis edukatif interaktif, kalkulasi skor, serta checkpoint capaian.',
-        'Mengintegrasikan spritesheet pixel art, animasi karakter, dan pemicu audio menjadi pengalaman bermain langsung di browser yang lancar.',
-      ],
-    },
-    technologies: ['Phaser', 'JavaScript', 'HTML 5 Canvas', 'Game Physics', 'Pixel Art'],
-  },
-  {
     id: 'exp-dragonhold-independent',
-    index: '04',
+    index: '06',
     isPlaceholder: true,
     period: {
-      en: 'In-Progress // Blank Slot',
+      en: 'Active Development // Blank Slot',
       id: 'Dalam Pengerjaan // Dikosongkan Sementara',
     },
     role: {
@@ -1745,7 +1821,7 @@ export const EXPERIENCES: ExperienceEntry[] = [
         '[Dikosongkan Sementara]: Rincian teknis, metrik, dan studi kasus akan diisi setelah proyek selesai.',
       ],
     },
-    technologies: ['Dragonhold', 'Docker', 'In Progress', 'Full-Stack'],
+    technologies: ['Next.js 16', 'Hono', 'Drizzle ORM', 'PostgreSQL', 'pnpm Monorepo'],
   },
 ];
 

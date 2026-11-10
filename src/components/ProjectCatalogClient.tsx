@@ -169,14 +169,14 @@ export function ProjectCatalogClient({ locale }: ProjectCatalogClientProps) {
                     >
                       <Image
                         src={project.coverImage}
-                        alt={`${project.name} — ${tField(project.tagline, locale)}`}
+                        alt={`${project.name}: ${tField(project.tagline, locale)}`}
                         fill
                         sizes="(max-width: 1024px) 100vw, 58vw"
                         className="object-cover transition-transform duration-500 ease-out group-hover/media:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end justify-between p-4 sm:p-6">
                         <span className="font-mono text-xs text-white">
-                          {project.name} — System Architecture &amp; UI
+                          {project.name}: System Architecture &amp; UI
                         </span>
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 border border-white/20 font-mono text-[11px] text-[var(--accent-primary)] backdrop-blur-md">
                           <Eye className="h-3.5 w-3.5" />
