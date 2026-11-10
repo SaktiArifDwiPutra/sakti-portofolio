@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { OWNER_PROFILE } from '@/data/portfolio';
-import { Mail, Copy, Check, ArrowUpRight, Send, MapPin, Sparkles } from 'lucide-react';
+import { Mail, Copy, Check, ArrowUpRight, Send, Sparkles } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/SocialIcons';
 
 export function ContactSection() {
@@ -49,9 +49,8 @@ export function ContactSection() {
             </span>
           </div>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full theme-chip text-xs font-mono text-[var(--text-muted)]">
-            <MapPin className="h-3 w-3 text-[var(--accent-primary)]" />
-            <span>Jakarta, ID (UTC+7)</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full theme-chip text-xs font-mono text-[var(--accent-primary)] font-semibold">
+            <span>● {locale === 'id' ? 'STATUS: TERBUKA' : 'STATUS: OPEN FOR WORK'}</span>
           </div>
         </div>
 

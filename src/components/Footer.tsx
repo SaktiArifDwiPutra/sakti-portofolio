@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { ArrowUp } from 'lucide-react';
 import { OWNER_PROFILE } from '@/data/portfolio';
-import { LiveClock } from './LiveClock';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
 
 export function Footer() {
@@ -93,15 +92,7 @@ export function Footer() {
             </div>
 
             {/* Back to top button */}
-            <div className="md:col-span-3 flex flex-col justify-between items-start md:items-end gap-6">
-              <div className="text-left md:text-right font-mono text-xs text-[var(--text-muted)] space-y-1">
-                <span className="block text-[var(--text-primary)] font-semibold">JAKARTA, ID</span>
-                <div className="flex items-center gap-1.5 justify-start md:justify-end">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-primary)] animate-pulse" />
-                  <LiveClock />
-                </div>
-              </div>
-
+            <div className="md:col-span-3 flex flex-col justify-end items-start md:items-end gap-6">
               <button
                 type="button"
                 onClick={scrollToTop}

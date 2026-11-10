@@ -5,7 +5,6 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { Link, usePathname, useRouter, type Locale } from '@/i18n/routing';
 import { useTheme } from './ThemeProvider';
-import { LiveClock } from './LiveClock';
 import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-react';
 
 export function Header() {
@@ -90,12 +89,6 @@ export function Header() {
 
         {/* Telemetry Strip & Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Live Jakarta Clock (desktop) */}
-          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full theme-chip text-xs font-mono text-[var(--text-muted)]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-primary)] animate-pulse" />
-            <LiveClock />
-          </div>
-
           {/* Language Switcher (EN / ID) */}
           <div
             role="group"
@@ -154,7 +147,7 @@ export function Header() {
       {mobileMenuOpen && (
         <div className="md:hidden mt-2 rounded-2xl border border-[var(--border-hairline)] bg-[var(--bg-glass)] p-4 backdrop-blur-2xl shadow-2xl">
           <div className="pb-3 border-b border-[var(--border-hairline)] flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
-            <LiveClock />
+            <span className="text-[var(--text-muted)] font-mono text-[11px] uppercase tracking-wider">PORTFOLIO // SAKTI</span>
             <span className="text-[var(--accent-primary)] font-medium">● AVAILABLE</span>
           </div>
           <ul className="pt-2 space-y-1">

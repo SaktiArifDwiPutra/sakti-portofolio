@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link, type Locale } from '@/i18n/routing';
 import { OWNER_PROFILE } from '@/data/portfolio';
-import { ArrowDown, ArrowUpRight, Mail, FileText, Sparkles, MapPin } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Mail, FileText, Sparkles } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/SocialIcons';
 import { InteractiveDevDeck } from '@/components/InteractiveDevDeck';
 
@@ -95,13 +95,6 @@ export function HeroInteractive() {
             <span className="text-[var(--text-secondary)] font-medium">
               {locale === 'id' ? 'Terbuka untuk pekerjaan & proyek kolaborasi' : 'Available for select roles & collaborations'}
             </span>
-          </div>
-
-          {/* Location & Timezone Pill */}
-          <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full theme-chip text-xs font-mono text-[var(--text-muted)]">
-            <MapPin className="h-3.5 w-3.5 text-[var(--accent-primary)]" />
-            <span>Jakarta, ID</span>
-            <span className="text-[var(--accent-primary)] font-semibold">UTC+7</span>
           </div>
         </div>
 

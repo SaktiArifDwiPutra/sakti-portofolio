@@ -93,7 +93,7 @@ export function InteractiveDevDeck() {
               </p>
               <div className="text-[9px] text-neutral-500 flex justify-between">
                 <span>FULLSTACK // GODOT</span>
-                <span>UTC+7</span>
+                <span>ONLINE</span>
               </div>
             </div>
           </div>
