@@ -112,13 +112,13 @@ export interface CertificateEntry {
 export const OWNER_PROFILE = {
   name: 'Sakti',
   handle: 'sakti.dev',
-  email: 'sakti@example.com', // [OWNER INPUT]: Replace with actual email address
+  email: 'saktiarif830@gmail.com',
   github: 'https://github.com/SaktiArifDwiPutra',
-  linkedin: 'https://linkedin.com/',
+  linkedin: 'https://www.linkedin.com/in/sakti-arif',
   cv: '#contact',
   links: {
     github: 'https://github.com/SaktiArifDwiPutra',
-    linkedin: 'https://linkedin.com/',
+    linkedin: 'https://www.linkedin.com/in/sakti-arif',
     cv: '#contact',
   },
 };
@@ -151,7 +151,7 @@ export const PROJECTS: ProjectEntry[] = [
         'Dari sisi rekayasa perangkat lunak, CritiPlay memisahkan state antarmuka dari validasi domain: frontend React dan TypeScript menangani penyaringan interaktif, penulisan ulasan, dan rincian skor, sementara API Laravel mengelola autentikasi, kueri relasional, serta agregasi penilaian di atas MySQL.',
       ],
     },
-    coverImage: '/images/projects/critiplay-cover.svg',
+    coverImage: '/images/projects/critiplay-cover.png',
     techStack: ['React', 'TypeScript', 'Laravel', 'MySQL', 'REST API', 'Tailwind CSS'],
     role: {
       en: 'Full-Stack Developer (Architecture, Frontend & Backend API)',
@@ -292,7 +292,7 @@ export const PROJECTS: ProjectEntry[] = [
           id: 'Tata letak arsitektural antarmuka penelusuran game dengan filter genre dan distribusi agregasi penilaian.',
         },
         aspectRatio: '16/9',
-        imageSrc: '/images/projects/critiplay-cover.svg',
+        imageSrc: '/images/projects/critiplay-cover.png',
         diagramType: 'interface',
       },
       {
