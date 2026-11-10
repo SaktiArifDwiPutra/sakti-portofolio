@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Gamepad2, Sparkles, Zap, BatteryCharging, Radio } from 'lucide-react';
 
@@ -10,6 +10,19 @@ export function InteractiveDevDeck() {
   const [screenText, setScreenText] = useState('LVL 99 DEV');
   const [isPowered, setIsPowered] = useState(true);
   const [activeLed, setActiveLed] = useState(false);
+  const [canDrag, setCanDrag] = useState(false);
+
+  useEffect(() => {
+    const checkPointer = () => {
+      // Strictly enable dragging only on desktop devices with fine pointer (mouse/trackpad)
+      // Never enable drag on touch screens or mobile to prevent scroll hijacking and jitter
+      const isFinePointer = window.matchMedia('(pointer: fine) and (min-width: 1024px)').matches;
+      setCanDrag(isFinePointer);
+    };
+    checkPointer();
+    window.addEventListener('resize', checkPointer);
+    return () => window.removeEventListener('resize', checkPointer);
+  }, []);
 
   const handleButtonPress = (action: string) => {
     setActiveLed(true);
@@ -31,16 +44,19 @@ export function InteractiveDevDeck() {
 
   return (
     <div className="relative w-full max-w-sm mx-auto" ref={constraintsRef}>
-      {/* Draggable Micro-Deck Container */}
+      {/* Micro-Deck Container (Drag enabled strictly on desktop mouse, tap-safe on mobile) */}
       <motion.div
-        drag
-        dragConstraints={constraintsRef}
-        dragElastic={0.12}
-        whileHover={{ scale: 1.02 }}
-        whileDrag={{ scale: 1.06, cursor: 'grabbing', zIndex: 40 }}
-        className="cursor-grab select-none rounded-[28px] p-5 theme-card shadow-2xl relative overflow-hidden backdrop-blur-xl"
+        drag={canDrag}
+        dragConstraints={canDrag ? constraintsRef : false}
+        dragElastic={canDrag ? 0.12 : false}
+        whileHover={canDrag ? { scale: 1.02 } : undefined}
+        whileDrag={canDrag ? { scale: 1.05, cursor: 'grabbing', zIndex: 40 } : undefined}
+        className={`select-none rounded-[28px] p-5 theme-card shadow-2xl relative overflow-hidden backdrop-blur-xl touch-manipulation ${
+          canDrag ? 'cursor-grab' : 'cursor-default'
+        }`}
         style={{
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15)',
+          touchAction: canDrag ? 'none' : 'pan-y',
         }}
       >
         {/* Top Status & Speaker Grill */}
@@ -71,7 +87,6 @@ export function InteractiveDevDeck() {
           <div className="flex items-center gap-3">
             {/* Avatar Photo Frame */}
             <div className="relative h-14 w-14 rounded-xl overflow-hidden border border-[var(--accent-primary)]/40 bg-neutral-950 shrink-0 flex items-center justify-center shadow-md">
-              {/* Dummy Avatar image with tech overlay */}
               <div className="w-full h-full bg-gradient-to-tr from-neutral-800 to-neutral-700 flex flex-col items-center justify-center text-center p-1">
                 <svg className="w-8 h-8 text-[var(--accent-primary)]" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2a5 5 0 105 5 5 5 0 00-5-5zm0 8a3 3 0 113-3 3 3 0 01-3 3zm9 11v-1a7 7 0 00-7-7h-4a7 7 0 00-7 7v1h2v-1a5 5 0 015-5h4a5 5 0 015 5v1z" />
@@ -107,16 +122,16 @@ export function InteractiveDevDeck() {
               <button
                 type="button"
                 onClick={() => handleButtonPress('TURBO')}
-                className="absolute inset-x-0 h-4 bg-neutral-700 hover:bg-neutral-600 rounded active:scale-95 transition-transform"
+                className="absolute inset-x-0 h-4 bg-neutral-700 hover:bg-neutral-600 rounded active:scale-95 transition-transform touch-manipulation cursor-pointer"
                 title="D-Pad Vertical"
               />
               <button
                 type="button"
                 onClick={() => handleButtonPress('TURBO')}
-                className="absolute inset-y-0 w-4 bg-neutral-700 hover:bg-neutral-600 rounded active:scale-95 transition-transform"
+                className="absolute inset-y-0 w-4 bg-neutral-700 hover:bg-neutral-600 rounded active:scale-95 transition-transform touch-manipulation cursor-pointer"
                 title="D-Pad Horizontal"
               />
-              <div className="relative z-10 h-3 w-3 rounded-full bg-neutral-900" />
+              <div className="relative z-10 h-3 w-3 rounded-full bg-neutral-900 pointer-events-none" />
             </div>
           </div>
 
@@ -126,7 +141,7 @@ export function InteractiveDevDeck() {
               <button
                 type="button"
                 onClick={() => handleButtonPress('B')}
-                className="h-10 w-10 rounded-full bg-neutral-800 hover:bg-neutral-700 active:scale-90 text-[var(--accent-secondary)] border border-neutral-700 font-mono font-bold text-xs shadow-md transition-all flex items-center justify-center"
+                className="h-10 w-10 rounded-full bg-neutral-800 hover:bg-neutral-700 active:scale-90 text-[var(--accent-secondary)] border border-neutral-700 font-mono font-bold text-xs shadow-md transition-all flex items-center justify-center touch-manipulation cursor-pointer"
               >
                 B
               </button>
@@ -137,7 +152,7 @@ export function InteractiveDevDeck() {
               <button
                 type="button"
                 onClick={() => handleButtonPress('A')}
-                className="h-10 w-10 rounded-full bg-[var(--accent-primary)] text-[var(--accent-primary-ink)] active:scale-90 font-mono font-bold text-xs shadow-md shadow-[var(--accent-primary)]/20 transition-all flex items-center justify-center"
+                className="h-10 w-10 rounded-full bg-[var(--accent-primary)] text-[var(--accent-primary-ink)] active:scale-90 font-mono font-bold text-xs shadow-md shadow-[var(--accent-primary)]/20 transition-all flex items-center justify-center touch-manipulation cursor-pointer"
               >
                 A
               </button>
@@ -150,9 +165,11 @@ export function InteractiveDevDeck() {
         <div className="mt-3 pt-2 border-t border-[var(--border-hairline)] flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)]">
           <span className="flex items-center gap-1">
             <Sparkles className="h-3 w-3 text-[var(--accent-primary)]" />
-            <span>Interactive Object</span>
+            <span>Hardware Deck</span>
           </span>
-          <span className="opacity-75">Drag me around 🕹️</span>
+          <span className="opacity-75">
+            {canDrag ? 'Drag deck around 🕹️' : 'Tap controls to play 🕹️'}
+          </span>
         </div>
       </motion.div>
     </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import type { CertificateEntry } from '@/data/portfolio';
 import { tField } from '@/data/portfolio';
@@ -32,6 +32,21 @@ export function CertificateGalleryCard({ cert, locale }: CertificateGalleryCardP
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const hasMultiplePages = cert.images.length > 1;
+
+  useEffect(() => {
+    if (!isModalOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsModalOpen(false);
+      if (e.key === 'ArrowRight' && hasMultiplePages) {
+        setActiveSlide((prev) => (prev + 1) % cert.images.length);
+      }
+      if (e.key === 'ArrowLeft' && hasMultiplePages) {
+        setActiveSlide((prev) => (prev - 1 + cert.images.length) % cert.images.length);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isModalOpen, hasMultiplePages, cert.images.length]);
 
   const nextSlide = (e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -285,100 +300,63 @@ export function CertificateGalleryCard({ cert, locale }: CertificateGalleryCardP
         )}
       </article>
 
-      {/* Lightbox High-Resolution Full-Screen Modal */}
+      {/* Pure Full-Screen Immersive Lightbox (No distracting header/footer bars) */}
       {isModalOpen && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 sm:bg-black/98 backdrop-blur-md animate-fadeIn select-none p-2 sm:p-4"
           onClick={() => setIsModalOpen(false)}
         >
+          {/* Minimal Unobtrusive Close Button */}
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(false)}
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-[110] p-2.5 rounded-full bg-black/60 hover:bg-black/90 text-white/70 hover:text-white border border-white/20 transition-all hover:scale-105 cursor-pointer shadow-2xl"
+            aria-label="Close Fullscreen"
+          >
+            <X className="h-5 w-5 sm:h-6 sm:w-6" />
+          </button>
+
+          {/* Certificate Image Viewport (Fills entire screen clearly) */}
           <div
-            className="relative max-w-5xl w-full max-h-[92vh] bg-[var(--bg-elevated)] border border-white/[0.1] rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+            className="relative w-full h-full max-w-[96vw] max-h-[96vh] flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
-            <div className="flex items-center justify-between p-4 bg-[var(--bg-surface)] border-b border-white/[0.08]">
-              <div>
-                <h3 className="font-display font-bold text-base sm:text-lg text-white">
-                  {tField(cert.title, locale)}
-                </h3>
-                <p className="font-mono text-xs text-[var(--accent-primary)]">
-                  {tField(cert.issuer, locale)}{' '}
-                  {hasMultiplePages && (
-                    <span>
-                      · {isId ? `Halaman ${activeSlide + 1} dari ${cert.images.length}` : `Page ${activeSlide + 1} of ${cert.images.length}`}
-                    </span>
-                  )}
-                </p>
-              </div>
+            <Image
+              src={cert.images[activeSlide]}
+              alt={tField(cert.title, locale)}
+              fill
+              sizes="100vw"
+              className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+              priority
+            />
 
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(false)}
-                className="p-2 rounded-full bg-white/[0.05] hover:bg-white/[0.1] text-white transition-colors cursor-pointer"
-                aria-label="Close Preview"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            {/* Modal Image Viewport */}
-            <div className="relative flex-1 min-h-[420px] sm:min-h-[560px] bg-black flex items-center justify-center p-2">
-              <Image
-                src={cert.images[activeSlide]}
-                alt={tField(cert.title, locale)}
-                fill
-                className="object-contain"
-                priority
-              />
-
-              {hasMultiplePages && (
-                <>
-                  <button
-                    type="button"
-                    onClick={prevSlide}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/70 hover:bg-black/90 border border-white/20 text-white backdrop-blur-md transition-all hover:scale-110 shadow-xl cursor-pointer"
-                    aria-label="Previous Page"
-                  >
-                    <ChevronLeft className="h-5 w-5" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={nextSlide}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/70 hover:bg-black/90 border border-white/20 text-white backdrop-blur-md transition-all hover:scale-110 shadow-xl cursor-pointer"
-                    aria-label="Next Page"
-                  >
-                    <ChevronRight className="h-5 w-5" />
-                  </button>
-                </>
-              )}
-            </div>
-
-            {/* Modal Footer */}
+            {/* Subtle Minimal Slide Navigation for Multi-page Certificates */}
             {hasMultiplePages && (
-              <div className="flex items-center justify-center gap-2 p-3 bg-[var(--bg-surface)] border-t border-white/[0.08]">
-                {cert.images.map((_, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setActiveSlide(idx)}
-                    className={`px-4 py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer ${
-                      activeSlide === idx
-                        ? 'bg-[var(--accent-primary)] text-black font-bold'
-                        : 'bg-white/[0.04] text-[var(--text-secondary)] hover:text-white'
-                    }`}
-                  >
-                    {idx === 0
-                      ? isId
-                        ? 'Halaman 1 (Sertifikat)'
-                        : 'Page 1 (Certificate)'
-                      : isId
-                      ? 'Halaman 2 (Silabus)'
-                      : 'Page 2 (Syllabus)'}
-                  </button>
-                ))}
-              </div>
+              <>
+                <button
+                  type="button"
+                  onClick={prevSlide}
+                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/90 border border-white/20 text-white/80 hover:text-white backdrop-blur-md transition-all hover:scale-110 shadow-2xl cursor-pointer"
+                  aria-label="Previous Page"
+                >
+                  <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+                </button>
+                <button
+                  type="button"
+                  onClick={nextSlide}
+                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/90 border border-white/20 text-white/80 hover:text-white backdrop-blur-md transition-all hover:scale-110 shadow-2xl cursor-pointer"
+                  aria-label="Next Page"
+                >
+                  <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+                </button>
+
+                {/* Minimal Page Indicator */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/60 border border-white/15 text-[11px] font-mono text-white/70 backdrop-blur-md pointer-events-none">
+                  {activeSlide + 1} / {cert.images.length}
+                </div>
+              </>
             )}
           </div>
         </div>
