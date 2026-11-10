@@ -31,7 +31,7 @@ const ALL_GITHUB_TECH_NODES: TechNode[] = [
   // Backend
   { id: 'laravel', name: 'Laravel', category: 'backend', color: '#ff2d20', x: 70, y: 38, vx: -0.18, vy: 0.15, projectNote: 'REST API architecture, Eloquent ORM & token authentication in CritiPlay', role: 'Backend Framework' },
   { id: 'php', name: 'PHP', category: 'backend', color: '#777bb4', x: 88, y: 36, vx: 0.14, vy: -0.16, projectNote: 'Pilketos web voting system, multi-role auth & session security', role: 'Server-Side Web' },
-  { id: 'nodejs', name: 'Node.js', category: 'backend', color: '#68a063', x: 20, y: 56, vx: 0.17, vy: 0.14, projectNote: 'Server-side runtime, build pipelines, asynchronous APIs & tooling', role: 'JavaScript Runtime' },
+  { id: 'nodejs', name: 'Node.js', category: 'backend', color: '#5fa04e', x: 20, y: 56, vx: 0.17, vy: 0.14, projectNote: 'Server-side runtime, build pipelines, asynchronous APIs & tooling', role: 'JavaScript Runtime' },
   { id: 'hono', name: 'Hono.js', category: 'backend', color: '#e36002', x: 40, y: 54, vx: -0.16, vy: -0.17, projectNote: 'Lightweight web standards routing, cloud functions & edge APIs', role: 'Edge Web Standards' },
   { id: 'python', name: 'Python', category: 'backend', color: '#3776ab', x: 60, y: 55, vx: 0.18, vy: -0.15, projectNote: 'Custom ERP business logic & module development in eventflow_management', role: 'ERP & Scripting' },
   { id: 'odoo', name: 'Odoo ERP', category: 'backend', color: '#714b67', x: 80, y: 56, vx: -0.15, vy: 0.18, projectNote: 'Enterprise model synchronization & mobile dispatch bridging in LaundryFlow', role: 'Enterprise Systems' },
