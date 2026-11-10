@@ -2,50 +2,50 @@
 
 :root,
 [data-theme="dark"] {
-  --bg-canvas: #0c0d12;
-  --bg-surface: #13151c;
-  --bg-elevated: #1a1d26;
-  --bg-glass: rgba(15, 17, 23, 0.85);
-  --text-primary: #f5f6f8;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --accent-primary: #c2ed30;
-  --accent-primary-ink: #0c0d12;
-  --accent-secondary: #e07a47;
-  --border-hairline: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.18);
-  --card-bg: rgba(19, 21, 28, 0.88);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-hover-border: rgba(194, 237, 48, 0.45);
-  --chip-bg: rgba(255, 255, 255, 0.04);
-  --chip-border: rgba(255, 255, 255, 0.08);
-  --input-bg: rgba(255, 255, 255, 0.03);
-  --input-border: rgba(255, 255, 255, 0.1);
-  --shadow-elevated: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  --bg-canvas: #06080d;
+  --bg-surface: #0b0f17;
+  --bg-elevated: #111724;
+  --bg-glass: rgba(7, 10, 16, 0.88);
+  --text-primary: #f0f9ff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-primary: #00f0ff;
+  --accent-primary-ink: #040810;
+  --accent-secondary: #ff0055;
+  --border-hairline: rgba(0, 240, 255, 0.14);
+  --border-strong: rgba(0, 240, 255, 0.32);
+  --card-bg: rgba(11, 15, 23, 0.9);
+  --card-border: rgba(0, 240, 255, 0.14);
+  --card-hover-border: rgba(0, 240, 255, 0.65);
+  --chip-bg: rgba(0, 240, 255, 0.06);
+  --chip-border: rgba(0, 240, 255, 0.16);
+  --input-bg: rgba(0, 240, 255, 0.03);
+  --input-border: rgba(0, 240, 255, 0.2);
+  --shadow-elevated: 0 20px 45px -15px rgba(0, 0, 0, 0.85), 0 0 25px rgba(0, 240, 255, 0.12);
   color-scheme: dark;
 }
 
 [data-theme="light"] {
-  --bg-canvas: #f8f9fa;
+  --bg-canvas: #f0f7fb;
   --bg-surface: #ffffff;
-  --bg-elevated: #f1f3f7;
+  --bg-elevated: #e2eef7;
   --bg-glass: rgba(255, 255, 255, 0.92);
-  --text-primary: #0f1115;
-  --text-secondary: #4b5563;
-  --text-muted: #6b7280;
-  --accent-primary: #15803d;
+  --text-primary: #09121a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --accent-primary: #007799;
   --accent-primary-ink: #ffffff;
-  --accent-secondary: #c2410c;
-  --border-hairline: rgba(15, 17, 21, 0.09);
-  --border-strong: rgba(15, 17, 21, 0.2);
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --card-border: rgba(15, 17, 21, 0.09);
-  --card-hover-border: rgba(21, 128, 61, 0.5);
-  --chip-bg: rgba(15, 17, 21, 0.04);
-  --chip-border: rgba(15, 17, 21, 0.09);
-  --input-bg: rgba(15, 17, 21, 0.02);
-  --input-border: rgba(15, 17, 21, 0.14);
-  --shadow-elevated: 0 15px 35px -10px rgba(0, 0, 0, 0.07);
+  --accent-secondary: #e11d48;
+  --border-hairline: rgba(9, 18, 26, 0.1);
+  --border-strong: rgba(9, 18, 26, 0.24);
+  --card-bg: rgba(255, 255, 255, 0.96);
+  --card-border: rgba(0, 119, 153, 0.16);
+  --card-hover-border: rgba(0, 119, 153, 0.55);
+  --chip-bg: rgba(0, 119, 153, 0.06);
+  --chip-border: rgba(0, 119, 153, 0.16);
+  --input-bg: rgba(0, 119, 153, 0.03);
+  --input-border: rgba(0, 119, 153, 0.22);
+  --shadow-elevated: 0 15px 35px -10px rgba(0, 119, 153, 0.1);
   color-scheme: light;
 }
 
@@ -195,6 +195,7 @@
   background-color: var(--accent-primary);
   color: var(--accent-primary-ink);
   border: 1px solid transparent;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.28);
 }
 
 .interactive-btn-primary:hover {

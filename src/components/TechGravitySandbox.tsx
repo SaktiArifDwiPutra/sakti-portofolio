@@ -26,7 +26,7 @@ const ALL_GITHUB_TECH_NODES: TechNode[] = [
   { id: 'laravel', name: 'Laravel', category: 'backend', color: '#ff2d20', x: 38, y: 72, vx: -0.18, vy: 0.18, iconText: 'Lv', projectNote: 'RESTful API architecture & Eloquent ORM in CritiPlay', role: 'Backend Framework' },
   { id: 'mysql', name: 'MySQL', category: 'backend', color: '#00758f', x: 60, y: 65, vx: 0.2, vy: -0.19, iconText: 'SQL', projectNote: 'Relational data schemas for Pilketos, CritiPlay & School databases', role: 'Relational Database' },
   { id: 'python', name: 'Python', category: 'backend', color: '#3776ab', x: 82, y: 68, vx: -0.22, vy: -0.14, iconText: 'Py', projectNote: 'Custom Odoo ERP module development in eventflow_management', role: 'ERP Scripting' },
-  { id: 'odoo', name: 'Odoo ERP', category: 'backend', color: '#714b67', x: 50, y: 48, vx: 0.14, vy: 0.22, iconText: 'Od', projectNote: 'Resource modeling in LaundryFlow & eventflow_management module', role: 'Enterprise Systems' },
+  { id: 'odoo', name: 'Odoo ERP', category: 'backend', color: '#06b6d4', x: 50, y: 48, vx: 0.14, vy: 0.22, iconText: 'Od', projectNote: 'Resource modeling in LaundryFlow & eventflow_management module', role: 'Enterprise Systems' },
   { id: 'flutter', name: 'Flutter & Dart', category: 'mobile', color: '#54c5f8', x: 12, y: 48, vx: 0.2, vy: -0.22, iconText: 'Fl', projectNote: 'Operational mobile workflow app in LaundryFlow', role: 'Cross-Platform Mobile' },
   { id: 'canvas', name: 'HTML5 & Canvas Game', category: 'game', color: '#f59e0b', x: 86, y: 25, vx: -0.16, vy: 0.2, iconText: 'JS', projectNote: 'Interactive educational game mechanics in Daus Anak Soleh', role: 'Game Programming' },
   { id: 'godot', name: 'Godot Engine 4', category: 'game', color: '#478cbf', x: 84, y: 46, vx: 0.22, vy: -0.18, iconText: 'Gd', projectNote: 'Node-based scene composition & signal architecture in Negeri Kelabu', role: 'Indie Game Engine' },
@@ -233,7 +233,7 @@ export function TechGravitySandbox() {
                 style={{
                   backgroundColor: isSelected ? 'rgba(255,255,255,0.14)' : 'rgba(255, 255, 255, 0.05)',
                   borderColor: isSelected ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.12)',
-                  boxShadow: isSelected ? '0 0 25px rgba(194, 237, 48, 0.35)' : 'none',
+                  boxShadow: isSelected ? '0 0 28px rgba(0, 240, 255, 0.45)' : 'none',
                 }}
               >
                 {/* Tech Monogram / Icon */}

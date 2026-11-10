@@ -810,7 +810,7 @@ function PilketosStage({ locale }: { locale: Locale }) {
   const isId = locale === 'id';
   const [candidates, setCandidates] = useState([
     { id: 1, name: 'Rayhan & Nadia', vision: 'Inovasi Digital & Lingkungan Bersih', votes: 142, color: '#38bdf8' },
-    { id: 2, name: 'Sakti & Fadhil', vision: 'Kreativitas Teknologi & Kolaborasi', votes: 198, color: '#c2ed30' },
+    { id: 2, name: 'Sakti & Fadhil', vision: 'Kreativitas Teknologi & Kolaborasi', votes: 198, color: '#00f0ff' },
     { id: 3, name: 'Zahra & Kevin', vision: 'Pengembangan Bakat Seni & Olahraga', votes: 85, color: '#f43f5e' },
   ]);
   const [hasVoted, setHasVoted] = useState(false);
