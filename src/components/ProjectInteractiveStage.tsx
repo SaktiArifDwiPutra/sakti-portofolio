@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
+import { ExternalLink, Globe, ShieldCheck, Activity, ArrowUpRight } from 'lucide-react';
 import type { Locale } from '@/i18n/routing';
 
 interface StageProps {
@@ -34,237 +36,106 @@ export function ProjectInteractiveStage({ slug, locale }: StageProps) {
 }
 
 /* ============================================================================
-   STAGE I: CRITIPLAY — EDITORIAL RATING & AGGREGATION STUDIO
+   STAGE I: CRITIPLAY — LIVE LINK PREVIEW
 ============================================================================ */
 function CritiPlayStage({ locale }: { locale: Locale }) {
   const isId = locale === 'id';
 
-  const catalog = [
-    {
-      id: 'entry-01',
-      title: 'Chronicle of Ash',
-      genre: isId ? 'RPG Naratif' : 'Narrative RPG',
-      year: '2025',
-      baseReviews: 142,
-      defaultScores: { narrative: 9.5, systems: 8.8, atmosphere: 9.6 },
-    },
-    {
-      id: 'entry-02',
-      title: 'Vektor Zero',
-      genre: isId ? 'Strategi Taktis' : 'Tactical Strategy',
-      year: '2024',
-      baseReviews: 98,
-      defaultScores: { narrative: 8.1, systems: 9.7, atmosphere: 8.9 },
-    },
-    {
-      id: 'entry-03',
-      title: 'Lembah Sunyi',
-      genre: isId ? 'Simulasi Eksplorasi' : 'Exploration Sim',
-      year: '2026',
-      baseReviews: 64,
-      defaultScores: { narrative: 9.2, systems: 8.4, atmosphere: 9.8 },
-    },
-  ];
-
-  const [selectedIdx, setSelectedIdx] = useState(0);
-  const activeGame = catalog[selectedIdx];
-
-  const [scores, setScores] = useState(activeGame.defaultScores);
-
-  const handleSelectGame = (idx: number) => {
-    setSelectedIdx(idx);
-    setScores(catalog[idx].defaultScores);
-  };
-
-  const composite = (
-    (scores.narrative + scores.systems + scores.atmosphere) /
-    3
-  ).toFixed(1);
-
   return (
-    <div className="bg-surface border-t border-b border-hairline p-6 sm:p-8 lg:p-10">
-      {/* Top Editorial Caption */}
-      <div className="flex flex-wrap items-baseline justify-between gap-4 pb-6 border-b border-hairline">
-        <div>
-          <span className="font-mono text-xs text-accent tracking-wider uppercase">
-            {isId
-              ? 'Eksibisi Interaktif 01 — Mesin Penilaian & Ulasan CritiPlay'
-              : 'Interactive Exhibition 01 — CritiPlay Rating & Critique Engine'}
+    <div className="rounded-2xl border border-white/[0.08] bg-[var(--bg-elevated)] overflow-hidden shadow-2xl">
+      {/* Browser Bar / Viewport Header */}
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3 bg-[var(--bg-surface)] border-b border-white/[0.08]">
+        {/* Window Controls */}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
+            <span className="h-3 w-3 rounded-full bg-red-500/80 inline-block" />
+            <span className="h-3 w-3 rounded-full bg-yellow-500/80 inline-block" />
+            <span className="h-3 w-3 rounded-full bg-green-500/80 inline-block" />
+          </div>
+          <span className="font-mono text-[11px] text-[var(--text-muted)] ml-2 hidden sm:inline">
+            CRITIPLAY LIVE PRODUCTION
           </span>
-          <p className="text-sm text-secondary-ink mt-1">
-            {isId
-              ? 'Pilih judul katalog dan sesuaikan parameter ulasan untuk melihat agregasi skor relasional secara langsung.'
-              : 'Select a catalog title and adjust critique parameters to observe live relational score aggregation.'}
-          </p>
         </div>
-        <span className="font-mono text-xs text-muted-ink">
-          React · TypeScript · Laravel · MySQL
-        </span>
+
+        {/* SSL & URL Badge */}
+        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono">
+          <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+          <span className="text-white font-medium">critiplay.my.id</span>
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse ml-1" />
+        </div>
+
+        {/* Deployment Stack Tag */}
+        <div className="hidden md:flex items-center gap-2 font-mono text-[11px] text-[var(--text-muted)]">
+          <Activity className="h-3.5 w-3.5 text-cyan-400" />
+          <span>Vercel + Neon DB (PostgreSQL)</span>
+        </div>
       </div>
 
-      {/* Main Studio Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-8 items-start">
-        {/* Left: Game Selector & Multi-Axis Sliders (7 cols) */}
-        <div className="lg:col-span-7 space-y-8">
-          {/* Title Switcher */}
-          <div className="flex flex-wrap gap-2">
-            {catalog.map((item, idx) => {
-              const active = idx === selectedIdx;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => handleSelectGame(idx)}
-                  aria-pressed={active}
-                  className={`px-4 py-2.5 text-left transition-colors border ${
-                    active
-                      ? 'border-[var(--accent-primary)] bg-elevated text-primary-ink'
-                      : 'border-hairline bg-canvas text-secondary-ink hover:text-primary-ink'
-                  }`}
-                >
-                  <span className="block font-mono text-[11px] text-muted-ink">
-                    {item.genre} · {item.year}
-                  </span>
-                  <span className="font-serif text-base font-medium">
-                    {item.title}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+      {/* Main Preview Screen */}
+      <div className="relative aspect-[16/9] sm:aspect-[16/8] w-full bg-[var(--bg-canvas)] overflow-hidden group/preview">
+        <Image
+          src="/images/projects/critiplay-cover.png"
+          alt="CritiPlay Live Platform Preview"
+          fill
+          className="object-cover object-top transition-transform duration-700 group-hover/preview:scale-[1.03]"
+          priority
+        />
+        {/* Subtle Cyberpunk Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 sm:p-8">
+          <div className="max-w-xl space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs font-semibold backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping inline-block" />
+              <span>{isId ? 'Platform Live Aktif' : 'Active Live Platform'}</span>
+            </div>
 
-          {/* 3-Axis Critique Controls */}
-          <div className="space-y-5 bg-canvas p-5 sm:p-6 border border-hairline">
-            {(
-              [
-                {
-                  key: 'narrative',
-                  label: isId
-                    ? 'Kedalaman Narasi & Penulisan'
-                    : 'Narrative & Writing Depth',
-                },
-                {
-                  key: 'systems',
-                  label: isId
-                    ? 'Desain Sistem & Mekanika'
-                    : 'Systems & Mechanical Design',
-                },
-                {
-                  key: 'atmosphere',
-                  label: isId
-                    ? 'Arahan Seni & Atmosfer'
-                    : 'Art Direction & Atmosphere',
-                },
-              ] as const
-            ).map((criterion) => {
-              const val = scores[criterion.key];
-              return (
-                <div key={criterion.key}>
-                  <div className="flex items-center justify-between text-sm mb-2">
-                    <label
-                      htmlFor={`slider-${criterion.key}`}
-                      className="font-medium text-primary-ink"
-                    >
-                      {criterion.label}
-                    </label>
-                    <span className="font-mono text-sm font-semibold text-accent">
-                      {val.toFixed(1)} / 10
-                    </span>
-                  </div>
-                  <input
-                    id={`slider-${criterion.key}`}
-                    type="range"
-                    min="5.0"
-                    max="10.0"
-                    step="0.1"
-                    value={val}
-                    onChange={(e) =>
-                      setScores((prev) => ({
-                        ...prev,
-                        [criterion.key]: parseFloat(e.target.value),
-                      }))
-                    }
-                    className="w-full accent-[var(--accent-primary)] cursor-pointer h-1.5 bg-elevated"
-                  />
-                </div>
-              );
-            })}
+            <h4 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight">
+              CritiPlay — Community Game Reviews
+            </h4>
+
+            <p className="text-xs sm:text-sm text-white/80 line-clamp-2 leading-relaxed">
+              {isId
+                ? 'Platform penelusuran, penilaian, dan ulasan game terstruktur dengan arsitektur decoupled: frontend React & TypeScript di Vercel dan backend API Laravel terhubung ke PostgreSQL Neon DB.'
+                : 'Structured game discovery and critique platform with decoupled architecture: React & TypeScript client on Vercel and Laravel API server connected to Neon PostgreSQL.'}
+            </p>
+
+            {/* Direct Redirect Live Link Preview Button */}
+            <div className="pt-2 flex flex-wrap items-center gap-3">
+              <a
+                href="https://www.critiplay.my.id"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/btn inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black font-mono text-xs sm:text-sm font-extrabold uppercase tracking-wider transition-all duration-200 shadow-xl shadow-cyan-500/25 hover:shadow-cyan-400/40 hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <Globe className="h-4 w-4 text-black" />
+                <span>{isId ? 'Buka Live Link Preview' : 'Open Live Link Preview'}</span>
+                <ExternalLink className="h-4 w-4 text-black transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+              </a>
+
+              <span className="font-mono text-[11px] text-white/60">
+                {isId ? 'Direct redirect → www.critiplay.my.id' : 'Direct redirect → www.critiplay.my.id'}
+              </span>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Right: Live Composite Output & Relational State Readout (5 cols) */}
-        <div className="lg:col-span-5 bg-canvas border border-hairline p-6 sm:p-8 flex flex-col justify-between gap-6">
-          <div>
-            <span className="font-mono text-xs text-muted-ink uppercase">
-              {isId ? 'Indeks Konsensus Kritikus' : 'Composite Critique Index'}
-            </span>
-            <div className="mt-3 flex items-baseline gap-4">
-              <span className="font-serif text-6xl sm:text-7xl font-normal tracking-tight text-accent">
-                {composite}
-              </span>
-              <div className="text-xs font-mono text-secondary-ink">
-                <div>/ 10.0 SCALE</div>
-                <div className="text-muted-ink mt-0.5">
-                  {activeGame.baseReviews + 1}{' '}
-                  {isId ? 'ulasan terindeks' : 'indexed critiques'}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Distribution Bars */}
-          <div className="space-y-2.5 border-t border-hairline pt-5">
-            <div className="flex items-center gap-3 font-mono text-xs">
-              <span className="w-20 text-secondary-ink">
-                {isId ? 'Narasi' : 'Narrative'}
-              </span>
-              <div className="flex-1 h-1.5 bg-surface overflow-hidden">
-                <div
-                  className="h-full bg-[var(--accent-primary)] transition-all duration-150"
-                  style={{ width: `${scores.narrative * 10}%` }}
-                />
-              </div>
-              <span className="w-8 text-right text-primary-ink">
-                {scores.narrative.toFixed(1)}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-3 font-mono text-xs">
-              <span className="w-20 text-secondary-ink">
-                {isId ? 'Mekanika' : 'Systems'}
-              </span>
-              <div className="flex-1 h-1.5 bg-surface overflow-hidden">
-                <div
-                  className="h-full bg-[var(--accent-primary)] transition-all duration-150"
-                  style={{ width: `${scores.systems * 10}%` }}
-                />
-              </div>
-              <span className="w-8 text-right text-primary-ink">
-                {scores.systems.toFixed(1)}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-3 font-mono text-xs">
-              <span className="w-20 text-secondary-ink">
-                {isId ? 'Atmosfer' : 'Atmosphere'}
-              </span>
-              <div className="flex-1 h-1.5 bg-surface overflow-hidden">
-                <div
-                  className="h-full bg-[var(--accent-primary)] transition-all duration-150"
-                  style={{ width: `${scores.atmosphere * 10}%` }}
-                />
-              </div>
-              <span className="w-8 text-right text-primary-ink">
-                {scores.atmosphere.toFixed(1)}
-              </span>
-            </div>
-          </div>
-
-          {/* Relational Sync Footnote */}
-          <div className="border-t border-hairline pt-4 flex items-center justify-between font-mono text-xs text-muted-ink">
-            <span>Laravel API Resource → MySQL</span>
-            <span className="text-accent">score_avg: {composite}</span>
-          </div>
+      {/* Health & Architecture Footer */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-3 sm:p-4 bg-[var(--bg-surface)] border-t border-white/[0.08] font-mono text-xs">
+        <div className="p-2 rounded-lg bg-white/[0.02]">
+          <span className="text-[var(--text-muted)] text-[10px] uppercase block">Status</span>
+          <span className="text-emerald-400 font-bold">200 OK Live</span>
+        </div>
+        <div className="p-2 rounded-lg bg-white/[0.02]">
+          <span className="text-[var(--text-muted)] text-[10px] uppercase block">Frontend</span>
+          <span className="text-white font-semibold">Vercel Edge</span>
+        </div>
+        <div className="p-2 rounded-lg bg-white/[0.02]">
+          <span className="text-[var(--text-muted)] text-[10px] uppercase block">Backend</span>
+          <span className="text-white font-semibold">Dedicated API</span>
+        </div>
+        <div className="p-2 rounded-lg bg-white/[0.02]">
+          <span className="text-[var(--text-muted)] text-[10px] uppercase block">Database</span>
+          <span className="text-cyan-400 font-semibold">Neon PostgreSQL</span>
         </div>
       </div>
     </div>

@@ -50,6 +50,27 @@ export async function generateMetadata({
   };
 }
 
+function renderWithPartnerLink(text: string) {
+  if (!text || !text.includes('Khairul')) return text;
+  const parts = text.split('Khairul');
+  return parts.map((part, i) => (
+    <React.Fragment key={i}>
+      {part}
+      {i < parts.length - 1 && (
+        <a
+          href="https://github.com/Kyunn17"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-4 decoration-cyan-400/50 hover:decoration-cyan-300 transition-colors cursor-pointer"
+          title="GitHub: Khairul (@Kyunn17)"
+        >
+          Khairul
+        </a>
+      )}
+    </React.Fragment>
+  ));
+}
+
 export default async function ProjectDetailPage({
   params,
 }: {
@@ -143,7 +164,7 @@ export default async function ProjectDetailPage({
                       rel="noopener noreferrer"
                       className="interactive-btn interactive-btn-primary px-5 py-2.5 text-xs font-mono shadow-md"
                     >
-                      <span>{t('demoLink')}</span>
+                      <span>{project.slug === 'critiplay' ? 'Live Link Preview' : t('demoLink')}</span>
                       <ArrowUpRight className="h-4 w-4" />
                     </a>
                   ) : (
@@ -158,16 +179,21 @@ export default async function ProjectDetailPage({
                 )}
 
                 {project.links.collaborator && (
-                  <a
-                    href={project.links.collaborator.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="interactive-btn interactive-btn-secondary px-5 py-2.5 text-xs font-mono text-cyan-400 border-cyan-500/30 hover:border-cyan-400"
-                    title="Collaborator / Partner Credit"
-                  >
-                    <User className="h-4 w-4" />
-                    <span>Partner: {project.links.collaborator.name}</span>
-                  </a>
+                  <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/[0.08] bg-white/[0.03] text-xs font-mono">
+                    <User className="h-4 w-4 text-[var(--text-muted)]" />
+                    <span className="text-[var(--text-muted)]">
+                      {locale === 'id' ? 'Mitra Kolaborasi:' : 'Collaborator:'}
+                    </span>
+                    <a
+                      href={project.links.collaborator.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-4 decoration-cyan-400/50 hover:decoration-cyan-300 transition-colors cursor-pointer"
+                      title="GitHub: Khairul (@Kyunn17)"
+                    >
+                      Khairul
+                    </a>
+                  </div>
                 )}
               </div>
             </div>
@@ -207,11 +233,11 @@ export default async function ProjectDetailPage({
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-[var(--accent-primary)] animate-pulse" />
               <h2 className="font-display font-bold text-xl text-[var(--text-primary)]">
-                Live Interactive Architecture Stage
+                {project.slug === 'critiplay' ? 'Live Platform Preview Stage' : 'Live Interactive Architecture Stage'}
               </h2>
             </div>
             <span className="font-mono text-xs text-[var(--text-muted)]">
-              TEST BENCH
+              {project.slug === 'critiplay' ? 'LIVE DEPLOYMENT' : 'TEST BENCH'}
             </span>
           </div>
 
@@ -227,7 +253,7 @@ export default async function ProjectDetailPage({
           </span>
           <div className="space-y-4 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-4xl">
             {overviewParagraphs.map((para, idx) => (
-              <p key={idx}>{para}</p>
+              <p key={idx}>{renderWithPartnerLink(para)}</p>
             ))}
           </div>
         </section>

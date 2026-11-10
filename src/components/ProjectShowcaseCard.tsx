@@ -123,24 +123,32 @@ export function ProjectShowcaseCard({ project, orderNumber }: ProjectShowcaseCar
                 href={project.links.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] text-[var(--accent-primary)] font-mono text-xs font-medium hover:border-[var(--accent-primary)] transition-all"
+                className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md ${
+                  project.slug === 'critiplay'
+                    ? 'bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black hover:scale-[1.02] shadow-cyan-500/20'
+                    : 'bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] text-[var(--accent-primary)] hover:border-[var(--accent-primary)]'
+                }`}
               >
                 <ExternalLink className="h-3.5 w-3.5" />
-                <span>Live Demo</span>
+                <span>{project.slug === 'critiplay' ? 'Live Link Preview' : 'Live Demo'}</span>
               </a>
             )}
 
             {project.links.collaborator && (
-              <a
-                href={project.links.collaborator.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-cyan-500/30 text-cyan-400 font-mono text-xs font-medium hover:border-cyan-400 transition-all"
-                title="Collaborator / Partner Credit"
-              >
-                <User className="h-3.5 w-3.5" />
-                <span>Partner: {project.links.collaborator.name}</span>
-              </a>
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.08] font-mono text-xs">
+                <span className="text-[var(--text-muted)]">
+                  {locale === 'id' ? 'Mitra Kolaborasi:' : 'Collaborator:'}
+                </span>
+                <a
+                  href={project.links.collaborator.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-4 decoration-cyan-400/50 hover:decoration-cyan-300 transition-colors cursor-pointer"
+                  title="GitHub: Khairul (@Kyunn17)"
+                >
+                  Khairul
+                </a>
+              </div>
             )}
           </div>
         </div>
@@ -160,7 +168,11 @@ export function ProjectShowcaseCard({ project, orderNumber }: ProjectShowcaseCar
                 }`}
               >
                 <Play className="h-3 w-3" />
-                <span>{locale === 'id' ? 'Simulator Interaktif' : 'Live Interactive Simulator'}</span>
+                <span>
+                  {project.slug === 'critiplay'
+                    ? (locale === 'id' ? 'Live Link Preview' : 'Live Link Preview')
+                    : (locale === 'id' ? 'Simulator Interaktif' : 'Live Interactive Simulator')}
+                </span>
               </button>
 
               <button
@@ -178,7 +190,7 @@ export function ProjectShowcaseCard({ project, orderNumber }: ProjectShowcaseCar
             </div>
 
             <span className="font-mono text-[11px] text-[var(--text-muted)] hidden sm:inline">
-              LIVE TEST BENCH
+              {project.slug === 'critiplay' ? 'LIVE DEPLOYMENT' : 'LIVE TEST BENCH'}
             </span>
           </div>
 

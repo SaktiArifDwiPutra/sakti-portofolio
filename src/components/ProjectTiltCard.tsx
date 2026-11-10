@@ -177,10 +177,14 @@ export function ProjectTiltCard({ project, orderNumber }: ProjectTiltCardProps) 
                     href={project.links.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="interactive-btn interactive-btn-secondary px-4 py-2.5 text-xs font-mono text-[var(--accent-primary)] hover:border-[var(--accent-primary)]"
+                    className={`interactive-btn interactive-btn-secondary px-4 py-2.5 text-xs font-mono ${
+                      project.slug === 'critiplay'
+                        ? 'border-cyan-500/40 text-cyan-400 hover:border-cyan-400 font-bold'
+                        : 'text-[var(--accent-primary)] hover:border-[var(--accent-primary)]'
+                    }`}
                   >
                     <ExternalLink className="h-3.5 w-3.5" />
-                    <span>Live App</span>
+                    <span>{project.slug === 'critiplay' ? 'Live Link Preview' : 'Live App'}</span>
                   </a>
                 ) : (
                   <span
@@ -194,16 +198,20 @@ export function ProjectTiltCard({ project, orderNumber }: ProjectTiltCardProps) 
               )}
 
               {project.links.collaborator && (
-                <a
-                  href={project.links.collaborator.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="interactive-btn interactive-btn-secondary px-3.5 py-2 text-xs font-mono text-cyan-400 border-cyan-500/30 hover:border-cyan-400"
-                  title="Collaborator / Partner Credit"
-                >
-                  <User className="h-3.5 w-3.5" />
-                  <span>Partner: {project.links.collaborator.name}</span>
-                </a>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] text-xs font-mono">
+                  <span className="text-[var(--text-muted)]">
+                    {locale === 'id' ? 'Mitra:' : 'Partner:'}
+                  </span>
+                  <a
+                    href={project.links.collaborator.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-2 decoration-cyan-400/50 hover:decoration-cyan-300 transition-colors cursor-pointer"
+                    title="GitHub: Khairul (@Kyunn17)"
+                  >
+                    Khairul
+                  </a>
+                </div>
               )}
             </div>
           </div>

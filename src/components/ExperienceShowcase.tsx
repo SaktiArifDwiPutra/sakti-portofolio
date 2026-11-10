@@ -6,6 +6,27 @@ import type { Locale } from '@/i18n/routing';
 import { EXPERIENCES, tField } from '@/data/portfolio';
 import { Calendar, Briefcase, ChevronRight, Sparkles } from 'lucide-react';
 
+function renderWithPartnerLink(text: string) {
+  if (!text || !text.includes('Khairul')) return text;
+  const parts = text.split('Khairul');
+  return parts.map((part, i) => (
+    <React.Fragment key={i}>
+      {part}
+      {i < parts.length - 1 && (
+        <a
+          href="https://github.com/Kyunn17"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-4 decoration-cyan-400/50 hover:decoration-cyan-300 transition-colors cursor-pointer"
+          title="GitHub: Khairul (@Kyunn17)"
+        >
+          Khairul
+        </a>
+      )}
+    </React.Fragment>
+  ));
+}
+
 export function ExperienceShowcase() {
   const locale = useLocale() as Locale;
 
@@ -35,7 +56,7 @@ export function ExperienceShowcase() {
               <div>
                 <div className="flex items-center gap-2.5">
                   <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
-                    {tField(exp.organization, locale)}
+                    {renderWithPartnerLink(tField(exp.organization, locale))}
                   </span>
                   {exp.isPlaceholder && (
                     <span className="px-2 py-0.5 rounded-full border border-dashed border-amber-500/50 bg-amber-500/10 text-amber-400 font-mono text-[10px] uppercase font-semibold">
@@ -56,7 +77,7 @@ export function ExperienceShowcase() {
 
             {/* Narrative Summary */}
             <p className="text-sm text-[var(--text-secondary)] mt-4 leading-relaxed">
-              {tField(exp.summary, locale)}
+              {renderWithPartnerLink(tField(exp.summary, locale))}
             </p>
 
             {/* Deliverables Bullet List */}

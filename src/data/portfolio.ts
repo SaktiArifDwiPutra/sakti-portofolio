@@ -142,16 +142,16 @@ export const PROJECTS: ProjectEntry[] = [
       id: 'Platform penilaian dan ulasan game terstruktur yang dibangun dengan React, TypeScript, Laravel, dan PostgreSQL (Neon DB).',
     },
     description: {
-      en: 'CritiPlay is a full-stack collaborative web platform designed for cataloging, rating, and reviewing video games. Developed in engineering collaboration with partner Khairul (https://github.com/Kyunn17) with a decoupled production architecture: a typed React & TypeScript client interface hosted on Vercel, paired with a dedicated Laravel REST API server connected to PostgreSQL hosted on Neon DB.',
-      id: 'CritiPlay adalah platform web kolaboratif full-stack yang dirancang untuk mengatalogkan, memberi nilai, dan mengulas video game. Dikembangkan berkolaborasi bersama mitra Khairul (https://github.com/Kyunn17) dengan arsitektur produksi decoupled: antarmuka klien React & TypeScript bertipe kuat yang di-host di Vercel, terhubung ke server backend API Laravel terpisah dengan basis data PostgreSQL di Neon DB.',
+      en: 'CritiPlay is a full-stack collaborative web platform designed for cataloging, rating, and reviewing video games. Developed in engineering collaboration with partner Khairul with a decoupled production architecture: a typed React & TypeScript client interface hosted on Vercel, paired with a dedicated Laravel REST API server connected to PostgreSQL hosted on Neon DB.',
+      id: 'CritiPlay adalah platform web kolaboratif full-stack yang dirancang untuk mengatalogkan, memberi nilai, dan mengulas video game. Dikembangkan berkolaborasi bersama mitra Khairul dengan arsitektur produksi decoupled: antarmuka klien React & TypeScript bertipe kuat yang di-host di Vercel, terhubung ke server backend API Laravel terpisah dengan basis data PostgreSQL di Neon DB.',
     },
     editorialOverview: {
       en: [
-        'CritiPlay was conceived to bring editorial structure to community game reviews. The project is an engineering collaboration with partner Khairul (credited at https://github.com/Kyunn17).',
+        'CritiPlay was conceived to bring editorial structure to community game reviews. The project is an engineering collaboration with partner Khairul.',
         'From an architectural standpoint, CritiPlay decouples presentation from backend services: a modern React & TypeScript client hosted on Vercel manages interactive filtering and review interfaces, while a separate dedicated Laravel API server handles authentication and business logic connected to a cloud PostgreSQL database hosted on Neon DB.',
       ],
       id: [
-        'CritiPlay dirancang untuk menghadirkan struktur editorial pada ulasan game komunitas. Proyek ini merupakan kolaborasi rekayasa perangkat lunak bersama mitra Khairul (dikreditkan di https://github.com/Kyunn17).',
+        'CritiPlay dirancang untuk menghadirkan struktur editorial pada ulasan game komunitas. Proyek ini merupakan kolaborasi rekayasa perangkat lunak bersama mitra Khairul.',
         'Dari sisi arsitektur, CritiPlay memisahkan antarmuka dari layanan backend: klien React & TypeScript modern yang di-host di Vercel menangani penyaringan interaktif dan antarmuka ulasan, sementara server API Laravel terpisah menangani autentikasi dan logika bisnis yang terhubung ke database cloud PostgreSQL di Neon DB.',
       ],
     },
@@ -162,8 +162,8 @@ export const PROJECTS: ProjectEntry[] = [
       id: 'Lead Full-Stack Developer & Desainer Produk (Desain, Konsep, Arsitektur Backend Penuh & Finishing Frontend)',
     },
     status: {
-      en: 'Live Production (www.critiplay.my.id)',
-      id: 'Aktif Dipublikasikan (www.critiplay.my.id)',
+      en: 'Live Production',
+      id: 'Aktif Dipublikasikan',
     },
     features: [
       {
@@ -319,12 +319,12 @@ export const PROJECTS: ProjectEntry[] = [
       repository: 'https://github.com/SaktiArifDwiPutra/CritiPlay',
       demo: 'https://www.critiplay.my.id',
       collaborator: {
-        name: 'Khairul (Kyunn17)',
+        name: 'Khairul',
         url: 'https://github.com/Kyunn17',
       },
       note: {
-        en: 'Collaborative engineering with Khairul (https://github.com/Kyunn17). Live platform active at www.critiplay.my.id.',
-        id: 'Proyek rekayasa kolaboratif bersama Khairul (https://github.com/Kyunn17). Platform live aktif di www.critiplay.my.id.',
+        en: 'Collaborative engineering with Khairul. Live platform available via live preview redirect.',
+        id: 'Proyek rekayasa kolaboratif bersama Khairul. Platform live tersedia melalui tombol pratinjau langsung.',
       },
     },
   },
@@ -1608,29 +1608,29 @@ export const EXPERIENCES: ExperienceEntry[] = [
       id: 'Lead Full-Stack Architect & Desainer Produk',
     },
     organization: {
-      en: 'Collaborative Project (w/ Khairul • Partner Credit)',
-      id: 'Proyek Kolaborasi (bersama Khairul • Partner Credit)',
+      en: 'Collaborative Project (w/ Khairul)',
+      id: 'Proyek Kolaborasi (bersama Khairul)',
     },
     domain: {
       en: 'Community Game Review & Platform Architecture',
       id: 'Platform Penilaian & Komunitas Game',
     },
     summary: {
-      en: 'Collaborative web platform developed with partner Khairul (https://github.com/Kyunn17). I spearheaded the product concept, visual theme, and UI/UX design; architected the complete backend from scratch (Laravel REST API with PostgreSQL on Neon DB); and completed the frontend finishing and post-publishing optimization. Built with a decoupled architecture separating the Vercel frontend from the dedicated backend API server, active live at www.critiplay.my.id.',
-      id: 'Platform ulasan game kolaboratif yang dikembangkan bersama mitra Khairul (https://github.com/Kyunn17). Saya memimpin konsep produk, tema visual, dan desain UI/UX; merancang seluruh backend dari nol (Laravel REST API dengan PostgreSQL di Neon DB); serta menyelesaikan finishing frontend dan penyempurnaan pasca-publikasi. Dibangun dengan arsitektur decoupled yang memisahkan frontend Vercel dari server API backend terpisah, aktif live di www.critiplay.my.id.',
+      en: 'Collaborative web platform developed with partner Khairul. I spearheaded the product concept, visual theme, and UI/UX design; architected the complete backend from scratch (Laravel REST API with PostgreSQL on Neon DB); and completed the frontend finishing and post-publishing optimization. Built with a decoupled architecture separating the Vercel frontend from the dedicated backend API server.',
+      id: 'Platform ulasan game kolaboratif yang dikembangkan bersama mitra Khairul. Saya memimpin konsep produk, tema visual, dan desain UI/UX; merancang seluruh backend dari nol (Laravel REST API dengan PostgreSQL di Neon DB); serta menyelesaikan finishing frontend dan penyempurnaan pasca-publikasi. Dibangun dengan arsitektur decoupled yang memisahkan frontend Vercel dari server API backend terpisah.',
     },
     deliverables: {
       en: [
         'Conceived and crafted complete product vision, visual theme, responsive typography, and reactive UI architecture in React & Tailwind CSS.',
         'Architected and built 100% of the backend infrastructure: relational database schemas, secure authentication, and performant REST APIs in Laravel.',
         'Configured decoupled production deployment: frontend hosted on Vercel, separate dedicated backend API server, and serverless PostgreSQL on Neon DB.',
-        'Executed frontend finishing, responsive polish, and post-release performance optimization on live production site (www.critiplay.my.id).',
+        'Executed frontend finishing, responsive polish, and post-release performance optimization on live production platform.',
       ],
       id: [
         'Merancang visi produk menyeluruh, tema visual, tipografi responsif, dan arsitektur UI reaktif menggunakan React & Tailwind CSS.',
         'Membangun 100% infrastruktur backend: skema database relasional, autentikasi aman, dan endpoint RESTful API di Laravel.',
         'Mengonfigurasi deployment arsitektur terpisah: frontend di-host di Vercel, server API backend terpisah, dan basis data serverless PostgreSQL di Neon DB.',
-        'Melakukan finishing frontend, polesan responsif, dan optimasi performa pasca-rilis pada platform live aktif (www.critiplay.my.id).',
+        'Melakukan finishing frontend, polesan responsif, dan optimasi performa pasca-rilis pada platform live.',
       ],
     },
     technologies: ['React', 'TypeScript', 'Laravel', 'PostgreSQL', 'Neon DB', 'Vercel', 'Tailwind CSS', 'REST API'],
