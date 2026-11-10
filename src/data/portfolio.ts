@@ -1303,114 +1303,156 @@ export const TECH_STACK: TechStackCategory[] = [
 
 export const EXPERIENCES: ExperienceEntry[] = [
   {
-    id: 'exp-fullstack-practice',
+    id: 'exp-critiplay-collab',
     index: '01',
     isPlaceholder: false,
     period: {
-      en: 'Ongoing Practice',
-      id: 'Praktik Berkelanjutan',
+      en: '2024 – Present // Published',
+      id: '2024 – Sekarang // Dipublikasikan',
     },
     role: {
-      en: 'Independent Full-Stack & Mobile Developer',
-      id: 'Pengembang Full-Stack & Mobile Independen',
+      en: 'Lead Full-Stack Architect & Product Designer',
+      id: 'Lead Full-Stack Architect & Desainer Produk',
     },
     organization: {
-      en: 'Self-Directed Product Engineering',
-      id: 'Rekayasa Produk Mandiri',
+      en: 'Collaborative Project (w/ Khairul • 80-20 Contribution)',
+      id: 'Proyek Kolaborasi (bersama Khairul • Kontribusi 80-20)',
     },
     domain: {
-      en: 'Web Platforms & Mobile ERP Integration',
-      id: 'Platform Web & Integrasi ERP Mobile',
+      en: 'Community Game Review & Platform Architecture',
+      id: 'Platform Penilaian & Komunitas Game',
     },
     summary: {
-      en: 'Designing and building full-stack web applications and mobile operational tools from database schema to user interface, including CritiPlay (React, TypeScript, Laravel, MySQL) and LaundryFlow (Flutter + Odoo).',
-      id: 'Merancang dan membangun aplikasi web full-stack serta perangkat operasional mobile mulai dari skema basis data hingga antarmuka pengguna, termasuk CritiPlay (React, TypeScript, Laravel, MySQL) dan LaundryFlow (Flutter + Odoo).',
+      en: 'Collaborative platform developed with Khairul (80-20 contribution split). I conceptualized the entire design, themes, and UI/UX; engineered the complete backend architecture (Laravel REST API & MySQL); and executed frontend finishing, followed by independent post-publishing frontend perfection. Khairul contributed to frontend development during production.',
+      id: 'Proyek platform web kolaboratif yang dikembangkan bersama Khairul dengan rasio kontribusi 80-20. Saya merancang keseluruhan konsep, tema, dan desain UI/UX; membangun seluruh arsitektur backend (Laravel REST API & MySQL); serta melakukan finishing frontend dan menyempurnakannya secara mandiri pasca-publikasi. Khairul membantu pengembangan frontend selama masa produksi.',
     },
     deliverables: {
       en: [
-        'Architected end-to-end relational schemas and REST API endpoints in Laravel & MySQL for community game ratings in CritiPlay.',
-        'Engineered cross-platform mobile workflows in Flutter integrated with an Odoo backend for laundry order management in LaundryFlow.',
-        'Established reusable TypeScript component patterns and responsive editorial interfaces.',
+        'Conceived full product vision, visual identity, responsive typography, and reactive UI architecture in React & Tailwind CSS.',
+        'Engineered 100% of the backend services, relational MySQL schemas, entity relations, and performant REST APIs in Laravel.',
+        'Collaborative workflow: guided production frontend with Khairul, followed by comprehensive independent frontend polish and performance optimization post-release.',
+        'Implemented community game catalogs, rating aggregation formulas, and interactive review systems.',
       ],
       id: [
-        'Merancang skema relasional menyeluruh dan endpoint REST API menggunakan Laravel & MySQL untuk penilaian game di CritiPlay.',
-        'Membangun alur kerja mobile lintas platform dengan Flutter yang terintegrasi ke backend Odoo untuk manajemen pesanan di LaundryFlow.',
-        'Menyusun pola komponen TypeScript yang dapat digunakan kembali serta antarmuka responsif.',
+        'Memimpin konsep produk, identitas visual, tipografi responsif, dan arsitektur UI reaktif menggunakan React & Tailwind CSS.',
+        'Membangun 100% backend: skema basis data relasional MySQL, otentikasi, relasi entitas, dan endpoint RESTful API di Laravel.',
+        'Alur kerja kolaboratif: memandu pengembangan frontend bersama Khairul selama produksi, dilanjutkan penyempurnaan frontend mandiri secara menyeluruh pasca-publikasi.',
+        'Mengimplementasikan indeks katalog game, formula agregasi penilaian pengguna, dan sistem review interaktif.',
       ],
     },
-    technologies: ['React', 'TypeScript', 'Laravel', 'MySQL', 'Flutter', 'Odoo'],
+    technologies: ['React', 'TypeScript', 'Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'REST API'],
   },
   {
-    id: 'exp-gamedev-practice',
+    id: 'exp-pilketos-school',
     index: '02',
     isPlaceholder: false,
     period: {
-      en: 'Ongoing Exploration',
-      id: 'Eksplorasi Berkelanjutan',
+      en: 'School Project Deployment',
+      id: 'Implementasi Proyek Sekolah',
     },
     role: {
-      en: 'Indie Game Developer & Systems Prototyper',
-      id: 'Pengembang Game Indie & Perancang Prototipe Sistem',
+      en: 'Lead Web Engineer & Systems Architect',
+      id: 'Pengembang Web Utama & Arsitek Sistem',
     },
     organization: {
-      en: 'Independent Game Development',
-      id: 'Pengembangan Game Independen',
+      en: 'School Project (Website Pilketos)',
+      id: 'Proyek Sekolah (Website Pilketos)',
     },
     domain: {
-      en: 'Interactive Simulation & RPG Mechanics',
-      id: 'Simulasi Interaktif & Mekanika RPG',
+      en: 'Digital Student Council Election & Real-Time Ballot Tally',
+      id: 'Sistem Pemilihan Ketua OSIS Digital & Rekapitulasi Real-Time',
     },
     summary: {
-      en: 'Developing Negeri Kelabu in Godot Engine—focusing on life-simulation rhythms, modular scene trees, signal-driven state management, and narrative interaction systems.',
-      id: 'Mengembangkan Negeri Kelabu di Godot Engine—berfokus pada ritme simulasi kehidupan, pohon scene modular, pengelolaan state berbasis sinyal, dan sistem interaksi naratif.',
+      en: 'Engineered the official school student council digital election platform (Website Pilketos), replacing manual paper ballots with a secure, tamper-resistant, real-time responsive web voting system for hundreds of students.',
+      id: 'Mengembangkan platform web resmi pemilihan ketua OSIS (Website Pilketos) untuk memodernisasi pemungutan suara sekolah dari surat suara fisik menjadi sistem digital yang terverifikasi, aman, dan real-time untuk ratusan pemilih siswa.',
     },
     deliverables: {
       en: [
-        'Prototyped global time/day-phase simulation and persistent world state architecture in Godot.',
-        'Built decoupled character interaction zones and conditional dialogue structures using GDScript.',
+        'Designed single-use unique voter token generation and authentication to eliminate duplicate voting and preserve absolute ballot anonymity.',
+        'Built real-time administrative vote count visualizer and candidate tally dashboard.',
+        'Optimized mobile-first interface for rapid, frictionless voting across concurrent student voter sessions.',
       ],
       id: [
-        'Membuat prototipe simulasi fase waktu harian global dan arsitektur state dunia persisten di Godot.',
-        'Membangun zona interaksi karakter terpisah serta struktur dialog bersyarat menggunakan GDScript.',
+        'Merancang otentikasi token pemilih unik sekali pakai untuk mencegah kecurangan dan menjaga kerahasiaan pilihan pemilih.',
+        'Membangun dasbor visualisasi rekapitulasi perolehan suara calon ketua OSIS secara real-time untuk panitia dan siswa.',
+        'Mengoptimalkan antarmuka responsif ramah seluler agar ratusan siswa dapat memberikan suara secara serentak tanpa kendala.',
       ],
     },
-    technologies: ['Godot Engine', 'GDScript', 'State Machines', 'Game Systems'],
+    technologies: ['PHP', 'Laravel', 'MySQL', 'JavaScript', 'Tailwind CSS', 'HTML 5'],
   },
   {
-    id: 'exp-placeholder-role',
+    id: 'exp-daus-gamedev',
     index: '03',
-    isPlaceholder: true,
+    isPlaceholder: false,
     period: {
-      en: '[OWNER INPUT: Year – Year]',
-      id: '[INPUT PEMILIK: Tahun – Tahun]',
+      en: 'Completed Production',
+      id: 'Produksi Selesai',
     },
     role: {
-      en: '[OWNER INPUT: Formal Role / Internship / Freelance Engagement]',
-      id: '[INPUT PEMILIK: Posisi Formal / Magang / Proyek Klien]',
+      en: 'Indie Game Developer & Systems Engineer',
+      id: 'Pengembang Game Indie & Perekayasa Sistem Game',
     },
     organization: {
-      en: '[OWNER INPUT: Company, Studio, or Academic Institution]',
-      id: '[INPUT PEMILIK: Nama Perusahaan, Studio, atau Institusi]',
+      en: 'Indie Game Production (Daus Anak Soleh)',
+      id: 'Produksi Game Indie (Daus Anak Soleh)',
     },
     domain: {
-      en: 'Reserved Career Milestone Slot',
-      id: 'Slot Riwayat Karier Formal',
+      en: '2D Action-Adventure & Educational Game Mechanics',
+      id: 'Petualangan Aksi 2D & Mekanika Game Edukasi',
     },
     summary: {
-      en: 'Reserved entry for formal employment, internship, or client contract details. Edit this item in src/data/portfolio.ts to publish verified career history.',
-      id: 'Slot terstruktur yang disediakan untuk rincian pekerjaan formal, magang, atau kontrak klien. Sunting entri ini di src/data/portfolio.ts untuk menampilkan riwayat karier resmi.',
+      en: 'Engineered and fully completed 2D educational adventure game "Daus Anak Soleh" using Phaser Framework, HTML 5 Canvas, and JavaScript. Delivered complete arcade physics, quiz dialogue mechanics, collectible religious items, and boss challenges.',
+      id: 'Mengembangkan dan menuntaskan secara penuh game petualangan edukatif 2D "Daus Anak Soleh" menggunakan Phaser Framework, HTML 5 Canvas, dan JavaScript. Menghadirkan fisika arcade lengkap, mekanika kuis islami, pengumpulan item ibadah, dan tantangan boss.',
     },
     deliverables: {
       en: [
-        'Replace with factual responsibilities and technical contributions.',
-        'Add verified project outcomes or team workflows.',
+        'Engineered complete 2D HTML 5 Canvas gameplay loop: arcade physics collisions, jump mechanics, and smooth scene transitions in Phaser.',
+        'Designed and implemented interactive quiz dialogue mechanics, scoring algorithms, and educational checkpoints.',
+        'Assembled pixel-art spritesheets, animations, and sound triggers into a zero-dependency browser gameplay experience.',
       ],
       id: [
-        'Ganti dengan tanggung jawab faktual dan kontribusi teknis Anda.',
-        'Tambahkan hasil proyek atau alur kerja tim yang terverifikasi.',
+        'Membangun loop gameplay HTML 5 Canvas dari nol: deteksi tabrakan fisika arcade, pergerakan platformer, dan transisi scene di Phaser.',
+        'Merancang dan mengimplementasikan mekanika dialog kuis edukatif interaktif, kalkulasi skor, serta checkpoint capaian.',
+        'Mengintegrasikan spritesheet pixel art, animasi karakter, dan pemicu audio menjadi pengalaman bermain langsung di browser yang lancar.',
       ],
     },
-    technologies: ['TypeScript', 'Full-Stack', 'Game Dev'],
+    technologies: ['Phaser', 'JavaScript', 'HTML 5 Canvas', 'Game Physics', 'Pixel Art'],
+  },
+  {
+    id: 'exp-dragonhold-independent',
+    index: '04',
+    isPlaceholder: true,
+    period: {
+      en: 'In-Progress // Blank Slot',
+      id: 'Dalam Pengerjaan // Dikosongkan Sementara',
+    },
+    role: {
+      en: 'Independent Project: Dragonhold (In-Progress)',
+      id: 'Proyek Independen: Dragonhold (Belum Selesai)',
+    },
+    organization: {
+      en: 'Independent Project (Reserved Blank Slot)',
+      id: 'Proyek Independen (Slot Dikosongkan Sementara)',
+    },
+    domain: {
+      en: 'Full-Stack Web & Systems Architecture',
+      id: 'Arsitektur Sistem & Web Full-Stack',
+    },
+    summary: {
+      en: 'Independent project Dragonhold is currently under active development and not yet finished. This slot is reserved and left blank for now until project completion and release.',
+      id: 'Proyek independen Dragonhold saat ini masih dalam proses pengerjaan dan belum selesai. Slot ini dicadangkan dan dikosongkan untuk saat ini hingga proyek rampung dan dirilis.',
+    },
+    deliverables: {
+      en: [
+        '[Under Active Development]: Core systems, services, and architecture currently being developed.',
+        '[Blank for Now]: Technical details, metrics, and case study will be published once project is completed.',
+      ],
+      id: [
+        '[Dalam Pengembangan]: Arsitektur inti, layanan, dan sistem sedang dikembangkan.',
+        '[Dikosongkan Sementara]: Rincian teknis, metrik, dan studi kasus akan diisi setelah proyek selesai.',
+      ],
+    },
+    technologies: ['Dragonhold', 'Docker', 'In Progress', 'Full-Stack'],
   },
 ];
 

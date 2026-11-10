@@ -57,10 +57,18 @@ export default async function ExperiencePage({
               <div key={exp.id} className="relative group">
                 {/* Glowing Node */}
                 <div className="absolute -left-[27px] sm:-left-[35px] top-2 flex items-center justify-center">
-                  <span className="h-4 w-4 rounded-full bg-[var(--bg-canvas)] border-2 border-[var(--accent-primary)] group-hover:scale-125 transition-transform shadow-md shadow-[var(--accent-primary)]/20" />
+                  <span className={`h-4 w-4 rounded-full bg-[var(--bg-canvas)] border-2 transition-transform shadow-md ${
+                    exp.isPlaceholder
+                      ? 'border-dashed border-amber-500/70 shadow-amber-500/20'
+                      : 'border-[var(--accent-primary)] group-hover:scale-125 shadow-[var(--accent-primary)]/20'
+                  }`} />
                 </div>
 
-                <article className="rounded-3xl theme-card p-6 sm:p-10 transition-all duration-300 shadow-xl">
+                <article className={`rounded-3xl theme-card p-6 sm:p-10 transition-all duration-300 shadow-xl ${
+                  exp.isPlaceholder
+                    ? 'border-dashed border-amber-500/30 bg-[var(--bg-canvas)]/40 hover:border-amber-500/60'
+                    : ''
+                }`}>
                   <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-[var(--border-hairline)]">
                     <div>
                       <div className="flex items-center gap-2 mb-1">

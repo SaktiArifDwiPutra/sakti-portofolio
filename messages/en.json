@@ -151,8 +151,8 @@
     "subtitle": "A factual record of hands-on engineering work, project development, and structured slots ready for formal career milestones.",
     "integrityNoticeTitle": "Content Integrity Note",
     "integrityNoticeBody": "In accordance with strict content authenticity, no employers, dates, or corporate metrics have been fabricated. Project-based engineering experience is documented alongside clearly labeled placeholders where Sakti can insert formal employment or academic history in src/data/portfolio.ts.",
-    "typePractice": "Independent Engineering",
-    "typePlaceholder": "Owner Input Slot",
+    "typePractice": "Verified Practice",
+    "typePlaceholder": "In-Progress / Blank",
     "deliverablesLabel": "Key Focus & Deliverables"
   },
   "certificatesPage": {

@@ -151,8 +151,8 @@
     "subtitle": "Dokumentasi faktual mengenai praktik pengembangan proyek, rekayasa perangkat lunak independen, serta slot terstruktur untuk riwayat karier formal.",
     "integrityNoticeTitle": "Catatan Integritas Konten",
     "integrityNoticeBody": "Sesuai dengan prinsip keaslian konten, tidak ada nama perusahaan, tanggal kerja, atau metrik klaim yang dikarang. Pengalaman rekayasa berbasis proyek didokumentasikan bersama slot placeholder yang ditandai dengan jelas agar Sakti dapat menambahkan riwayat pekerjaan atau pendidikan resmi melalui src/data/portfolio.ts.",
-    "typePractice": "Rekayasa Independen",
-    "typePlaceholder": "Slot Input Pemilik",
+    "typePractice": "Praktik Terverifikasi",
+    "typePlaceholder": "Dalam Pengembangan / Dikosongkan",
     "deliverablesLabel": "Fokus Utama & Hasil Kerja"
   },
   "certificatesPage": {

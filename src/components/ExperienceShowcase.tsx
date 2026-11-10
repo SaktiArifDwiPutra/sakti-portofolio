@@ -9,25 +9,40 @@ import { Calendar, Briefcase, ChevronRight, Sparkles } from 'lucide-react';
 export function ExperienceShowcase() {
   const locale = useLocale() as Locale;
 
-  // Filter out placeholder slot for primary homepage view or show as structured open slot
-  const displayExperiences = EXPERIENCES.filter((e) => !e.isPlaceholder);
+  // Display all experience trajectories (with structured in-progress styling for blank/reserved projects)
+  const displayExperiences = EXPERIENCES;
 
   return (
     <div className="relative pl-6 sm:pl-8 space-y-10 before:absolute before:left-2 sm:before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-gradient-to-b before:from-[var(--accent-primary)] before:via-white/[0.1] before:to-transparent">
-      {displayExperiences.map((exp, idx) => (
+      {displayExperiences.map((exp) => (
         <div key={exp.id} className="relative group">
           {/* Glowing Timeline Node */}
           <div className="absolute -left-[27px] sm:-left-[35px] top-1.5 flex items-center justify-center">
-            <span className="h-4 w-4 rounded-full bg-[var(--bg-canvas)] border-2 border-[var(--accent-primary)] group-hover:scale-125 transition-transform shadow-md shadow-[var(--accent-primary)]/20" />
+            <span className={`h-4 w-4 rounded-full bg-[var(--bg-canvas)] border-2 transition-transform shadow-md ${
+              exp.isPlaceholder
+                ? 'border-dashed border-amber-500/70 shadow-amber-500/20'
+                : 'border-[var(--accent-primary)] group-hover:scale-125 shadow-[var(--accent-primary)]/20'
+            }`} />
           </div>
 
-          <div className="rounded-3xl theme-card hover:border-[var(--accent-primary)]/40 p-6 sm:p-8 transition-all duration-300 shadow-lg">
+          <div className={`rounded-3xl theme-card p-6 sm:p-8 transition-all duration-300 shadow-lg ${
+            exp.isPlaceholder
+              ? 'border-dashed border-amber-500/30 bg-[var(--bg-canvas)]/40 hover:border-amber-500/60'
+              : 'hover:border-[var(--accent-primary)]/40'
+          }`}>
             {/* Header: Period & Role */}
             <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[var(--border-hairline)]">
               <div>
-                <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
-                  {tField(exp.organization, locale)}
-                </span>
+                <div className="flex items-center gap-2.5">
+                  <span className="font-mono text-xs font-bold text-[var(--accent-primary)] uppercase tracking-wider block">
+                    {tField(exp.organization, locale)}
+                  </span>
+                  {exp.isPlaceholder && (
+                    <span className="px-2 py-0.5 rounded-full border border-dashed border-amber-500/50 bg-amber-500/10 text-amber-400 font-mono text-[10px] uppercase font-semibold">
+                      {locale === 'id' ? 'Dalam Pengerjaan (Kosong)' : 'In-Progress (Blank)'}
+                    </span>
+                  )}
+                </div>
                 <h3 className="font-display font-bold text-xl sm:text-2xl text-[var(--text-primary)] mt-0.5">
                   {tField(exp.role, locale)}
                 </h3>
