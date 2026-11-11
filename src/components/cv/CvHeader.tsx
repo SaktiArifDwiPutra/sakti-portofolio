@@ -14,8 +14,9 @@ export function CvHeader() {
 
   const handleLocaleSwitch = (targetLocale: Locale) => {
     if (targetLocale === locale) return;
+    const currentPath = pathname || '/cv';
     // @ts-expect-error -- next-intl router accepts dynamic pathname + params
-    router.replace({ pathname, params }, { locale: targetLocale });
+    router.replace({ pathname: currentPath, params }, { locale: targetLocale });
   };
 
   const handlePrint = () => {
@@ -85,13 +86,13 @@ export function CvHeader() {
           </button>
 
           {/* Return to Main Portfolio */}
-          <Link
-            href="/"
+          <a
+            href="https://saktiarif.my.id"
             className="flex items-center gap-1 rounded-md border border-[#E4E2DC] bg-[#FFFFFF] px-2.5 py-1 text-xs font-mono text-[#52525B] hover:text-[#1C1C1E] hover:border-[#1C1C1E] transition-colors shadow-xs"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Portfolio</span>
-          </Link>
+          </a>
         </div>
       </div>
     </header>

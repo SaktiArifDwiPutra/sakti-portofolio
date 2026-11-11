@@ -12,7 +12,7 @@ export function Footer() {
   const navT = useTranslations('nav');
   const pathname = usePathname();
 
-  if (pathname.startsWith('/cv')) {
+  if (pathname?.startsWith('/cv')) {
     return null;
   }
 

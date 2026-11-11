@@ -1,28 +1,41 @@
 import createMiddleware from 'next-intl/middleware';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
 
 const handleI18nRouting = createMiddleware(routing);
 
 export default function middleware(request: NextRequest) {
-  const host = request.headers.get('host') || '';
-  const { pathname } = request.nextUrl;
+  const host = request.headers.get('x-forwarded-host') || request.headers.get('host') || '';
+  const isCvSubdomain = host.startsWith('cv.') || host.includes('cv.saktiarif.my.id');
 
-  // Handle dedicated subdomain cv.saktiarif.my.id or cv.localhost
-  if (host.startsWith('cv.')) {
-    if (pathname === '/') {
-      const url = request.nextUrl.clone();
-      url.pathname = '/en/cv';
-      return handleI18nRouting(new NextRequest(url, request));
-    }
+  // Let next-intl handle internationalization routing first
+  const response = handleI18nRouting(request);
+
+  // If next-intl returned a redirect (e.g. / -> /en or / -> /id), respect it
+  if (response.headers.get('location')) {
+    return response;
+  }
+
+  // Handle dedicated subdomain cv.saktiarif.my.id
+  if (isCvSubdomain) {
+    const { pathname } = request.nextUrl;
+
     if (pathname === '/en' || pathname === '/id') {
-      const url = request.nextUrl.clone();
-      url.pathname = `${pathname}/cv`;
-      return handleI18nRouting(new NextRequest(url, request));
+      const rewriteUrl = new URL(`${pathname}/cv`, request.url);
+      return NextResponse.rewrite(rewriteUrl, {
+        headers: response.headers,
+      });
+    }
+
+    if (pathname === '/') {
+      const rewriteUrl = new URL('/en/cv', request.url);
+      return NextResponse.rewrite(rewriteUrl, {
+        headers: response.headers,
+      });
     }
   }
 
-  return handleI18nRouting(request);
+  return response;
 }
 
 export const config = {

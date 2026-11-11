@@ -19,20 +19,20 @@ export function IntroSplash() {
   const [isVisible, setIsVisible] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
+  const isCv = Boolean(pathname?.startsWith('/cv'));
+
   useEffect(() => {
-    if (pathname.startsWith('/cv')) return;
+    if (isCv) return;
     // Check if intro has already run this session
     const hasSeen = sessionStorage.getItem('sakti_intro_seen');
     if (!hasSeen) {
       setIsVisible(true);
       sessionStorage.setItem('sakti_intro_seen', 'true');
     }
-  }, [pathname]);
-
-  if (pathname.startsWith('/cv')) return null;
+  }, [isCv]);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (isCv || !isVisible) return;
 
     if (currentIndex < GREETINGS.length - 1) {
       const timer = setTimeout(() => {
@@ -50,9 +50,9 @@ export function IntroSplash() {
       }, 750);
       return () => clearTimeout(exitTimer);
     }
-  }, [currentIndex, isVisible]);
+  }, [currentIndex, isVisible, isCv]);
 
-  if (!isVisible) return null;
+  if (isCv || !isVisible) return null;
 
   return (
     <div

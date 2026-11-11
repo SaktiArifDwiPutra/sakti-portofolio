@@ -30,6 +30,7 @@ export function Header() {
   ];
 
   const isRouteActive = (href: string) => {
+    if (!pathname) return false;
     if (href === '/') return pathname === '/';
     return pathname === href || pathname.startsWith(`${href}/`);
   };
@@ -41,7 +42,7 @@ export function Header() {
     router.replace({ pathname, params }, { locale: targetLocale });
   };
 
-  if (pathname.startsWith('/cv')) {
+  if (pathname?.startsWith('/cv')) {
     return null;
   }
 

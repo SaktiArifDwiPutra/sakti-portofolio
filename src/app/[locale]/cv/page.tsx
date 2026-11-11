@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { setRequestLocale } from 'next-intl/server';
 import { routing, type Locale } from '@/i18n/routing';
 import { CV_DATA } from '@/data/cv-content';
 import { CvHeader } from '@/components/cv/CvHeader';
@@ -69,6 +70,7 @@ export default async function CvPage({
   }
 
   const locale = rawLocale as Locale;
+  setRequestLocale(locale);
   const isId = locale === 'id';
 
   return (
