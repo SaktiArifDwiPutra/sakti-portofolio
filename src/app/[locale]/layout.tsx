@@ -5,10 +5,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing, type Locale } from '@/i18n/routing';
-import { ThemeProvider } from '@/components/ThemeProvider';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
-import { IntroSplash } from '@/components/IntroSplash';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -80,21 +76,14 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      data-theme="dark"
       suppressHydrationWarning
       className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
       <body className="flex min-h-dvh flex-col antialiased">
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider>
-            <IntroSplash />
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </ThemeProvider>
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>
   );
 }
-
