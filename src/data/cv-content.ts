@@ -44,6 +44,7 @@ export interface CvExperienceItem {
 export interface CvProjectItem {
   id: string;
   title: string;
+  tier: 1 | 2;
   role: LocalizedString;
   statusBadge: LocalizedString;
   liveUrl?: string;
@@ -98,10 +99,7 @@ export interface CvData {
   education: CvEducationItem[];
   organization: CvOrganizationItem[];
   certifications: CvCertificationItem[];
-  languages: {
-    name: LocalizedString;
-    proficiency: LocalizedString;
-  }[];
+  languages: LocalizedString[];
 }
 
 export const CV_DATA: CvData = {
@@ -161,13 +159,13 @@ export const CV_DATA: CvData = {
       },
       highlights: {
         en: [
-          'Developed the Flutter mobile frontend for the LaundryFlow enterprise application, implementing dynamic customer order tracking, operational status monitoring, and customer workflows.',
-          'Integrated mobile client views with an Odoo ERP backend via JSON-RPC, consuming custom module endpoints for real-time laundry order updates.',
+          'Developed the Flutter mobile frontend for the LaundryFlow enterprise application, implementing customer order tracking, operational status monitoring, and customer workflows.',
+          'Integrated mobile client views with an Odoo ERP backend via JSON-RPC for laundry order status tracking.',
           'Collaborated within an engineering team, adhering to decoupled architecture principles between mobile presentation layers and backend enterprise business logic.',
         ],
         id: [
           'Mengembangkan frontend mobile Flutter untuk aplikasi enterprise LaundryFlow, mengimplementasikan pelacakan status pesanan pelanggan dan alur operasional laundry.',
-          'Mengintegrasikan antarmuka aplikasi mobile dengan backend Odoo ERP melalui JSON-RPC untuk pembaruan status pesanan secara real-time.',
+          'Mengintegrasikan antarmuka aplikasi mobile dengan backend Odoo ERP melalui JSON-RPC untuk pelacakan status pesanan laundry.',
           'Berkolaborasi dalam tim pengembang perangkat lunak, menerapkan pemisahan arsitektur antara modul frontend mobile dan logika bisnis backend ERP.',
         ],
       },
@@ -178,33 +176,34 @@ export const CV_DATA: CvData = {
     {
       id: 'critiplay',
       title: 'CritiPlay',
+      tier: 1,
       role: {
         en: 'Lead Full-Stack Architect & Product Designer',
         id: 'Lead Full-Stack Architect & Product Designer',
       },
       statusBadge: {
-        en: 'Live: critiplay.my.id',
-        id: 'Live: critiplay.my.id',
+        en: 'Decoupled Web Platform',
+        id: 'Platform Web Decoupled',
       },
-      liveUrl: 'https://critiplay.my.id',
       githubUrl: 'https://github.com/SaktiArifDwiPutra/CritiPlay',
       summary: {
         en: [
           'Conceived and co-created a decoupled web platform for cataloging, reviewing, and community curation of indie video games.',
-          'Architected and independently built the complete REST API backend in Laravel, managing relational schemas and cloud PostgreSQL deployment on Neon DB.',
+          'Independently architected and developed the Laravel REST API backend, managing database architecture and PostgreSQL deployment on Neon DB.',
           'Co-developed the React and TypeScript frontend, handling final implementation and post-deployment refinements; acknowledged collaborator contributions to frontend production.',
         ],
         id: [
           'Menginisiasi dan membangun platform web decoupled untuk kurasi, ulasan, dan diskusi komunitas game indie.',
-          'Merancang dan membangun 100% backend REST API menggunakan Laravel secara mandiri, mengelola skema database relasional dan deployment PostgreSQL di Neon DB.',
+          'Merancang dan mengembangkan backend REST API Laravel secara mandiri, mengelola arsitektur basis data dan deployment PostgreSQL di Neon DB.',
           'Turut mengembangkan antarmuka frontend berbasis React dan TypeScript, menangani implementasi akhir serta penyempurnaan setelah rilis publik bersama kolaborator frontend.',
         ],
       },
-      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Laravel', 'PostgreSQL', 'Neon DB', 'Vercel'],
+      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Laravel', 'PostgreSQL', 'Neon DB'],
     },
     {
       id: 'laundryflow',
       title: 'LaundryFlow',
+      tier: 1,
       role: {
         en: 'Mobile Frontend Developer',
         id: 'Pengembang Frontend Mobile',
@@ -215,13 +214,13 @@ export const CV_DATA: CvData = {
       },
       summary: {
         en: [
-          'Engineered the cross-platform mobile frontend application using Flutter for laundry operational management and end-user order tracking.',
-          'Integrated client interfaces with backend Odoo services through JSON-RPC to handle real-time status transitions from order intake to washing, drying, and delivery completion.',
+          'Engineered the cross-platform mobile frontend application using Flutter for laundry operational management and order status tracking through Odoo JSON-RPC.',
+          'Integrated client interfaces with backend Odoo services through JSON-RPC to handle status transitions from order intake to washing, drying, and delivery completion.',
           'Implemented structured state management and reusable modular UI components aligned with team design standards.',
         ],
         id: [
-          'Mengembangkan aplikasi mobile lintas platform menggunakan Flutter untuk manajemen operasional dan pelacakan pesanan laundry pelanggan.',
-          'Mengintegrasikan antarmuka mobile dengan layanan backend Odoo melalui protokol JSON-RPC untuk memantau siklus pesanan dari penerimaan hingga selesai.',
+          'Mengembangkan aplikasi mobile lintas platform menggunakan Flutter untuk manajemen operasional dan pelacakan status pesanan melalui Odoo JSON-RPC.',
+          'Mengintegrasikan antarmuka mobile dengan layanan backend Odoo melalui protokol JSON-RPC untuk memantau status pesanan dari penerimaan hingga selesai.',
           'Menerapkan manajemen state terstruktur dan komponen antarmuka modular yang mudah dipelihara sesuai standar tim.',
         ],
       },
@@ -230,35 +229,35 @@ export const CV_DATA: CvData = {
     {
       id: 'daus-anak-soleh',
       title: 'Daus Anak Soleh',
+      tier: 2,
       role: {
-        en: 'Indie Game Developer & Systems Engineer',
-        id: 'Pengembang Game Indie & Rekayasa Sistem',
+        en: 'Indie Game Developer',
+        id: 'Pengembang Game Indie',
       },
       statusBadge: {
         en: 'Playable: itch.io',
         id: 'Dapat Dimainkan: itch.io',
       },
-      liveUrl: 'https://saktiarif.itch.io/daus-anak-soleh',
+      liveUrl: 'https://kyunn.itch.io/daus-anak-sholeh',
       summary: {
         en: [
-          'Designed and built a retro-inspired educational 2D platformer running directly in modern web browsers via HTML5 Canvas.',
-          'Implemented custom sprite animations, arcade collision physics, collectible item loops, and multi-state player controllers using Phaser.',
-          'Published and maintained the public build on itch.io, optimizing asset loading and responsive touch and keyboard controls.',
+          '2D educational puzzle game built with Phaser 3 and HTML5 Canvas, featuring interactive image-based puzzles and responsive controls for mobile and desktop.',
+          'Published and maintained the playable build on itch.io with optimized asset loading.',
         ],
         id: [
-          'Merancang dan membangun game platformer 2D edukatif bertema retro yang berjalan langsung di browser melalui HTML5 Canvas.',
-          'Mengimplementasikan animasi sprite, deteksi tabrakan (collision physics), mekanik pengumpulan item, dan state machine karakter menggunakan Phaser.',
-          'Mempublikasikan game ke platform itch.io, mengoptimalkan pemuatan aset visual serta responsivitas input keyboard dan sentuhan.',
+          'Game puzzle edukasi 2D yang dibangun menggunakan Phaser 3 dan HTML5 Canvas, dengan mekanik puzzle interaktif berbasis gambar serta kontrol responsif untuk perangkat mobile dan desktop.',
+          'Mempublikasikan game ke platform itch.io dengan pemuatan aset yang teroptimasi.',
         ],
       },
-      technologies: ['Phaser 3', 'HTML5 Canvas', 'JavaScript', 'Arcade Physics', 'Web Audio API'],
+      technologies: ['Phaser 3', 'HTML5 Canvas', 'JavaScript', 'Responsive Controls'],
     },
     {
       id: 'website-pilketos',
       title: 'Website Pilketos',
+      tier: 2,
       role: {
-        en: 'Lead Web Engineer & Systems Architect',
-        id: 'Pemimpin Rekayasa Web & Arsitek Sistem',
+        en: 'Web Developer',
+        id: 'Pengembang Web',
       },
       statusBadge: {
         en: 'School Deployment',
@@ -266,17 +265,15 @@ export const CV_DATA: CvData = {
       },
       summary: {
         en: [
-          'Engineered an institutional e-voting web platform to facilitate student council elections with verifiable ballot integrity.',
-          'Implemented single-use cryptographically generated token authentication to prevent duplicate voting and enforce strict ballot confidentiality.',
-          'Built a real-time administrative tally dashboard with instantaneous results reporting and audit logging.',
+          'Student council election voting website built with Laravel, PHP, and MySQL.',
+          'Developed voting interfaces and administrative result dashboards for school elections.',
         ],
         id: [
-          'Membangun sistem web pemilihan ketua OSIS berbasis digital untuk memfasilitasi pemungutan suara sekolah dengan integritas terverifikasi.',
-          'Menerapkan autentikasi berbasis token acak sekali pakai untuk mencegah pemilihan ganda dan menjaga kerahasiaan suara pemilih.',
-          'Mengembangkan dashboard administratif dengan visualisasi hasil pemungutan suara secara real-time dan pencatatan log audit.',
+          'Website pemilihan ketua OSIS yang dibangun menggunakan Laravel, PHP, dan MySQL.',
+          'Mengembangkan antarmuka pemungutan suara dan dashboard hasil pemilihan untuk kebutuhan sekolah.',
         ],
       },
-      technologies: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'Authentication'],
+      technologies: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
     },
   ],
   skills: [
@@ -318,7 +315,7 @@ export const CV_DATA: CvData = {
         en: 'Game Development',
         id: 'Pengembangan Game',
       },
-      skills: ['Phaser', 'HTML5 Canvas', 'Arcade Physics', 'Game Loop Architecture'],
+      skills: ['Phaser', 'HTML5 Canvas', 'Game Loop Architecture'],
     },
     {
       key: 'tools',
@@ -393,25 +390,12 @@ export const CV_DATA: CvData = {
   ],
   languages: [
     {
-      name: {
-        en: 'Indonesian',
-        id: 'Bahasa Indonesia',
-      },
-      proficiency: {
-        en: 'Native',
-        id: 'Penutur Asli',
-      },
+      en: 'Indonesian',
+      id: 'Bahasa Indonesia',
     },
     {
-      name: {
-        en: 'English',
-        id: 'Bahasa Inggris',
-      },
-      proficiency: {
-        en: 'Working Proficiency',
-        id: 'Kemampuan Kerja',
-      },
+      en: 'English',
+      id: 'Bahasa Inggris',
     },
   ],
 };
-

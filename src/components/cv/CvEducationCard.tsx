@@ -13,24 +13,23 @@ export function CvEducationCard({ item, locale }: CvEducationCardProps) {
   const focus = item.focusAreas[locale];
 
   return (
-    <article className="border border-[#E4E2DC] bg-[#FFFFFF] rounded-md p-3.5 sm:p-4 shadow-2xs break-inside-avoid">
+    <article className="border border-[#E8E6E1] bg-[#FFFFFF] rounded-md p-4 shadow-2xs break-inside-avoid">
       <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
-        <h3 className="font-display text-sm sm:text-base font-bold text-[#1C1C1E]">
+        <h3 className="font-display text-sm sm:text-base font-bold text-[#202124]">
           {item.institution}
         </h3>
-        <span className="font-mono text-xs text-[#71717A]">{item.period}</span>
+        <span className="font-mono text-xs text-[#777B80]">{item.period}</span>
       </div>
 
-      <div className="font-medium text-xs sm:text-sm text-[#007799] mt-0.5">
+      <div className="font-semibold text-xs sm:text-sm text-[#007F95] mt-0.5">
         {program}
       </div>
 
-      <p className="font-mono text-xs text-[#52525B] mt-1">{status}</p>
+      <p className="font-mono text-xs text-[#777B80] mt-1">{status}</p>
 
-      <p className="text-xs text-[#374151] mt-2 leading-relaxed border-t border-[#E4E2DC]/60 pt-2">
+      <p className="text-xs text-[#374151] mt-2.5 leading-relaxed border-t border-[#E8E6E1]/60 pt-2">
         {focus}
       </p>
     </article>
   );
 }
-

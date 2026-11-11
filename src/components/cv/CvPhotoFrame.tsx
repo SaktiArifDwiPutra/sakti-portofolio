@@ -10,34 +10,12 @@ interface CvPhotoFrameProps {
 export function CvPhotoFrame({ photoUrl, name, className = '' }: CvPhotoFrameProps) {
   return (
     <div className={`relative inline-block ${className}`}>
-      {/* Corner Bracket: Top-Left */}
-      <span
-        aria-hidden="true"
-        className="absolute -top-[2px] -left-[2px] w-2.5 h-2.5 border-t-2 border-l-2 border-[#007799] z-10 pointer-events-none"
-      />
-      {/* Corner Bracket: Top-Right */}
-      <span
-        aria-hidden="true"
-        className="absolute -top-[2px] -right-[2px] w-2.5 h-2.5 border-t-2 border-r-2 border-[#007799] z-10 pointer-events-none"
-      />
-      {/* Corner Bracket: Bottom-Left */}
-      <span
-        aria-hidden="true"
-        className="absolute -bottom-[2px] -left-[2px] w-2.5 h-2.5 border-b-2 border-l-2 border-[#007799] z-10 pointer-events-none"
-      />
-      {/* Corner Bracket: Bottom-Right */}
-      <span
-        aria-hidden="true"
-        className="absolute -bottom-[2px] -right-[2px] w-2.5 h-2.5 border-b-2 border-r-2 border-[#007799] z-10 pointer-events-none"
-      />
-
-      {/* Main Image Container */}
-      <div className="relative w-[84px] h-[104px] sm:w-[108px] sm:h-[132px] overflow-hidden rounded-xs border border-[#E4E2DC] bg-[#FFFFFF] shadow-xs">
+      <div className="relative w-[88px] h-[110px] sm:w-[104px] sm:h-[130px] overflow-hidden rounded-md border border-[#E8E6E1] bg-[#FFFFFF] shadow-xs">
         <Image
           src={photoUrl}
           alt={name}
-          width={108}
-          height={132}
+          width={104}
+          height={130}
           priority
           className="w-full h-full object-cover object-top"
         />
@@ -45,4 +23,3 @@ export function CvPhotoFrame({ photoUrl, name, className = '' }: CvPhotoFramePro
     </div>
   );
 }
-

@@ -6,7 +6,6 @@ import { routing, type Locale } from '@/i18n/routing';
 import { CV_DATA } from '@/data/cv-content';
 import { CvHeader } from '@/components/cv/CvHeader';
 import { CvPhotoFrame } from '@/components/cv/CvPhotoFrame';
-import { CvContactMatrix } from '@/components/cv/CvContactMatrix';
 import { CvSectionHeader } from '@/components/cv/CvSectionHeader';
 import { CvExperienceCard } from '@/components/cv/CvExperienceCard';
 import { CvProjectCard } from '@/components/cv/CvProjectCard';
@@ -14,6 +13,7 @@ import { CvSkillsMatrix } from '@/components/cv/CvSkillsMatrix';
 import { CvEducationCard } from '@/components/cv/CvEducationCard';
 import { CvOrganizationCard } from '@/components/cv/CvOrganizationCard';
 import { CvCredentialsCard } from '@/components/cv/CvCredentialsCard';
+import { CvLanguagesCard } from '@/components/cv/CvLanguagesCard';
 import { CvFooter } from '@/components/cv/CvFooter';
 
 export function generateStaticParams() {
@@ -73,118 +73,39 @@ export default async function CvPage({
   setRequestLocale(locale);
   const isId = locale === 'id';
 
+  const tier1Projects = CV_DATA.projects.filter((p) => p.tier === 1);
+  const tier2Projects = CV_DATA.projects.filter((p) => p.tier === 2);
+
   return (
-    <div className="min-h-screen bg-[#FAF9F6] text-[#1C1C1E] font-sans antialiased selection:bg-[#007799]/15 selection:text-[#007799]">
-      {/* Sticky Digital Header / Action Bar */}
-      <CvHeader />
+    <div className="min-h-screen bg-[#FAF9F6] text-[#202124] font-sans antialiased selection:bg-[#007F95]/15 selection:text-[#007F95] print:bg-white print:text-black">
+      {/* Master Container */}
+      <main className="mx-auto max-w-[1040px] px-4 sm:px-6 lg:px-8 py-8 sm:py-12 print:py-0 print:px-0">
+        {/* Master Editorial Header */}
+        <CvHeader
+          name={CV_DATA.name}
+          title={CV_DATA.title[locale]}
+          contact={CV_DATA.contact}
+          locale={locale}
+        />
 
-      {/* Main CV Document Container */}
-      <main className="mx-auto max-w-[980px] px-4 sm:px-6 py-6 sm:py-10 print:py-0 print:px-0">
-        {/* Mobile Header (Shown only on small screens < md) */}
-        <div className="md:hidden mb-8 border-b border-[#E4E2DC] pb-6">
-          <div className="flex items-center gap-4">
-            <CvPhotoFrame photoUrl={CV_DATA.photoUrl} name={CV_DATA.name} />
-            <div>
-              <h1 className="font-display text-2xl font-bold tracking-tight text-[#1C1C1E]">
-                {CV_DATA.name}
-              </h1>
-              <p className="font-mono text-xs text-[#007799] font-medium mt-1">
-                {CV_DATA.title[locale]}
-              </p>
-              <p className="font-mono text-[11px] text-[#71717A] mt-0.5">
-                {CV_DATA.contact.location[locale]}
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 pt-4 border-t border-[#E4E2DC]">
-            <CvContactMatrix contact={CV_DATA.contact} locale={locale} />
-          </div>
-        </div>
-
-        {/* Master Asymmetric 2-Column Grid */}
-        <div className="flex flex-col md:flex-row gap-8 lg:gap-10 items-start">
-          {/* LEFT RAIL (Sidebar: ~34%) */}
-          <aside className="w-full md:w-[34%] shrink-0 space-y-7 md:pr-4 md:border-r md:border-[#E4E2DC]">
-            {/* Desktop Photo Frame */}
-            <div className="hidden md:block">
-              <CvPhotoFrame photoUrl={CV_DATA.photoUrl} name={CV_DATA.name} />
-            </div>
-
-            {/* Desktop Contact Matrix */}
-            <div className="hidden md:block">
-              <CvSectionHeader
-                index="00"
-                title={isId ? 'Kontak & Profil' : 'Contact & Profiles'}
-              />
-              <CvContactMatrix contact={CV_DATA.contact} locale={locale} />
-            </div>
-
-            {/* Technical Skills Matrix */}
-            <div>
-              <CvSectionHeader
-                index="04"
-                title={isId ? 'Keahlian Teknis' : 'Technical Skills'}
-              />
-              <CvSkillsMatrix categories={CV_DATA.skills} locale={locale} />
-            </div>
-
-            {/* Education */}
-            <div>
-              <CvSectionHeader
-                index="05"
-                title={isId ? 'Pendidikan' : 'Education'}
-              />
-              {CV_DATA.education.map((item) => (
-                <CvEducationCard key={item.id} item={item} locale={locale} />
-              ))}
-            </div>
-
-            {/* Certifications & Languages */}
-            <div>
-              <CvSectionHeader
-                index="06"
-                title={isId ? 'Kredensial & Bahasa' : 'Credentials & Languages'}
-              />
-              <CvCredentialsCard
-                certifications={CV_DATA.certifications}
-                languages={CV_DATA.languages}
-                locale={locale}
-              />
-            </div>
-          </aside>
-
-          {/* RIGHT RAIL (Content Canvas: ~66%) */}
-          <section className="w-full md:w-[66%] space-y-8">
-            {/* Desktop Identity Header */}
-            <header className="hidden md:block border-b border-[#E4E2DC] pb-6">
-              <h1 className="font-display text-3xl lg:text-4xl font-extrabold tracking-tight text-[#1C1C1E]">
-                {CV_DATA.name}
-              </h1>
-              <div className="flex items-center gap-2 mt-2">
-                <span className="w-2 h-2 rounded-full bg-[#007799]" />
-                <p className="font-mono text-sm font-semibold text-[#007799] tracking-wide">
-                  {CV_DATA.title[locale]}
-                </p>
-              </div>
-              <p className="font-mono text-xs text-[#71717A] mt-1">
-                {CV_DATA.contact.location[locale]}
-              </p>
-            </header>
-
-            {/* 01 // Professional Profile (Executive Summary) */}
+        {/* Responsive Layout Grid: Single-column below 1024px, 2fr/1fr at 1024px+ */}
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10 lg:gap-12 items-start">
+          {/* MAIN COLUMN (2fr) */}
+          <section className="space-y-9 min-w-0">
+            {/* 01 / Professional Profile */}
             <div>
               <CvSectionHeader
                 index="01"
                 title={isId ? 'Profil Profesional' : 'Professional Profile'}
               />
-              <div className="border border-[#E4E2DC] bg-[#FFFFFF] rounded-md p-4 sm:p-5 shadow-2xs">
+              <div className="border border-[#E8E6E1] bg-[#FFFFFF] rounded-lg p-5 sm:p-6 shadow-2xs">
                 <p className="text-xs sm:text-sm text-[#374151] leading-relaxed">
                   {CV_DATA.summary[locale]}
                 </p>
               </div>
             </div>
 
-            {/* 02 // Professional Experience */}
+            {/* 02 / Professional Experience */}
             <div>
               <CvSectionHeader
                 index="02"
@@ -197,30 +118,77 @@ export default async function CvPage({
               </div>
             </div>
 
-            {/* 03 // Selected Projects */}
+            {/* 03 / Selected Projects */}
             <div>
               <CvSectionHeader
                 index="03"
                 title={isId ? 'Proyek Pilihan' : 'Selected Projects'}
               />
               <div className="space-y-4">
-                {CV_DATA.projects.map((project) => (
+                {/* Tier 1 Featured Projects */}
+                {tier1Projects.map((project) => (
                   <CvProjectCard
                     key={project.id}
                     project={project}
                     locale={locale}
                   />
                 ))}
+
+                {/* Tier 2 Supporting Projects Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                  {tier2Projects.map((project) => (
+                    <CvProjectCard
+                      key={project.id}
+                      project={project}
+                      locale={locale}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
+          </section>
 
-            {/* 07 // Organizational Leadership */}
+          {/* SUPPORTING COLUMN (1fr) */}
+          <aside className="space-y-8 min-w-0">
+            {/* Editorial Avatar */}
+            <div className="flex justify-center sm:justify-start">
+              <CvPhotoFrame
+                photoUrl={CV_DATA.photoUrl}
+                name={CV_DATA.name}
+              />
+            </div>
+
+            {/* 04 / Technical Skills */}
             <div>
               <CvSectionHeader
-                index="07"
-                title={isId ? 'Kepemimpinan Organisasi' : 'Organizational Leadership'}
+                index="04"
+                title={isId ? 'Keahlian Teknis' : 'Technical Skills'}
               />
-              <div className="space-y-4">
+              <CvSkillsMatrix categories={CV_DATA.skills} locale={locale} />
+            </div>
+
+            {/* 05 / Education */}
+            <div>
+              <CvSectionHeader
+                index="05"
+                title={isId ? 'Pendidikan' : 'Education'}
+              />
+              {CV_DATA.education.map((item) => (
+                <CvEducationCard key={item.id} item={item} locale={locale} />
+              ))}
+            </div>
+
+            {/* 06 / Leadership & Organizational Experience */}
+            <div>
+              <CvSectionHeader
+                index="06"
+                title={
+                  isId
+                    ? 'Kepemimpinan & Organisasi'
+                    : 'Leadership & Organization'
+                }
+              />
+              <div className="space-y-3">
                 {CV_DATA.organization.map((item) => (
                   <CvOrganizationCard
                     key={item.id}
@@ -230,7 +198,33 @@ export default async function CvPage({
                 ))}
               </div>
             </div>
-          </section>
+
+            {/* 07 / Certifications & Credentials */}
+            <div>
+              <CvSectionHeader
+                index="07"
+                title={
+                  isId ? 'Kredensial & Sertifikasi' : 'Credentials & Certifications'
+                }
+              />
+              <CvCredentialsCard
+                certifications={CV_DATA.certifications}
+                locale={locale}
+              />
+            </div>
+
+            {/* 08 / Languages (Dedicated Standalone Section) */}
+            <div>
+              <CvSectionHeader
+                index="08"
+                title={isId ? 'Bahasa' : 'Languages'}
+              />
+              <CvLanguagesCard
+                languages={CV_DATA.languages}
+                locale={locale}
+              />
+            </div>
+          </aside>
         </div>
 
         {/* Official CV Colophon & Footer */}
@@ -239,4 +233,3 @@ export default async function CvPage({
     </div>
   );
 }
-

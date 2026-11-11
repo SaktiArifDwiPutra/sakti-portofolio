@@ -255,4 +255,9 @@
     break-after: avoid !important;
     page-break-after: avoid !important;
   }
+
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
 }
