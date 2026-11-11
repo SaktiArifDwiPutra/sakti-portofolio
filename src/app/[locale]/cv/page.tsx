@@ -5,7 +5,6 @@ import { setRequestLocale } from 'next-intl/server';
 import { routing, type Locale } from '@/i18n/routing';
 import { CV_DATA } from '@/data/cv-content';
 import { CvHeader } from '@/components/cv/CvHeader';
-import { CvPhotoFrame } from '@/components/cv/CvPhotoFrame';
 import { CvSectionHeader } from '@/components/cv/CvSectionHeader';
 import { CvExperienceCard } from '@/components/cv/CvExperienceCard';
 import { CvProjectCard } from '@/components/cv/CvProjectCard';
@@ -77,13 +76,14 @@ export default async function CvPage({
   const tier2Projects = CV_DATA.projects.filter((p) => p.tier === 2);
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6] text-[#202124] font-sans antialiased selection:bg-[#007F95]/15 selection:text-[#007F95] print:bg-white print:text-black">
+    <div className="min-h-screen bg-[#FAF9F6] text-[#1E2022] font-sans antialiased selection:bg-[#007F95]/15 selection:text-[#007F95] print:bg-white print:text-black">
       {/* Master Container */}
-      <main className="mx-auto max-w-[1040px] px-4 sm:px-6 lg:px-8 py-8 sm:py-12 print:py-0 print:px-0">
-        {/* Master Editorial Header */}
+      <main className="mx-auto max-w-[1040px] px-4 sm:px-6 lg:px-8 py-6 sm:py-10 print:py-0 print:px-0">
+        {/* Master Hero Masthead with Portrait, Identity, Status & Contacts */}
         <CvHeader
           name={CV_DATA.name}
           title={CV_DATA.title[locale]}
+          photoUrl={CV_DATA.photoUrl}
           contact={CV_DATA.contact}
           locale={locale}
         />
@@ -91,22 +91,22 @@ export default async function CvPage({
         {/* Responsive Layout Grid: Single-column below 1024px, 2fr/1fr at 1024px+ */}
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10 lg:gap-12 items-start">
           {/* MAIN COLUMN (2fr) */}
-          <section className="space-y-9 min-w-0">
+          <section className="space-y-10 min-w-0">
             {/* 01 / Professional Profile */}
-            <div>
+            <div id="profile" className="scroll-mt-24">
               <CvSectionHeader
                 index="01"
                 title={isId ? 'Profil Profesional' : 'Professional Profile'}
               />
-              <div className="border border-[#E8E6E1] bg-[#FFFFFF] rounded-lg p-5 sm:p-6 shadow-2xs">
-                <p className="text-xs sm:text-sm text-[#374151] leading-relaxed">
+              <div className="border border-[#E8E6E1] border-l-4 border-l-[#007F95] bg-[#FFFFFF] rounded-2xl p-6 shadow-[0_2px_10px_rgba(0,0,0,0.02)] break-inside-avoid">
+                <p className="text-sm sm:text-[15px] text-neutral-700 leading-relaxed font-normal">
                   {CV_DATA.summary[locale]}
                 </p>
               </div>
             </div>
 
             {/* 02 / Professional Experience */}
-            <div>
+            <div id="experience" className="scroll-mt-24">
               <CvSectionHeader
                 index="02"
                 title={isId ? 'Pengalaman Kerja' : 'Professional Experience'}
@@ -119,7 +119,7 @@ export default async function CvPage({
             </div>
 
             {/* 03 / Selected Projects */}
-            <div>
+            <div id="projects" className="scroll-mt-24">
               <CvSectionHeader
                 index="03"
                 title={isId ? 'Proyek Pilihan' : 'Selected Projects'}
@@ -149,17 +149,9 @@ export default async function CvPage({
           </section>
 
           {/* SUPPORTING COLUMN (1fr) */}
-          <aside className="space-y-8 min-w-0">
-            {/* Editorial Avatar */}
-            <div className="flex justify-center sm:justify-start">
-              <CvPhotoFrame
-                photoUrl={CV_DATA.photoUrl}
-                name={CV_DATA.name}
-              />
-            </div>
-
+          <aside className="space-y-10 min-w-0">
             {/* 04 / Technical Skills */}
-            <div>
+            <div id="skills" className="scroll-mt-24">
               <CvSectionHeader
                 index="04"
                 title={isId ? 'Keahlian Teknis' : 'Technical Skills'}
@@ -168,7 +160,7 @@ export default async function CvPage({
             </div>
 
             {/* 05 / Education */}
-            <div>
+            <div id="education" className="scroll-mt-24">
               <CvSectionHeader
                 index="05"
                 title={isId ? 'Pendidikan' : 'Education'}
@@ -179,7 +171,7 @@ export default async function CvPage({
             </div>
 
             {/* 06 / Leadership & Organizational Experience */}
-            <div>
+            <div id="leadership" className="scroll-mt-24">
               <CvSectionHeader
                 index="06"
                 title={
@@ -200,7 +192,7 @@ export default async function CvPage({
             </div>
 
             {/* 07 / Certifications & Credentials */}
-            <div>
+            <div id="credentials" className="scroll-mt-24">
               <CvSectionHeader
                 index="07"
                 title={
@@ -214,7 +206,7 @@ export default async function CvPage({
             </div>
 
             {/* 08 / Languages (Dedicated Standalone Section) */}
-            <div>
+            <div id="languages" className="scroll-mt-24">
               <CvSectionHeader
                 index="08"
                 title={isId ? 'Bahasa' : 'Languages'}
