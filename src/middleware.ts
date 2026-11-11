@@ -5,37 +5,55 @@ import { routing } from './i18n/routing';
 const handleI18nRouting = createMiddleware(routing);
 
 export default function middleware(request: NextRequest) {
-  const host = request.headers.get('x-forwarded-host') || request.headers.get('host') || '';
-  const isCvSubdomain = host.startsWith('cv.') || host.includes('cv.saktiarif.my.id');
+  const host =
+    request.headers.get('x-forwarded-host') ||
+    request.headers.get('host') ||
+    request.nextUrl.host ||
+    '';
 
-  // Let next-intl handle internationalization routing first
-  const response = handleI18nRouting(request);
+  const isCvSubdomain =
+    host.startsWith('cv.') ||
+    host.includes('cv.saktiarif.my.id') ||
+    host.startsWith('cv.localhost');
 
-  // If next-intl returned a redirect (e.g. / -> /en or / -> /id), respect it
-  if (response.headers.get('location')) {
-    return response;
-  }
+  const { pathname } = request.nextUrl;
 
-  // Handle dedicated subdomain cv.saktiarif.my.id
+  // =========================================================================
+  // 1. DEDICATED CV SUBDOMAIN ROUTING (cv.saktiarif.my.id)
+  // =========================================================================
   if (isCvSubdomain) {
-    const { pathname } = request.nextUrl;
-
-    if (pathname === '/en' || pathname === '/id') {
-      const rewriteUrl = new URL(`${pathname}/cv`, request.url);
-      return NextResponse.rewrite(rewriteUrl, {
-        headers: response.headers,
-      });
+    // Indonesian version requested
+    if (pathname === '/id' || pathname.startsWith('/id/')) {
+      if (pathname === '/id/cv') {
+        return NextResponse.next();
+      }
+      return NextResponse.rewrite(new URL('/id/cv', request.url));
     }
 
-    if (pathname === '/') {
-      const rewriteUrl = new URL('/en/cv', request.url);
-      return NextResponse.rewrite(rewriteUrl, {
-        headers: response.headers,
-      });
+    // Direct /en/cv request
+    if (pathname === '/en/cv') {
+      return NextResponse.next();
     }
+
+    // Default: Serve English CV for /, /en, /cv, or any other base path on subdomain
+    return NextResponse.rewrite(new URL('/en/cv', request.url));
   }
 
-  return response;
+  // =========================================================================
+  // 2. MAIN PORTFOLIO DOMAIN ISOLATION (saktiarif.my.id / www.saktiarif.my.id)
+  // Redirect legacy or direct /cv visits on main domain to dedicated subdomain
+  // =========================================================================
+  if (pathname === '/cv' || pathname === '/en/cv') {
+    return NextResponse.redirect('https://cv.saktiarif.my.id', 307);
+  }
+  if (pathname === '/id/cv') {
+    return NextResponse.redirect('https://cv.saktiarif.my.id/id', 307);
+  }
+
+  // =========================================================================
+  // 3. MAIN PORTFOLIO LOCALIZATION (next-intl standard handling)
+  // =========================================================================
+  return handleI18nRouting(request);
 }
 
 export const config = {

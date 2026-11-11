@@ -14,6 +14,10 @@ export function CvHeader() {
 
   const handleLocaleSwitch = (targetLocale: Locale) => {
     if (targetLocale === locale) return;
+    if (typeof window !== 'undefined' && window.location.hostname.startsWith('cv.')) {
+      window.location.href = targetLocale === 'id' ? '/id' : '/';
+      return;
+    }
     const currentPath = pathname || '/cv';
     // @ts-expect-error -- next-intl router accepts dynamic pathname + params
     router.replace({ pathname: currentPath, params }, { locale: targetLocale });

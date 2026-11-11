@@ -124,11 +124,11 @@ export const OWNER_PROFILE = {
   email: 'saktiarif830@gmail.com',
   github: 'https://github.com/SaktiArifDwiPutra',
   linkedin: 'https://www.linkedin.com/in/sakti-arif',
-  cv: '/cv',
+  cv: 'https://cv.saktiarif.my.id',
   links: {
     github: 'https://github.com/SaktiArifDwiPutra',
     linkedin: 'https://www.linkedin.com/in/sakti-arif',
-    cv: '/cv',
+    cv: 'https://cv.saktiarif.my.id',
   },
 };
 

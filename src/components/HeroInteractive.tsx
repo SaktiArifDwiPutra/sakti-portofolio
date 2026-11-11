@@ -159,14 +159,14 @@ export function HeroInteractive() {
                 <span>{locale === 'id' ? 'Hubungi Saya' : 'Get in Touch'}</span>
               </a>
 
-              <Link
-                href="/cv"
+              <a
+                href="https://cv.saktiarif.my.id"
                 className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-mono text-xs font-medium transition-colors"
               >
                 <FileText className="h-4 w-4" />
                 <span>Resume / CV</span>
                 <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
+              </a>
             </div>
 
             {/* Social Quick-Access Icons Bar */}
