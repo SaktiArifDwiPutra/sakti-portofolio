@@ -238,7 +238,7 @@ export const CV_DATA: CvData = {
         en: 'Playable: itch.io',
         id: 'Dapat Dimainkan: itch.io',
       },
-      liveUrl: 'https://kyunn.itch.io/daus-anak-sholeh',
+      liveUrl: 'https://archdragonstudio.itch.io/daus-anak-soleh',
       summary: {
         en: [
           '2D educational puzzle game built with Phaser 3 and HTML5 Canvas, featuring interactive image-based puzzles and responsive controls for mobile and desktop.',

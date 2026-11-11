@@ -42,7 +42,7 @@ const PROJECT_ACTIONS: Record<string, { url: string; labelId: string; labelEn: s
     icon: 'globe',
   },
   'exp-daus-gamedev': {
-    url: 'https://kyunn.itch.io/daus-anak-sholeh',
+    url: 'https://archdragonstudio.itch.io/daus-anak-soleh',
     labelId: 'Mainkan di itch.io',
     labelEn: 'Play on itch.io',
     icon: 'game',

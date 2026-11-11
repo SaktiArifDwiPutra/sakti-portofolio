@@ -103,9 +103,9 @@ export function CvProjectCard({ project, locale }: CvProjectCardProps) {
             ))}
           </div>
 
-          {['critiplay', 'website-pilketos', 'daus-anak-soleh'].includes(project.id) && (
+          {['critiplay', 'laundryflow', 'website-pilketos', 'daus-anak-soleh'].includes(project.id) && (
             <a
-              href={`https://saktiarif.my.id/projects/${project.id}`}
+              href={`https://saktiarif.my.id/${locale}/projects/${project.id}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-[#007F95] hover:text-[#005f70] transition-colors print:hidden shrink-0 group"
@@ -180,7 +180,7 @@ export function CvProjectCard({ project, locale }: CvProjectCardProps) {
           )}
           {['website-pilketos', 'daus-anak-soleh'].includes(project.id) && (
             <a
-              href={`https://saktiarif.my.id/projects/${project.id}`}
+              href={`https://saktiarif.my.id/${locale}/projects/${project.id}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 font-mono text-[11px] font-semibold text-[#007F95] hover:underline"

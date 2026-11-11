@@ -14,6 +14,7 @@ import { CvOrganizationCard } from '@/components/cv/CvOrganizationCard';
 import { CvCredentialsCard } from '@/components/cv/CvCredentialsCard';
 import { CvLanguagesCard } from '@/components/cv/CvLanguagesCard';
 import { CvFooter } from '@/components/cv/CvFooter';
+import { CvPrintDocument } from '@/components/cv/CvPrintDocument';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -77,8 +78,10 @@ export default async function CvPage({
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-[#1E2022] font-sans antialiased selection:bg-[#007F95]/15 selection:text-[#007F95] print:bg-white print:text-black">
-      {/* Master Container */}
-      <main className="mx-auto max-w-[1040px] px-4 sm:px-6 lg:px-8 py-6 sm:py-10 print:py-0 print:px-0">
+      {/* =========================================================================
+          DIGITAL INTERACTIVE VIEW (Screen only, completely hidden in print/PDF)
+         ========================================================================= */}
+      <main className="mx-auto max-w-[1040px] px-4 sm:px-6 lg:px-8 py-6 sm:py-10 print:hidden">
         {/* Master Hero Masthead with Portrait, Identity, Status & Contacts */}
         <CvHeader
           name={CV_DATA.name}
@@ -222,6 +225,13 @@ export default async function CvPage({
         {/* Official CV Colophon & Footer */}
         <CvFooter locale={locale} />
       </main>
+
+      {/* =========================================================================
+          DEDICATED PHYSICAL PAPER / PDF DOCUMENT (Print only, hidden on screen)
+         ========================================================================= */}
+      <div className="hidden print:block cv-print-wrapper">
+        <CvPrintDocument data={CV_DATA} locale={locale} />
+      </div>
     </div>
   );
 }
