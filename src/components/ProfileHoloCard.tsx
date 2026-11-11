@@ -138,115 +138,99 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
   // PIXEL DISTORTION EATER TRANSITION (Bottom-Left -> Top-Right Diagonal Wave)
   // ---------------------------------------------------------------------------
   const toggleIdentity = useCallback(() => {
-    if (isEating) return;
+  if (isEating) return;
 
-    const canvas = canvasRef.current;
-    const pilotCanvas = offscreenPilotRef.current;
-    const hackerCanvas = offscreenHackerRef.current;
+  const canvas = canvasRef.current;
+  const fromCanvas =
+    viewMode === 'pilot' ? offscreenPilotRef.current : offscreenHackerRef.current;
+  const nextMode = viewMode === 'pilot' ? 'hacker' : 'pilot';
+  const ctx = canvas?.getContext('2d');
 
-    // Menentukan canvas asal (from) dan tujuan (to)
-    const fromCanvas = viewMode === 'pilot' ? pilotCanvas : hackerCanvas;
-    const toCanvas = viewMode === 'pilot' ? hackerCanvas : pilotCanvas;
+  // Fallback: kalau gambar belum siap, ganti langsung tanpa animasi
+  if (!canvas || !ctx || !fromCanvas || !imagesLoadedRef.current) {
+    setViewMode(nextMode);
+    return;
+  }
 
-    if (!canvas || !fromCanvas || !toCanvas) {
-      setViewMode((prev) => (prev === 'pilot' ? 'hacker' : 'pilot'));
-      return;
-    }
+  const width = 320;
+  const height = 400;
+  canvas.width = width;
+  canvas.height = height;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-      setViewMode((prev) => (prev === 'pilot' ? 'hacker' : 'pilot'));
-      return;
-    }
+  const blockSize = 16;
+  const cols = Math.ceil(width / blockSize);
+  const rows = Math.ceil(height / blockSize);
+  const maxDiag = cols - 1 + rows - 1;
+  const duration = 600;
+  const colors = ['#00f0ff', '#ff0055', '#a855f7', '#ffea00', '#00ff66'];
 
-    setIsEating(true);
+  // Gambar frame pertama (A utuh) SEBELUM canvas ditampilkan,
+  // supaya tidak ada kedipan B di frame pertama
+  ctx.clearRect(0, 0, width, height);
+  ctx.drawImage(fromCanvas, 0, 0);
 
-    const width = 320;
-    const height = 400;
-    canvas.width = width;
-    canvas.height = height;
+  setIsEating(true);
+  setViewMode(nextMode); // B langsung "hidup" di belakang, A tinggal ditutup canvas
 
-    const blockSize = 16;
-    const cols = Math.ceil(width / blockSize);
-    const rows = Math.ceil(height / blockSize);
-    const maxDiag = cols - 1 + rows - 1; // Diagonal maksimum (pojok kanan atas)
+  let startTime: number | null = null;
 
-    const duration = 600; // ms
-    let startTime: number | null = null;
-    let animId: number;
+  const renderWave = (timestamp: number) => {
+    if (startTime === null) startTime = timestamp;
+    const progress = Math.min(1, (timestamp - startTime) / duration);
 
-    const colors = ['#00f0ff', '#ff0055', '#a855f7', '#ffea00', '#00ff66'];
+    const waveFront = progress * (maxDiag + 8);
+    const waveBand = 3.5;
 
-    const renderWave = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const progress = Math.min(1, elapsed / duration);
+    ctx.clearRect(0, 0, width, height);
 
-      // Gelombang distorsi bergerak diagonal dari kiri bawah (diag = 0) ke kanan atas (diag = maxDiag)
-      const waveFront = progress * (maxDiag + 8);
-      const waveBand = 3.5;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const diag = c + (rows - 1 - r);
+        const bx = c * blockSize;
+        const by = r * blockSize;
 
-      ctx.clearRect(0, 0, width, height);
+        if (diag < waveFront - waveBand) {
+          // SUDAH DIMAKAN: tidak digambar -> B di belakang langsung terlihat
+          continue;
+        }
 
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          // Jarak diagonal dari kiri bawah (c = 0, r = rows - 1)
-          const diag = c + (rows - 1 - r);
-          const bx = c * blockSize;
-          const by = r * blockSize;
+        if (diag <= waveFront + 1) {
+          // GELOMBANG: sisa potongan A yang bergetar + kubus neon
+          const jitterX = (Math.random() - 0.5) * 8;
+          const jitterY = (Math.random() - 0.5) * 6;
 
-          if (diag < waveFront - waveBand) {
-            // 1. AREA YANG SUDAH DIMAKAN (CONSUMED / EATEN):
-            // LANGSUNG MENAMPILKAN GAMBAR BARU (toCanvas) SECARA JERNIH TANPA MENUNGGU SELESAI
-            ctx.drawImage(toCanvas, bx, by, blockSize, blockSize, bx, by, blockSize, blockSize);
-          } else if (diag <= waveFront + 1) {
-            // 2. GELOMBANG DISTORSI AKTIF (ACTIVE DISTORTION EATER WAVE):
-            // Jittering, chromatic noise, dan potongan gambar baru mulai menembus
-            const jitterX = (Math.random() - 0.5) * 8;
-            const jitterY = (Math.random() - 0.5) * 6;
-
-            // Sebagian blok di gelombang langsung menyingkap toCanvas
-            const showNew = Math.random() > 0.35;
-            const activeSource = showNew ? toCanvas : fromCanvas;
-
+          if (Math.random() > 0.35) {
             ctx.drawImage(
-              activeSource,
-              bx,
-              by,
-              blockSize,
-              blockSize,
-              bx + jitterX,
-              by + jitterY,
-              blockSize,
-              blockSize
+              fromCanvas,
+              bx, by, blockSize, blockSize,
+              bx + jitterX, by + jitterY, blockSize, blockSize
             );
-
-            // Kubus piksel warna-warni berkedip di garis pemakan
-            if (Math.random() > 0.45) {
-              ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
-              ctx.globalAlpha = 0.8;
-              ctx.fillRect(bx + jitterX, by + jitterY, blockSize, blockSize);
-              ctx.globalAlpha = 1.0;
-            }
-          } else {
-            // 3. AREA YANG BELUM TERSENTUH GELOMBANG:
-            // Masih menampilkan gambar lama (fromCanvas) secara utuh
-            ctx.drawImage(fromCanvas, bx, by, blockSize, blockSize, bx, by, blockSize, blockSize);
           }
+
+          if (Math.random() > 0.45) {
+            ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+            ctx.globalAlpha = 0.8;
+            ctx.fillRect(bx + jitterX, by + jitterY, blockSize, blockSize);
+            ctx.globalAlpha = 1;
+          }
+        } else {
+          // BELUM TERSENTUH: A utuh
+          ctx.drawImage(fromCanvas, bx, by, blockSize, blockSize, bx, by, blockSize, blockSize);
         }
       }
+    }
 
-      if (progress < 1) {
-        animId = requestAnimationFrame(renderWave);
-      } else {
-        // Transisi selesai, update state mode dan nonaktifkan canvas
-        setViewMode((prev) => (prev === 'pilot' ? 'hacker' : 'pilot'));
-        setIsEating(false);
-      }
-    };
+    if (progress < 1) {
+      animIdRef.current = requestAnimationFrame(renderWave);
+    } else {
+      ctx.clearRect(0, 0, width, height);
+      animIdRef.current = null;
+      setIsEating(false);
+    }
+  };
 
-    animId = requestAnimationFrame(renderWave);
-  }, [isEating, viewMode]);
+  animIdRef.current = requestAnimationFrame(renderWave);
+}, [isEating, viewMode]);
 
   // Keyboard accessibility
   const handleKeyDown = useCallback(
@@ -260,6 +244,14 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
   );
 
   const isHacker = viewMode === 'hacker';
+
+const animIdRef = useRef<number | null>(null);
+
+useEffect(() => {
+  return () => {
+    if (animIdRef.current) cancelAnimationFrame(animIdRef.current);
+  };
+}, []);
 
   return (
     <div
@@ -348,7 +340,7 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
           {/* Static Photo Layers */}
           <div className="relative w-full h-full">
             <div
-              className={`absolute inset-0 transition-opacity duration-300 ${
+              className={`absolute inset-0 ${
                 isHacker ? 'opacity-0' : 'opacity-100'
               }`}
             >
@@ -363,7 +355,7 @@ export function ProfileHoloCard({ name, focus, locale }: ProfileHoloCardProps) {
             </div>
 
             <div
-              className={`absolute inset-0 transition-opacity duration-300 ${
+              className={`absolute inset-0${
                 isHacker ? 'opacity-100' : 'opacity-0'
               }`}
             >
