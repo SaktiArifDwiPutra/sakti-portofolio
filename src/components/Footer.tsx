@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/routing';
+import { Link, usePathname } from '@/i18n/routing';
 import { ArrowUp } from 'lucide-react';
 import { OWNER_PROFILE } from '@/data/portfolio';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
@@ -10,6 +10,11 @@ import { GithubIcon, LinkedinIcon } from './SocialIcons';
 export function Footer() {
   const t = useTranslations('footer');
   const navT = useTranslations('nav');
+  const pathname = usePathname();
+
+  if (pathname.startsWith('/cv')) {
+    return null;
+  }
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

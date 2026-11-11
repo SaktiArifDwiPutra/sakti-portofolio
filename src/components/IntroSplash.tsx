@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { usePathname } from '@/i18n/routing';
 
 const GREETINGS = [
   { text: 'أهلاً وسهلاً', lang: 'Arabic', font: 'font-sans' },
@@ -13,18 +14,22 @@ const GREETINGS = [
 ];
 
 export function IntroSplash() {
+  const pathname = usePathname();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
+    if (pathname.startsWith('/cv')) return;
     // Check if intro has already run this session
     const hasSeen = sessionStorage.getItem('sakti_intro_seen');
     if (!hasSeen) {
       setIsVisible(true);
       sessionStorage.setItem('sakti_intro_seen', 'true');
     }
-  }, []);
+  }, [pathname]);
+
+  if (pathname.startsWith('/cv')) return null;
 
   useEffect(() => {
     if (!isVisible) return;

@@ -41,6 +41,10 @@ export function Header() {
     router.replace({ pathname, params }, { locale: targetLocale });
   };
 
+  if (pathname.startsWith('/cv')) {
+    return null;
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full px-3 sm:px-6 lg:px-8 pt-3 sm:pt-4">
       <div className="mx-auto flex max-w-[1360px] items-center justify-between rounded-full border border-[var(--border-hairline)] bg-[var(--bg-glass)] px-4 sm:px-6 py-2.5 backdrop-blur-xl shadow-lg transition-colors">
