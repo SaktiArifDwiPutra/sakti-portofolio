@@ -105,8 +105,8 @@ export interface CvData {
 export const CV_DATA: CvData = {
   name: 'Sakti Arif',
   title: {
-    en: 'Full-Stack Developer | Game Developer',
-    id: 'Full-Stack Developer | Game Developer',
+    en: 'Junior Web & Mobile Developer | Software Engineering Student',
+    id: 'Junior Web & Mobile Developer | Siswa Rekayasa Perangkat Lunak',
   },
   photoUrl: '/images/profile/sakti-pilot.png',
   contact: {
@@ -133,17 +133,17 @@ export const CV_DATA: CvData = {
     },
   },
   summary: {
-    en: 'Full-Stack Developer and Game Developer specializing in scalable web architectures, Flutter mobile applications, and 2D game systems. Experienced in developing full-stack platforms with Laravel and React, integrating enterprise mobile frontends with Odoo ERP, and building interactive game loops in Phaser and Godot. Focused on software craftsmanship, clean decoupled system design, and responsive user experiences.',
-    id: 'Full-Stack Developer dan Game Developer dengan fokus pada arsitektur web terukur, aplikasi mobile Flutter, dan sistem game 2D. Berpengalaman mengembangkan platform full-stack menggunakan Laravel dan React, mengintegrasikan frontend mobile dengan backend Odoo ERP, serta membangun sistem gameplay interaktif di Phaser dan Godot. Berorientasi pada rekayasa perangkat lunak yang bersih, arsitektur terpisah (decoupled), dan kenyamanan interaksi pengguna.',
+    en: 'Software Engineering student at SMKN 4 Padalarang (class of 2027) building web, mobile, and 2D game projects. Currently interning as a Flutter Developer at PT Infinisy System Indonesia, connecting a cross-platform mobile client to an Odoo ERP backend via JSON-RPC. Seeking an internship or junior role in web or mobile development.',
+    id: 'Siswa Rekayasa Perangkat Lunak di SMKN 4 Padalarang (angkatan 2027) yang aktif membangun proyek web, mobile, dan game 2D. Saat ini magang sebagai Flutter Developer di PT Infinisy System Indonesia, menghubungkan aplikasi mobile ke backend Odoo ERP melalui JSON-RPC. Terbuka untuk kesempatan magang atau posisi junior web/mobile developer.',
   },
   experience: [
     {
       id: 'infinisy-internship',
       role: {
-        en: 'Software Developer Intern',
-        id: 'Magang Pengembang Perangkat Lunak',
+        en: 'Flutter Developer Intern',
+        id: 'Magang Flutter Developer',
       },
-      organization: 'PT Infinisy Indonesia',
+      organization: 'PT Infinisy System Indonesia',
       period: {
         en: 'October 2026 - Present',
         id: 'Oktober 2026 - Sekarang',
@@ -154,22 +154,20 @@ export const CV_DATA: CvData = {
       },
       isOngoing: true,
       type: {
-        en: 'Professional Internship',
+        en: 'Industrial Internship',
         id: 'Magang Industri',
       },
       highlights: {
         en: [
-          'Developed the Flutter mobile frontend for the LaundryFlow enterprise application, implementing customer order tracking, operational status monitoring, and customer workflows.',
-          'Integrated mobile client views with an Odoo ERP backend via JSON-RPC for laundry order status tracking.',
-          'Collaborated within an engineering team, adhering to decoupled architecture principles between mobile presentation layers and backend enterprise business logic.',
+          'Building the Flutter mobile client for LaundryFlow in a two-developer team, covering order tracking and status screens from intake to delivery.',
+          'Integrating the mobile client with an Odoo ERP backend via JSON-RPC, handling client state management and reusable UI components.',
         ],
         id: [
-          'Mengembangkan frontend mobile Flutter untuk aplikasi enterprise LaundryFlow, mengimplementasikan pelacakan status pesanan pelanggan dan alur operasional laundry.',
-          'Mengintegrasikan antarmuka aplikasi mobile dengan backend Odoo ERP melalui JSON-RPC untuk pelacakan status pesanan laundry.',
-          'Berkolaborasi dalam tim pengembang perangkat lunak, menerapkan pemisahan arsitektur antara modul frontend mobile dan logika bisnis backend ERP.',
+          'Mengembangkan klien mobile Flutter untuk LaundryFlow dalam tim dua developer, mencakup alur pelacakan pesanan dari penerimaan hingga pengantaran.',
+          'Mengintegrasikan aplikasi mobile dengan backend Odoo ERP melalui JSON-RPC, mengelola state aplikasi dan komponen UI modular.',
         ],
       },
-      technologies: ['Flutter', 'Dart', 'Odoo ERP', 'JSON-RPC', 'Git', 'Agile / Scrum'],
+      technologies: ['Flutter', 'Dart', 'Odoo ERP', 'JSON-RPC', 'Git'],
     },
   ],
   projects: [
@@ -178,27 +176,27 @@ export const CV_DATA: CvData = {
       title: 'CritiPlay',
       tier: 1,
       role: {
-        en: 'Lead Full-Stack Architect & Product Designer',
-        id: 'Lead Full-Stack Architect & Product Designer',
+        en: 'Backend Developer & Co-Creator',
+        id: 'Backend Developer & Co-Creator',
       },
       statusBadge: {
-        en: 'Decoupled Web Platform',
-        id: 'Platform Web Decoupled',
+        en: 'Full-Stack Web App',
+        id: 'Aplikasi Web Full-Stack',
       },
       githubUrl: 'https://github.com/SaktiArifDwiPutra/CritiPlay',
       summary: {
         en: [
-          'Conceived and co-created a decoupled web platform for cataloging, reviewing, and community curation of indie video games.',
-          'Independently architected and developed the Laravel REST API backend, managing database architecture and PostgreSQL deployment on Neon DB.',
-          'Co-developed the React and TypeScript frontend, handling final implementation and post-deployment refinements; acknowledged collaborator contributions to frontend production.',
+          'Built the Laravel REST API backend (15+ endpoints) and designed the relational PostgreSQL schema deployed on Neon.',
+          'Implemented JWT authentication, game catalog management, and community review submission workflows.',
+          'Co-built the React and TypeScript frontend with Khairul Kholqi, handling API integration and state management.',
         ],
         id: [
-          'Menginisiasi dan membangun platform web decoupled untuk kurasi, ulasan, dan diskusi komunitas game indie.',
-          'Merancang dan mengembangkan backend REST API Laravel secara mandiri, mengelola arsitektur basis data dan deployment PostgreSQL di Neon DB.',
-          'Turut mengembangkan antarmuka frontend berbasis React dan TypeScript, menangani implementasi akhir serta penyempurnaan setelah rilis publik bersama kolaborator frontend.',
+          'Membangun backend REST API Laravel (15+ endpoint) dan merancang skema relasional PostgreSQL yang di-deploy di Neon.',
+          'Mengimplementasikan autentikasi JWT, manajemen katalog game, dan alur pengiriman ulasan komunitas.',
+          'Mengembangkan frontend React dan TypeScript bersama Khairul Kholqi, menangani integrasi API dan manajemen state.',
         ],
       },
-      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Laravel', 'PostgreSQL', 'Neon DB'],
+      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Laravel', 'PostgreSQL (Neon)'],
     },
     {
       id: 'laundryflow',
@@ -209,47 +207,20 @@ export const CV_DATA: CvData = {
         id: 'Pengembang Frontend Mobile',
       },
       statusBadge: {
-        en: 'Team Internship Project',
+        en: 'Internship Team Project',
         id: 'Proyek Magang Tim',
       },
       summary: {
         en: [
-          'Engineered the cross-platform mobile frontend application using Flutter for laundry operational management and order status tracking through Odoo JSON-RPC.',
-          'Integrated client interfaces with backend Odoo services through JSON-RPC to handle status transitions from order intake to washing, drying, and delivery completion.',
-          'Implemented structured state management and reusable modular UI components aligned with team design standards.',
+          'Cross-platform mobile application developed with Flutter for laundry operational workflows and multi-stage order tracking.',
+          'Implemented order status workflows (washing, drying, packing, delivery) with responsive state updates and local caching.',
         ],
         id: [
-          'Mengembangkan aplikasi mobile lintas platform menggunakan Flutter untuk manajemen operasional dan pelacakan status pesanan melalui Odoo JSON-RPC.',
-          'Mengintegrasikan antarmuka mobile dengan layanan backend Odoo melalui protokol JSON-RPC untuk memantau status pesanan dari penerimaan hingga selesai.',
-          'Menerapkan manajemen state terstruktur dan komponen antarmuka modular yang mudah dipelihara sesuai standar tim.',
+          'Aplikasi mobile lintas platform berbasis Flutter untuk alur operasional laundry dan pelacakan pesanan bertahap.',
+          'Mengimplementasikan alur status pesanan (cuci, kering, kemas, antar) dengan pembaruan state responsif dan penyimpanan lokal.',
         ],
       },
-      technologies: ['Flutter', 'Dart', 'Odoo ERP', 'JSON-RPC', 'State Management'],
-    },
-    {
-      id: 'daus-anak-soleh',
-      title: 'Daus Anak Soleh',
-      tier: 2,
-      role: {
-        en: 'Indie Game Developer',
-        id: 'Pengembang Game Indie',
-      },
-      statusBadge: {
-        en: 'Playable: itch.io',
-        id: 'Dapat Dimainkan: itch.io',
-      },
-      liveUrl: 'https://archdragonstudio.itch.io/daus-anak-soleh',
-      summary: {
-        en: [
-          '2D educational puzzle game built with Phaser 3 and HTML5 Canvas, featuring interactive image-based puzzles and responsive controls for mobile and desktop.',
-          'Published and maintained the playable build on itch.io with optimized asset loading.',
-        ],
-        id: [
-          'Game puzzle edukasi 2D yang dibangun menggunakan Phaser 3 dan HTML5 Canvas, dengan mekanik puzzle interaktif berbasis gambar serta kontrol responsif untuk perangkat mobile dan desktop.',
-          'Mempublikasikan game ke platform itch.io dengan pemuatan aset yang teroptimasi.',
-        ],
-      },
-      technologies: ['Phaser 3', 'HTML5 Canvas', 'JavaScript', 'Responsive Controls'],
+      technologies: ['Flutter', 'Dart', 'Odoo ERP', 'State Management'],
     },
     {
       id: 'website-pilketos',
@@ -260,20 +231,45 @@ export const CV_DATA: CvData = {
         id: 'Pengembang Web',
       },
       statusBadge: {
-        en: 'School Deployment',
-        id: 'Implementasi Sekolah',
+        en: 'School Election System',
+        id: 'Sistem Pemilihan Sekolah',
       },
       summary: {
         en: [
-          'Student council election voting website built with Laravel, PHP, and MySQL.',
-          'Developed voting interfaces and administrative result dashboards for school elections.',
+          'Student council election voting website for SMKN 4 Padalarang built with Laravel, PHP, and MySQL.',
+          'Handled authenticated voting workflows for students and teachers with real-time result tabulation.',
         ],
         id: [
-          'Website pemilihan ketua OSIS yang dibangun menggunakan Laravel, PHP, dan MySQL.',
-          'Mengembangkan antarmuka pemungutan suara dan dashboard hasil pemilihan untuk kebutuhan sekolah.',
+          'Website pemilihan ketua OSIS SMKN 4 Padalarang yang dibangun menggunakan Laravel, PHP, dan MySQL.',
+          'Menangani alur pemungutan suara terautentikasi untuk siswa dan guru dengan rekapitulasi suara real-time.',
         ],
       },
-      technologies: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
+      technologies: ['Laravel', 'PHP', 'MySQL', 'Bootstrap'],
+    },
+    {
+      id: 'daus-anak-soleh',
+      title: 'Daus Anak Soleh',
+      tier: 2,
+      role: {
+        en: 'Indie Game Developer',
+        id: 'Pengembang Game Indie',
+      },
+      statusBadge: {
+        en: 'Playable on itch.io',
+        id: 'Dapat Dimainkan di itch.io',
+      },
+      liveUrl: 'https://archdragonstudio.itch.io/daus-anak-soleh',
+      summary: {
+        en: [
+          '2D educational puzzle game built with Phaser 3 and HTML5 Canvas, featuring interactive image-based puzzles and responsive touch/desktop controls.',
+          'Published and maintained the playable in-browser release on itch.io with optimized asset loading.',
+        ],
+        id: [
+          'Game puzzle edukasi 2D yang dibangun menggunakan Phaser 3 dan HTML5 Canvas, dengan mekanik puzzle interaktif berbasis gambar serta kontrol responsif touch dan desktop.',
+          'Mempublikasikan game ke platform itch.io dengan pemuatan aset yang teroptimasi.',
+        ],
+      },
+      technologies: ['Phaser 3', 'HTML5 Canvas', 'JavaScript'],
     },
   ],
   skills: [
@@ -283,7 +279,7 @@ export const CV_DATA: CvData = {
         en: 'Frontend',
         id: 'Frontend',
       },
-      skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML5 Canvas'],
+      skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
     },
     {
       key: 'mobile',
@@ -299,15 +295,15 @@ export const CV_DATA: CvData = {
         en: 'Backend & APIs',
         id: 'Backend & APIs',
       },
-      skills: ['Laravel (PHP)', 'REST APIs', 'Odoo Integration (RPC)'],
+      skills: ['Laravel (PHP)', 'REST APIs', 'Odoo ERP (JSON-RPC)'],
     },
     {
       key: 'databases',
       label: {
-        en: 'Databases & Persistence',
-        id: 'Database & Persistensi',
+        en: 'Databases & Cloud',
+        id: 'Database & Cloud',
       },
-      skills: ['MySQL', 'PostgreSQL', 'Neon DB'],
+      skills: ['PostgreSQL (Neon)', 'MySQL', 'Vercel'],
     },
     {
       key: 'gamedev',
@@ -315,7 +311,7 @@ export const CV_DATA: CvData = {
         en: 'Game Development',
         id: 'Pengembangan Game',
       },
-      skills: ['Phaser', 'HTML5 Canvas', 'Game Loop Architecture'],
+      skills: ['Phaser 3', 'HTML5 Canvas'],
     },
     {
       key: 'tools',
@@ -323,7 +319,7 @@ export const CV_DATA: CvData = {
         en: 'Tools & Workflows',
         id: 'Alat & Alur Kerja',
       },
-      skills: ['Git', 'GitHub', 'Postman', 'Vercel', 'VS Code'],
+      skills: ['Git', 'GitHub', 'Postman'],
     },
   ],
   education: [
@@ -336,12 +332,12 @@ export const CV_DATA: CvData = {
       },
       period: '2024 - 2027',
       status: {
-        en: 'In Progress (Expected 2027)',
-        id: 'Sedang Menempuh Pendidikan (Target 2027)',
+        en: 'In Progress (Class of 2027)',
+        id: 'Sedang Menempuh Pendidikan (Angkatan 2027)',
       },
       focusAreas: {
-        en: 'Core coursework: Object-Oriented Programming (PBO), Relational Databases (MySQL), Web Fundamentals.',
-        id: 'Fokus keilmuan: Pemrograman Berorientasi Objek (PBO), Database Relasional (MySQL), Fondasi Web.',
+        en: 'Active in Software Engineering practical coursework; built election web systems (Pilketos) and indie game prototypes.',
+        id: 'Aktif dalam praktik kejuruan RPL; membangun sistem web pemilihan (Pilketos) dan prototipe game indie.',
       },
     },
   ],
@@ -359,8 +355,8 @@ export const CV_DATA: CvData = {
         id: 'Masa Jabatan Selesai',
       },
       description: {
-        en: 'Managed formal correspondence, meeting minutes, and inter-organizational coordination across student representatives.',
-        id: 'Mengelola persuratan formal, risalah rapat, dan koordinasi antarperwakilan kelas dalam struktur perwakilan siswa.',
+        en: 'Managed formal correspondence, meeting minutes, and inter-organizational coordination.',
+        id: 'Mengelola persuratan resmi, notula rapat, dan koordinasi antarorganisasi perwakilan siswa.',
       },
     },
   ],

@@ -168,8 +168,8 @@ export function CvHeader({ name, title, photoUrl, contact, locale }: CvHeaderPro
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
               <span>
                 {isId
-                  ? 'Terbuka untuk Peluang Kerja & Kolaborasi'
-                  : 'Open to Software Engineering Roles'}
+                  ? 'Terbuka untuk Magang / Posisi Junior Web & Mobile Developer'
+                  : 'Seeking Internship / Junior Web or Mobile Developer Role'}
               </span>
             </div>
 
